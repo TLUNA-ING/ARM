@@ -2,6 +2,7 @@
 var Provincia;
 var Centro;
 var Area;
+var D;
 //Load Data in Table when documents is ready
 $(document).ready(function () {
     loadTable();
