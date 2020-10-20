@@ -7,10 +7,9 @@ function loadTable() {
     var table = $('#DatoEmpleado').dataTable({
         destroy: true,
         "language": {
-            "url":"//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
         },
         responsive: true,
-        scrollY: "30em",
         scrollCollapse: true,
         ajax: {
             url: "/Empleado/CargarDatos",
@@ -19,10 +18,10 @@ function loadTable() {
             dataType: "json",
             autoWidth: false,
             dataSrc: ""
-            
-            
+
+
         },
-        columns:[
+        columns: [
             { "data": "Cedula" },
             { "data": "Nombre" },
             { "data": "Primer_Apellido" },
@@ -31,11 +30,16 @@ function loadTable() {
             {
                 "data": null,
                 "render": function (data, type, row) {
+                    return "<button type='button' class='btn btn-danger' onclick= delete(" + row.Cedula + ")>" +
+                        "<i class='	glyphicon glyphicon-trash'> </i>" +
+                        "</button > "
+                }
+            },
+            {
+                "data": null,
+                "render": function (data, type, row) {
                     return "<button type='button' class='btn btn-primary' onclick= getbyID(" + row.Cedula + ")>" +
                         "<i class='	glyphicon glyphicon-pencil'> </i>" +
-                        "</button > " +
-                        "<button type='button' class='btn btn-danger'  onclick= Delete(" + row.Cedula + ")>" +
-                        "<i class='	glyphicon glyphicon-trash'> </i>" +
                         "</button > "
                 }
             }
@@ -50,7 +54,7 @@ function Add() {
     if (res == false) {
         return false;
     }
-    
+
     var empObj = {
         Cedula: $('#Cedula').val(),
         Nombre: $('#Nombre').val(),
@@ -74,7 +78,7 @@ function Add() {
                 alert(errormessage.responseText);
             }
         });
-    } catch (err) {alert('Error 2');}
+    } catch (err) { alert('Error 2'); }
 }
 //Function for getting the Data Based upon Employee ID
 function getbyID(Cedula) {
@@ -91,6 +95,10 @@ function getbyID(Cedula) {
             $('#Primer_Apellido').val(result.Primer_Apellido);
             $('#Segundo_Apellido').val(result.Segundo_Apellido);
             $('#Correo').val(result.Correo);
+            //$("#provincia option[value='" + result.Direccion.canton.Provincia.ID_Provincia + "']").attr("selected", true);
+            //cargarCantonProvincia();
+            //$("#canton option[value='" + result.Direccion.canton.ID_Canton + "']").attr("selected", true);
+            //$('#Direccion').val(result.Direccion.Direccion);
             $('#myModal').modal('show');
             $('#btnUpdate').show();
             $('#btnAdd').hide();
@@ -131,7 +139,7 @@ function Update() {
         success: function (result) {
             loadTable();
             $('#myModal').modal('hide');
-            
+
             clearTextBox();
         },
         error: function (errormessage) {
@@ -154,7 +162,61 @@ function Delete(ID) {
             alert(errormessage.responseText);
         }
     });
+
 }
+//Cargar agregar div
+//function cargarAgregar() {
+//    $.each(Provincia, function (key, value) {
+//        $("#provincia").append('<option value=' + value.ID_Provincia + '>' + value.Provincia + '</option>');
+//        cargarCantonProvincia();
+//    });
+//}
+//$("#provincia").on('change', function () {
+//    cargarCantonProvincia();
+//});
+////Cargar canton por provincia seleccionada
+//function cargarCantonProvincia() {
+//    var x = $("#provincia option:selected").val();
+//    $('#canton').empty();
+//    $.each(Canton, function (key, value) {
+
+//        if (x == value.Provincia["ID_Provincia"]) {
+//            $("#canton").append('<option value=' + value.ID_Canton + '>' + value.Canton + '</option>');
+//        }
+
+//    });
+//}
+//Cargar Provincias
+//function cargarProvincia() {
+//    $.ajax({
+//        url: "/Provincia/CargarDatos",
+//        type: "GET",
+//        contentType: "application/json;charset=utf-8",
+//        dataType: "json",
+//        success: function (result) {
+//            Provincia = result;
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}
+//Cargar Cantones
+//function cargarCanton() {
+//    $.ajax({
+//        url: "/Canton/CargarDatos",
+//        type: "GET",
+//        contentType: "application/json;charset=utf-8",
+//        dataType: "json",
+//        success: function (result) {
+//            Canton = result;
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}
+//Function for clearing the textboxes
 function clearTextBox() {
     $('#Cedula').val("");
     $('#Nombre').val("");
