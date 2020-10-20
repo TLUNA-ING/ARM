@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitudes</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container w-100  col-sm-12 col-md-12 h-100" style="margin:0;padding:0;">
+        <div class="w-100 row col-sm-12 col-md-12" style="background-color: lightblue; margin:0;position:sticky;padding:0; z-index:3; ">
+            <div class="col-sm-12 col-md-12 w-100">
+                <button class="glyphicon glyphicon-align-justify btn" style="background-color:transparent" id="btnMenu" onclick="eliminarMenu();"></button>
+            </div>
+        </div>
+        <div class="w-100 container w-100  col-sm-12 col-md-12 h-100" style="margin:0%;padding:0; ">
+            <div class="row h-100" style=" margin:0; padding: 0;">
+                <br />
+                <div class="col-sm-2 col-md-2" id="menu" style="position:sticky; z-index:2;">
+
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        <span class="glyphicon glyphicon-user">
+                                        </span> Empleados
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <a href="/Empleado/" class="glyphicon glyphicon-user"> Empleados</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="/Usuario/" class="glyphicon glyphicon-user"> Usuarios</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        <span class="glyphicon glyphicon-briefcase	">
+                                        </span> Mantenimientos
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <a href="/Departamento/" class="glyphicon glyphicon-wrench"> Departamentos </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="/Equipo/" class="glyphicon glyphicon-wrench"> Equipos </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="/Cliente/" class="glyphicon glyphicon-wrench"> Clientes </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                        <span class="glyphicon glyphicon-file">
+                                        </span> Solicitudes
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <a href="/Solicitud/" class="glyphicon glyphicon-file"> Solicitudes </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <a href="/Seguimiento/" class="glyphicon glyphicon-list-alt"> Seguimiento </a>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <a href="/Consulta/" class="glyphicon glyphicon-search"> Consulta de solicitudes</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                        <span class="glyphicon glyphicon-off">
+                                        </span> Sesi&oacute;n
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <a href="/Home/Logout" class=" glyphicon glyphicon-off"> Cerrar Sesi&oacute;n</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-sm-10 col-md-10 " style="padding:0%;margin:0%;" id="principal">
+                        <div class="container body-content">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        @Scripts.Render("/JS/Menu.js")
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css" />
+
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
+
+</body>
+</html>

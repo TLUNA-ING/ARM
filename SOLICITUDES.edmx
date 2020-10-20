@@ -1,0 +1,862 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="clienteId" />
+          </Key>
+          <Property Name="clienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="provinciaId" Type="int" Nullable="false" />
+          <Property Name="clienteNombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departamento_X_Cliente">
+          <Key>
+            <PropertyRef Name="clienteId" />
+            <PropertyRef Name="departamentoId" />
+          </Key>
+          <Property Name="clienteId" Type="int" Nullable="false" />
+          <Property Name="departamentoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="departamentoId" />
+          </Key>
+          <Property Name="departamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deparatamentoNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="empleadoCedula" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="empleadoCedula" />
+          </Key>
+          <Property Name="TipoId" Type="int" />
+          <Property Name="empleadoCedula" Type="bigint" Nullable="false" />
+          <Property Name="empleadoNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="empleadoPrimerA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="empleadoSegundoA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="empleadoCorreo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Equipo_X_Departamento">
+          <Key>
+            <PropertyRef Name="departamentoId" />
+            <PropertyRef Name="equipoId" />
+          </Key>
+          <Property Name="departamentoId" Type="int" Nullable="false" />
+          <Property Name="equipoId" Type="int" Nullable="false" />
+          <Property Name="cant_equipos" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Equipos">
+          <Key>
+            <PropertyRef Name="equipoId" />
+          </Key>
+          <Property Name="equipoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="equipoNombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Provincias">
+          <Key>
+            <PropertyRef Name="provinciaId" />
+          </Key>
+          <Property Name="provinciaId" Type="int" Nullable="false" />
+          <Property Name="provinciaNombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="rolId" />
+          </Key>
+          <Property Name="rolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rolNombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="rolDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Solicitudes">
+          <Key>
+            <PropertyRef Name="solicitudId" />
+          </Key>
+          <Property Name="solicitudId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clienteId" Type="int" Nullable="false" />
+          <Property Name="empleadoCedula" Type="bigint" Nullable="false" />
+          <Property Name="tipoTrabajoId" Type="int" Nullable="false" />
+          <Property Name="departamentoId" Type="int" Nullable="false" />
+          <Property Name="equipoId" Type="int" Nullable="false" />
+          <Property Name="solicitudJefatura" Type="int" Nullable="false" />
+          <Property Name="fechaReporte" Type="datetime" Nullable="false" />
+          <Property Name="horaEntrada" Type="datetime" Nullable="false" />
+          <Property Name="horaSalida" Type="datetime" Nullable="false" />
+          <Property Name="tipoHora" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cantidadHoras" Type="bigint" Nullable="false" />
+          <Property Name="solicitudMotivo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="motivoDetalle" Type="varchar(max)" Nullable="false" />
+          <Property Name="solicitudRepuestos" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="equipoDetenido" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoCedula">
+          <Key>
+            <PropertyRef Name="TipoId" />
+          </Key>
+          <Property Name="TipoId" Type="int" Nullable="false" />
+          <Property Name="TipoDescripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoTrabajo">
+          <Key>
+            <PropertyRef Name="tipoTrabajoId" />
+          </Key>
+          <Property Name="tipoTrabajoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoTrabajoNombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="bigint" Nullable="false" />
+          <Property Name="rolId" Type="int" Nullable="false" />
+          <Property Name="usuarioContraseña" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Departamento_X_Cliente_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Departamento_X_Cliente" Type="Self.Departamento_X_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="clienteId" />
+            </Principal>
+            <Dependent Role="Departamento_X_Cliente">
+              <PropertyRef Name="clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departamento_X_Cliente_Departamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Departamento_X_Cliente" Type="Self.Departamento_X_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="departamentoId" />
+            </Principal>
+            <Dependent Role="Departamento_X_Cliente">
+              <PropertyRef Name="departamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleados_Tipo_Ced">
+          <End Role="TipoCedula" Type="Self.TipoCedula" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCedula">
+              <PropertyRef Name="TipoId" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="TipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipo_x_Departamento_Departamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Equipo_X_Departamento" Type="Self.Equipo_X_Departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="departamentoId" />
+            </Principal>
+            <Dependent Role="Equipo_X_Departamento">
+              <PropertyRef Name="departamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipo_x_Departamento_Equipos">
+          <End Role="Equipos" Type="Self.Equipos" Multiplicity="1" />
+          <End Role="Equipo_X_Departamento" Type="Self.Equipo_X_Departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipos">
+              <PropertyRef Name="equipoId" />
+            </Principal>
+            <Dependent Role="Equipo_X_Departamento">
+              <PropertyRef Name="equipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblClientes_tblProvincias">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="provinciaId" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="provinciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDepartamentos_tblEmpleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="empleadoCedula" />
+            </Principal>
+            <Dependent Role="Departamentos">
+              <PropertyRef Name="empleadoCedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblClientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="clienteId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblDepartamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="departamentoId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="departamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblEmpleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="empleadoCedula" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="empleadoCedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblEquipos">
+          <End Role="Equipos" Type="Self.Equipos" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipos">
+              <PropertyRef Name="equipoId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="equipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblTipoTrabajo">
+          <End Role="TipoTrabajo" Type="Self.TipoTrabajo" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTrabajo">
+              <PropertyRef Name="tipoTrabajoId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="tipoTrabajoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsuarios_tblRoles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="rolId" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="rolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="empleadoCedula" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CONSULTAR_EMPLEADOS_NO_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ARMModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamento_X_Cliente" EntityType="Self.Departamento_X_Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipo_X_Departamento" EntityType="Self.Equipo_X_Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipos" EntityType="Self.Equipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solicitudes" EntityType="Self.Solicitudes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Departamento_X_Cliente_Clientes" Association="Self.FK_Departamento_X_Cliente_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Departamento_X_Cliente" EntitySet="Departamento_X_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departamento_X_Cliente_Departamentos" Association="Self.FK_Departamento_X_Cliente_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Departamento_X_Cliente" EntitySet="Departamento_X_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleados_Tipo_Ced" Association="Self.FK_Empleados_Tipo_Ced">
+            <End Role="TipoCedula" EntitySet="TipoCedula" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipo_x_Departamento_Departamentos" Association="Self.FK_Equipo_x_Departamento_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Equipo_X_Departamento" EntitySet="Equipo_X_Departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipo_x_Departamento_Equipos" Association="Self.FK_Equipo_x_Departamento_Equipos">
+            <End Role="Equipos" EntitySet="Equipos" />
+            <End Role="Equipo_X_Departamento" EntitySet="Equipo_X_Departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblClientes_tblProvincias" Association="Self.FK_tblClientes_tblProvincias">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepartamentos_tblEmpleados" Association="Self.FK_tblDepartamentos_tblEmpleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Departamentos" EntitySet="Departamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblClientes" Association="Self.FK_tblSolicitud_tblClientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblDepartamentos" Association="Self.FK_tblSolicitud_tblDepartamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblEmpleados" Association="Self.FK_tblSolicitud_tblEmpleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblEquipos" Association="Self.FK_tblSolicitud_tblEquipos">
+            <End Role="Equipos" EntitySet="Equipos" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblTipoTrabajo" Association="Self.FK_tblSolicitud_tblTipoTrabajo">
+            <End Role="TipoTrabajo" EntitySet="TipoTrabajo" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsuarios_tblRoles" Association="Self.FK_tblUsuarios_tblRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Empleados" Association="Self.FK_Usuarios_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ARMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="clienteId" />
+          </Key>
+          <Property Name="clienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="provinciaId" Type="Int32" Nullable="false" />
+          <Property Name="clienteNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Provincias" Relationship="Self.FK_tblClientes_tblProvincias" FromRole="Clientes" ToRole="Provincias" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblClientes" FromRole="Clientes" ToRole="Solicitudes" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.Departamento_X_Cliente" FromRole="Clientes" ToRole="Departamentos" />
+        </EntityType>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="departamentoId" />
+          </Key>
+          <Property Name="departamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deparatamentoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="empleadoCedula" Type="Int64" />
+          <NavigationProperty Name="Equipo_X_Departamento" Relationship="Self.FK_Equipo_x_Departamento_Departamentos" FromRole="Departamentos" ToRole="Equipo_X_Departamento" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_tblDepartamentos_tblEmpleados" FromRole="Departamentos" ToRole="Empleados" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblDepartamentos" FromRole="Departamentos" ToRole="Solicitudes" />
+          <NavigationProperty Name="Clientes" Relationship="Self.Departamento_X_Cliente" FromRole="Departamentos" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="empleadoCedula" />
+          </Key>
+          <Property Name="TipoId" Type="Int32" />
+          <Property Name="empleadoCedula" Type="Int64" Nullable="false" />
+          <Property Name="empleadoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="empleadoPrimerA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="empleadoSegundoA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="empleadoCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_tblDepartamentos_tblEmpleados" FromRole="Empleados" ToRole="Departamentos" />
+          <NavigationProperty Name="TipoCedula" Relationship="Self.FK_Empleados_Tipo_Ced" FromRole="Empleados" ToRole="TipoCedula" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblEmpleados" FromRole="Empleados" ToRole="Solicitudes" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Empleados" FromRole="Empleados" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Equipo_X_Departamento">
+          <Key>
+            <PropertyRef Name="departamentoId" />
+            <PropertyRef Name="equipoId" />
+          </Key>
+          <Property Name="departamentoId" Type="Int32" Nullable="false" />
+          <Property Name="equipoId" Type="Int32" Nullable="false" />
+          <Property Name="cant_equipos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_Equipo_x_Departamento_Departamentos" FromRole="Equipo_X_Departamento" ToRole="Departamentos" />
+          <NavigationProperty Name="Equipos" Relationship="Self.FK_Equipo_x_Departamento_Equipos" FromRole="Equipo_X_Departamento" ToRole="Equipos" />
+        </EntityType>
+        <EntityType Name="Equipos">
+          <Key>
+            <PropertyRef Name="equipoId" />
+          </Key>
+          <Property Name="equipoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="equipoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Equipo_X_Departamento" Relationship="Self.FK_Equipo_x_Departamento_Equipos" FromRole="Equipos" ToRole="Equipo_X_Departamento" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblEquipos" FromRole="Equipos" ToRole="Solicitudes" />
+        </EntityType>
+        <EntityType Name="Provincias">
+          <Key>
+            <PropertyRef Name="provinciaId" />
+          </Key>
+          <Property Name="provinciaId" Type="Int32" Nullable="false" />
+          <Property Name="provinciaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_tblClientes_tblProvincias" FromRole="Provincias" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="rolId" />
+          </Key>
+          <Property Name="rolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rolNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rolDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_tblUsuarios_tblRoles" FromRole="Roles" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Solicitudes">
+          <Key>
+            <PropertyRef Name="solicitudId" />
+          </Key>
+          <Property Name="solicitudId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clienteId" Type="Int32" Nullable="false" />
+          <Property Name="empleadoCedula" Type="Int64" Nullable="false" />
+          <Property Name="tipoTrabajoId" Type="Int32" Nullable="false" />
+          <Property Name="departamentoId" Type="Int32" Nullable="false" />
+          <Property Name="equipoId" Type="Int32" Nullable="false" />
+          <Property Name="solicitudJefatura" Type="Int32" Nullable="false" />
+          <Property Name="fechaReporte" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="horaEntrada" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="horaSalida" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="tipoHora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cantidadHoras" Type="Int64" Nullable="false" />
+          <Property Name="solicitudMotivo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="motivoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="solicitudRepuestos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="equipoDetenido" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_tblSolicitud_tblClientes" FromRole="Solicitudes" ToRole="Clientes" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_tblSolicitud_tblDepartamentos" FromRole="Solicitudes" ToRole="Departamentos" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_tblSolicitud_tblEmpleados" FromRole="Solicitudes" ToRole="Empleados" />
+          <NavigationProperty Name="Equipos" Relationship="Self.FK_tblSolicitud_tblEquipos" FromRole="Solicitudes" ToRole="Equipos" />
+          <NavigationProperty Name="TipoTrabajo" Relationship="Self.FK_tblSolicitud_tblTipoTrabajo" FromRole="Solicitudes" ToRole="TipoTrabajo" />
+        </EntityType>
+        <EntityType Name="TipoCedula">
+          <Key>
+            <PropertyRef Name="TipoId" />
+          </Key>
+          <Property Name="TipoId" Type="Int32" Nullable="false" />
+          <Property Name="TipoDescripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Empleados_Tipo_Ced" FromRole="TipoCedula" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="TipoTrabajo">
+          <Key>
+            <PropertyRef Name="tipoTrabajoId" />
+          </Key>
+          <Property Name="tipoTrabajoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoTrabajoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblTipoTrabajo" FromRole="TipoTrabajo" ToRole="Solicitudes" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="Int64" Nullable="false" />
+          <Property Name="rolId" Type="Int32" Nullable="false" />
+          <Property Name="usuarioContraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Usuarios_Empleados" FromRole="Usuarios" ToRole="Empleados" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_tblUsuarios_tblRoles" FromRole="Usuarios" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_tblClientes_tblProvincias">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="provinciaId" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="provinciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblClientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="clienteId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipo_x_Departamento_Departamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Equipo_X_Departamento" Type="Self.Equipo_X_Departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="departamentoId" />
+            </Principal>
+            <Dependent Role="Equipo_X_Departamento">
+              <PropertyRef Name="departamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDepartamentos_tblEmpleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="empleadoCedula" />
+            </Principal>
+            <Dependent Role="Departamentos">
+              <PropertyRef Name="empleadoCedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblDepartamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="departamentoId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="departamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleados_Tipo_Ced">
+          <End Role="TipoCedula" Type="Self.TipoCedula" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCedula">
+              <PropertyRef Name="TipoId" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="TipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblEmpleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="empleadoCedula" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="empleadoCedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="empleadoCedula" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipo_x_Departamento_Equipos">
+          <End Role="Equipos" Type="Self.Equipos" Multiplicity="1" />
+          <End Role="Equipo_X_Departamento" Type="Self.Equipo_X_Departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipos">
+              <PropertyRef Name="equipoId" />
+            </Principal>
+            <Dependent Role="Equipo_X_Departamento">
+              <PropertyRef Name="equipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblEquipos">
+          <End Role="Equipos" Type="Self.Equipos" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipos">
+              <PropertyRef Name="equipoId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="equipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsuarios_tblRoles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="rolId" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="rolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSolicitud_tblTipoTrabajo">
+          <End Role="TipoTrabajo" Type="Self.TipoTrabajo" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTrabajo">
+              <PropertyRef Name="tipoTrabajoId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="tipoTrabajoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Departamento_X_Cliente">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ARMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" />
+          <EntitySet Name="Equipo_X_Departamento" EntityType="Self.Equipo_X_Departamento" />
+          <EntitySet Name="Equipos" EntityType="Self.Equipos" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Solicitudes" EntityType="Self.Solicitudes" />
+          <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" />
+          <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_tblClientes_tblProvincias" Association="Self.FK_tblClientes_tblProvincias">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblClientes" Association="Self.FK_tblSolicitud_tblClientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipo_x_Departamento_Departamentos" Association="Self.FK_Equipo_x_Departamento_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Equipo_X_Departamento" EntitySet="Equipo_X_Departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepartamentos_tblEmpleados" Association="Self.FK_tblDepartamentos_tblEmpleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Departamentos" EntitySet="Departamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblDepartamentos" Association="Self.FK_tblSolicitud_tblDepartamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleados_Tipo_Ced" Association="Self.FK_Empleados_Tipo_Ced">
+            <End Role="TipoCedula" EntitySet="TipoCedula" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblEmpleados" Association="Self.FK_tblSolicitud_tblEmpleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Empleados" Association="Self.FK_Usuarios_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipo_x_Departamento_Equipos" Association="Self.FK_Equipo_x_Departamento_Equipos">
+            <End Role="Equipos" EntitySet="Equipos" />
+            <End Role="Equipo_X_Departamento" EntitySet="Equipo_X_Departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblEquipos" Association="Self.FK_tblSolicitud_tblEquipos">
+            <End Role="Equipos" EntitySet="Equipos" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsuarios_tblRoles" Association="Self.FK_tblUsuarios_tblRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_tblTipoTrabajo" Association="Self.FK_tblSolicitud_tblTipoTrabajo">
+            <End Role="TipoTrabajo" EntitySet="TipoTrabajo" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="Departamento_X_Cliente" Association="Self.Departamento_X_Cliente">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Departamentos" EntitySet="Departamentos" />
+          </AssociationSet>
+          <FunctionImport Name="CONSULTAR_EMPLEADOS_NO_USUARIO" ReturnType="Collection(ARMModel.CONSULTAR_EMPLEADOS_NO_USUARIO_Result)" />
+        </EntityContainer>
+        <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
+          <Property Type="Int64" Name="Cedula" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="101" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ARMModelStoreContainer" CdmEntityContainer="ARMEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="ARMModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+                <ScalarProperty Name="provinciaId" ColumnName="provinciaId" />
+                <ScalarProperty Name="clienteNombre" ColumnName="clienteNombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamentos">
+            <EntityTypeMapping TypeName="ARMModel.Departamentos">
+              <MappingFragment StoreEntitySet="Departamentos">
+                <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
+                <ScalarProperty Name="deparatamentoNombre" ColumnName="deparatamentoNombre" />
+                <ScalarProperty Name="empleadoCedula" ColumnName="empleadoCedula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="ARMModel.Empleados">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="TipoId" ColumnName="TipoId" />
+                <ScalarProperty Name="empleadoCedula" ColumnName="empleadoCedula" />
+                <ScalarProperty Name="empleadoNombre" ColumnName="empleadoNombre" />
+                <ScalarProperty Name="empleadoPrimerA" ColumnName="empleadoPrimerA" />
+                <ScalarProperty Name="empleadoSegundoA" ColumnName="empleadoSegundoA" />
+                <ScalarProperty Name="empleadoCorreo" ColumnName="empleadoCorreo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipo_X_Departamento">
+            <EntityTypeMapping TypeName="ARMModel.Equipo_X_Departamento">
+              <MappingFragment StoreEntitySet="Equipo_X_Departamento">
+                <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
+                <ScalarProperty Name="equipoId" ColumnName="equipoId" />
+                <ScalarProperty Name="cant_equipos" ColumnName="cant_equipos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipos">
+            <EntityTypeMapping TypeName="ARMModel.Equipos">
+              <MappingFragment StoreEntitySet="Equipos">
+                <ScalarProperty Name="equipoId" ColumnName="equipoId" />
+                <ScalarProperty Name="equipoNombre" ColumnName="equipoNombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincias">
+            <EntityTypeMapping TypeName="ARMModel.Provincias">
+              <MappingFragment StoreEntitySet="Provincias">
+                <ScalarProperty Name="provinciaId" ColumnName="provinciaId" />
+                <ScalarProperty Name="provinciaNombre" ColumnName="provinciaNombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ARMModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="rolId" ColumnName="rolId" />
+                <ScalarProperty Name="rolNombre" ColumnName="rolNombre" />
+                <ScalarProperty Name="rolDescripcion" ColumnName="rolDescripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solicitudes">
+            <EntityTypeMapping TypeName="ARMModel.Solicitudes">
+              <MappingFragment StoreEntitySet="Solicitudes">
+                <ScalarProperty Name="solicitudId" ColumnName="solicitudId" />
+                <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+                <ScalarProperty Name="empleadoCedula" ColumnName="empleadoCedula" />
+                <ScalarProperty Name="tipoTrabajoId" ColumnName="tipoTrabajoId" />
+                <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
+                <ScalarProperty Name="equipoId" ColumnName="equipoId" />
+                <ScalarProperty Name="solicitudJefatura" ColumnName="solicitudJefatura" />
+                <ScalarProperty Name="fechaReporte" ColumnName="fechaReporte" />
+                <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
+                <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
+                <ScalarProperty Name="tipoHora" ColumnName="tipoHora" />
+                <ScalarProperty Name="cantidadHoras" ColumnName="cantidadHoras" />
+                <ScalarProperty Name="solicitudMotivo" ColumnName="solicitudMotivo" />
+                <ScalarProperty Name="motivoDetalle" ColumnName="motivoDetalle" />
+                <ScalarProperty Name="solicitudRepuestos" ColumnName="solicitudRepuestos" />
+                <ScalarProperty Name="equipoDetenido" ColumnName="equipoDetenido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoCedula">
+            <EntityTypeMapping TypeName="ARMModel.TipoCedula">
+              <MappingFragment StoreEntitySet="TipoCedula">
+                <ScalarProperty Name="TipoId" ColumnName="TipoId" />
+                <ScalarProperty Name="TipoDescripcion" ColumnName="TipoDescripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoTrabajo">
+            <EntityTypeMapping TypeName="ARMModel.TipoTrabajo">
+              <MappingFragment StoreEntitySet="TipoTrabajo">
+                <ScalarProperty Name="tipoTrabajoId" ColumnName="tipoTrabajoId" />
+                <ScalarProperty Name="tipoTrabajoNombre" ColumnName="tipoTrabajoNombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="ARMModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="rolId" ColumnName="rolId" />
+                <ScalarProperty Name="usuarioContraseña" ColumnName="usuarioContraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Departamento_X_Cliente" TypeName="ARMModel.Departamento_X_Cliente" StoreEntitySet="Departamento_X_Cliente">
+            <EndProperty Name="Clientes">
+              <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+            </EndProperty>
+            <EndProperty Name="Departamentos">
+              <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="CONSULTAR_EMPLEADOS_NO_USUARIO" FunctionName="ARMModel.Store.CONSULTAR_EMPLEADOS_NO_USUARIO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARMModel.CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

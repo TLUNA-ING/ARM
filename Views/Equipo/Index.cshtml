@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container col-sm-12 col-md-12" style="padding:0%;margin:0%">
+    <h2>Equipos de Trabajo</h2>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Equipo</button><br /><br />
+    <div class="col-sm-12 col-md-12" style="padding:0%;margin:0%">
+        <table class="table table-bordered table-hover table-responsive table-striped text-center" id="DatoEquipo">
+            <thead class="bg-info">
+                <tr>
+                    <th>
+                        Id Equipo
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                    <th>
+                        Modificar/Eliminar
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Unidades</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label for="ID_Equip">Id de Equipo</label>
+                                <input type="text" class="form-control" id="ID_Equipo" placeholder="Identificador" readonly="readonly" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label for="Descripcion">Descripcion</label>
+                                <input type="text" class="form-control" id="Descripcion" placeholder="Descripcion" />
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label for="Area">Area:</label>
+                                <select name="sltarea" id="Area" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>*@
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Agregar</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Actualizar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    @Scripts.Render("/JS/Equipos.js");
+}
