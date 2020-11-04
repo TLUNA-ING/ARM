@@ -2363,12 +2363,13 @@
 
 /* General ===================================== */
 body {
-  background-color: #e9e9e9;
-  -moz-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  font-family: 'Roboto', Arial, Tahoma, sans-serif; }
+    background-color: #ffe2b9;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    font-family: 'Roboto', Arial, Tahoma, sans-serif;
+}
 
 h1,
 h2,
@@ -2402,11 +2403,12 @@ a {
   animation: none !important; }
 
 section.content {
-  margin: 100px 15px 0 315px;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
-  -webkit-transition: 0.5s;
-  transition: 0.5s; }
+    margin: 100px 15px 0 315px;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
 
 /* Dashboard =================================== */
 .dashboard-flot-chart {
