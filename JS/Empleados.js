@@ -48,41 +48,8 @@ function loadTable() {
     });
 }
 
-//Add Data Function 
-function Add() {
-    var res = validate();
-    if (res == false) {
-        return false;
-    }
-
-    var empObj = {
-        Cedula: $('#Cedula').val(),
-        Nombre: $('#Nombre').val(),
-        Primer_Apellido: $('#Primer_Apellido').val(),
-        Segundo_Apellido: $('#Segundo_Apellido').val(),
-        Correo: $('#Correo').val(),
-    };
-    try {
-        $.ajax({
-            url: "/Empleado/Agregar",
-            data: JSON.stringify(empObj),
-            type: "POST",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                loadTable();
-                $('#myModal').modal('hide');
-                clearTextBox();
-            },
-            error: function (errormessage) {
-                alert(errormessage.responseText);
-            }
-        });
-    } catch (err) { alert('Error 2'); }
-}
-//Function for getting the Data Based upon Employee ID
 function getbyID(Cedula) {
-    //cargarAgregar();
+
     $.ajax({
         url: "/Empleado/Consultar/" + Cedula,
         typr: "GET",
@@ -90,62 +57,23 @@ function getbyID(Cedula) {
         dataType: "json",
         success: function (result) {
 
+            $('#tipo').val(result.TipoId);
             $('#Cedula').val(result.Cedula);
             $('#Nombre').val(result.Nombre);
             $('#Primer_Apellido').val(result.Primer_Apellido);
             $('#Segundo_Apellido').val(result.Segundo_Apellido);
             $('#Correo').val(result.Correo);
-            //$("#provincia option[value='" + result.Direccion.canton.Provincia.ID_Provincia + "']").attr("selected", true);
-            //cargarCantonProvincia();
-            //$("#canton option[value='" + result.Direccion.canton.ID_Canton + "']").attr("selected", true);
-            //$('#Direccion').val(result.Direccion.Direccion);
             $('#myModal').modal('show');
             $('#btnUpdate').show();
             $('#btnAdd').hide();
             $("#Cedula").prop("disabled", true);
+
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
     return false;
-}
-//function for updating employee's record
-function Update() {
-    var res = validate();
-    if (res == false) {
-        return false;
-    }
-    var empObj = {
-        Cedula: $('#Cedula').val(),
-        Nombre: $('#Nombre').val(),
-        Primer_Apellido: $('#Primer_Apellido').val(),
-        Segundo_Apellido: $('#Segundo_Apellido').val(),
-        Telefono: $('#Telefono').val(),
-        Correo: $('#Correo').val(),
-        Direccion: {
-            Direccion: $('#Direccion').val(),
-            canton: {
-                ID_Canton: parseFloat($("#canton option:selected").val())
-            }
-        }
-    };
-    $.ajax({
-        url: "/Empleado/Actualizar",
-        data: JSON.stringify(empObj),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            loadTable();
-            $('#myModal').modal('hide');
-
-            clearTextBox();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
 }
 //function for deleting employee's record
 function Delete(ID) {
@@ -165,58 +93,31 @@ function Delete(ID) {
 
 }
 //Cargar agregar div
-//function cargarAgregar() {
-//    $.each(Provincia, function (key, value) {
-//        $("#provincia").append('<option value=' + value.ID_Provincia + '>' + value.Provincia + '</option>');
-//        cargarCantonProvincia();
-//    });
-//}
-//$("#provincia").on('change', function () {
-//    cargarCantonProvincia();
-//});
-////Cargar canton por provincia seleccionada
-//function cargarCantonProvincia() {
-//    var x = $("#provincia option:selected").val();
-//    $('#canton').empty();
-//    $.each(Canton, function (key, value) {
+function cargarAgregar() {
+    //CARGAR_TIPO_CEDULA();
+}
 
-//        if (x == value.Provincia["ID_Provincia"]) {
-//            $("#canton").append('<option value=' + value.ID_Canton + '>' + value.Canton + '</option>');
-//        }
 
-//    });
-//}
-//Cargar Provincias
-//function cargarProvincia() {
-//    $.ajax({
-//        url: "/Provincia/CargarDatos",
-//        type: "GET",
-//        contentType: "application/json;charset=utf-8",
-//        dataType: "json",
-//        success: function (result) {
-//            Provincia = result;
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}
-//Cargar Cantones
-//function cargarCanton() {
-//    $.ajax({
-//        url: "/Canton/CargarDatos",
-//        type: "GET",
-//        contentType: "application/json;charset=utf-8",
-//        dataType: "json",
-//        success: function (result) {
-//            Canton = result;
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}
-//Function for clearing the textboxes
+function CARGAR_TIPO_CEDULA() {
+    $.ajax({
+        url: "/Empleado/CARGAR_TIPO_CEDULA",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var plantilla = '';
+            result.forEach(valor => {
+                plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+            });
+
+            $("#tipo").html(plantilla);
+        },
+        error: function (errormessage) {
+        }
+    });
+}
+
 function clearTextBox() {
     $('#Cedula').val("");
     $('#Nombre').val("");
@@ -234,44 +135,218 @@ function clearTextBox() {
     $('#Correo').css('border-color', 'lightgrey');
 }
 
+function VALIDAR() {
+    var ENTRAR = false;
+    var TIPO = parseFloat($("#tipo option:selected").val());
 
-// Validar datos
-function validate() {
-    var isValid = true;
-    if ($('#Nombre').val().trim() == "") {
-        $('#Nombre').css('border-color', 'Red');
-        isValid = false;
+    if (TIPO == 0) {//No se ha seleccionado un tipo de cédula
+        MENSAJE_WARNING("¡Debe seleccionar un tipo de cédula!");
+    } else if ($('#Cedula').val().trim() == "") {
+        MENSAJE_WARNING("¡Cédula inválida, por favor revise los datos brindados!");
+    } else if ($('#Nombre').val().trim() == "") {
+        MENSAJE_WARNING("¡Nombre inválido, por favor revise los datos brindados!");
+    } else if ($('#Primer_Apellido').val().trim() == "") {
+        MENSAJE_WARNING("¡Primer apellido inválido, por favor revise los datos brindados!");
+    } else if ($('#Segundo_Apellido').val().trim() == "") {
+        MENSAJE_WARNING("¡Segundo apellido inválido, por favor revise los datos brindados!");
+    } else if ($('#Correo').val().trim() == "") {
+        MENSAJE_WARNING("¡Correo inválido, por favor revise los datos brindados!");
+    } else if (VALIDAR_EMAIL($('#Correo').val().trim())==false) {
+        MENSAJE_WARNING("¡El correo posee un formato inválido, por favor revise los datos brindados!");
+    } else {
+        var CEDULA = $('#Cedula').val().trim();
+        var COMBO = document.getElementById("tipo");
+        var CODIGO = COMBO.options[COMBO.selectedIndex].text;
+        var STR = CODIGO.substring(0, 1).toUpperCase();
+
+        if (STR == "F" && CEDULA.length < 9) {
+            MENSAJE_WARNING("¡Cédula inválida, el tipo de cédula seleccionado debe contener al menos 9 dígitos, actualmente contiene (" + CEDULA.length  +")!");
+        } else if (STR == "J" && CEDULA.length < 10) {
+            MENSAJE_WARNING("¡Cédula inválida, el tipo de cédula seleccionado debe contener al menos 10 dígitos, actualmente contiene (" + CEDULA.length + ")!");
+        } else if (STR == "N" && CEDULA.length < 10) {
+            MENSAJE_WARNING("¡Cédula inválida, el tipo de cédula seleccionado debe contener al menos 10 dígitos, actualmente contiene (" + CEDULA.length + ")!");
+        } else if (STR == "D" && CEDULA.length < 12) {
+            MENSAJE_WARNING("¡Cédula inválida, el tipo de cédula seleccionado debe contener al menos 12 dígitos, actualmente contiene (" + CEDULA.length + ")!");
+        } else {
+            ENTRAR = true;
+        }
     }
-    else {
-        $('#Nombre').css('border-color', 'lightgrey');
+    return ENTRAR;
+}//FIN DE VALIDAR
+
+function VALIDAR_EMAIL(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}//FIN DE VALIDAR_EMAIL
+
+
+function MENSAJE_WARNING(MENSAJE) {
+    swal({
+        title: "¡No se pudo procesar!",
+        text: MENSAJE,
+        type: "info",
+        showCancelButton: false,
+        confirmButtonText: "¡ Entendido !",
+        confirmButtonColor: '#24a0ed',
+        closeOnConfirm: true
+    });
+}//FIN DE MENSAJE_WARNING
+
+
+function CAMBIO_CMB() {
+    var TIPO = parseFloat($("#tipo option:selected").val());
+
+    if (TIPO == 1) { //Física
+        $("#Cedula").attr('maxlength', '9');
+    } else if (TIPO == 2) {//Jurídica
+        $("#Cedula").attr('maxlength', '10');
+    } else if (TIPO == 3) {//Nite
+        $("#Cedula").attr('maxlength', '10');
+    } else if (TIPO == 4) {//Dimex
+        $("#Cedula").attr('maxlength', '12');
     }
-    if ($('#Cedula').val().trim() == "") {
-        $('#Cedula').css('border-color', 'Red');
-        isValid = false;
+    $("#Cedula").val('')
+    document.getElementById("Cedula").focus();
+}//FIN DE CAMBIO_CMB
+
+
+$("#Cedula").keyup(function (event) {
+    if (event.keyCode == 13) {
+        document.getElementById("Nombre").focus();
     }
-    else {
-        $('#Cedula').css('border-color', 'lightgrey');
+});
+
+$("#Nombre").keyup(function (event) {
+    if (event.keyCode == 13) {
+        document.getElementById("Primer_Apellido").focus();
     }
-    if ($('#Primer_Apellido').val().trim() == "") {
-        $('#Primer_Apellido').css('border-color', 'Red');
-        isValid = false;
+});
+
+$("#Primer_Apellido").keyup(function (event) {
+    if (event.keyCode == 13) {
+        document.getElementById("Segundo_Apellido").focus();
     }
-    else {
-        $('#Primer_Apellido').css('border-color', 'lightgrey');
+});
+
+$("#Segundo_Apellido").keyup(function (event) {
+    if (event.keyCode == 13) {
+        document.getElementById("Correo").focus();
     }
-    if ($('#Segundo_Apellido').val().trim() == "") {
-        $('#Segundo_Apellido').css('border-color', 'Red');
-        isValid = false;
+});
+
+
+$("#Correo").keyup(function (event) {
+    if (event.keyCode == 13) {
+
+        if ($("#btnAdd").is(":hidden")) {
+            $("#btnUpdate").click()
+        } else {
+            $("#btnAdd").click()
+        }
     }
-    else {
-        $('#Segundo_Apellido').css('border-color', 'lightgrey');
+});
+
+
+$(document).ready(function () {
+    $("#Cedula").keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
+});
+
+function AgregarEmpleado() {
+    if (VALIDAR() == true) {
+
+       var empObj = {
+            TipoId: $("#tipo option:selected").val(),
+            Cedula: $('#Cedula').val(),
+            Nombre: $('#Nombre').val(),
+            Primer_Apellido: $('#Primer_Apellido').val(),
+            Segundo_Apellido: $('#Segundo_Apellido').val(),
+            Correo: $('#Correo').val(),
+        };
+
+        $.ajax({
+            url: "/Empleado/Agregar",
+            data: JSON.stringify(empObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                if (result == "Agregado") {
+
+                    swal({
+                        title: "¡Acción realizada!",
+                        text: "¡El empleado fue agregado correctamente!",
+                        type: "success",
+                        confirmButtonColor: "#10AF5D",
+                        confirmButtonText: "Aceptar"
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+
+                                loadTable();
+                                $('#myModal').modal('hide');
+                                clearTextBox();
+                            }
+                        });
+
+                } else if (result == "Existe") {
+                    MENSAJE_WARNING("¡Ya existe un empleado con la cédula: " + $('#Cedula').val() +" !");
+                } else {
+                    swal("¡Error!", "¡Ocurrió un error al tratar de agregar esta categoría, intentelo más tarde!", "error");
+                }
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
     }
-    if ($('#Correo').val().trim() == "") {
-        $('#Correo').css('border-color', 'Red');
-        isValid = false;
+}//FIN DE AgregarEmpleado
+
+
+function ModificarEmpleado() {
+
+    if (VALIDAR() == true) {
+
     }
-    else {
-        $('#Correo').css('border-color', 'lightgrey');
-    }
-    return isValid;
-}
+
+
+    //var res = validate();
+    //if (res == false) {
+    //    return false;
+    //}
+    //var empObj = {
+    //    Cedula: $('#Cedula').val(),
+    //    Nombre: $('#Nombre').val(),
+    //    Primer_Apellido: $('#Primer_Apellido').val(),
+    //    Segundo_Apellido: $('#Segundo_Apellido').val(),
+    //    Telefono: $('#Telefono').val(),
+    //    Correo: $('#Correo').val(),
+    //    Direccion: {
+    //        Direccion: $('#Direccion').val(),
+    //        canton: {
+    //            ID_Canton: parseFloat($("#canton option:selected").val())
+    //        }
+    //    }
+    //};
+    //$.ajax({
+    //    url: "/Empleado/Actualizar",
+    //    data: JSON.stringify(empObj),
+    //    type: "POST",
+    //    contentType: "application/json;charset=utf-8",
+    //    dataType: "json",
+    //    success: function (result) {
+    //        loadTable();
+    //        $('#myModal').modal('hide');
+
+    //        clearTextBox();
+    //    },
+    //    error: function (errormessage) {
+    //        alert(errormessage.responseText);
+    //    }
+    //});
+}//FIN DE ModificarEmpleado

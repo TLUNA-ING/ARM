@@ -283,6 +283,9 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="CONSULTAR_EMPLEADOS_NO_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CONSULTAR_UN_EMPLEADO_BD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CEDULA" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ARMModelStoreContainer">
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamento_X_Cliente" EntityType="Self.Departamento_X_Cliente" Schema="dbo" store:Type="Tables" />
@@ -698,10 +701,21 @@
             <End Role="Departamentos" EntitySet="Departamentos" />
           </AssociationSet>
           <FunctionImport Name="CONSULTAR_EMPLEADOS_NO_USUARIO" ReturnType="Collection(ARMModel.CONSULTAR_EMPLEADOS_NO_USUARIO_Result)" />
+          <FunctionImport Name="CONSULTAR_UN_EMPLEADO_BD" ReturnType="Collection(ARMModel.CONSULTAR_UN_EMPLEADO_BD_Result)">
+            <Parameter Name="CEDULA" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
           <Property Type="Int64" Name="Cedula" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="101" />
+        </ComplexType>
+        <ComplexType Name="CONSULTAR_UN_EMPLEADO_BD_Result">
+          <Property Type="Int32" Name="TipoId" Nullable="false" />
+          <Property Type="Int64" Name="empleadoCedula" Nullable="false" />
+          <Property Type="String" Name="empleadoNombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="empleadoPrimerA" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="empleadoSegundoA" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="empleadoCorreo" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -833,6 +847,18 @@
               <ComplexTypeMapping TypeName="ARMModel.CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CONSULTAR_UN_EMPLEADO_BD" FunctionName="ARMModel.Store.CONSULTAR_UN_EMPLEADO_BD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARMModel.CONSULTAR_UN_EMPLEADO_BD_Result">
+                <ScalarProperty Name="TipoId" ColumnName="TipoId" />
+                <ScalarProperty Name="empleadoCedula" ColumnName="empleadoCedula" />
+                <ScalarProperty Name="empleadoNombre" ColumnName="empleadoNombre" />
+                <ScalarProperty Name="empleadoPrimerA" ColumnName="empleadoPrimerA" />
+                <ScalarProperty Name="empleadoSegundoA" ColumnName="empleadoSegundoA" />
+                <ScalarProperty Name="empleadoCorreo" ColumnName="empleadoCorreo" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

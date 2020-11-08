@@ -34,14 +34,22 @@ namespace ProyectoProgramacion.Controllers
         [HttpPost]
         public ActionResult Agregar(etlEmpleado emp)
         {
-            try
-            {
+            try{
                 EmpleadoModelo modelEmpleado = new EmpleadoModelo();
-                modelEmpleado.GuardarConsulta(emp);
-                return Json(emp, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+
+                var respuesta = modelEmpleado.ConsultarUnEmpleado(emp.Cedula);
+                if (respuesta.Count > 0){
+                    return Json("Existe", JsonRequestBehavior.AllowGet);
+                }else {
+                  var AGREGADO =  modelEmpleado.GuardarConsulta(emp);
+
+                    if (AGREGADO == true){
+                        return Json("Agregado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+                }             
+            }catch (Exception e) {
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
 
@@ -68,10 +76,9 @@ namespace ProyectoProgramacion.Controllers
         [AutorizarUsuario(rol: "admin")]
         public ActionResult Consultar(long id)
         {
-            try
-            {
+            try{
                 EmpleadoModelo modelEmpleado = new EmpleadoModelo();
-                var respuesta = modelEmpleado.Consultar(id);
+                var respuesta = modelEmpleado.CONSULTAR_UN_EMPLEADO_BD(id);
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -98,5 +105,21 @@ namespace ProyectoProgramacion.Controllers
 
 
         }
+
+
+        [AutorizarUsuario(rol: "admin")]
+        [HttpPost]
+        public ActionResult CARGAR_TIPO_CEDULA(){
+            try{
+                EmpleadoModelo MODEL = new EmpleadoModelo();
+
+                var results = MODEL.CONSULTAR_TIPO_CED();
+                return Json(results);
+
+            }catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE CARGAR_TIPO_CEDULA
+
     }
 }

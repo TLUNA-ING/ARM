@@ -16,6 +16,8 @@
         //Correo
         public string Correo { get; set; }
         //Direccion
+        public int TipoId { get; set; }
+
         public etlTipoTrabajo Direccion { get; set; }
 
     }

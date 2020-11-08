@@ -43,5 +43,14 @@ namespace ProyectoProgramacion
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONSULTAR_EMPLEADOS_NO_USUARIO_Result>("CONSULTAR_EMPLEADOS_NO_USUARIO");
         }
+    
+        public virtual ObjectResult<CONSULTAR_UN_EMPLEADO_BD_Result> CONSULTAR_UN_EMPLEADO_BD(string cEDULA)
+        {
+            var cEDULAParameter = cEDULA != null ?
+                new ObjectParameter("CEDULA", cEDULA) :
+                new ObjectParameter("CEDULA", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONSULTAR_UN_EMPLEADO_BD_Result>("CONSULTAR_UN_EMPLEADO_BD", cEDULAParameter);
+        }
     }
 }

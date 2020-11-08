@@ -115,7 +115,7 @@ function Delete(ID) {
 }
 
 function Add() {
-    var CEDULA = parseFloat($("#empleados option:selected").val());
+    var CEDULA = parseFloat($("#fabricante option:selected").val());
     var CONTASENA = $('#Contraseña').val();
     var ROL = parseFloat($("#Rol option:selected").val());
 
