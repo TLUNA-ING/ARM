@@ -18,17 +18,41 @@ namespace ProyectoProgramacion.Models
                     Cliente = new etlCliente
                     {
                         ID_Cliente = x.Clientes.clienteId,
-                        Descripcion = x.Clientes.clienteNombre.Trim()
+                        Descripcion = x.Clientes.clienteNombre,
                     },
                     Departamento = new etlDepartamento
                     {
                         ID_Departamento = x.Departamentos.departamentoId,
-                        Descripcion = x.Departamentos.deparatamentoNombre.Trim()
+                        Descripcion = x.Departamentos.deparatamentoNombre,
                     },
-                    Cedula = x.Empleados.empleadoCedula,
+                    Equipo = new etlEquipo
+                    {
+                        ID_Equipo = x.Equipos.equipoId,
+                        Descripcion = x.Equipos.equipoNombre,
+                    },
+                    Empleado = new etlEmpleado
+                    {
+                        Cedula = x.Empleados.empleadoCedula,
+                        Nombre = x.Empleados.empleadoNombre,
+                    },
+                    TipoTrabajo = new etlTipoTrabajo
+                    {
+                        ID_TipoTrabajo = x.TipoTrabajo.tipoTrabajoId,
+                        Descripcion = x.TipoTrabajo.tipoTrabajoNombre,
+                    },
+
                     Fecha_Reporte = x.fechaReporte,
-                    Reporte = x.solicitudMotivo.Trim(),
-                    Fecha = x.fechaReporte.ToString()
+                    //Reporte = x.solicitudMotivo.Trim(),
+                    //Fecha = x.fechaReporte.ToString(),
+                    horaEntrada = x.horaEntrada,
+                    horaSalida = x.horaSalida,
+                    tipoHora = x.tipoHora,
+                    cantidadHoras = x.cantidadHoras,
+                    solicitudMotivo = x.solicitudMotivo,
+                    motivoDetalle = x.motivoDetalle,
+                    solicitudRepuestos = x.solicitudRepuestos,
+                    equipoDetenido = x.equipoDetenido
+
 
                 }).ToList();
                 return respuesta;
@@ -43,11 +67,21 @@ namespace ProyectoProgramacion.Models
                 using (var contextoBD = new ARMEntities())
                 {
                     Solicitudes item = new Solicitudes();
-                    item.Empleados.empleadoCedula = sol.Cedula;
+                    item.Clientes.clienteId = sol.Cliente.ID_Cliente;
+                    item.Empleados.empleadoNombre = sol.Empleado.Nombre;
+                    item.Clientes.clienteNombre = sol.Cliente.Descripcion;
+                    item.Equipos.equipoNombre = sol.Equipo.Descripcion;
+                    item.Departamentos.deparatamentoNombre = sol.Departamento.Descripcion;
+                    item.TipoTrabajo.tipoTrabajoNombre = sol.TipoTrabajo.Descripcion;
                     item.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
-                    item.solicitudMotivo = sol.Reporte;
-                    item.clienteId = sol.Cliente.ID_Cliente;
-                    item.departamentoId = sol.Departamento.ID_Departamento;
+                    item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
+                    item.horaSalida = Convert.ToDateTime(sol.horaSalida);
+                    item.tipoHora = sol.tipoHora;
+                    item.cantidadHoras = sol.cantidadHoras;
+                    item.solicitudMotivo = sol.solicitudMotivo;
+                    item.motivoDetalle = sol.motivoDetalle;
+                    item.solicitudRepuestos = sol.solicitudRepuestos;
+                    item.equipoDetenido = sol.equipoDetenido;
                     contextoBD.Solicitudes.Add(item);
                     contextoBD.SaveChanges();
                 }
@@ -64,7 +98,7 @@ namespace ProyectoProgramacion.Models
             {
                 using (var contextoBD = new ARMEntities())
                 {
-                    Solicitudes sol = contextoBD.Solicitudes.Find(id.Trim());
+                    Solicitudes sol = contextoBD.Solicitudes.Find(id);
                     contextoBD.Solicitudes.Remove(sol);
                     contextoBD.SaveChanges();
                 }
@@ -82,31 +116,50 @@ namespace ProyectoProgramacion.Models
             {
                 using (var contextoBD = new ARMEntities())
                 {
-                    Solicitudes x = contextoBD.Solicitudes.Find(id.Trim());
+                    Solicitudes x = contextoBD.Solicitudes.Find(id);
                     etlSolicitud solicitud = new etlSolicitud
                     {
                         ID_Solicitud = x.solicitudId,
                         Cliente = new etlCliente
                         {
                             ID_Cliente = x.Clientes.clienteId,
-                            Descripcion = x.Clientes.clienteNombre.Trim(),
-                            Provincia = new etlProvincia
-                            {
-                                ID_Provincia = x.Clientes.Provincias.provinciaId
-                            }
+                            Descripcion = x.Clientes.clienteNombre,
                         },
                         Departamento = new etlDepartamento
                         {
                             ID_Departamento = x.Departamentos.departamentoId,
-                            Descripcion = x.Departamentos.deparatamentoNombre.Trim()
+                            Descripcion = x.Departamentos.deparatamentoNombre,
                         },
-                        Cedula = x.Empleados.empleadoCedula,
+                        Equipo = new etlEquipo
+                        {
+                            ID_Equipo = x.Equipos.equipoId,
+                            Descripcion = x.Equipos.equipoNombre,
+                        },
+                        Empleado = new etlEmpleado
+                        {
+                            Cedula = x.Empleados.empleadoCedula,
+                            Nombre = x.Empleados.empleadoNombre,
+                        },
+                        TipoTrabajo = new etlTipoTrabajo
+                        {
+                            ID_TipoTrabajo = x.TipoTrabajo.tipoTrabajoId,
+                            Descripcion = x.TipoTrabajo.tipoTrabajoNombre,
+                        },
                         Fecha_Reporte = x.fechaReporte,
-                        Reporte = x.solicitudMotivo.Trim()
+                        //Reporte = x.solicitudMotivo.Trim(),
+                        //Fecha = x.fechaReporte.ToString(),
+                        horaEntrada = x.horaEntrada,
+                        horaSalida = x.horaSalida,
+                        tipoHora = x.tipoHora,
+                        cantidadHoras = x.cantidadHoras,
+                        solicitudMotivo = x.solicitudMotivo,
+                        motivoDetalle = x.motivoDetalle,
+                        solicitudRepuestos = x.solicitudRepuestos,
+                        equipoDetenido = x.equipoDetenido,
 
 
                     };
-                    solicitud.Fecha = solicitud.Fecha_Reporte.ToString("yyyy-MM-dd");
+                    solicitud.Fecha_Reporte.ToString("yyyy-MM-dd");
                     return solicitud;
                 }
             }
@@ -124,12 +177,22 @@ namespace ProyectoProgramacion.Models
                 {
                     Solicitudes item = contextoBD.Solicitudes.Find(sol.ID_Solicitud);
 
-                    item.Empleados.empleadoCedula = sol.Cedula;
-                    item.Clientes.clienteNombre = sol.Clientes.Trim();
+                    item.Empleados.empleadoCedula = sol.Empleado.Cedula;
+                    item.Clientes.clienteNombre = sol.Cliente.Descripcion;
+                    item.Equipos.equipoNombre = sol.Equipo.Descripcion;
+                    item.Departamentos.deparatamentoNombre = sol.Departamento.Descripcion;
+                    item.TipoTrabajo.tipoTrabajoNombre = sol.TipoTrabajo.Descripcion;
                     item.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
-                    item.solicitudMotivo = sol.Reporte;
-                    item.clienteId = sol.Cliente.ID_Cliente;
-                    item.departamentoId = sol.Departamento.ID_Departamento;
+                    //item.solicitudMotivo = sol.Reporte;
+                    //item.fechaReporte = Convert.ToDateTime(sol.Fecha);
+                    item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
+                    item.horaSalida = Convert.ToDateTime(sol.horaSalida);
+                    item.tipoHora = sol.tipoHora;
+                    item.cantidadHoras = sol.cantidadHoras;
+                    item.solicitudMotivo = sol.solicitudMotivo;
+                    item.motivoDetalle = sol.motivoDetalle;
+                    item.solicitudRepuestos = sol.solicitudRepuestos;
+                    item.equipoDetenido = sol.equipoDetenido;
                     contextoBD.SaveChanges();
                 }
             }
