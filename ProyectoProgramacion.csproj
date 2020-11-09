@@ -290,6 +290,8 @@
     <Content Include="Content\documentation\templates\license.html" />
     <Content Include="Content\documentation\templates\plugins.html" />
     <Content Include="Content\images\animation-bg.jpg" />
+    <Content Include="Content\images\user-img-background.jpg" />
+    <Content Include="Content\images\user-img-background4.jpg" />
     <Content Include="Content\images\image-gallery\1.jpg" />
     <Content Include="Content\images\image-gallery\10.jpg" />
     <Content Include="Content\images\image-gallery\11.jpg" />
@@ -333,7 +335,7 @@
     <Content Include="Content\images\profile-post-image.jpg" />
     <Content Include="Content\images\screenshot.png" />
     <Content Include="Content\images\thumbs-up.png" />
-    <Content Include="Content\images\user-img-background.jpg" />
+    <Content Include="Content\images\user-img-background3.jpg" />
     <Content Include="Content\images\user-img-background2.jpg" />
     <Content Include="Content\images\user-lg.jpg" />
     <Content Include="Content\images\user.jpg" />

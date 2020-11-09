@@ -1,5 +1,6 @@
 ﻿.theme-red .navbar {
-  background-color: #F44336; }
+    background-color: #C56A02;
+}
 
 .theme-red .navbar-brand {
   color: #fff; }
@@ -11,7 +12,9 @@
     color: #fff; }
 
 .theme-red .nav > li > a {
-  color: #fff; }
+    
+    color: #fff;background-image: url('file:///C:\Users\Francinny\Desktop\fondoPersona.jpg');
+}
   .theme-red .nav > li > a:hover {
     background-color: transparent; }
   .theme-red .nav > li > a:focus {
@@ -629,10 +632,11 @@
     color: #FFC107 !important; }
 
 .theme-orange .navbar {
-  background-color: #FF9800; }
+    background-color: #FFBF77;
+}
 
 .theme-orange .navbar-brand {
-  color: #fff; }
+  color: black; }
   .theme-orange .navbar-brand:hover {
     color: #fff; }
   .theme-orange .navbar-brand:active {
@@ -655,7 +659,7 @@
     background-color: transparent; }
 
 .theme-orange .bars {
-  color: #fff; }
+  color: black; }
 
 .theme-orange .sidebar .menu .list li.active {
   background-color: transparent; }
@@ -669,12 +673,13 @@
   background-color: transparent; }
 
 .theme-orange .sidebar .legal {
-  background-color: #fff; }
+  background-color: black; }
   .theme-orange .sidebar .legal .copyright a {
     color: #FF9800 !important; }
 
 .theme-deep-orange .navbar {
-  background-color: #FF5722; }
+    background-color: #C56A02;
+}
 
 .theme-deep-orange .navbar-brand {
   color: #fff; }
