@@ -32,28 +32,22 @@ namespace ProyectoProgramacion.Controllers
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
         public ActionResult AgregarEquipo(etlEquipo equipo){
-            try
-            {
+            try{
                 EquipoModelo modelEquipo = new EquipoModelo();
 
                 var respuesta = modelEquipo.ConsultarUnEquipo(equipo.Descripcion);
-                if (respuesta.Count > 0)
-                {
+                if (respuesta.Count > 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    var AGREGADO = modelEquipo.GuardarConsulta(equipo);
+                }else{
+                    var AGREGADO = modelEquipo.AgregarEquipo(equipo);
 
                     if (AGREGADO == true){
                         return Json("Agregado", JsonRequestBehavior.AllowGet);
-                    }
-                    else{
+                    } else{
                         return Json("XXX", JsonRequestBehavior.AllowGet);
                     }
                 }
-            }
-            catch (Exception e){
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
         }//FIN DE Agregar_Equipo
@@ -83,33 +77,45 @@ namespace ProyectoProgramacion.Controllers
         }// FIN DE ModificarEstado
 
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult Consultar(long id)
-        {
-            try
-            {
-                EquipoModelo modelUnidad = new EquipoModelo();
-                var respuesta = modelUnidad.Consultar(id);
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+        public ActionResult ConsultarEquipo(long id){
+            try{
+                EquipoModelo modelEquipo = new EquipoModelo();
+                var equipo = modelEquipo.ConsultarUnEquipoID(id);
+
+                return Json(equipo, JsonRequestBehavior.AllowGet);
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
+        }// FIN DE ConsultarEquipo
 
-
-        }
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Actualizar(etlEquipo uni)
-        {
-            try
-            {
-                EquipoModelo modelUnidad = new EquipoModelo();
-                modelUnidad.Actualizar(uni);
-                return Json(uni, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+        public ActionResult ModificarEquipo(etlEquipo equip){
+            try{
+
+                EquipoModelo modelEquipo = new EquipoModelo();
+                var equipo = modelEquipo.ConsultarUnEquipoID(equip.ID_Equipo);
+
+                if (equipo.Descripcion != ""){
+                    var MODIFICADO = modelEquipo.ModificarEquipo(equip);
+
+                    if (MODIFICADO == true)
+                    {
+                        return Json("Modificado", JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+
+                }
+                else
+                {
+                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                }
+
+
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
 
