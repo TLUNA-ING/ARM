@@ -150,6 +150,8 @@ function ModificarEquipo() {
                                 clearTextBox();
                             }
                         });
+                } else if ("Existe") {
+                    MENSAJE_WARNING("¡Ya existe un equipo con la descripción: " + $('#Descripcion_equipo').val() + " !");
                 } else {
                     swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
                 }

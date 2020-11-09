@@ -105,7 +105,7 @@ namespace ProyectoProgramacion.Controllers
                     }
                     else
                     {
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("Existe", JsonRequestBehavior.AllowGet);
                     }
 
                 }
