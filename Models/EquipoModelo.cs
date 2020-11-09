@@ -80,9 +80,27 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarEstado
 
+        public bool ModificarEquipo(etlEquipo equip){
+            try{
+                bool MODIFICADO = false;
+                using (var contextoBD = new ARMEntities())
+                {
+                    var EQUIPO = contextoBD.Equipos.SingleOrDefault(b => b.equipoId == equip.ID_Equipo);
+                    if (EQUIPO != null){
+                        EQUIPO.equipoNombre = equip.Descripcion;
+                        contextoBD.SaveChanges();
+                        MODIFICADO = true;
+                    }
+                }
+                return MODIFICADO;
 
-        public bool GuardarConsulta(etlEquipo equipo)
-        {
+            }catch (Exception e){
+                return false;
+            }
+        }//FIN DE ModificarEquipo
+
+
+        public bool AgregarEquipo(etlEquipo equipo){
             try{
                 bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities())
@@ -100,27 +118,9 @@ namespace ProyectoProgramacion.Models
             catch (Exception e) {
                 return false;
             }
-        }
+        }//FIN DE AgregarEquipo
 
 
-
-        public void Eliminar(long id)
-        {
-            try
-            {
-                using (var contextoBD = new ARMEntities())
-                {
-                    Equipos equipos = contextoBD.Equipos.Find(id);
-                    contextoBD.Equipos.Remove(equipos);
-                    contextoBD.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                throw new System.Exception("Error al eliminar");
-            }
-
-        }
 
         public etlEquipo Consultar(long id)
         {
@@ -135,25 +135,6 @@ namespace ProyectoProgramacion.Models
                         Descripcion = equipos.equipoNombre
                     };
                     return equipo;
-                }
-            }
-            catch (Exception e)
-            {
-                throw new System.Exception("Error");
-            }
-
-        }
-        public void Actualizar(etlEquipo equipo)
-        {
-            try
-            {
-                using (var contextoBD = new ARMEntities())
-                {
-                    Equipos item = contextoBD.Equipos.Find(equipo.ID_Equipo);
-
-                    item.equipoNombre = equipo.Descripcion.Trim();
-
-                    contextoBD.SaveChanges();
                 }
             }
             catch (Exception e)
