@@ -71,6 +71,7 @@ function cargarAgregar() {
     $("#Id_equipo").val("")
     $('#btnUpdate').hide();
     $('#btnAdd').show();
+
 }//FIN DE CARGAR_AGREGAR
 
 
