@@ -22,12 +22,24 @@ function loadTable() {
         },
         columns: [
             { "data": "ID_Solicitud" },
-            { "data": "Centro.Descripcion" },
-            { "data": "AreaTrabajo.Descripcion" },
-            { "data": "Cliente" },
+            { "data": "Cliente.Descripcion" },
+            { "data": "Departamento.Descripcion" },
+            { "data": "Equipo.Descripcion" },
             { "data": "Cedula" },
             { "data": "Fecha" },
-            { "data": "Reporte" }
+            { "data": "Reporte" },
+            { "data": "horaEntrada" },
+            { "data": "horaSalida" },
+            { "data": "tipoHora" },
+            { "data": "cantidadHoras" },
+            { "data": "solicitudMotivo" },
+            { "data": "motivoDetalle" },
+            { "data": "solicitudRepuestos" },
+            { "data": "equipoDetenido" }
+
+
+
+
 
         ]
     });

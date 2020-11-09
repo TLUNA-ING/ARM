@@ -1,13 +1,16 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>ARM</title>
+
     <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -33,7 +36,12 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="~/Content/css/themes/all-themes.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 </head>
+
 
 <body class="theme-orange">
     <!-- Page Loader -->
@@ -85,6 +93,23 @@
         </div>
     </nav>
     <!-- #Top Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="index.html">ANÁLISIS Y REGISTRO DE BITÁCORAS</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Call Search -->
+                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+                    <!-- #END# Call Search -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
@@ -93,7 +118,7 @@
                 <div class="image">
                     <img src="~/Content/images/user.png" width="48" height="48" alt="User" />
                 </div>
-                <div++ class="info-container">
+                <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diana Monge</div>
                     <div class="email">dmonge@capris.co.cr</div>
                     <div class="btn-group user-helper-dropdown">
@@ -104,16 +129,16 @@
                             <li><a href="/Home/Logout"><i class="material-icons">input</i>Cerrar Sesión</a></li>
                         </ul>
                     </div>
-                </div++>
+                </div>
             </div>
             <!-- #User Info -->
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
-                    <li class="header">MENU PRINCIPAL</li>
+                    <li class="header">Menu Principal</li>
                     <li>
                         <a href="/Empleado/">
-                            <i class="material-icons col-light-blue" >face</i>
+                            <i class="material-icons col-light-blue">face</i>
                             <span>Empleados</span>
                         </a>
                     </li>
@@ -127,18 +152,18 @@
                                 <a href="/Equipo/">Equipos</a>
                             </li>
                             <li>
-                                <a href="/Empleado/">Clientes</a>
+                                <a href="/Cliente/">Clientes</a>
                             </li>
                             <li>
                                 <a href="/Empleado/">Tipo de trabajo</a>
                             </li>
                             <li>
-                                <a href="/Empleado/">Departamentos</a>
+                                <a href="/Departamento/">Departamentos</a>
                             </li>
-                        </ul>   
+                        </ul>
                     </li>
                     <li>
-                        <a href="/Solicitud/">
+                        <a href="/Solicitudes/">
                             <i class="material-icons col-light-blue">text_fields</i>
                             <span>Solicitudes</span>
                         </a>
@@ -161,14 +186,9 @@
         </aside>
     </section>
 
-    <section class="content">
-        <div class="container-fluid">
-            @RenderBody()
-        </div>
-    </section>
-
-    @RenderSection("scripts", required: false)
-
+    <div>
+        @RenderBody()
+    </div>
     <!-- Jquery Core Js -->
     <script src="~/Content/plugins/jquery/jquery.min.js"></script>
 
@@ -184,33 +204,24 @@
     <!-- Waves Effect Plugin Js -->
     <script src="~/Content/plugins/node-waves/waves.js"></script>
 
-    <!-- Jquery CountTo Plugin Js -->
-    <script src="~/Content/plugins/jquery-countto/jquery.countTo.js"></script>
-
-    <!-- Morris Plugin Js -->
-    <script src="~/Content/plugins/raphael/raphael.min.js"></script>
-    <script src="~/Content/plugins/morrisjs/morris.js"></script>
-
-    <!-- ChartJs -->
-    <script src="~/Content/plugins/chartjs/Chart.bundle.js"></script>
-
-    <!-- Flot Charts Plugin Js -->
-    <script src="~/Content/plugins/flot-charts/jquery.flot.js"></script>
-    <script src="~/Content/plugins/flot-charts/jquery.flot.resize.js"></script>
-    <script src="~/Content/plugins/flot-charts/jquery.flot.pie.js"></script>
-    <script src="~/Content/plugins/flot-charts/jquery.flot.categories.js"></script>
-    <script src="~/Content/plugins/flot-charts/jquery.flot.time.js"></script>
-
-    <!-- Sparkline Chart Plugin Js -->
-    <script src="~/Content/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/Content/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/Content/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/Content/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/Content/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/Content/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/Content/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/Content/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="~/Content/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/Content/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 
     <!-- Custom Js -->
     <script src="~/Content/js/admin.js"></script>
-    <script src="~/Content/js/pages/index.js"></script>
+    <script src="~/Content/js/pages/tables/jquery-datatable.js"></script>
 
     <!-- Demo Js -->
     <script src="~/Content/js/demo.js"></script>
-
 </body>
 
+@RenderSection("Scripts", required: false)
 </html>

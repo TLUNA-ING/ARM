@@ -28,42 +28,60 @@ namespace ProyectoProgramacion.Controllers
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
         }
-        //Agregar datos
+
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Agregar(etlEquipo uni)
-        {
+        public ActionResult AgregarEquipo(etlEquipo equipo){
             try
             {
-                EquipoModelo modelUnidad = new EquipoModelo();
-                modelUnidad.GuardarConsulta(uni);
-                return Json(uni, JsonRequestBehavior.AllowGet);
+                EquipoModelo modelEquipo = new EquipoModelo();
+
+                var respuesta = modelEquipo.ConsultarUnEquipo(equipo.Descripcion);
+                if (respuesta.Count > 0)
+                {
+                    return Json("Existe", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var AGREGADO = modelEquipo.GuardarConsulta(equipo);
+
+                    if (AGREGADO == true){
+                        return Json("Agregado", JsonRequestBehavior.AllowGet);
+                    }
+                    else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+                }
             }
-            catch (Exception e)
-            {
+            catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-
-
-        }
+        }//FIN DE Agregar_Equipo
 
         [HttpPost]
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult Eliminar(long id)
-        {
-            try
-            {
-                EquipoModelo modelUnidad = new EquipoModelo();
-                modelUnidad.Eliminar(id);
-                return Json(id, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+        public ActionResult ModificarEstado(long id){
+            try{
+                EquipoModelo modelEquipo = new EquipoModelo();
+                var equipo = modelEquipo.ConsultarUnEquipoID(id);
+
+                if (equipo.Descripcion!=""){
+                    var MODIFICADO = modelEquipo.ModificarEstado(equipo);
+
+                    if (MODIFICADO == true){
+                        return Json("Modificado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+
+                }else{
+                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                }
+            } catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
+        }// FIN DE ModificarEstado
 
-
-        }
         [AutorizarUsuario(rol: "admin")]
         public ActionResult Consultar(long id)
         {

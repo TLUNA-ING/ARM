@@ -23,6 +23,7 @@ namespace ProyectoProgramacion
     
         public int equipoId { get; set; }
         public string equipoNombre { get; set; }
+        public string equipoEstado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Equipo_X_Departamento> Equipo_X_Departamento { get; set; }

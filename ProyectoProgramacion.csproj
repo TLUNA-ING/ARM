@@ -4030,7 +4030,6 @@
     <Content Include="Views\Consulta\Index.cshtml" />
     <Content Include="Views\Solicitud\Index.cshtml" />
     <Content Include="Views\Seguimiento\Index.cshtml" />
-    <Content Include="Views\Pruebas\Index.cshtml" />
     <EntityDeploy Include="SOLICITUDES.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SOLICITUDES.Designer.cs</LastGenOutput>
@@ -4038,6 +4037,8 @@
     <Content Include="SOLICITUDES.edmx.diagram">
       <DependentUpon>SOLICITUDES.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Pruebas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

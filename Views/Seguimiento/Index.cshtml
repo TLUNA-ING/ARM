@@ -1,66 +1,65 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-    <div class="container col-sm-12 col-md-12" style="padding:0%;margin:0%">
-        <h2>Seguimiento solicitud</h2>
+<div class="container col-sm-12 col-md-12" style="padding:0%;margin:0%">
+    <h2>Seguimiento solicitud</h2>
+    <div class="row">
+        <div class="col-xs-3">
+            <label for="IDSolicitud">ID Solicitud</label>
+            <input type="number" class="form-control" id="IDSolicitud" placeholder="ID Solicitud" />
+        </div>
+        <div class="col-xs-2">
+            <br />
+            <button type="button" class="btn btn-info" onclick="ConsultarSolicitud();">Consultar Solicitud</button><br /><br />
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12" style="padding:0%;margin:0%" id="divDatos" hidden="hidden">
+        <table class="table table-bordered table-hover table-responsive table-striped text-center" id="DatoSolicitud">
+            <thead class="bg-info">
+                <tr>
+                    <th>
+                        ID Seguimiento
+                    </th>
+                    <th>
+                        Fecha Laborada
+                    </th>
+                    <th>
+                        Horas Normales
+                    </th>
+                    <th>
+                        Horas Extras
+                    </th>
+                    <th>
+                        Horas Dobles
+                    </th>
+                    <th>
+                        Trabajo Realizado
+                    </th>
+                    <th>
+                        Modificar/Eliminar
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+            </tbody>
+        </table>
+
         <div class="row">
-            <div class="col-xs-3">
-                <label for="IDSolicitud">ID Solicitud</label>
-                <input type="number" class="form-control" id="IDSolicitud" placeholder="ID Solicitud" />
+            <div class="col-xs-4"></div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-info" onclick="Limpiar();">Limpiar</button><br /><br />
             </div>
             <div class="col-xs-2">
-                <br/>
-                <button type="button" class="btn btn-info"  onclick="ConsultarSolicitud();">Consultar Solicitud</button><br /><br />
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Seguimiento</button><br /><br />
             </div>
+            <div class="col-xs-4"></div>
         </div>
-        <div class="col-sm-12 col-md-12" style="padding:0%;margin:0%" id="divDatos" hidden="hidden" >
-            <table class="table table-bordered table-hover table-responsive table-striped text-center" id="DatoSolicitud">
-                <thead class="bg-info">
-                    <tr>
-                        <th>
-                            ID Seguimiento
-                        </th>
-                        <th>
-                            Fecha Laborada
-                        </th>
-                        <th>
-                            Horas Normales
-                        </th>
-                        <th>
-                            Horas Extras
-                        </th>
-                        <th>
-                            Horas Dobles
-                        </th>
-                        <th>
-                            Trabajo Realizado
-                        </th>
-                        <th>
-                            Modificar/Eliminar
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="tbody">
-                </tbody>
-            </table>
-
-            <div class="row">
-                <div class="col-xs-4"></div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-info" onclick="Limpiar();">Limpiar</button><br /><br />
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Seguimiento</button><br /><br />
-                </div>
-                <div class="col-xs-4"></div>
-            </div>
-        </div>
-        
-
     </div>
+
+
+</div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -88,7 +87,7 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 <label for="HorasNormales">Horas Normales</label>
-                                <input type="number" class="form-control" id="HorasNormales" placeholder="0"/>
+                                <input type="number" class="form-control" id="HorasNormales" placeholder="0" />
                             </div>
                             <div class="col-xs-6">
                                 <label for="HorasExtras">Horas Extras</label>
@@ -101,7 +100,7 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 <label for="HorasDobles">Horas Dobles</label>
-                                <input type="number" class="form-control" id="HorasDobles" placeholder="0"/>
+                                <input type="number" class="form-control" id="HorasDobles" placeholder="0" />
 
                             </div>
                         </div>
@@ -124,7 +123,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 

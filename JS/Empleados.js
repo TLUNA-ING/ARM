@@ -30,7 +30,7 @@ function loadTable() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-danger' onclick= delete(" + row.Cedula + ")>" +
+                    return "<button type='button' class='btn btn-danger' onclick= EliminarEmpleado(" + row.Cedula + ")>" +
                         "<i class='	glyphicon glyphicon-trash'> </i>" +
                         "</button > "
                 }
@@ -38,7 +38,7 @@ function loadTable() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-primary' onclick= getbyID(" + row.Cedula + ")>" +
+                    return "<button type='button' class='btn btn-primary' onclick= ModificarEmpleado(" + row.Cedula + ")>" +
                         "<i class='	glyphicon glyphicon-pencil'> </i>" +
                         "</button > "
                 }
@@ -48,7 +48,7 @@ function loadTable() {
     });
 }
 
-function getbyID(Cedula) {
+function ModificarEmpleado(Cedula) {
 
     $.ajax({
         url: "/Empleado/Consultar/" + Cedula,
@@ -76,7 +76,7 @@ function getbyID(Cedula) {
     return false;
 }
 //function for deleting employee's record
-function Delete(ID) {
+function EliminarEmpleado(ID) {
 
     $.ajax({
         url: "/Empleado/Eliminar/" + ID,
@@ -296,7 +296,7 @@ function AgregarEmpleado() {
                 } else if (result == "Existe") {
                     MENSAJE_WARNING("¡Ya existe un empleado con la cédula: " + $('#Cedula').val() +" !");
                 } else {
-                    swal("¡Error!", "¡Ocurrió un error al tratar de agregar esta categoría, intentelo más tarde!", "error");
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
                 }
 
             },
