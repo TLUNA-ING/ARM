@@ -21,26 +21,63 @@ namespace ProyectoProgramacion.Models
             }
 
         }
-        public void GuardarConsulta(etlEquipo equipo)
+        //public void GuardarConsulta(etlEquipo equipo)
+        //{
+        //    try
+        //    {
+        //        using (var contextoBD = new ARMEntities())
+        //        {
+        //            Equipos item = new Equipos();
+        //            item.equipoNombre = equipo.Descripcion.Trim();
+        //            item.equipoId = equipo.ID_Equipo;
+
+        //            contextoBD.Equipos.Add(item);
+        //            contextoBD.SaveChanges();
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new System.Exception("Error");
+        //    }
+        //}
+
+        List<Equipos> EQUIPOS = new List<Equipos>();
+        public List<Equipos> ConsultarUnEquipo(string DESCRIPCION) {
+            try{
+                using (var contextoBD = new ARMEntities())
+                {
+                    EQUIPOS = (from x in contextoBD.Equipos where x.equipoNombre == DESCRIPCION select x).ToList();
+                    return EQUIPOS;
+                }
+
+            }
+            catch (Exception e){
+                throw new System.Exception("Error");
+            }
+        }//FIN DE ConsultarUnEmpleado
+
+        public bool GuardarConsulta(etlEquipo equipo)
         {
-            try
-            {
+            try{
+                bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities())
                 {
                     Equipos item = new Equipos();
                     item.equipoNombre = equipo.Descripcion.Trim();
-                    item.equipoId = equipo.ID_Equipo;
 
                     contextoBD.Equipos.Add(item);
                     contextoBD.SaveChanges();
+                    AGREGADO = true;
                 }
+                return AGREGADO;
             }
-            catch (Exception e)
-            {
-                throw new System.Exception("Error");
+            catch (Exception e) {
+                return false;
             }
-
         }
+
+
+
         public void Eliminar(long id)
         {
             try

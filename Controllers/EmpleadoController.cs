@@ -52,8 +52,6 @@ namespace ProyectoProgramacion.Controllers
             }catch (Exception e) {
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-
-
         }
 
         [HttpPost]

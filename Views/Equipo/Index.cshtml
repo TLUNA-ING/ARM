@@ -1,189 +1,10 @@
 ﻿
 @{
-    Layout = "";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>ARM</title>
-    <!-- Favicon-->
-    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core Css -->
-    <link href="~/Content/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Waves Effect Css -->
-    <link href="~/Content/plugins/node-waves/waves.css" rel="stylesheet" />
-
-    <!-- Animation Css -->
-    <link href="~/Content/plugins/animate-css/animate.css" rel="stylesheet" />
-
-    <!-- JQuery DataTable Css -->
-    <link href="~/Content/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- Morris Chart Css-->
-    <link href="~/Content/plugins/morrisjs/morris.css" rel="stylesheet" />
-
-    <!-- Custom Css -->
-    <link href="~/Content/css/style.css" rel="stylesheet">
-
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="~/Content/css/themes/all-themes.css" rel="stylesheet" />
-</head>
-
-<body class="theme-orange">
-    <!-- Page Loader -->
-    <div class="page-loader-wrapper">
-        <div class="loader">
-            <div class="preloader">
-                <div class="spinner-layer pl-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-            <p>Cargando...</p>
-        </div>
-    </div>
-    <!-- #END# Page Loader -->
-    <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
-    <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="Buscar...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
-    <!-- Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">ANÁLISIS Y REGISTRO DE BITÁCORAS</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                    <!-- #END# Call Search -->
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- #Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">ANÁLISIS Y REGISTRO DE BITÁCORAS</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                    <!-- #END# Call Search -->
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- #Top Bar -->
-    <section>
-        <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar">
-            <!-- User Info -->
-            <div class="user-info">
-                <div class="image">
-                    <img src="~/Content/images/user.png" width="48" height="48" alt="User" />
-                </div>
-                <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diana Monge</div>
-                    <div class="email">dmonge@capris.co.cr</div>
-                    <div class="btn-group user-helper-dropdown">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Perfil</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="/Home/Logout"><i class="material-icons">input</i>Cerrar Sesión</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- #User Info -->
-            <!-- Menu -->
-            <div class="menu">
-                <ul class="list">
-                    <li class="header">MENU PRINCIPAL</li>
-                    <li>
-                        <a href="/Empleado/">
-                            <i class="material-icons col-light-blue">face</i>
-                            <span>Empleados</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons col-light-blue">settings</i>
-                            <span>Mantenimientos</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/Empleado/">Equipos</a>
-                            </li>
-                            <li>
-                                <a href="/Empleado/">Clientes</a>
-                            </li>
-                            <li>
-                                <a href="/Empleado/">Tipo de trabajo</a>
-                            </li>
-                            <li>
-                                <a href="/Empleado/">Departamentos</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="/Solicitudes/">
-                            <i class="material-icons col-light-blue">text_fields</i>
-                            <span>Solicitudes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/Reportes/">
-                            <i class="material-icons col-light-blue">history</i>
-                            <span>Reportes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/Consulta/">
-                            <i class="material-icons col-light-blue">history</i>
-                            <span>Consulta de Solicitudes</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- #Menu -->
-        </aside>
-    </section>
-
     <section class="content">
+
         <div class="container-fluid">
             <div class="block-header">
                 <h1>Equipos</h1>
@@ -198,20 +19,12 @@
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DatoEquipo">
                                     <thead>
                                         <tr>
-                                            <th>Id Equipo</th>
+                                            <th># Equipo</th>
                                             <th>Descripcion</th>
-                                            <th>Habilitado</th>
                                             <th>Modificar</th>
+                                            <th>Eliminar</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Id Equipo</th>
-                                            <th>Descripcion</th>
-                                            <th>Habilitado</th>
-                                            <th>Modificar</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     </tbody>
                                 </table>
@@ -235,19 +48,27 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label for="ID_Equipo">Id Equipo</label>
-                                        <input type="text" class="form-control" id="ID_Equip" placeholder="" />
+                                        <label for="ID_Equipo"># Equipo</label>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="Id_equipo" placeholder="Autogenerado" disabled/>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12">
                                         <label for="Descripción">Descripción</label>
-                                        <input type="text" class="form-control" id="Descripcion" placeholder="" />
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="Descripcion_equipo" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Agregar</button>
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return AgregarEquipo();">Agregar</button>
                         <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Actualizar</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
                     </div>
@@ -256,120 +77,8 @@
         </div>
     </section>
 
-    <!-- Jquery Core Js -->
-    <script src="~/Content/plugins/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="~/Content/plugins/bootstrap/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="~/Content/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="~/Content/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="~/Content/plugins/node-waves/waves.js"></script>
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="~/Content/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="~/Content/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="~/Content/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="~/Content/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="~/Content/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="~/Content/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="~/Content/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="~/Content/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="~/Content/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-
-    <!-- Custom Js -->
-    <script src="~/Content/js/admin.js"></script>
-    <script src="~/Content/js/pages/tables/jquery-datatable.js"></script>
-
-    <!-- Demo Js -->
-    <script src="~/Content/js/demo.js"></script>
-    <script src="~/JS/Equipos.js"></script>
-</body>
-
-</html>
-
-
-
-
-
-
-<!--
+@section Scripts{
+    @Scripts.Render("/JS/Equipos.js")
 }
 
-<div class="container col-sm-12 col-md-12" style="padding:0%;margin:0%">
-    <h2>Equipos de Trabajo</h2>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Equipo</button><br /><br />
-    <div class="col-sm-12 col-md-12" style="padding:0%;margin:0%">
-        <table class="table table-bordered table-hover table-responsive table-striped text-center" id="DatoEquipo">
-            <thead class="bg-info">
-                <tr>
-                    <th>
-                        Id Equipo
-                    </th>
-                    <th>
-                        Descripcion
-                    </th>
-                    <th>
-                        Modificar/Eliminar
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-            </tbody>
-        </table>
 
-    </div>
-
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title" id="myModalLabel">Unidades</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <label for="ID_Equip">Id de Equipo</label>
-                                <input type="text" class="form-control" id="ID_Equipo" placeholder="Identificador" readonly="readonly" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <label for="Descripcion">Descripcion</label>
-                                <input type="text" class="form-control" id="Descripcion" placeholder="Descripcion" />
-                            </div>
-                        </div>
-                    </div>-->
-@*<div class="form-group">
-        <div class="row">
-            <div class="col-xs-6">
-                <label for="Area">Area:</label>
-                <select name="sltarea" id="Area" class="form-control">
-                </select>
-            </div>
-        </div>
-    </div>*@
-<!--</form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Agregar</button>
-                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Actualizar</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox()">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
--->

@@ -28,24 +28,54 @@ namespace ProyectoProgramacion.Controllers
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
         }
-        //Agregar datos
+        ////Agregar datos
+        //[AutorizarUsuario(rol: "admin")]
+        //[HttpPost]
+        //public ActionResult Agregar(etlEquipo uni)
+        //{
+        //    try
+        //    {
+        //        EquipoModelo modelUnidad = new EquipoModelo();
+        //        modelUnidad.GuardarConsulta(uni);
+        //        return Json(uni, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Json(e, JsonRequestBehavior.DenyGet);
+        //    }
+        //}
+
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Agregar(etlEquipo uni)
-        {
+        public ActionResult AgregarEquipo(etlEquipo equipo){
             try
             {
-                EquipoModelo modelUnidad = new EquipoModelo();
-                modelUnidad.GuardarConsulta(uni);
-                return Json(uni, JsonRequestBehavior.AllowGet);
+                EquipoModelo modelEquipo = new EquipoModelo();
+
+                var respuesta = modelEquipo.ConsultarUnEquipo(equipo.Descripcion);
+                if (respuesta.Count > 0)
+                {
+                    return Json("Existe", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var AGREGADO = modelEquipo.GuardarConsulta(equipo);
+
+                    if (AGREGADO == true){
+                        return Json("Agregado", JsonRequestBehavior.AllowGet);
+                    }
+                    else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+                }
             }
-            catch (Exception e)
-            {
+            catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
+        }//FIN DE Agregar_Equipo
 
 
-        }
+
 
         [HttpPost]
         [AutorizarUsuario(rol: "admin")]
