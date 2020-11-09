@@ -22,10 +22,11 @@ function CARGAR_GRID() {
         columns: [
             { "data": "ID_Equipo" },
             { "data": "Descripcion" },
+            { "data": "Estado" },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-danger' onclick= getbyID(" + row.Cedula + ")>" +
+                    return "<button type='button' class='btn btn-danger' onclick= getbyID(" + row.ID_Equipo + ")>" +
                         "<i class='	glyphicon glyphicon-pencil'> </i>" +
                         "</button > "
                 }
@@ -33,7 +34,7 @@ function CARGAR_GRID() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-primary' onclick= Delete(" + row.Cedula + ")>" +
+                    return "<button type='button' class='btn btn-primary' onclick= ModificarEstado(" + row.ID_Equipo + ")>" +
                         "<i class='	glyphicon glyphicon-trash'> </i>" +
                         "</button > "
                 }
@@ -70,7 +71,6 @@ function cargarAgregar() {
     $('#btnAdd').show();
     $("#Descripcion_equipo").focus()
 }//FIN DE CARGAR_AGREGAR
-
 
 
 function AgregarEquipo() {
@@ -116,90 +116,94 @@ function AgregarEquipo() {
     }
 }//FIN DE AgregarEquipo
 
-//Function for getting the Data Based upon Employee ID
-function getbyID(ID) {
-    //cargarAgregar();
-    $.ajax({
-        url: "/Equipo/consultar/" + ID,
-        typr: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            $('#ID_Equipo').val(result.ID_Equipo);
-            $('#Descripcion').val(result.Descripcion);
-            $('#myModal').modal('show');
-            $('#btnUpdate').show();
-            $('#btnAdd').hide();
-            $("#ID_Equipo").prop("disabled", true);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-    return false;
-}
-//function for updating employee's record
-function Update() {
-    var res = validate();
-    if (res == false) {
-        return false;
-    }
-    var equipoObj = {
-        ID_Equipo: $('#ID_Equipo').val(),
-        Descripcion: $('#Descripcion').val(),
-    };
-    $.ajax({
-        url: "/Equipo/Actualizar",
-        data: JSON.stringify(equipoObj),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            loadTable();
-            $('#myModal').modal('hide');
-            clearTextBox();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-//function for deleting employee's record
-function Delete(ID) {
+function ModificarEstado(ID) {
 
     $.ajax({
-        url: "/Equipo/Eliminar/" + ID ,
+        url: "/Equipo/ModificarEstado/" + ID,
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            loadTable();
+
+            if (result == "Modificado") {
+                swal({
+                    title: "¡Acción realizada!",
+                    text: "¡El estado del equipo cambió correctamente!",
+                    type: "success",
+                    confirmButtonColor: "#10AF5D",
+                    confirmButtonText: "Aceptar"
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            CARGAR_GRID();
+                        }
+                    });
+            } else {
+                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
-}
 
-//Function for clearing the textboxes
-function clearTextBox() {
-    $('#ID_Equipo').val("");
-    $('#Descripcion').val("");   
- }
+}//FIN DE ModificarEstado
 
-//function cargarArea() {
+
+//function getbyID(ID) {
+//    //cargarAgregar();
 //    $.ajax({
-//        url: "/Equipo/CargarDatos",
-//        type: "GET",
+//        url: "/Equipo/consultar/" + ID,
+//        typr: "GET",
+//        contentType: "application/json;charset=UTF-8",
+//        dataType: "json",
+//        success: function (result) {
+
+//            $('#ID_Equipo').val(result.ID_Equipo);
+//            $('#Descripcion').val(result.Descripcion);
+//            $('#myModal').modal('show');
+//            $('#btnUpdate').show();
+//            $('#btnAdd').hide();
+//            $("#ID_Equipo").prop("disabled", true);
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//    return false;
+//}
+
+//function Update() {
+//    var res = validate();
+//    if (res == false) {
+//        return false;
+//    }
+//    var equipoObj = {
+//        ID_Equipo: $('#ID_Equipo').val(),
+//        Descripcion: $('#Descripcion').val(),
+//    };
+//    $.ajax({
+//        url: "/Equipo/Actualizar",
+//        data: JSON.stringify(equipoObj),
+//        type: "POST",
 //        contentType: "application/json;charset=utf-8",
 //        dataType: "json",
 //        success: function (result) {
-//            Area = result;
+//            loadTable();
+//            $('#myModal').modal('hide');
+//            clearTextBox();
 //        },
 //        error: function (errormessage) {
 //            alert(errormessage.responseText);
 //        }
 //    });
 //}
+//function for deleting employee's record
+
+
+function clearTextBox() {
+    $('#ID_Equipo').val("");
+    $('#Descripcion').val("");   
+ }
+
 
