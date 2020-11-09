@@ -63,6 +63,7 @@ function MENSAJE_WARNING(MENSAJE) {
         confirmButtonText: "¡ Entendido !",
         confirmButtonColor: '#24a0ed',
         closeOnConfirm: true
+
     });
 }//FIN DE MENSAJE_WARNING
 
