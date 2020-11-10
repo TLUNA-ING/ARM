@@ -24,11 +24,10 @@ namespace ProyectoProgramacion
     
         public int departamentoId { get; set; }
         public string deparatamentoNombre { get; set; }
-        public Nullable<long> empleadoCedula { get; set; }
+        public string departamentoEstado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Equipo_X_Departamento> Equipo_X_Departamento { get; set; }
-        public virtual Empleados Empleados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitudes> Solicitudes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

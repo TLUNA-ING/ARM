@@ -27,7 +27,7 @@
           </Key>
           <Property Name="departamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="deparatamentoNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="empleadoCedula" Type="bigint" />
+          <Property Name="departamentoEstado" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Empleados">
           <Key>
@@ -188,18 +188,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblDepartamentos_tblEmpleados">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
-          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="empleadoCedula" />
-            </Principal>
-            <Dependent Role="Departamentos">
-              <PropertyRef Name="empleadoCedula" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblSolicitud_tblClientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
@@ -325,10 +313,6 @@
             <End Role="Provincias" EntitySet="Provincias" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblDepartamentos_tblEmpleados" Association="Self.FK_tblDepartamentos_tblEmpleados">
-            <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="Departamentos" EntitySet="Departamentos" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblSolicitud_tblClientes" Association="Self.FK_tblSolicitud_tblClientes">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
@@ -380,9 +364,8 @@
           </Key>
           <Property Name="departamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="deparatamentoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="empleadoCedula" Type="Int64" />
+          <Property Name="departamentoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Equipo_X_Departamento" Relationship="Self.FK_Equipo_x_Departamento_Departamentos" FromRole="Departamentos" ToRole="Equipo_X_Departamento" />
-          <NavigationProperty Name="Empleados" Relationship="Self.FK_tblDepartamentos_tblEmpleados" FromRole="Departamentos" ToRole="Empleados" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblDepartamentos" FromRole="Departamentos" ToRole="Solicitudes" />
           <NavigationProperty Name="Clientes" Relationship="Self.Departamento_X_Cliente" FromRole="Departamentos" ToRole="Clientes" />
         </EntityType>
@@ -397,7 +380,6 @@
           <Property Name="empleadoSegundoA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="empleadoCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="empleadoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Departamentos" Relationship="Self.FK_tblDepartamentos_tblEmpleados" FromRole="Empleados" ToRole="Departamentos" />
           <NavigationProperty Name="TipoCedula" Relationship="Self.FK_Empleados_Tipo_Ced" FromRole="Empleados" ToRole="TipoCedula" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblEmpleados" FromRole="Empleados" ToRole="Solicitudes" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Empleados" FromRole="Empleados" ToRole="Usuarios" />
@@ -528,18 +510,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblDepartamentos_tblEmpleados">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
-          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="empleadoCedula" />
-            </Principal>
-            <Dependent Role="Departamentos">
-              <PropertyRef Name="empleadoCedula" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblSolicitud_tblDepartamentos">
           <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
@@ -664,10 +634,6 @@
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Equipo_X_Departamento" EntitySet="Equipo_X_Departamento" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblDepartamentos_tblEmpleados" Association="Self.FK_tblDepartamentos_tblEmpleados">
-            <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="Departamentos" EntitySet="Departamentos" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblSolicitud_tblDepartamentos" Association="Self.FK_tblSolicitud_tblDepartamentos">
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
@@ -742,7 +708,7 @@
               <MappingFragment StoreEntitySet="Departamentos">
                 <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
                 <ScalarProperty Name="deparatamentoNombre" ColumnName="deparatamentoNombre" />
-                <ScalarProperty Name="empleadoCedula" ColumnName="empleadoCedula" />
+                <ScalarProperty Name="departamentoEstado" ColumnName="departamentoEstado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

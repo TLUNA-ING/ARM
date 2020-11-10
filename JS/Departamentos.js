@@ -1,13 +1,8 @@
-﻿//Load Data in Table when documents is ready
-$(document).ready(function () {
-    loadTable();
+﻿$(document).ready(function () {
+    CargarGrid();
 });
 
-function cargarAgregar() {
-    clearTextBox();
-}
-//Load Data function
-function loadTable() {
+function CargarGrid() {
     var table = $('#DatoDepa').dataTable({
         destroy: true,
         "language": {
@@ -23,19 +18,23 @@ function loadTable() {
             dataType: "json",
             autoWidth: false,
             dataSrc: ""
-
-
         },
         columns: [
             { "data": "ID_Departamento" },
             { "data": "Descripcion" },
+            { "data": "Estado" },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-primary' onclick= getbyID(" + row.ID_Departamento + ")>" +
+                    return "<button type='button' class='btn btn-primary' onclick= ConsultarDepartamento(" + row.ID_Departamento + ")>" +
                         "<i class='	glyphicon glyphicon-pencil'> </i>" +
-                        "</button > " +
-                        "<button type='button' class='btn btn-danger'  onclick= Delete(" + row.ID_Departamento + ")>" +
+                        "</button > "
+                }
+            },
+            {
+                "data": null,
+                "render": function (data, type, row) {
+                    return "<button type='button' class='btn btn-danger' onclick= P_ModificarEstado(" + row.ID_Departamento + ")>" +
                         "<i class='	glyphicon glyphicon-trash'> </i>" +
                         "</button > "
                 }
@@ -43,124 +42,196 @@ function loadTable() {
 
         ]
     });
-}
+}//FIN DE CargarGrid
 
-//Add Data Function 
-function Add() {
-    var res = validate();
-    if (res == false) {
-        return false;
+function cargarAgregar() {
+    $("#Id_depa").val("")
+    $("#Desc_Depa").val("")
+    $('#btnUpdate').hide();
+    $('#btnAdd').show();
+}//FIN DE CARGAR_AGREGAR
+
+function VALIDAR() {
+    var ENTRAR = false;
+    if ($('#Desc_Depa').val().trim() == "") {
+        MENSAJE_WARNING("¡Descripción inválida, por favor revise los datos brindados!");
+    } else {
+        ENTRAR = true;
     }
+    return ENTRAR;
+}//FIN DE VALIDAR
 
-    var areaObj = {
-        Descripcion: $('#Descripcion').val(),
-    };
-    try {
+function MENSAJE_WARNING(MENSAJE) {
+    swal({
+        title: "¡No se pudo procesar!",
+        text: MENSAJE,
+        type: "info",
+        showCancelButton: false,
+        confirmButtonText: "¡ Entendido !",
+        confirmButtonColor: '#24a0ed',
+        closeOnConfirm: true
+
+    });
+}//FIN DE MENSAJE_WARNING
+
+function AgregarDepartamento() {
+    if (VALIDAR() == true) {
+        var DepartamentoObj = {
+            Descripcion: $('#Desc_Depa').val()
+        };
+
         $.ajax({
-            url: "/Departamento/Agregar",
-            data: JSON.stringify(areaObj),
+            url: "/Departamento/AgregarDepartamento",
+            data: JSON.stringify(DepartamentoObj),
             type: "POST",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-                loadTable();
-                $('#myModal').modal('hide');
 
-                clearTextBox();
+                if (result == "Agregado") {
+                    swal({
+                        title: "¡Acción realizada!",
+                        text: "¡El departamento fue agregado correctamente!",
+                        type: "success",
+                        confirmButtonColor: "#10AF5D",
+                        confirmButtonText: "Aceptar"
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                CargarGrid();
+                                $('#myModal').modal('hide');
+                                clearTextBox();
+                            }
+                        });
+                } else if (result == "Existe") {
+                    MENSAJE_WARNING("¡Ya existe un departamento con la descripción: " + $('#Desc_Depa').val() + " !");
+                } else {
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+                }
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
             }
         });
-    } catch (err) { alert(err.responseText); }
-}
-//Function for getting the Data Based upon Employee ID
-function getbyID(ID) {
+    }
+}//FIN DE AgregarEquipo
+
+function ConsultarDepartamento(ID) {
     $.ajax({
-        url: "/Departamento/Consultar/" + ID,
+        url: "/Departamento/ConsultarDepartamento/" + ID,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
 
-            $('#ID_Depa').val(result.ID_Departamento);
-            $('#Descripcion').val(result.Descripcion);
+            $('#Id_depa').val(result.ID_Departamento);
+            $('#Desc_Depa').val(result.Descripcion);
             $('#myModal').modal('show');
             $('#btnUpdate').show();
             $('#btnAdd').hide();
-            $("#ID_Depa").prop("disabled", true);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
     return false;
-}
-//function for updating employee's record
-function Update() {
-    var res = validate();
-    if (res == false) {
-        return false;
+}//FIN DE ConsultarDepartamento
+
+function ModificarDepartamento() {
+
+    if (VALIDAR() == true) {
+        var DepartamentoObj = {
+            ID_Departamento: $('#Id_depa').val(),
+            Descripcion: $('#Desc_Depa').val(),
+        };
+
+        $.ajax({
+            url: "/Departamento/ModificarDepartamento",
+            data: JSON.stringify(DepartamentoObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                if (result == "Modificado") {
+                    swal({
+                        title: "¡Acción realizada!",
+                        text: "¡El departamento fue modificado correctamente!",
+                        type: "success",
+                        confirmButtonColor: "#10AF5D",
+                        confirmButtonText: "Aceptar"
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                CargarGrid();
+                                $('#myModal').modal('hide');
+                                clearTextBox();
+                            }
+                        });
+                } else if ("Existe") {
+                    MENSAJE_WARNING("¡Ya existe un departamento con la descripción: " + $('#Desc_Depa').val() + " !");
+                } else {
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+                }
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
     }
-    var objArea = {
-        ID_Departamento: $('#ID_Depa').val(),
-        Descripcion: $('#Descripcion').val()
-    };
-    $.ajax({
-        url: "/Departamento/Actualizar/",
-        data: JSON.stringify(objArea),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            loadTable();
-            $('#myModal').modal('hide');
+}//FIN DE ModificarDepartamento
 
-            clearTextBox();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-//function for deleting employee's record
-function Delete(ID) {
 
+
+function P_ModificarEstado(ID) {
+    swal({
+        title: "¡Validación!",
+        text: "¿Está seguro que desea modificar el estado del departamento?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#10AF5D",
+        confirmButtonText: "¡Si!",
+        cancelButtonText: "¡No!"
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                ModificarEstado(ID);
+            }
+        });
+}//FIN DE PreguntaModificarEstado
+
+function ModificarEstado(ID) {
     $.ajax({
-        url: "/Departamento/Eliminar/" + ID,
+        url: "/Departamento/ModificarEstado/" + ID,
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            loadTable();
+
+            if (result == "Modificado") {
+                swal({
+                    title: "¡Acción realizada!",
+                    text: "¡El estado del equipo cambió correctamente!",
+                    type: "success",
+                    confirmButtonColor: "#10AF5D",
+                    confirmButtonText: "Aceptar"
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            CargarGrid();
+                        }
+                    });
+            } else {
+                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
+}//FIN DE ModificarEstado
 
-}
-
-//Function for clearing the textboxes
 function clearTextBox() {
-    $('#ID_Depa').val("");
-    $('#Descripcion').val("");
-    $('#btnUpdate').hide();
-    $('#btnAdd').show();
-    $("#ID_Depa").prop("disabled", false);
-    $('#ID_Depa').css('border-color', 'lightgrey');
-}
-
-
-// Validar datos
-function validate() {
-    var isValid = true;
-    if ($('#Descripcion').val().trim() == "") {
-        $('#Descripcion').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#Descripcion').css('border-color', 'lightgrey');
-    }
-    return isValid;
-}
+    $('#Id_depa').val("");
+    $('#Desc_Depa').val("");
+}//FIN DE clearTextBox

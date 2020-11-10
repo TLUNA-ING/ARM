@@ -92,29 +92,21 @@ namespace ProyectoProgramacion.Controllers
         [HttpPost]
         public ActionResult ModificarEquipo(etlEquipo equip){
             try{
-
                 EquipoModelo modelEquipo = new EquipoModelo();
                 var equipo = modelEquipo.ConsultarUnEquipoID(equip.ID_Equipo);
 
                 if (equipo.Descripcion != ""){
                     var MODIFICADO = modelEquipo.ModificarEquipo(equip);
 
-                    if (MODIFICADO == true)
-                    {
+                    if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
+                    }else{
                         return Json("Existe", JsonRequestBehavior.AllowGet);
                     }
 
-                }
-                else
-                {
+                }else{
                     return Json("XXX", JsonRequestBehavior.AllowGet);
                 }
-
-
             }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
