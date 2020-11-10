@@ -17,7 +17,8 @@ function CARGAR_GRID() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             autoWidth: false,
-            dataSrc: ""
+            dataSrc: "",
+            stripeClasses: []
         },
         columns: [
             { "data": "ID_Equipo" },
@@ -26,17 +27,17 @@ function CARGAR_GRID() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-primary' onclick= ConsultarEquipo(" + row.ID_Equipo + ")>" +
-                        "<i class='	glyphicon glyphicon-pencil'> </i>" +
-                        "</button > "
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarEmpleado(" + row.ID_Equipo + ") > " +
+                            "<i class='material-icons'>create</i>"+
+                                " </button ></div>"
                 }
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-danger' onclick= P_ModificarEstado(" + row.ID_Equipo + ")>" +
-                        "<i class='	glyphicon glyphicon-trash'> </i>" +
-                        "</button > "
+                    return "<div style='text-align:center'><button type='button' class='btn btn-default btn-circle waves-effect' onclick= P_ModificarEstado(" + row.ID_Equipo + ")>" +
+                        "<i class='material-icons'>visibility</i>" +
+                        "</button ></div> "
                 }
             }
 
