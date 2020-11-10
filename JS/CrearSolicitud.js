@@ -16,6 +16,9 @@ $(document).ready(function () {
     cargarEmpleado();
 
 });
+
+//window.onload = cargarAgregar;
+
 //Load Data function
 function loadTable() {
     var table = $('#DatoSolicitud').dataTable({
@@ -116,7 +119,7 @@ function Add() {
             dataType: "json",
             success: function (result) {
                 loadTable();
-                $('#myModal').modal('hide');
+                //$('#myModal').modal('hide');
                 clearTextBox();
             },
             error: function (result) {
@@ -127,7 +130,7 @@ function Add() {
 }
 //Function for getting the Data Based upon Employee ID
 function getbyID(EmpID) {
-    //cargarAgregar();
+    cargarAgregar();
     $.ajax({
         url: "/Solicitud/consultar/" + EmpID,
         typr: "GET",

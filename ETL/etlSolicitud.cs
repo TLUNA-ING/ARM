@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoProgramacion.ETL
 {
     public class etlSolicitud
 
     {
+
+        [Key]
         public int ID_Solicitud { get; set; } = 0;
 
         public etlCliente Cliente { get; set; } = new etlCliente();
