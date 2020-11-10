@@ -26,7 +26,7 @@ function CARGAR_GRID() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-danger' onclick= ConsultarEquipo(" + row.ID_Equipo + ")>" +
+                    return "<button type='button' class='btn btn-primary' onclick= ConsultarEquipo(" + row.ID_Equipo + ")>" +
                         "<i class='	glyphicon glyphicon-pencil'> </i>" +
                         "</button > "
                 }
@@ -34,7 +34,7 @@ function CARGAR_GRID() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-primary' onclick= P_ModificarEstado(" + row.ID_Equipo + ")>" +
+                    return "<button type='button' class='btn btn-danger' onclick= P_ModificarEstado(" + row.ID_Equipo + ")>" +
                         "<i class='	glyphicon glyphicon-trash'> </i>" +
                         "</button > "
                 }

@@ -118,8 +118,6 @@ namespace ProyectoProgramacion.Controllers
             }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-
-
-        }
+        }//FIN DE ModificarEquipo
     }
 }

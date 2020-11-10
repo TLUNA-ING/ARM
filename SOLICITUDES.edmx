@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="clienteId" />
@@ -39,6 +39,7 @@
           <Property Name="empleadoPrimerA" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="empleadoSegundoA" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="empleadoCorreo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="empleadoEstado" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Equipo_X_Departamento">
           <Key>
@@ -357,7 +358,8 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ARMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -394,6 +396,7 @@
           <Property Name="empleadoPrimerA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="empleadoSegundoA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="empleadoCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="empleadoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Departamentos" Relationship="Self.FK_tblDepartamentos_tblEmpleados" FromRole="Empleados" ToRole="Departamentos" />
           <NavigationProperty Name="TipoCedula" Relationship="Self.FK_Empleados_Tipo_Ced" FromRole="Empleados" ToRole="TipoCedula" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblEmpleados" FromRole="Empleados" ToRole="Solicitudes" />
@@ -416,9 +419,9 @@
           </Key>
           <Property Name="equipoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="equipoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="equipoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Equipo_X_Departamento" Relationship="Self.FK_Equipo_x_Departamento_Equipos" FromRole="Equipos" ToRole="Equipo_X_Departamento" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblEquipos" FromRole="Equipos" ToRole="Solicitudes" />
-          <Property Name="equipoEstado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Provincias">
           <Key>
@@ -703,7 +706,7 @@
           </AssociationSet>
           <FunctionImport Name="CONSULTAR_EMPLEADOS_NO_USUARIO" ReturnType="Collection(ARMModel.CONSULTAR_EMPLEADOS_NO_USUARIO_Result)" />
           <FunctionImport Name="CONSULTAR_UN_EMPLEADO_BD" ReturnType="Collection(ARMModel.CONSULTAR_UN_EMPLEADO_BD_Result)">
-          <Parameter Name="CEDULA" Mode="In" Type="String" />
+            <Parameter Name="CEDULA" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
@@ -717,6 +720,7 @@
           <Property Type="String" Name="empleadoPrimerA" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="empleadoSegundoA" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="empleadoCorreo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="empleadoEstado" Nullable="false" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -751,6 +755,7 @@
                 <ScalarProperty Name="empleadoPrimerA" ColumnName="empleadoPrimerA" />
                 <ScalarProperty Name="empleadoSegundoA" ColumnName="empleadoSegundoA" />
                 <ScalarProperty Name="empleadoCorreo" ColumnName="empleadoCorreo" />
+                <ScalarProperty Name="empleadoEstado" ColumnName="empleadoEstado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -766,9 +771,9 @@
           <EntitySetMapping Name="Equipos">
             <EntityTypeMapping TypeName="ARMModel.Equipos">
               <MappingFragment StoreEntitySet="Equipos">
-                <ScalarProperty Name="equipoEstado" ColumnName="equipoEstado" />
                 <ScalarProperty Name="equipoId" ColumnName="equipoId" />
                 <ScalarProperty Name="equipoNombre" ColumnName="equipoNombre" />
+                <ScalarProperty Name="equipoEstado" ColumnName="equipoEstado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -861,6 +866,7 @@
                 <ScalarProperty Name="empleadoPrimerA" ColumnName="empleadoPrimerA" />
                 <ScalarProperty Name="empleadoSegundoA" ColumnName="empleadoSegundoA" />
                 <ScalarProperty Name="empleadoCorreo" ColumnName="empleadoCorreo" />
+                <ScalarProperty Name="empleadoEstado" ColumnName="empleadoEstado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

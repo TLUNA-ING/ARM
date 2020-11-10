@@ -27,6 +27,7 @@ namespace ProyectoProgramacion
         public string empleadoPrimerA { get; set; }
         public string empleadoSegundoA { get; set; }
         public string empleadoCorreo { get; set; }
+        public string empleadoEstado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Departamentos> Departamentos { get; set; }
