@@ -5,23 +5,18 @@ using System.Linq;
 
 namespace ProyectoProgramacion.Models
 {
-    public class EquipoModelo
-    {
-        public List<etlEquipo> ConsultarTodos()
-        {
-            using (var contextoBD = new ARMEntities())
-            {
+    public class EquipoModelo{
+        public List<etlEquipo> ConsultarTodos(){
+            using (var contextoBD = new ARMEntities()){
                 var respuesta = contextoBD.Equipos.Select(x =>
-                new etlEquipo
-                {
+                new etlEquipo{
                     ID_Equipo = x.equipoId,
                     Descripcion = x.equipoNombre.Trim(),
                     Estado = x.equipoEstado
                 }).ToList();
                 return respuesta;
             }
-
-        }
+        }//FIN DE ConsultarTodos
 
         List<Equipos> EQUIPOS = new List<Equipos>();
         public List<Equipos> ConsultarUnEquipo(string DESCRIPCION) {
@@ -55,7 +50,6 @@ namespace ProyectoProgramacion.Models
                 throw new System.Exception("Error");
             }
         }//FIN DE ConsultarUnEquipoID
-
 
         public bool ModificarEstado(etlEquipo equipo){
             try{
@@ -99,7 +93,6 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarEquipo
 
-
         public bool AgregarEquipo(etlEquipo equipo){
             try{
                 bool AGREGADO = false;
@@ -114,34 +107,10 @@ namespace ProyectoProgramacion.Models
                     AGREGADO = true;
                 }
                 return AGREGADO;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 return false;
             }
         }//FIN DE AgregarEquipo
 
-
-
-        public etlEquipo Consultar(long id)
-        {
-            try
-            {
-                using (var contextoBD = new ARMEntities())
-                {
-                    Equipos equipos = contextoBD.Equipos.Find(id);
-                    etlEquipo equipo = new etlEquipo
-                    {
-                        ID_Equipo = equipos.equipoId,
-                        Descripcion = equipos.equipoNombre
-                    };
-                    return equipo;
-                }
-            }
-            catch (Exception e)
-            {
-                throw new System.Exception("Error");
-            }
-
-        }
-    }
+    }//FIN DE EquipoModelo
 }

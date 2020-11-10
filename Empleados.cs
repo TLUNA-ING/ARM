@@ -17,7 +17,6 @@ namespace ProyectoProgramacion
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleados()
         {
-            this.Departamentos = new HashSet<Departamentos>();
             this.Solicitudes = new HashSet<Solicitudes>();
         }
     
@@ -29,8 +28,6 @@ namespace ProyectoProgramacion
         public string empleadoCorreo { get; set; }
         public string empleadoEstado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Departamentos> Departamentos { get; set; }
         public virtual TipoCedula TipoCedula { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitudes> Solicitudes { get; set; }
