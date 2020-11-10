@@ -2322,8 +2322,9 @@ th {
   background-color: #f9f9f9;
 }
 .table-hover > tbody > tr:hover {
-    background-color: #DA8A47;
-    color: white;
+    background-color: #EFFAFF;
+    color: black;
+    font-weight: bold;
 }
 table col[class*="col-"] {
   position: static;
@@ -2432,7 +2433,7 @@ table th[class*="col-"] {
 .table > thead > tr.danger > th,
 .table > tbody > tr.danger > th,
 .table > tfoot > tr.danger > th {
-  background-color: #f2dede;
+  background-color: #DCF8FF;
 }
 .table-hover > tbody > tr > td.danger:hover,
 .table-hover > tbody > tr > th.danger:hover,
@@ -3005,9 +3006,9 @@ select[multiple].input-lg {
 }
 .btn {
   display: inline-block;
-  padding: 6px 12px;
+  padding: 6px 14px;
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   line-height: 1.42857143;
   text-align: center;
@@ -4762,8 +4763,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   z-index: 3;
   color: #fff;
   cursor: default;
-  background-color: #337ab7;
-  border-color: #337ab7;
+  background-color: darkorange;
+  border-color: darkorange;
 }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,

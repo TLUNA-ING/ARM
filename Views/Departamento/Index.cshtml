@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="block-header">
             <h1>Departamentos</h1>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Departamento</button><br /><br />
+            <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Departamento</button><br /><br />
         </div>
 
         <div class="row clearfix">
@@ -68,9 +68,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="return AgregarDepartamento();">Agregar</button>
-                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="ModificarDepartamento();">Actualizar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarDepartamento();"><i class="material-icons">save</i></button>
+                    <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarDepartamento();"><i class="material-icons">save</i></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
                 </div>
             </div>
         </div>
