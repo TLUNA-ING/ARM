@@ -75,23 +75,6 @@
         </div>
     </div>
     <!-- #END# Search Bar -->
-    <!-- Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">ANÁLISIS Y REGISTRO DE BITÁCORAS</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                    <!-- #END# Call Search -->
-                </ul>
-            </div>
-        </div>
-    </nav>
     <!-- #Top Bar -->
     <nav class="navbar">
         <div class="container-fluid">
@@ -99,13 +82,6 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.html">ANÁLISIS Y REGISTRO DE BITÁCORAS</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                    <!-- #END# Call Search -->
-                </ul>
             </div>
         </div>
     </nav>
@@ -136,48 +112,65 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">Menu Principal</li>
-                    <li>
-                        <a href="/Empleado/">
-                            <i class="material-icons col-light-blue">face</i>
-                            <span>Empleados</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons col-light-blue">settings</i>
+                            <i class="material-icons col-black">face</i>
+                            <span>Acceso</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/Empleado/">
+                                    <i class="material-icons col-black">groups</i>
+                                    <span>Empleados</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Usuario/">
+                                    <i class="material-icons col-black">groups</i>
+                                    <span>Usuarios</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons col-black">settings</i>
                             <span>Mantenimientos</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="/Equipo/">Equipos</a>
+                                <a href="/Equipo/">
+                                    <i class="material-icons col-black">construction</i>
+                                    <span>Equipos</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="/Cliente/">Clientes</a>
+                                <a href="/Cliente/">
+                                    <i class="material-icons col-black">construction</i>
+                                    <span>Clientes</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="/Empleado/">Tipo de trabajo</a>
+                                <a href="/Empleado/">
+                                    <i class="material-icons col-black">construction</i>
+                                    <span>Tipo de trabajo</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="/Departamento/">Departamentos</a>
+                                <a href="/Departamento/">
+                                    <i class="material-icons col-black">construction</i>
+                                    <span>Departamentos</span>
+                                </a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons col-light-blue">settings</i>
+                        <a href="/Solicitudes/">
+                            <i class="material-icons col-light-blue">text_fields</i>
                             <span>Solicitudes</span>
                         </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/Solicitud/Create/">Crear Solicitud</a>
-                            </li>
-                            <li>
-                                <a href="/Solicitud/Details/">Consulta Solicitudes</a>
-                            </li>
-                            <li>
-                                <a href="/Solicitud/Edit/">Modificar Solicitudes</a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <a href="/Reportes/">
@@ -186,9 +179,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/Consulta/">
-                            <i class="material-icons col-light-blue">history</i>
-                            <span>Consulta de Solicitudes</span>
+                        <a href="/Reportes/">
+                            <i class="material-icons col-black">history</i>
+                            <span>Reportes</span>
                         </a>
                     </li>
                 </ul>
