@@ -8,139 +8,203 @@
         <section class="content">
 
             <div class="container-fluid">
-
-                <div class="form-group">
-
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="IDSolicitud">IDSolicitud</label>
-                            <input type="text" class="form-control" id="IDSolicitud" placeholder="ID Solicitud" readonly="readonly" />
-                        </div>
-                        <div class="col-xs-6">
-                            <label for="Cliente">Cliente:</label>
-                            <select name="sltcliente" id="Cliente" class="form-control">
-                            </select>
-
-
-                        </div>
-                    </div>
+                <div class="block-header">
+                    <h2>
+                        Ingreso de Solicitudes
+                    </h2>
                 </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="Departamento">Departamento</label>
-                            <select name="sltDepartamento" id="Departamento" class="form-control">
-                            </select>
-                        </div>
-                        <div class="col-xs-6">
-                            <label for="Empleado">Empleado</label>
-                            <select name="sltEmpleado" id="Empleado" class="form-control">
-                            </select>
+                <!-- Basic Validation -->
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="Equipo">Equipo</label>
-                            <select name="sltEquipo" id="Equipo" class="form-control">
-                            </select>
-                        </div>
-                        <div class="col-xs-6">
-                            <label for="TipoTrabajo">Tipo Trabajo</label>
-                            <select name="sltTipoTrabajo" id="TipoTrabajo" class="form-control">
-                            </select>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="fechaReporte">Fecha</label>
-                            <input type="date" class="form-control" id="fechaReporte" placeholder="Fecha" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label for="horaEntrada">Hora Entrada:</label>
-                            <input type="time" class="form-control" id="horaEntrada" placeholder="Hora Entrada" />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label for="horaSalida">Hora Salida:</label>
-                            <input type="time" class="form-control" id="horaSalida" placeholder="Hora Salida" />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label for="tipoHora">Tipo Hora:</label>
-                            <input type="text" class="form-control" id="tipoHora" placeholder="Tipo Hora" />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label for="cantidadHoras">Cantidad de Horas:</label>
-                            <input type="number" class="form-control" id="cantidadHoras" placeholder="Cantidad Horas" />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label for="motivoVisita">Motivo de Visita:</label>
-                            <input type="text" class="form-control" id="motivoVisita" placeholder="Motivo de Visita" />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label for="motivoDetalle">Motivo de Detalle:</label>
-                            <textarea id="motivoDetalle" class="form-control" rows="4" style="resize:none;width:100%;max-width:none"></textarea>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label for="solicitudRepuestos">Solicitud Repuestos:</label>
-                            <textarea id="solicitudRepuestos" class="form-control" rows="4" style="resize:none;width:100%;max-width:none"></textarea>
-                        </div>
-
-                    </div>
-                </div>
-                <div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label for="equipoDetenido">Equipo Detenido:</label>
-                                <input type="text" class="form-control" id="equipoDetenido" placeholder="Equipo Detenido" />
+                        <div class="card">
+                            <div class="header">
+                                <h2>INGRESO DE SOLICITUDES</h2>
                             </div>
+                            <div class="body">
+                                <form id="form_validation" method="POST" novalidate="novalidate">
+                                    <div class="form-group form-float">
 
+                                    </div>
+
+
+
+                                    <div class="form-group form-float">
+
+
+                                        <div class="form-line">
+                                            <label for="IDSolicitud">Numero Solicitud</label>
+                                            <input type="text" class="form-control" id="IDSolicitud" name="ID Solicitud" required="" aria-required="true" readonly="readonly" />
+
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="form-group form-float">
+
+                                        <div class="form-line">
+                                            <label for="Cliente">Cliente</label>
+                                            <select name="sltcliente" id="Cliente" class="form-control" required="" aria-required="true">
+                                            </select>
+
+
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <label for="Departamento">Departamento</label>
+                                            <select name="sltDepartamento" id="Departamento" class="form-control" required="" aria-required="true">
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <label for="Empleado">Empleado</label>
+                                            <select name="sltEmpleado" id="Empleado" class="form-control" required="" aria-required="true">
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+
+                                            <label for="Equipo">Equipo</label>
+
+                                            <select name="sltEquipo" id="Equipo" class="form-control" required="" aria-required="true">
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <label for="TipoTrabajo">Tipo Trabajo</label>
+                                            <select name="sltTipoTrabajo" id="tipoTrabajo" class="form-control" required="" aria-required="true">
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+
+                                                <label for="fechaReporte">Fecha</label>
+                                                <input type="date" class="form-control" id="fechaReporte" required="" aria-required="true" />
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                
+                                                    <label for="horaEntrada">Hora Entrada:</label>
+                                                    <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" />
+                                                    
+                                                
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+
+                                                <label for="horaSalida">Hora Salida:</label>
+                                                <input type="time" class="form-control" id="horaSalida" required="" aria-required="true" />
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                
+                                                    <label for="tipoHora">Tipo Hora:</label>
+                                                    <input type="text" class="form-control" id="tipoHora" required="" aria-required="true"/>
+                                                
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                
+                                                    <label for="cantidadHoras">Cantidad de Horas:</label>
+                                                    <input type="number" class="form-control" id="cantidadHoras" required="" aria-required="true" />
+                                                
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                
+                                                    <label for="motivoVisita">Motivo de Visita:</label>
+                                                    <input type="text" class="form-control" id="motivoVisita" required="" aria-required="true" />
+                                               
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                
+                                                    <label for="motivoDetalle">Motivo de Detalle:</label>
+                                                    <textarea id="motivoDetalle" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
+                                                
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                
+                                                    <label for="solicitudRepuestos">Solicitud Repuestos:</label>
+                                                    <textarea id="solicitudRepuestos" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
+                                                
+
+                                            </div>
+                                        </div>
+                                        <div>
+
+
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    
+                                                        <label for="equipoDetenido">Equipo Detenido:</label>
+                                                        <input type="text" class="form-control" id="equipoDetenido" required="" aria-required="true" />
+                                                    
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-primary waves-effect" id="btnAdd" onclick="return Add();">Enviar</button>
+                                            <button type="button" class="btn btn-primary waves-effect" id="btnUpdate" style="display:none;" onclick="Update();">Actualizar</button>
+                                            <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
+                                            <button type="button" class="btn btn-primary waves-effect" id="btnPrint" onclick="return Add();">Imprimir</button>
+                                        </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Agregar</button>
-                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Actualizar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
                 </div>
             </div>
         </section>
