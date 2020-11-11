@@ -17,25 +17,27 @@ function CARGAR_GRID() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             autoWidth: false,
-            dataSrc: ""
+            dataSrc: "",
+            stripeClasses: []
         },
         columns: [
             { "data": "ID_Equipo" },
             { "data": "Descripcion" },
+            { "data": "Estado" },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-danger' onclick= getbyID(" + row.Cedula + ")>" +
-                        "<i class='	glyphicon glyphicon-pencil'> </i>" +
-                        "</button > "
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarEmpleado(" + row.ID_Equipo + ") > " +
+                            "<i class='material-icons'>create</i>"+
+                                " </button ></div>"
                 }
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-primary' onclick= Delete(" + row.Cedula + ")>" +
-                        "<i class='	glyphicon glyphicon-trash'> </i>" +
-                        "</button > "
+                    return "<div style='text-align:center'><button type='button' class='btn btn-default btn-circle waves-effect' onclick= P_ModificarEstado(" + row.ID_Equipo + ")>" +
+                        "<i class='material-icons'>visibility</i>" +
+                        "</button ></div> "
                 }
             }
 
@@ -62,16 +64,16 @@ function MENSAJE_WARNING(MENSAJE) {
         confirmButtonText: "¡ Entendido !",
         confirmButtonColor: '#24a0ed',
         closeOnConfirm: true
+
     });
 }//FIN DE MENSAJE_WARNING
 
 function cargarAgregar() {
+    $("#Descripcion_equipo").val("")
+    $("#Id_equipo").val("")
     $('#btnUpdate').hide();
     $('#btnAdd').show();
-    $("#Descripcion_equipo").focus()
 }//FIN DE CARGAR_AGREGAR
-
-
 
 function AgregarEquipo() {
     if (VALIDAR() == true) {
@@ -116,90 +118,125 @@ function AgregarEquipo() {
     }
 }//FIN DE AgregarEquipo
 
-//Function for getting the Data Based upon Employee ID
-function getbyID(ID) {
-    //cargarAgregar();
+function ModificarEquipo() {
+
+    if (VALIDAR() == true) {
+        var equipoObj = {
+            ID_Equipo: $('#Id_equipo').val(),
+            Descripcion: $('#Descripcion_equipo').val(),
+        };
+
+        $.ajax({
+            url: "/Equipo/ModificarEquipo",
+            data: JSON.stringify(equipoObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                if (result == "Modificado") {
+                    swal({
+                        title: "¡Acción realizada!",
+                        text: "¡El equipo fue modificado correctamente!",
+                        type: "success",
+                        confirmButtonColor: "#10AF5D",
+                        confirmButtonText: "Aceptar"
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                CARGAR_GRID();
+                                $('#myModal').modal('hide');
+                                clearTextBox();
+                            }
+                        });
+                } else if ("Existe") {
+                    MENSAJE_WARNING("¡Ya existe un equipo con la descripción: " + $('#Descripcion_equipo').val() + " !");
+                } else {
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+                }
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+}////FIN DE ModificarEquipo
+
+function ModificarEstado(ID) {
+
     $.ajax({
-        url: "/Equipo/consultar/" + ID,
+        url: "/Equipo/ModificarEstado/" + ID,
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            if (result == "Modificado") {
+                swal({
+                    title: "¡Acción realizada!",
+                    text: "¡El estado del equipo cambió correctamente!",
+                    type: "success",
+                    confirmButtonColor: "#10AF5D",
+                    confirmButtonText: "Aceptar"
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            CARGAR_GRID();
+                        }
+                    });
+            } else {
+                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+            }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}//FIN DE ModificarEstado
+
+function P_ModificarEstado(ID) {
+
+    swal({
+        title: "¡Validación!",
+        text: "¿Está seguro que desea modificar el estado del equipo?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#10AF5D",
+        confirmButtonText: "¡Si!",
+        cancelButtonText: "¡No!"
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                ModificarEstado(ID);
+            }
+        });
+}//FIN DE PreguntaModificarEstado
+
+
+function ConsultarEquipo(ID) {
+    $.ajax({
+        url: "/Equipo/ConsultarEquipo/" + ID,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
 
-            $('#ID_Equipo').val(result.ID_Equipo);
-            $('#Descripcion').val(result.Descripcion);
+            $('#Id_equipo').val(result.ID_Equipo);
+            $('#Descripcion_equipo').val(result.Descripcion);
             $('#myModal').modal('show');
             $('#btnUpdate').show();
             $('#btnAdd').hide();
-            $("#ID_Equipo").prop("disabled", true);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
     return false;
-}
-//function for updating employee's record
-function Update() {
-    var res = validate();
-    if (res == false) {
-        return false;
-    }
-    var equipoObj = {
-        ID_Equipo: $('#ID_Equipo').val(),
-        Descripcion: $('#Descripcion').val(),
-    };
-    $.ajax({
-        url: "/Equipo/Actualizar",
-        data: JSON.stringify(equipoObj),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            loadTable();
-            $('#myModal').modal('hide');
-            clearTextBox();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-//function for deleting employee's record
-function Delete(ID) {
+}//FIN DE ConsultarEquipo
 
-    $.ajax({
-        url: "/Equipo/Eliminar/" + ID ,
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            loadTable();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-//Function for clearing the textboxes
 function clearTextBox() {
     $('#ID_Equipo').val("");
     $('#Descripcion').val("");   
  }
 
-//function cargarArea() {
-//    $.ajax({
-//        url: "/Equipo/CargarDatos",
-//        type: "GET",
-//        contentType: "application/json;charset=utf-8",
-//        dataType: "json",
-//        success: function (result) {
-//            Area = result;
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}
 

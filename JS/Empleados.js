@@ -1,9 +1,8 @@
 ﻿//Load Data in Table when documents is ready
 $(document).ready(function () {
-    loadTable();
+    CARGAR_GRID();
 });
-//Load Data function
-function loadTable() {
+function CARGAR_GRID() {
     var table = $('#DatoEmpleado').dataTable({
         destroy: true,
         "language": {
@@ -17,7 +16,8 @@ function loadTable() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             autoWidth: false,
-            dataSrc: ""
+            dataSrc: "",
+            stripeClasses: []
 
 
         },
@@ -27,31 +27,84 @@ function loadTable() {
             { "data": "Primer_Apellido" },
             { "data": "Segundo_Apellido" },
             { "data": "Correo" },
+            { "data": "Estado" },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-danger' onclick= EliminarEmpleado(" + row.Cedula + ")>" +
-                        "<i class='	glyphicon glyphicon-trash'> </i>" +
-                        "</button > "
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarEmpleado(" + row.Cedula + ") > " +
+                            "<i class='material-icons'>create</i>"+
+                                " </button ></div>"
                 }
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-primary' onclick= ModificarEmpleado(" + row.Cedula + ")>" +
-                        "<i class='	glyphicon glyphicon-pencil'> </i>" +
-                        "</button > "
+                    return "<div style='text-align:center'><button type='button' class='btn btn-default btn-circle waves-effect' onclick= P_ModificarEstado(" + row.Cedula + ")>" +
+                        "<i class='material-icons'>visibility</i>" +
+                        "</button ></div> "
                 }
             }
 
         ]
     });
-}
+}//FIN DE CARGAR_GRID
 
-function ModificarEmpleado(Cedula) {
+
+function AgregarEmpleado() {
+    if (VALIDAR() == true) {
+
+        var empObj = {
+            TipoId: $("#tipo option:selected").val(),
+            Cedula: $('#Cedula').val(),
+            Nombre: $('#Nombre').val(),
+            Primer_Apellido: $('#Primer_Apellido').val(),
+            Segundo_Apellido: $('#Segundo_Apellido').val(),
+            Correo: $('#Correo').val(),
+        };
+
+        $.ajax({
+            url: "/Empleado/AgregarEmpleado",
+            data: JSON.stringify(empObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                if (result == "Agregado") {
+
+                    swal({
+                        title: "¡Acción realizada!",
+                        text: "¡El empleado fue agregado correctamente!",
+                        type: "success",
+                        confirmButtonColor: "#10AF5D",
+                        confirmButtonText: "Aceptar"
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                CARGAR_GRID();
+                                $('#myModal').modal('hide');
+                                clearTextBox();
+                            }
+                        });
+
+                } else if (result == "Existe") {
+                    MENSAJE_WARNING("¡Ya existe un empleado con la cédula: " + $('#Cedula').val() + " !");
+                } else {
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+                }
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+}//FIN DE AgregarEmpleado
+
+function ConsultarEmpleado(Cedula) {
 
     $.ajax({
-        url: "/Empleado/Consultar/" + Cedula,
+        url: "/Empleado/ConsultarEmpleado/" + Cedula,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -67,6 +120,7 @@ function ModificarEmpleado(Cedula) {
             $('#btnUpdate').show();
             $('#btnAdd').hide();
             $("#Cedula").prop("disabled", true);
+            $("#tipo").prop("disabled", true);
 
         },
         error: function (errormessage) {
@@ -74,33 +128,113 @@ function ModificarEmpleado(Cedula) {
         }
     });
     return false;
-}
-//function for deleting employee's record
-function EliminarEmpleado(ID) {
+}//FIN DE ConsultarEmpleado
+
+function ModificarEmpleado() {
+
+    if (VALIDAR() == true) {
+
+        var empObj = {
+            TipoId: $("#tipo option:selected").val(),
+            Cedula: $('#Cedula').val(),
+            Nombre: $('#Nombre').val(),
+            Primer_Apellido: $('#Primer_Apellido').val(),
+            Segundo_Apellido: $('#Segundo_Apellido').val(),
+            Correo: $('#Correo').val(),
+        };
+
+        $.ajax({
+            url: "/Empleado/ModificarEmpleado",
+            data: JSON.stringify(empObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                if (result == "Modificado") {
+                    swal({
+                        title: "¡Acción realizada!",
+                        text: "¡El empleado fue modificado correctamente!",
+                        type: "success",
+                        confirmButtonColor: "#10AF5D",
+                        confirmButtonText: "Aceptar"
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                CARGAR_GRID();
+                                $('#myModal').modal('hide');
+                                clearTextBox();
+                            }
+                        });
+                } else {
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+                }
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+}//FIN DE ModificarEmpleado
+
+function P_ModificarEstado(ID) {
+
+    swal({
+        title: "¡Validación!",
+        text: "¿Está seguro que desea modificar el estado del empleado?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#10AF5D",
+        confirmButtonText: "¡Si!",
+        cancelButtonText: "¡No!"
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                ModificarEstado(ID);
+            }
+        });
+}//FIN DE PreguntaModificarEstado
+
+function ModificarEstado(ID) {
 
     $.ajax({
-        url: "/Empleado/Eliminar/" + ID,
+        url: "/Empleado/ModificarEstado/" + ID,
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            loadTable();
+
+            if (result == "Modificado") {
+                swal({
+                    title: "¡Acción realizada!",
+                    text: "¡El estado del empleado cambió correctamente!",
+                    type: "success",
+                    confirmButtonColor: "#10AF5D",
+                    confirmButtonText: "Aceptar"
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            CARGAR_GRID();
+                        }
+                    });
+            } else {
+                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
+}//FIN DE ModificarEstado
 
-}
-//Cargar agregar div
 function cargarAgregar() {
-    //CARGAR_TIPO_CEDULA();
-}
+    clearTextBox();
+    //CargarTipoCedula();
+}//FIN DE cargarAgregar
 
-
-function CARGAR_TIPO_CEDULA() {
+function CargarTipoCedula() {
     $.ajax({
-        url: "/Empleado/CARGAR_TIPO_CEDULA",
+        url: "/Empleado/CargarTipoCedula",
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -116,9 +250,11 @@ function CARGAR_TIPO_CEDULA() {
         error: function (errormessage) {
         }
     });
-}
+}//FIN DE CargarTipoCedula
 
 function clearTextBox() {
+    document.getElementById("tipo").selectedIndex = "0";
+
     $('#Cedula').val("");
     $('#Nombre').val("");
     $('#Primer_Apellido').val("");
@@ -128,12 +264,8 @@ function clearTextBox() {
     $('#btnUpdate').hide();
     $('#btnAdd').show();
     $("#Cedula").prop("disabled", false);
-    $('#Cedula').css('border-color', 'lightgrey');
-    $('#Nombre').css('border-color', 'lightgrey');
-    $('#Primer_Apellido').css('border-color', 'lightgrey');
-    $('#Segundo_Apellido').css('border-color', 'lightgrey');
-    $('#Correo').css('border-color', 'lightgrey');
-}
+    $("#tipo").prop("disabled", false);
+}//FIN DE clearTextBox
 
 function VALIDAR() {
     var ENTRAR = false;
@@ -151,7 +283,7 @@ function VALIDAR() {
         MENSAJE_WARNING("¡Segundo apellido inválido, por favor revise los datos brindados!");
     } else if ($('#Correo').val().trim() == "") {
         MENSAJE_WARNING("¡Correo inválido, por favor revise los datos brindados!");
-    } else if (VALIDAR_EMAIL($('#Correo').val().trim())==false) {
+    } else if (VALIDAR_EMAIL($('#Correo').val().trim()) == false) {
         MENSAJE_WARNING("¡El correo posee un formato inválido, por favor revise los datos brindados!");
     } else {
         var CEDULA = $('#Cedula').val().trim();
@@ -160,7 +292,7 @@ function VALIDAR() {
         var STR = CODIGO.substring(0, 1).toUpperCase();
 
         if (STR == "F" && CEDULA.length < 9) {
-            MENSAJE_WARNING("¡Cédula inválida, el tipo de cédula seleccionado debe contener al menos 9 dígitos, actualmente contiene (" + CEDULA.length  +")!");
+            MENSAJE_WARNING("¡Cédula inválida, el tipo de cédula seleccionado debe contener al menos 9 dígitos, actualmente contiene (" + CEDULA.length + ")!");
         } else if (STR == "J" && CEDULA.length < 10) {
             MENSAJE_WARNING("¡Cédula inválida, el tipo de cédula seleccionado debe contener al menos 10 dígitos, actualmente contiene (" + CEDULA.length + ")!");
         } else if (STR == "N" && CEDULA.length < 10) {
@@ -192,7 +324,6 @@ function MENSAJE_WARNING(MENSAJE) {
     });
 }//FIN DE MENSAJE_WARNING
 
-
 function CAMBIO_CMB() {
     var TIPO = parseFloat($("#tipo option:selected").val());
 
@@ -208,7 +339,6 @@ function CAMBIO_CMB() {
     $("#Cedula").val('')
     document.getElementById("Cedula").focus();
 }//FIN DE CAMBIO_CMB
-
 
 $("#Cedula").keyup(function (event) {
     if (event.keyCode == 13) {
@@ -234,7 +364,6 @@ $("#Segundo_Apellido").keyup(function (event) {
     }
 });
 
-
 $("#Correo").keyup(function (event) {
     if (event.keyCode == 13) {
 
@@ -246,7 +375,6 @@ $("#Correo").keyup(function (event) {
     }
 });
 
-
 $(document).ready(function () {
     $("#Cedula").keypress(function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
@@ -254,99 +382,3 @@ $(document).ready(function () {
         }
     });
 });
-
-function AgregarEmpleado() {
-    if (VALIDAR() == true) {
-
-       var empObj = {
-            TipoId: $("#tipo option:selected").val(),
-            Cedula: $('#Cedula').val(),
-            Nombre: $('#Nombre').val(),
-            Primer_Apellido: $('#Primer_Apellido').val(),
-            Segundo_Apellido: $('#Segundo_Apellido').val(),
-            Correo: $('#Correo').val(),
-        };
-
-        $.ajax({
-            url: "/Empleado/Agregar",
-            data: JSON.stringify(empObj),
-            type: "POST",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-
-                if (result == "Agregado") {
-
-                    swal({
-                        title: "¡Acción realizada!",
-                        text: "¡El empleado fue agregado correctamente!",
-                        type: "success",
-                        confirmButtonColor: "#10AF5D",
-                        confirmButtonText: "Aceptar"
-                    },
-                        function (isConfirm) {
-                            if (isConfirm) {
-
-                                loadTable();
-                                $('#myModal').modal('hide');
-                                clearTextBox();
-                            }
-                        });
-
-                } else if (result == "Existe") {
-                    MENSAJE_WARNING("¡Ya existe un empleado con la cédula: " + $('#Cedula').val() +" !");
-                } else {
-                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
-                }
-
-            },
-            error: function (errormessage) {
-                alert(errormessage.responseText);
-            }
-        });
-    }
-}//FIN DE AgregarEmpleado
-
-
-function ModificarEmpleado() {
-
-    if (VALIDAR() == true) {
-
-    }
-
-
-    //var res = validate();
-    //if (res == false) {
-    //    return false;
-    //}
-    //var empObj = {
-    //    Cedula: $('#Cedula').val(),
-    //    Nombre: $('#Nombre').val(),
-    //    Primer_Apellido: $('#Primer_Apellido').val(),
-    //    Segundo_Apellido: $('#Segundo_Apellido').val(),
-    //    Telefono: $('#Telefono').val(),
-    //    Correo: $('#Correo').val(),
-    //    Direccion: {
-    //        Direccion: $('#Direccion').val(),
-    //        canton: {
-    //            ID_Canton: parseFloat($("#canton option:selected").val())
-    //        }
-    //    }
-    //};
-    //$.ajax({
-    //    url: "/Empleado/Actualizar",
-    //    data: JSON.stringify(empObj),
-    //    type: "POST",
-    //    contentType: "application/json;charset=utf-8",
-    //    dataType: "json",
-    //    success: function (result) {
-    //        loadTable();
-    //        $('#myModal').modal('hide');
-
-    //        clearTextBox();
-    //    },
-    //    error: function (errormessage) {
-    //        alert(errormessage.responseText);
-    //    }
-    //});
-}//FIN DE ModificarEmpleado

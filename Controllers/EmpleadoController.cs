@@ -6,43 +6,36 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
 {
-    public class EmpleadoController : Controller
-    {
+    public class EmpleadoController : Controller{
         // GET: Empleado
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult Index()
-        {
+        public ActionResult Index(){
             return View();
         }
-        //Cargar datos 
+
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult CargarDatos()
-        {
+        public ActionResult CargarDatos(){
             EmpleadoModelo modelEmpleado = new EmpleadoModelo();
             var respuesta = modelEmpleado.ConsultarTodos();
-            if (respuesta == null)
-            {
+            if (respuesta == null){
                 return Json(respuesta, JsonRequestBehavior.DenyGet);
             }
-            else
-            {
+            else{
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
-        }
-        //Agregar datos
+        }//FIN DE CargarDatos
+
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Agregar(etlEmpleado emp)
-        {
+        public ActionResult AgregarEmpleado(etlEmpleado emp){
             try{
                 EmpleadoModelo modelEmpleado = new EmpleadoModelo();
+                var empleado = modelEmpleado.ConsultarUnEmpleado(emp.Cedula);
 
-                var respuesta = modelEmpleado.ConsultarUnEmpleado(emp.Cedula);
-                if (respuesta.Count > 0){
+                if (empleado.Count > 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else {
-                  var AGREGADO =  modelEmpleado.GuardarConsulta(emp);
-
+                  var AGREGADO =  modelEmpleado.AgregarEmpleado(emp);
                     if (AGREGADO == true){
                         return Json("Agregado", JsonRequestBehavior.AllowGet);
                     }else{
@@ -52,72 +45,82 @@ namespace ProyectoProgramacion.Controllers
             }catch (Exception e) {
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-        }
+        }//FIN DE AgregarEmpleado
 
-        [HttpPost]
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult Eliminar(long id)
-        {
-            try
-            {
-                EmpleadoModelo modelEmpleado = new EmpleadoModelo();
-                modelEmpleado.Eliminar(id);
-                return Json(id, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json(e, JsonRequestBehavior.DenyGet);
-            }
-
-
-        }
-        [AutorizarUsuario(rol: "admin")]
-        public ActionResult Consultar(long id)
-        {
+        public ActionResult ConsultarEmpleado(long id){
             try{
                 EmpleadoModelo modelEmpleado = new EmpleadoModelo();
-                var respuesta = modelEmpleado.CONSULTAR_UN_EMPLEADO_BD(id);
+                var respuesta = modelEmpleado.ConsultarUnEmpleadoID(id);
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
+        }//FIN DE ConsultarEmpleado
 
-
-        }
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Actualizar(etlEmpleado emp)
-        {
-            try
-            {
+        public ActionResult ModificarEmpleado(etlEmpleado emp){
+            try{
                 EmpleadoModelo modelEmpleado = new EmpleadoModelo();
-                modelEmpleado.Actualizar(emp);
-                return Json(emp, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+                var empleado = modelEmpleado.ConsultarUnEmpleadoID(emp.Cedula);
+
+                if (empleado.Nombre != ""){
+                    var MODIFICADO = modelEmpleado.ModificarEmpleado(emp);
+
+                    if (MODIFICADO == true){
+                        return Json("Modificado", JsonRequestBehavior.AllowGet);
+                    } else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+
+                }else{
+                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                }
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
+        }//FIN DE ModificarEmpleado
 
+        [HttpPost]
+        [AutorizarUsuario(rol: "admin")]
+        public ActionResult ModificarEstado(long id){
+            try{
+                EmpleadoModelo modelEmpleado = new EmpleadoModelo();
+                var empleado = modelEmpleado.ConsultarUnEmpleadoID(id);
 
-        }
+                if (empleado.Nombre != ""){
+                    var MODIFICADO = modelEmpleado.ModificarEstado(empleado);
 
+                    if (MODIFICADO == true){
+                        return Json("Modificado", JsonRequestBehavior.AllowGet);
+                    } else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+
+                }else{
+                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }// FIN DE ModificarEstado
 
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult CARGAR_TIPO_CEDULA(){
+        public ActionResult CargarTipoCedula(){
             try{
                 EmpleadoModelo MODEL = new EmpleadoModelo();
 
-                var results = MODEL.CONSULTAR_TIPO_CED();
+                var results = MODEL.ConsultarTipoCedula();
                 return Json(results);
 
             }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-        }//FIN DE CARGAR_TIPO_CEDULA
+        }//FIN DE CargarTipoCedula
 
-    }
+    }//FIN DE EmpleadoController
 }

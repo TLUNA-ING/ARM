@@ -5,8 +5,10 @@
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
-            <h1>Empleados</h1>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Empleado</button><br /><br />
+            <h1>Mantenimiento de Empleados</h1>
+        </div>
+        <div class="col-xs-12">
+            <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Empleado</button><br /><br />
         </div>
         <!-- Basic Examples -->
         <div class="row clearfix">
@@ -14,7 +16,7 @@
                 <div class="card">
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DatoEmpleado">
+                            <table class="table table-bordered table-hover js-basic-example dataTable" id="DatoEmpleado">
                                 <thead>
                                     <tr>
                                         <th>Cedula</th>
@@ -22,8 +24,9 @@
                                         <th>Primer Apellido</th>
                                         <th>Segundo Apellido</th>
                                         <th>Correo</th>
-                                        <th>Habilitado</th>
+                                        <th>Estado</th>
                                         <th>Modificar</th>
+                                        <th>Habilitar/Deshabilitar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,7 +45,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Empleado</h4>
+                    <h4 class="modal-title" id="myModalLabel">Datos del Empleado</h4>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -101,9 +104,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="return AgregarEmpleado();">Agregar</button>
-                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="ModificarEmpleado();">Actualizar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
+                    <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarEmpleado();"><i class="material-icons">save</i></button>
+                    <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarEmpleado();"><i class="material-icons">save</i></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
                 </div>
             </div>
         </div>

@@ -2,23 +2,20 @@
 {
     public class etlEmpleado
     {
-        //Cedula
+
         public long Cedula { get; set; }
-        //Nombre
+
         public string Nombre { get; set; }
 
-        //Primer apellido
         public string Primer_Apellido { get; set; }
-        //Segundo Apellido
-        public string Segundo_Apellido { get; set; }
-        //Telefono
-        public string Telefono { get; set; }
-        //Correo
-        public string Correo { get; set; }
-        //Direccion
-        public int TipoId { get; set; }
 
-        public etlTipoTrabajo Direccion { get; set; }
+        public string Segundo_Apellido { get; set; }
+
+        public string Correo { get; set; }
+
+        public string Estado { get; set; }
+
+        public int TipoId { get; set; }
 
     }
 }

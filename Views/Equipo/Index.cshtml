@@ -7,8 +7,8 @@
 
         <div class="container-fluid">
             <div class="block-header">
-                <h1>Equipos</h1>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Equipo</button><br /><br />
+                <h1>Mantenimiento de Equipos</h1>
+                <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar</button><br /><br />
             </div>
             <!-- Basic Examples -->
             <div class="row clearfix">
@@ -16,13 +16,14 @@
                     <div class="card">
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DatoEquipo">
+                                <table class="table table-bordered table-hover js-basic-example dataTable" id="DatoEquipo">
                                     <thead>
                                         <tr>
                                             <th># Equipo</th>
                                             <th>Descripcion</th>
+                                            <th>Estado</th>
                                             <th>Modificar</th>
-                                            <th>Eliminar</th>
+                                            <th>Habilitar/Deshabilitar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,9 +69,9 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return AgregarEquipo();">Agregar</button>
-                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Actualizar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
+                        <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarEquipo();"><i class="material-icons">save</i></button>
+                        <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarEquipo;"><i class="material-icons">save</i></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
                     </div>
                 </div>
             </div>
