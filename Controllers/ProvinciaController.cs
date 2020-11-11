@@ -1,22 +1,26 @@
-﻿using ProyectoProgramacion.Models;
+﻿using ProyectoProgramacion.ETL;
+using ProyectoProgramacion.Filters;
+using ProyectoProgramacion.Models;
+using System;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
 {
     public class ProvinciaController : Controller
     {
-        // GET: Provincia
+        [AutorizarUsuario(rol: "admin")]
+        [HttpPost]
         public ActionResult CargarDatos()
         {
-            ProvinciaModelo modelProvincia = new ProvinciaModelo();
-            var respuesta = modelProvincia.ConsultarTodos();
-            if (respuesta == null)
+            try
             {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
+                ProvinciaModelo MODEL = new ProvinciaModelo();
+                var resultado = MODEL.ConsultarTodos();
+                return Json(resultado);
             }
-            else
+            catch (Exception e)
             {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
+                return Json(e, JsonRequestBehavior.DenyGet);
             }
         }
     }

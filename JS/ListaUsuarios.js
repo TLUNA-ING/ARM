@@ -4,13 +4,12 @@ $(document).ready(function () {
 });
 //Load Data function
 function loadTable() {
-    var table = $('#DatoUsuarios').dataTable({
+    var table = $('#DatoUsuario').dataTable({
         destroy: true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
         },
         responsive: true,
-        scrollY: "30em",
         scrollCollapse: true,
         ajax: {
             url: "/Usuario/CargarDatos",
@@ -18,9 +17,8 @@ function loadTable() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             autoWidth: false,
-            dataSrc: ""
-
-
+            dataSrc: "",
+            stripeClasses: []
         },
         columns: [
             { "data": "Empleado.Cedula" },
@@ -29,12 +27,17 @@ function loadTable() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<button type='button' class='btn btn-primary' onclick= getbyID(" + row.Empleado.Cedula + ")>" +
-                        "<i class='	glyphicon glyphicon-pencil'> </i>" +
-                        "</button > " +
-                        "<button type='button' class='btn btn-danger'  onclick= Delete(" + row.Empleado.Cedula + ")>" +
-                        "<i class='	glyphicon glyphicon-trash'> </i>" +
-                        "</button > "
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarEmpleado(" + row.Empleado.Cedula + ") > " +
+                            "<i class='material-icons'>create</i>"+
+                                " </button ></div>"
+                }
+            },
+            {
+                "data": null,
+                "render": function (data, type, row) {
+                    return "<div style='text-align:center'><button type='button' class='btn btn-default btn-circle waves-effect' onclick= P_ModificarEstado(" + row.Empleado.Cedula + ")>" +
+                        "<i class='material-icons'>visibility</i>" +
+                        "</button ></div> "
                 }
             }
 
@@ -190,9 +193,7 @@ function Add() {
                 var plantilla = '';
                 result.forEach(valor => {
 
-                    plantilla += `
-                    <option value="${valor.Value}">${valor.Text}</option>
-                    `
+                    plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
                 });
 
                 $("#empleados").html(plantilla);

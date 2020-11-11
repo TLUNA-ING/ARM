@@ -18,8 +18,6 @@ function CARGAR_GRID() {
             autoWidth: false,
             dataSrc: "",
             stripeClasses: []
-
-
         },
         columns: [
             { "data": "Cedula" },

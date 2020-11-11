@@ -1,9 +1,6 @@
-﻿//Variables globales
-var Provincia;
-//Load Data in Table when documents is ready
+﻿//Load Data in Table when documents is ready
 $(document).ready(function () {
     loadTable();
-    cargarProvincia();
 });
 //Load Data function
 function loadTable() {
@@ -13,7 +10,6 @@ function loadTable() {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
         },
         responsive: true,
-        scrollY: "30em",
         scrollCollapse: true,
         ajax: {
             url: "/Cliente/CargarDatos",
@@ -151,39 +147,25 @@ function Delete(ID) {
 
 //Cargar agregar div
 function cargarAgregar() {
-    $.each(Provincia, function (key, value) {
-        $("#provincia").append('<option value=' + value.ID_Provincia + '>' + value.Descripcion + '</option>');
-    });
+    CargarProvincias();
+    clearTextBox();
 }
-//$("#provincia").on('change', function () {
-//    cargarCantonProvincia();
-//});
 
-//Cargar canton por provincia seleccionada
-//function cargarCantonProvincia() {
-//    var x = $("#provincia option:selected").val();
-//    $('#canton').empty();
-//    $.each(Canton, function (key, value) {
-
-//        if (x == value.Provincia["ID_Provincia"]) {
-//            $("#canton").append('<option value=' + value.ID_Canton + '>' + value.Canton + '</option>');
-//        }
-
-//    });
-//}
-
-//Cargar Provincias
-function cargarProvincia() {
+function CargarProvincias() {
     $.ajax({
         url: "/Provincia/CargarDatos",
-        type: "GET",
-        contentType: "application/json;charset=utf-8",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            Provincia = result;
+
+            var provincias = '';
+
+            result.forEach(valor => { provincias += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#provincia").html(provincias);
+
         },
         error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -196,7 +178,6 @@ function clearTextBox() {
     $('#btnAdd').show();
     $("#ID_Centro").prop("disabled", false);
     $('#Descripcion').css('border-color', 'lightgrey');
-    $('#provincia option').remove();    
 }
 
 
