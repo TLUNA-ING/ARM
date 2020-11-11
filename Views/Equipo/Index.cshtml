@@ -7,8 +7,10 @@
 
         <div class="container-fluid">
             <div class="block-header">
-                <h1>Mantenimiento de Equipos</h1>
-                <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar</button><br /><br />
+                <h1>Lista de Equipos</h1>
+            </div>
+            <div class="col-xs-12">
+                <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Equipo</button><br /><br />
             </div>
             <!-- Basic Examples -->
             <div class="row clearfix">
@@ -42,7 +44,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Equipo</h4>
+                        <h4 class="modal-title" id="myModalLabel">Datos del Equipo</h4>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -58,7 +60,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-6">
                                         <label for="Descripción">Descripción</label>
                                         <div class="form-line">
                                             <input type="text" class="form-control" id="Descripcion_equipo" />
@@ -70,7 +72,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarEquipo();"><i class="material-icons">save</i></button>
-                        <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarEquipo;"><i class="material-icons">save</i></button>
+                        <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarEquipo();"><i class="material-icons">save</i></button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
                     </div>
                 </div>

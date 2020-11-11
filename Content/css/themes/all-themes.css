@@ -638,7 +638,10 @@
 .theme-orange .navbar-brand {
   color: black; }
   .theme-orange .navbar-brand:hover {
-    color: #fff; }
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+  }
   .theme-orange .navbar-brand:active {
     color: #fff; }
   .theme-orange .navbar-brand:focus {

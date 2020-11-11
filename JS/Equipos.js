@@ -27,7 +27,7 @@ function CARGAR_GRID() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarEmpleado(" + row.ID_Equipo + ") > " +
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarEquipo(" + row.ID_Equipo + ") > " +
                             "<i class='material-icons'>create</i>"+
                                 " </button ></div>"
                 }

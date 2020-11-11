@@ -5008,7 +5008,7 @@ section.content {
   .input-group .form-line {
     display: inline-block;
     width: 100%;
-    border-bottom: 1px solid brown;
+    border-bottom: 1px solid #ddd;
     position: relative; }
     .input-group .form-line:after {
       content: '';
