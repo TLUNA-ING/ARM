@@ -1,0 +1,84 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="block-header">
+            <h1>Lista de tipos de trabajo</h1>
+        </div>
+        <div class="col-xs-12">
+            <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Tipo</button><br /><br />
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover js-basic-example dataTable" id="DatoTipoTrabajo">
+                                <thead>
+                                    <tr>
+                                        <th># Tipo</th>
+                                        <th>Descripcion</th>
+                                        <th>Estado</th>
+                                        <th>Modificar</th>
+                                        <th>Habilitar/Deshabilitar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Datos del tipo</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label for="ID_Equipo"># Tipo</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="ID_Tipo" placeholder="Autogenerado" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label for="Descripción">Descripción</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="Desc_Tipo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarTipoTrabajo();"><i class="material-icons">save</i></button>
+                    <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarTipoTrabajo();"><i class="material-icons">save</i></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @Scripts.Render("/JS/TipoTrabajo.js")
+}

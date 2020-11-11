@@ -148,6 +148,7 @@
     <Compile Include="Controllers\SeguimientoController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
+    <Compile Include="Controllers\TipoTrabajoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Departamentos.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
@@ -3716,6 +3717,7 @@
     <Content Include="JS\Seguimiento.js" />
     <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />
+    <Content Include="JS\TipoTrabajo.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
@@ -4039,6 +4041,7 @@
     <Content Include="SOLICITUDES.edmx.diagram">
       <DependentUpon>SOLICITUDES.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\TipoTrabajo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

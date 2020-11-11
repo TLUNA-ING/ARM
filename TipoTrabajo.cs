@@ -22,6 +22,7 @@ namespace ProyectoProgramacion
     
         public int tipoTrabajoId { get; set; }
         public string tipoTrabajoNombre { get; set; }
+        public string tipoTrabajoEstado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitudes> Solicitudes { get; set; }
