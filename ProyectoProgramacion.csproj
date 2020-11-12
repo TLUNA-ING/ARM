@@ -397,6 +397,7 @@
     <Content Include="Content\pages\forms\editors.html" />
     <Content Include="Content\pages\forms\form-examples.html" />
     <Content Include="Content\pages\forms\form-validation.html" />
+    <Content Include="Content\pages\forms\pruebq.html" />
     <Content Include="Content\pages\forms\form-wizard.html" />
     <Content Include="Content\pages\helper-classes.html" />
     <Content Include="Content\pages\maps\google.html" />
