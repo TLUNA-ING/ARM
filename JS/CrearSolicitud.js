@@ -76,62 +76,59 @@ $(document).ready(function () {
 //}
 
 ////Add Data Function 
-//function Add() {
-//    var res = validate();
-//    if (res == false) {
-//        return false;
-//    }
-//    var empObj = {
-//        IDSolicitud: $('#IDSolicitud').val(),
-//        Empleado: {
-//            Cedula: parseFloat($("#Empleado option:selected").val())
-//        },
-//        Nombre: $('#Nombre').val(),
-//        Departamento: {
-//            ID_Departamento: parseFloat($("#Departamento option:selected").val())
-//        },
-//        Descripcion: $('#Descripcion').val(),
-//        Cliente: {
-//            ID_Cliente: parseFloat($("#Cliente option:selected").val())
-//        },
-//        Descripcion: $('#Descripcion').val(),
-//        Equipo: {
-//            ID_Equipo: parseFloat($("#Equipo option:selected").val())
-//        },
-//        Descripcion: $('#Descripcion').val(),
-//        TipoTrabajo: {
-//            ID_TipoTrabajo: parseFloat($("#TipoTrabajo option:selected").val())
-//        },
-//        Descripcion: $('#Descripcion').val(),
+function Add() {
+    var empObj = {
+        IDSolicitud: $('#IDSolicitud').val(),
+        Empleado: {
+            Cedula: parseFloat($("#Empleado option:selected").val())
+        },
+        Nombre: $('#Empleado').val(),
+        Departamento: {
+            ID_Departamento: parseFloat($("#Departamento option:selected").val())
+        },
+        Descripcion: $('#Departamento').val(),
+        Cliente: {
+            ID_Cliente: parseFloat($("#Cliente option:selected").val())
+        },
+        Descripcion: $('#Cliente').val(),
+        Equipo: {
+            ID_Equipo: parseFloat($("#Equipo option:selected").val())
+        },
+        Descripcion: $('#Equipo').val(),
+        TipoTrabajo: {
+            ID_TipoTrabajo: parseFloat($("#TipoTrabajo option:selected").val())
+        },
+        Descripcion: $('#tipoTrabajo').val(),
 
-//        Fecha_Reporte: $('#FechaReporte').val(),
-//        horaEntrada: $('#horaEntrada').val(),
-//        horaSalida: $('#horaSalida').val(),
-//        tipoHora: $('#tipoHora').val(),
-//        cantidadHoras: $('#cantidadHoras'),
-//        solicitudMotivo: $('#solicitudMotivo').val(),
-//        motivoDetalle: $('#motivoDetalle').val(),
-//        solicitudRepuestos: $('#solicitudRepuestos').val(),
-//        equipoDetenido: $('#equipoDetenido').val(),
-//    };
-//    try {
-//        $.ajax({
-//            url: "/Solicitud/Agregar",
-//            data: JSON.stringify(empObj),
-//            type: "POST",
-//            contentType: "application/json;charset=utf-8",
-//            dataType: "json",
-//            success: function (result) {
-//                loadTable();
-//                //$('#myModal').modal('hide');
-//                clearTextBox();
-//            },
-//            error: function (result) {
-//                alert('Revise los datos agregados, ya que no pueden haber campos vacios');
-//            }
-//        });
-//    } catch (err) { alert('Revise los datos agregados, ya que no pueden haber campos vacios'); }
-//}
+        Fecha_Reporte: $('#FechaReporte').val(),
+        horaEntrada: $('#horaEntrada').val(),
+        horaSalida: $('#horaSalida').val(),
+        tipoHora: $('#tipoHora').val(),
+        cantidadHoras: $('#cantidadHoras'),
+        solicitudMotivo: $('#solicitudMotivo').val(),
+        motivoDetalle: $('#motivoDetalle').val(),
+        solicitudRepuestos: $('#solicitudRepuestos').val(),
+        equipoDetenido: $('#equipoDetenido').val(),
+    };
+    try {
+        $.ajax({
+            url: "/Solicitud/Agregar",
+            data: JSON.stringify(empObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                loadTable();
+                //$('#myModal').modal('hide');
+                clearTextBox();
+            },
+            error: function (result) {
+                alert('Revise los datos agregados, ya que no pueden haber campos vacios');
+            }
+        });
+    } catch (err) { alert('Revise los datos agregados, ya que no pueden haber campos vacios'); }
+ 
+}
 ////Function for getting the Data Based upon Employee ID
 //function getbyID(EmpID) {
 //    cargarAgregar();

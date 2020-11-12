@@ -148,38 +148,38 @@ namespace ProyectoProgramacion.Models
 
         //}
 
-        //public void GuardarConsulta(etlSolicitud sol)
-        //{
-        //    try
-        //    {
-        //        using (var contextoBD = new ARMEntities())
-        //        {
-        //            Solicitudes item = new Solicitudes();
-        //            item.Clientes.clienteId = sol.Cliente.ID_Cliente;
-        //            item.Empleados.empleadoNombre = sol.Empleado.Nombre;
-        //            item.Clientes.clienteNombre = sol.Cliente.Descripcion;
-        //            item.Equipos.equipoNombre = sol.Equipo.Descripcion;
-        //            item.Departamentos.deparatamentoNombre = sol.Departamento.Descripcion;
-        //            item.TipoTrabajo.tipoTrabajoNombre = sol.TipoTrabajo.Descripcion;
-        //            item.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
-        //            item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
-        //            item.horaSalida = Convert.ToDateTime(sol.horaSalida);
-        //            item.tipoHora = sol.tipoHora;
-        //            item.cantidadHoras = sol.cantidadHoras;
-        //            item.solicitudMotivo = sol.solicitudMotivo;
-        //            item.motivoDetalle = sol.motivoDetalle;
-        //            item.solicitudRepuestos = sol.solicitudRepuestos;
-        //            item.equipoDetenido = sol.equipoDetenido;
-        //            contextoBD.Solicitudes.Add(item);
-        //            contextoBD.SaveChanges();
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new System.Exception("ID ya existe o hay datos sin llenar");
-        //    }
+        public void GuardarConsulta(etlSolicitud sol)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    Solicitudes item = new Solicitudes();
+                    //item.Clientes.clienteId = sol.Cliente.ID_Cliente;
+                    item.Empleados.empleadoNombre = sol.Empleado.Nombre;
+                    item.Clientes.clienteNombre = sol.Cliente.Descripcion;
+                    item.Equipos.equipoNombre = sol.Equipo.Descripcion;
+                    item.Departamentos.deparatamentoNombre = sol.Departamento.Descripcion;
+                    item.TipoTrabajo.tipoTrabajoNombre = sol.TipoTrabajo.Descripcion;
+                    item.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
+                    item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
+                    item.horaSalida = Convert.ToDateTime(sol.horaSalida);
+                    item.tipoHora = sol.tipoHora;
+                    item.cantidadHoras = sol.cantidadHoras;
+                    item.solicitudMotivo = sol.solicitudMotivo;
+                    item.motivoDetalle = sol.motivoDetalle;
+                    item.solicitudRepuestos = sol.solicitudRepuestos;
+                    item.equipoDetenido = sol.equipoDetenido;
+                    contextoBD.Solicitudes.Add(item);
+                    contextoBD.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new System.Exception("ID ya existe o hay datos sin llenar");
+            }
 
-        //}
+        }
         //public void Eliminar(string id)
         //{
         //    try

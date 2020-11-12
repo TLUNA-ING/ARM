@@ -97,22 +97,22 @@ namespace ProyectoProgramacion.Controllers
 
 
         ////Agregar datos
-        //[AutorizarUsuario(rol: "admin,user")]
-        //[HttpPost]
-        //public ActionResult Agregar(etlSolicitud sol)
-        //{
-        //    try
-        //    {
-        //        new SolicitudModelo().GuardarConsulta(sol);
-        //        return Json(sol, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Json(e, JsonRequestBehavior.DenyGet);
-        //    }
+        [AutorizarUsuario(rol: "admin,user")]
+        [HttpPost]
+        public ActionResult Agregar(etlSolicitud sol)
+        {
+            try
+            {
+                new SolicitudModelo().GuardarConsulta(sol);
+                return Json(sol, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
 
 
-        //}
+        }
 
         //[HttpPost]
         //[AutorizarUsuario(rol: "admin,user")]
