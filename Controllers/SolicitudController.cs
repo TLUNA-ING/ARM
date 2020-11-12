@@ -28,6 +28,73 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarTipoTrabajo
 
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarEmpleado()
+        {
+            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            var respuesta = modelSolicitud.ConsultarEmpleados();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEmpleado
+
+
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarCliente()
+        {
+            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            var respuesta = modelSolicitud.ConsultarClientes();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEmpleado
+
+
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarDepartamento()
+        {
+            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            var respuesta = modelSolicitud.ConsultarDepartamentos();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEmpleado
+
+
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarEquipo()
+        {
+            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            var respuesta = modelSolicitud.ConsultarEquipos();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEquipo
+
 
         ////Agregar datos
         //[AutorizarUsuario(rol: "admin,user")]

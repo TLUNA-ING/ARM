@@ -8,6 +8,39 @@ namespace ProyectoProgramacion.Models
 {
     public class SolicitudModelo{
 
+
+        public List<SelectListItem> ConsultarClientes()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from cliente in contextoBD.Clientes select cliente).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.clienteId.ToString(), Text = item.clienteNombre }).ToList();
+
+                List<SelectListItem> listaCliente = new List<SelectListItem>();
+                listaCliente.AddRange(itemLista);
+
+                return listaCliente.ToList();
+            }
+        }//FIN DE ConsultarClientes
+
+
+        public List<SelectListItem> ConsultarDepartamentos()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from departamento in contextoBD.Departamentos select departamento).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.departamentoId.ToString(), Text = item.deparatamentoNombre }).ToList();
+
+                List<SelectListItem> listaDepartamento = new List<SelectListItem>();
+                listaDepartamento.AddRange(itemLista);
+
+                return listaDepartamento.ToList();
+            }
+        }//FIN DE ConsultarDepartamentos
         public List<SelectListItem> ConsultarTipoTrabajos(){
             using (var contextoBD = new ARMEntities()){
                 var result = (from tipo in contextoBD.TipoTrabajo select tipo).ToList();//Consultar todo de la tabla
@@ -22,6 +55,39 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarTipoTrabajos
 
+
+        public List<SelectListItem> ConsultarEmpleados()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from empleado in contextoBD.Empleados select empleado ).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.empleadoCedula.ToString(), Text = item.empleadoNombre }).ToList();
+
+                List<SelectListItem> listaEmpleado = new List<SelectListItem>();
+                listaEmpleado.AddRange(itemLista);
+
+                return listaEmpleado.ToList();
+            }
+        }//FIN DE ConsultarEmpleados
+
+
+        public List<SelectListItem> ConsultarEquipos()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from equipo in contextoBD.Equipos select equipo).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.equipoId.ToString(), Text = item.equipoNombre }).ToList();
+
+                List<SelectListItem> listaEquipo = new List<SelectListItem>();
+                listaEquipo.AddRange(itemLista);
+
+                return listaEquipo.ToList();
+            }
+        }//FIN DE ConsultarEquipos
 
 
 

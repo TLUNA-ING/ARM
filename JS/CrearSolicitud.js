@@ -14,7 +14,11 @@ $(document).ready(function () {
     //cargarEquipo();
     //cargarTipoTrabajo();
     //cargarEmpleado();
-CargarTipoTrabajo();
+    CargarEquipo();
+    CargarDepartamento();
+    CargarCliente();
+    CargarTipoTrabajo();
+    CargarEmpleado();
 });
 
 ////window.onload = cargarAgregar;
@@ -487,6 +491,46 @@ CargarTipoTrabajo();
 //    }
 //    return isValid;
 //}
+
+
+
+function CargarCliente() {
+    $.ajax({
+        url: "/Solicitud/CargarCliente",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Clientes = '';
+            result.forEach(valor => { Clientes += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Cliente").html(Clientes);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarCliente
+}
+
+
+function CargarDepartamento() {
+    $.ajax({
+        url: "/Solicitud/CargarDepartamento",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Departamento = '';
+            result.forEach(valor => { Departamento += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Departamento").html(Departamento);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarDepartamento
+}
+
 function CargarTipoTrabajo() {
     $.ajax({
         url: "/Solicitud/CargarTipoTrabajo",
@@ -502,5 +546,43 @@ function CargarTipoTrabajo() {
         },
         error: function (errormessage) {
         }
-    });
+    });//FIN DE CargarTipoTrabajo
+}
+
+
+function CargarEmpleado() {
+    $.ajax({
+        url: "/Solicitud/CargarEmpleado",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Empleados = '';
+            result.forEach(valor => { Empleados += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Empleado").html(Empleados);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarEmpleado
+}
+
+
+function CargarEquipo() {
+    $.ajax({
+        url: "/Solicitud/CargarEquipo",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Equipos = '';
+            result.forEach(valor => { Equipos += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Equipo").html(Equipos);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarEmpleado
 }
