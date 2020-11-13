@@ -19,6 +19,7 @@ $(document).ready(function () {
     CargarCliente();
     CargarTipoTrabajo();
     CargarEmpleado();
+    CargarProvincia();
 });
 
 ////window.onload = cargarAgregar;
@@ -554,7 +555,7 @@ function CargarCliente() {
         dataType: "json",
         success: function (result) {
 
-            var Clientes = '';
+            var Clientes = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
             result.forEach(valor => { Clientes += `<option value="${valor.Value}">${valor.Text}</option>` });
             $("#Cliente").html(Clientes);
 
@@ -573,7 +574,7 @@ function CargarDepartamento() {
         dataType: "json",
         success: function (result) {
 
-            var Departamento = '';
+            var Departamento = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
             result.forEach(valor => { Departamento += `<option value="${valor.Value}">${valor.Text}</option>` });
             $("#Departamento").html(Departamento);
 
@@ -629,7 +630,7 @@ function CargarEquipo() {
         dataType: "json",
         success: function (result) {
 
-            var Equipos = '';
+            var Equipos = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
             result.forEach(valor => { Equipos += `<option value="${valor.Value}">${valor.Text}</option>` });
             $("#Equipo").html(Equipos);
 
@@ -637,4 +638,23 @@ function CargarEquipo() {
         error: function (errormessage) {
         }
     });//FIN DE CargarEmpleado
+}
+
+//Inicio CargarProvincia
+function CargarProvincia() {
+    $.ajax({
+        url: "/Provincia/CargarDatos",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Provincias = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
+            result.forEach(valor => { Provincias += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Provincias").html(Provincias);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarProvincia
 }
