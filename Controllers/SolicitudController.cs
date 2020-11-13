@@ -99,7 +99,7 @@ namespace ProyectoProgramacion.Controllers
         ////Agregar datos
         [AutorizarUsuario(rol: "admin,user")]
         [HttpPost]
-        public ActionResult Agregar(etlSolicitud sol)
+        public ActionResult Agregar(Solicitudes sol)
         {
             try
             {

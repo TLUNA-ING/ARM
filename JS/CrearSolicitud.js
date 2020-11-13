@@ -77,39 +77,94 @@ $(document).ready(function () {
 
 ////Add Data Function 
 function Add() {
-    var empObj = {
-        IDSolicitud: $('#IDSolicitud').val(),
-        Empleado: {
-            Cedula: parseFloat($("#Empleado option:selected").val())
-        },
-        Nombre: $('#Empleado').val(),
-        Departamento: {
-            ID_Departamento: parseFloat($("#Departamento option:selected").val())
-        },
-        Descripcion: $('#Departamento').val(),
-        Cliente: {
-            ID_Cliente: parseFloat($("#Cliente option:selected").val())
-        },
-        Descripcion: $('#Cliente').val(),
-        Equipo: {
-            ID_Equipo: parseFloat($("#Equipo option:selected").val())
-        },
-        Descripcion: $('#Equipo').val(),
-        TipoTrabajo: {
-            ID_TipoTrabajo: parseFloat($("#TipoTrabajo option:selected").val())
-        },
-        Descripcion: $('#tipoTrabajo').val(),
+    var IDSolicitud = parseFloat($("#IDSolicitud").val());
+    var Cliente = $('#Cliente option:selected').val();
+    var Departamento = $('#Departamento option:selected').val();
+    var Empleado = $('#Empleado option:selected').val();
+    var Equipo = $('#Equipo option:selected').val();
+    var TipoTrabajo = $('#tipoTrabajo option:selected').val();
+    var FechaReporte = $('#fechaReporte').val();
+    var HoraEntrada = $('#horaEntrada').val();
+    var HoraSalida = $('#horaSalida').val();
+    var TipoHora = $('#tipoHora').val();
+    var CantidadHoras = parseFloat($('#cantidadHoras').val());
+    var MotivoVisita = $('#motivoVisita').val();
+    var MotivoDetalle = $('#motivoDetalle').val();
+    var solicitudRepuestos = $('#solicitudRepuestos').val();
+    var EquipoDetenido = $('#equipoDetenido').val();
 
-        Fecha_Reporte: $('#FechaReporte').val(),
+    var empObj = {
+        solicitudID: $('#IDSolicitud').val(),
+        clienteId: $('#Cliente').val(),
+        empleadoCedula: $('#Empleado').val(),
+        tipoTrabajoId: $('#tipoTrabajo').val(),
+        departamentoId: $('#Departamento').val(),
+        equipoId: $('#Equipo').val(),
+        fechaReporte: $('#fechaReporte').val(),
         horaEntrada: $('#horaEntrada').val(),
         horaSalida: $('#horaSalida').val(),
         tipoHora: $('#tipoHora').val(),
-        cantidadHoras: $('#cantidadHoras'),
-        solicitudMotivo: $('#solicitudMotivo').val(),
+        cantidadHoras: $('#cantidadHoras').val(),
+        solicitudMotivo: $('#motivoVisita').val(),
         motivoDetalle: $('#motivoDetalle').val(),
         solicitudRepuestos: $('#solicitudRepuestos').val(),
         equipoDetenido: $('#equipoDetenido').val(),
+
     };
+
+
+
+    //var empObj = {
+
+
+
+    //    IDSolicitud: {
+    //        IDSolicitud: IDSolicitud
+    //    },
+    //    Cliente: {
+    //        Clientes: Cliente
+    //    },
+    //    Departamento: {
+    //        Departamentos: Departamento
+    //    },
+    //    Empleado: {
+    //        Empleados: Empleado
+    //    },
+    //    Equipo: {
+    //        Equipos: Equipo
+    //    },
+    //    TipoTrabajo: {
+    //        TipoTrabajo: TipoTrabajo
+    //    },
+    //    FechaReporte: {
+    //        FechaReporte: FechaReporte
+    //    },
+    //    HoraEntrada: {
+    //        HoraEntrada: HoraEntrada
+    //    },
+    //    HoraSalida: {
+    //        HoraSalida: HoraSalida
+    //    },
+    //    TipoHora: {
+    //        TipoHora: TipoHora
+    //    },
+    //    CantidadHoras: {
+    //        CantidadHoras: CantidadHoras
+    //    },
+    //    MotivoVisita: {
+    //        MotivoVisita: MotivoVisita
+    //    },
+    //    MotivoDetalle: {
+    //        MotivoDetalle: MotivoDetalle
+    //    },
+    //    solicitudRepuestos: {
+    //        solicitudRepuestos: solicitudRepuestos
+    //    },
+    //    EquipoDetenido: {
+    //        EquipoDetenido: EquipoDetenido
+    //    },
+    //};
+
     try {
         $.ajax({
             url: "/Solicitud/Agregar",
@@ -118,7 +173,7 @@ function Add() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-                loadTable();
+                //loadTable();
                 //$('#myModal').modal('hide');
                 clearTextBox();
             },

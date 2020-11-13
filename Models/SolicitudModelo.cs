@@ -148,23 +148,23 @@ namespace ProyectoProgramacion.Models
 
         //}
 
-        public void GuardarConsulta(etlSolicitud sol)
+        public void GuardarConsulta(Solicitudes sol)
         {
             try
             {
                 using (var contextoBD = new ARMEntities())
                 {
                     Solicitudes item = new Solicitudes();
-                    //item.Clientes.clienteId = sol.Cliente.ID_Cliente;
-                    item.Empleados.empleadoNombre = sol.Empleado.Nombre;
-                    item.Clientes.clienteNombre = sol.Cliente.Descripcion;
-                    item.Equipos.equipoNombre = sol.Equipo.Descripcion;
-                    item.Departamentos.deparatamentoNombre = sol.Departamento.Descripcion;
-                    item.TipoTrabajo.tipoTrabajoNombre = sol.TipoTrabajo.Descripcion;
-                    item.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
+
+                    item.clienteId = sol.clienteId;
+                    item.empleadoCedula = sol.empleadoCedula;
+                    item.tipoTrabajoId = sol.tipoTrabajoId;
+                    item.departamentoId = sol.departamentoId;
+                    item.equipoId = sol.equipoId;
+                    item.fechaReporte = Convert.ToDateTime(sol.fechaReporte);
                     item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
-                    item.horaSalida = Convert.ToDateTime(sol.horaSalida);
                     item.tipoHora = sol.tipoHora;
+                    item.horaSalida = Convert.ToDateTime(sol.horaSalida);
                     item.cantidadHoras = sol.cantidadHoras;
                     item.solicitudMotivo = sol.solicitudMotivo;
                     item.motivoDetalle = sol.motivoDetalle;
@@ -179,7 +179,7 @@ namespace ProyectoProgramacion.Models
                 throw new System.Exception("ID ya existe o hay datos sin llenar");
             }
 
-        }
+        }//FIN DE GUARDAR CONSULTA
         //public void Eliminar(string id)
         //{
         //    try
