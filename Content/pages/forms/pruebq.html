@@ -824,67 +824,110 @@
                         </div>
                         <div class="body">
                             <form id="wizard_with_validation" method="POST">
-                                <h3>Account Information</h3>
+                                <h3>Selección del cliente</h3>
                                 <fieldset>
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="username" required>
-                                            <label class="form-label">Username*</label>
+                                            <label for="Provincia">Provincia</label>
+                                            <select name="sltProvincia" id="Provincia" class="form-control" aria-required="true">
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="password" class="form-control" name="password" id="password" required>
-                                            <label class="form-label">Password*</label>
+                                            <label for="Cliente">Cliente</label>
+                                            <select name="sltcliente" id="Cliente" class="form-control" aria-required="true">
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="password" class="form-control" name="confirm" required>
-                                            <label class="form-label">Confirm Password*</label>
+                                            <label for="Departamento">Departamento</label>
+                                            <select name="sltDepartamento" id="Departamento" class="form-control" aria-required="true">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <label for="Equipo">Equipo</label>
+                                            <select name="sltEquipo" id="Equipo" class="form-control" aria-required="true">
+                                            </select>
                                         </div>
                                     </div>
                                 </fieldset>
 
-                                <h3>Profile Information</h3>
+                                <h3>Fecha y horas</h3>
                                 <fieldset>
                                     <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input type="text" name="name" class="form-control" required>
-                                            <label class="form-label">First Name*</label>
+                                        <div class="col-xs-4">
+                                            <label for="fechaReporte">Hora Salida:</label>
+                                            <div class="form-line">
+                                                <input type="date" class="form-control" id="fechaReporte" aria-required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label for="horaEntrada">Hora Entrada:</label>
+                                            <div class="form-line">
+                                                <input type="time" class="form-control" id="horaEntrada" aria-required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label for="horaSalida">Hora Salida:</label>
+                                            <div class="form-line">
+                                                <input type="time" class="form-control" id="horaSalida" aria-required="true" />
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input type="text" name="surname" class="form-control" required>
-                                            <label class="form-label">Last Name*</label>
+                                        <div class="col-xs-4">
+                                            <label for="tipoHora">Tipo Hora:</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" id="tipoHora" aria-required="true" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input type="email" name="email" class="form-control" required>
-                                            <label class="form-label">Email*</label>
+                                        <div class="col-xs-4">
+                                            <label for="cantidadHoras">Cantidad de Horas:</label>
+                                            <div class="form-line">
+                                                <input type="number" class="form-control" id="cantidadHoras" aria-required="true" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <textarea name="address" cols="30" rows="3" class="form-control no-resize" required></textarea>
-                                            <label class="form-label">Address*</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input min="18" type="number" name="age" class="form-control" required>
-                                            <label class="form-label">Age*</label>
-                                        </div>
-                                        <div class="help-info">The warning step will show up if age is less than 18</div>
                                     </div>
                                 </fieldset>
 
-                                <h3>Terms & Conditions - Finish</h3>
+                                <h3>Descripción</h3>
                                 <fieldset>
-                                    <input id="acceptTerms-2" name="acceptTerms" type="checkbox" required>
-                                    <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+                                    <div class="form-group form-float">
+                                        <div class="col-xs-12">
+                                            <label for="motivoVisita">Motivo de Visita:</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" id="motivoVisita" required="" aria-required="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <label for="motivoDetalle">Motivo de Detalle:</label>
+                                            <div class="form-line">
+                                                <textarea id="motivoDetalle" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <label for="solicitudRepuestos">Solicitud Repuestos:</label>
+                                            <div class="form-line">
+                                                <textarea id="solicitudRepuestos" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-3">
+                                            <label for="equipoDetenido">Equipo Detenido:</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" id="equipoDetenido" required="" aria-required="true" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </fieldset>
                             </form>
                         </div>
@@ -894,6 +937,9 @@
             <!-- #END# Advanced Form Example With Validation -->
         </div>
     </section>
+    <script>
+        onload = "cargarAgregar"
+    </script>
 
     <!-- Jquery Core Js -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
@@ -925,5 +971,8 @@
 
     <!-- Demo Js -->
     <script src="../../js/demo.js"></script>
+    <script scr="~/JS/CrearSolicitud.js");></script>
 </body>
+
 </html>
+
