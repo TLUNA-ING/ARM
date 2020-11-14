@@ -14,20 +14,21 @@
         <div class="col-xs-12">
             <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Cliente</button><br /><br />
         </div>
-        <!-- Basic Examples -->
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover js-basic-example dataTable" id="DatoEquipo">
+                            <table class="table table-bordered table-hover js-basic-example dataTable" id="DatoCliente">
                                 <thead>
                                     <tr>
-                                        <th>Id Cliente</th>
+                                        <th># Cliente</th>
                                         <th>Nombre</th>
+                                        <th>Correo</th>
                                         <th>Provincia</th>
+                                        <th>Estado</th>
                                         <th>Modificar</th>
-                                        <th>Habilitado/Deshabilitado</th>
+                                        <th>Habilitar/Deshabilitar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,42 +51,52 @@
                 </div>
                 <div class="modal-body">
                     <form>
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <label for="ID_Cliente">Id de Cliente:</label>
+                                    <label for="ID_Cliente"># Cliente:</label>
                                     <div class="form-line">
-                                        <input type="text" class="form-control" id="ID_Centro" placeholder="Identificador" readonly="readonly" />
+                                        <input type="text" class="form-control" id="id_cliente" placeholder="Autogenerado" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label for="Descripcion">Nombre:</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="nombre_cliente" placeholder="Nombre" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label for="Descripcion">Correo:</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="correo_cliente" placeholder="Correo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-line">
+                                        <label for="provincia">Provincia:</label>
+                                        <select name="provincia" id="id_provincia" class="form-control" >
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <label for="Descripcion">Descripción:</label>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="Descripcion" placeholder="Descripción" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <label for="provincia">Provincia:</label>
-                                <select name="provincia" id="provincia" class="form-control">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarCliente();"><i class="material-icons">save</i></button>

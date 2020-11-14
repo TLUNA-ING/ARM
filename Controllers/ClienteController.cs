@@ -6,97 +6,123 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
 {
-    public class ClienteController : Controller
-    {
-        // GET: Centro
+    public class ClienteController : Controller{
+
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult Index()
-        {
+        public ActionResult Index(){
             return View();
-        }
-        //Cargar datos 
+        }//FIN DE Index
+
         [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult CargarDatos()
-        {
-            ClienteModelo modelCentro = new ClienteModelo();
-            var respuesta = modelCentro.ConsultarTodos();
-            if (respuesta == null)
-            {
+        public ActionResult CargarDatos(){
+
+            ClienteModelo modelCliente = new ClienteModelo();
+            var respuesta = modelCliente.ConsultarTodos();
+            if (respuesta == null){
                 return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
+            }else{
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
-        }
-        //Agregar datos
+        }//FIN DE CargarDatos
+
+
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Agregar(etlCliente centro)
-        {
-            try
-            {
-                ClienteModelo modelCentro = new ClienteModelo();
-                modelCentro.Guardar(centro);
-                return Json(centro, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+        public ActionResult ConsultarProvincias(){
+            try{
+                ClienteModelo modelCliente = new ClienteModelo();
+
+                var results = modelCliente.ConsultarProvincias();
+                return Json(results);
+
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
+        }//FIN DE ConsultarProvincias
 
 
-        }
+        [AutorizarUsuario(rol: "admin")]
+        [HttpPost]
+        public ActionResult AgregarCliente(etlCliente cli) {
+            try{
+                ClienteModelo modelCliente = new ClienteModelo();
+
+                var respuesta = modelCliente.ConsultarUnCliente(cli.Nombre);
+                if (respuesta.Count > 0){
+                    return Json("Existe", JsonRequestBehavior.AllowGet);
+                }else{
+                    var AGREGADO = modelCliente.AgregarCliente(cli);
+
+                    if (AGREGADO == true){
+                        return Json("Agregado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE AgregarCliente
+
+        [AutorizarUsuario(rol: "admin")]
+        public ActionResult ConsultarCliente(long ID){
+            try{
+                ClienteModelo modelCliente = new ClienteModelo();
+                var cliente = modelCliente.ConsultarUnClienteID(ID);
+
+                return Json(cliente, JsonRequestBehavior.AllowGet);
+            }catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }// FIN DE ConsultarCliente
 
         [HttpPost]
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult Eliminar(long id)
-        {
-            try
-            {
-                ClienteModelo modelCentro = new ClienteModelo();
-                modelCentro.Eliminar(id);
-                return Json(id, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+        public ActionResult ModificarCliente(etlCliente cli){
+            try{
+                ClienteModelo modelCliente = new ClienteModelo();
+                var tipo = modelCliente.ConsultarUnClienteID(cli.ID_Cliente);
+
+                if (tipo.Nombre != ""){
+                    var MODIFICADO = modelCliente.ModificarCliente(cli);
+
+                    if (MODIFICADO == true){
+                        return Json("Modificado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("Existe", JsonRequestBehavior.AllowGet);
+                    }
+
+                }else{
+                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                }
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
+        }//FIN DE ModificarCliente
 
 
-        }
-        [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult Consultar(long id)
-        {
-            try
-            {
-                ClienteModelo modelCentro = new ClienteModelo();
-                var respuesta = modelCentro.Consultar(id);
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json(e, JsonRequestBehavior.DenyGet);
-            }
-
-
-        }
-        [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Actualizar(etlCliente centro)
-        {
-            try
-            {
-                ClienteModelo modelCentro = new ClienteModelo();
-                modelCentro.Actualizar(centro);
-                return Json(centro, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+        [AutorizarUsuario(rol: "admin")]
+        public ActionResult ModificarEstado(long ID){
+            try{
+                ClienteModelo modelCliente = new ClienteModelo();
+                var cliente = modelCliente.ConsultarUnClienteID(ID);
+
+                if (cliente.Nombre != ""){
+                    var MODIFICADO = modelCliente.ModificarEstado(cliente);
+
+                    if (MODIFICADO == true){
+                        return Json("Modificado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+
+                }else{
+                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                }
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-
-
-        }
+        }// FIN DE ModificarEstado
     }
 }

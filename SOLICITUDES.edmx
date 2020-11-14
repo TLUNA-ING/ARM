@@ -12,6 +12,8 @@
           <Property Name="clienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="provinciaId" Type="int" Nullable="false" />
           <Property Name="clienteNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clienteCorreo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clienteEstado" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Departamento_X_Cliente">
           <Key>
@@ -357,6 +359,8 @@
           <NavigationProperty Name="Provincias" Relationship="Self.FK_tblClientes_tblProvincias" FromRole="Clientes" ToRole="Provincias" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblClientes" FromRole="Clientes" ToRole="Solicitudes" />
           <NavigationProperty Name="Departamentos" Relationship="Self.Departamento_X_Cliente" FromRole="Clientes" ToRole="Departamentos" />
+          <Property Name="clienteCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="clienteEstado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Departamentos">
           <Key>
@@ -698,6 +702,8 @@
           <EntitySetMapping Name="Clientes">
             <EntityTypeMapping TypeName="ARMModel.Clientes">
               <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="clienteEstado" ColumnName="clienteEstado" />
+                <ScalarProperty Name="clienteCorreo" ColumnName="clienteCorreo" />
                 <ScalarProperty Name="clienteId" ColumnName="clienteId" />
                 <ScalarProperty Name="provinciaId" ColumnName="provinciaId" />
                 <ScalarProperty Name="clienteNombre" ColumnName="clienteNombre" />

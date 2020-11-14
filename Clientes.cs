@@ -24,6 +24,8 @@ namespace ProyectoProgramacion
         public int clienteId { get; set; }
         public int provinciaId { get; set; }
         public string clienteNombre { get; set; }
+        public string clienteCorreo { get; set; }
+        public string clienteEstado { get; set; }
     
         public virtual Provincias Provincias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

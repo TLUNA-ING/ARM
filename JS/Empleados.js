@@ -129,7 +129,6 @@ function ConsultarEmpleado(Cedula) {
 }//FIN DE ConsultarEmpleado
 
 function ModificarEmpleado() {
-
     if (VALIDAR() == true) {
 
         var empObj = {
