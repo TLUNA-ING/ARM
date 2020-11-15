@@ -14,6 +14,7 @@ function ActualizarCombobox() {
     } else if (SELECCIONADO == 1) {
         ConsultarDepartamentos();
     }
+
     $('#intermedios').val(-1);   
 }//ActualizarCombobox
 

@@ -11,6 +11,7 @@ namespace ProyectoProgramacion.Controllers
 {
     public class IntermedioController : Controller
     {
+
         // GET: Intermedio
         public ActionResult Index(){
             return View();

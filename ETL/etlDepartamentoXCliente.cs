@@ -10,4 +10,5 @@ namespace ProyectoProgramacion.ETL
         public int ID_Departamento { get; set; }
         public int ID_Cliente { get; set; }
     }
+
 }

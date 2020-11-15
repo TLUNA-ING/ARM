@@ -8,6 +8,7 @@ using System.Web;
 
 namespace ProyectoProgramacion.Models
 {
+
     public class IntermedioModelo{
 
         List<etlIntermedio> Intermedio = new List<etlIntermedio>();
