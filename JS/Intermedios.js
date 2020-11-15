@@ -6,7 +6,7 @@
 function ActualizarCombobox() {
     var SELECCIONADO = parseFloat($("#tabla option:selected").val());
     LimpiarComboBox();
-
+    LimpiarTablas();
     if (isNaN(SELECCIONADO)) {
         LimpiarTablas();
     }else if (SELECCIONADO == 0) { //LIGAR CLIENTES
@@ -266,66 +266,66 @@ function DesligarDepartamento(ID) {
     });
 }//FIN DE DesligarDepartamento
 
-function LigarEquipo(ID) {
+//function LigarEquipo(ID) {
 
-    $.ajax({
-        url: "/Equipo/ModificarEstado/" + ID,
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
+//    $.ajax({
+//        url: "/Equipo/ModificarEstado/" + ID,
+//        type: "POST",
+//        contentType: "application/json;charset=UTF-8",
+//        dataType: "json",
+//        success: function (result) {
 
-            if (result == "Modificado") {
-                swal({
-                    title: "¡Acción realizada!",
-                    text: "¡El estado del equipo cambió correctamente!",
-                    type: "success",
-                    confirmButtonColor: "#10AF5D",
-                    confirmButtonText: "Aceptar"
-                },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            CARGAR_GRID();
-                        }
-                    });
-            } else {
-                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
-            }
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}//FIN DE ModificarEstado
+//            if (result == "Modificado") {
+//                swal({
+//                    title: "¡Acción realizada!",
+//                    text: "¡El estado del equipo cambió correctamente!",
+//                    type: "success",
+//                    confirmButtonColor: "#10AF5D",
+//                    confirmButtonText: "Aceptar"
+//                },
+//                    function (isConfirm) {
+//                        if (isConfirm) {
+//                            CARGAR_GRID();
+//                        }
+//                    });
+//            } else {
+//                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+//            }
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}//FIN DE ModificarEstado
 
-function DesligarEquipo(ID) {
+//function DesligarEquipo(ID) {
 
-    $.ajax({
-        url: "/Equipo/ModificarEstado/" + ID,
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
+//    $.ajax({
+//        url: "/Equipo/ModificarEstado/" + ID,
+//        type: "POST",
+//        contentType: "application/json;charset=UTF-8",
+//        dataType: "json",
+//        success: function (result) {
 
-            if (result == "Modificado") {
-                swal({
-                    title: "¡Acción realizada!",
-                    text: "¡El estado del equipo cambió correctamente!",
-                    type: "success",
-                    confirmButtonColor: "#10AF5D",
-                    confirmButtonText: "Aceptar"
-                },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            CARGAR_GRID();
-                        }
-                    });
-            } else {
-                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
-            }
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}//FIN DE ModificarEstado
+//            if (result == "Modificado") {
+//                swal({
+//                    title: "¡Acción realizada!",
+//                    text: "¡El estado del equipo cambió correctamente!",
+//                    type: "success",
+//                    confirmButtonColor: "#10AF5D",
+//                    confirmButtonText: "Aceptar"
+//                },
+//                    function (isConfirm) {
+//                        if (isConfirm) {
+//                            CARGAR_GRID();
+//                        }
+//                    });
+//            } else {
+//                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+//            }
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}//FIN DE ModificarEstado
