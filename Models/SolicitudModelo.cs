@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Models
 {
-    public class SolicitudModelo{
+    public class ConsultaSolicitud{
 
 
         public List<SelectListItem> ConsultarClientes()

@@ -106,10 +106,15 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-xs-3">
+                                            <div class="col-xs-6">
                                                 <label for="tipoHora">Tipo Hora:</label>
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="tipoHora" required="" aria-required="true" />
+                                                    <select name="tipohora" id="tipoHora" class="form-control" required="" aria-required="true">
+                                                        <option>Extra</option>
+                                                        <option selected="selected">Normal</option>
+                                                        <option>Doble</option>
+                                                    </select>
+                                                    @*<input type="text" class="form-control" id="tipoHora" required="" aria-required="true" />*@
                                                 </div>
                                             </div>
                                         </div>
@@ -159,7 +164,11 @@
                                             <div class="col-xs-3">
                                                 <label for="equipoDetenido">Equipo Detenido:</label>
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="equipoDetenido" required="" aria-required="true" />
+                                                    <select name="equipoDetenido" id="equipoDetenido" class="form-control" required="" aria-required="true">
+                                                        <option selected="selected">0</option>
+                                                        <option>1</option>
+                                                    </select>
+                                                    @*<input type="text" class="form-control" id="equipoDetenido" required="" aria-required="true" />*@
                                                 </div>
                                             </div>
                                         </div>

@@ -51,12 +51,44 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.OData.Edm, Version=7.7.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.OData.Edm.7.7.3\lib\net45\Microsoft.OData.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -134,18 +166,15 @@
     <Compile Include="CONSULTAR_EMPLEADOS_NO_USUARIO_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
-    <Compile Include="CONSULTAR_INFORMACION_INTERMEDIA_Result.cs">
-      <DependentUpon>SOLICITUDES.tt</DependentUpon>
-    </Compile>
     <Compile Include="CONSULTAR_UN_EMPLEADO_BD_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccesoController.cs" />
+    <Compile Include="Controllers\ConsultaSolicitudController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IntermedioController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
@@ -153,9 +182,6 @@
     <Compile Include="Controllers\TipoTrabajoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Departamentos.cs">
-      <DependentUpon>SOLICITUDES.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Departamento_X_Cliente.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="Empleados.cs">
@@ -167,8 +193,6 @@
     <Compile Include="Equipo_X_Departamento.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
-    <Compile Include="ETL\etlDepartamentoXCliente.cs" />
-    <Compile Include="ETL\etlIntermedio.cs" />
     <Compile Include="ETL\etlDepartamento.cs" />
     <Compile Include="ETL\etlCanton.cs" />
     <Compile Include="ETL\etlCliente.cs" />
@@ -184,7 +208,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\IntermedioModelo.cs" />
+    <Compile Include="Models\ConsultaSolicitudModelo.cs" />
     <Compile Include="Models\TipoTrabajoModelo.cs" />
     <Compile Include="Models\DepartamentoModelo.cs" />
     <Compile Include="Models\ClienteModelo.cs" />
@@ -3718,10 +3742,10 @@
     <Content Include="fonts\ubuntu\UFL.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JS\ConsultaSolicitud.js" />
     <Content Include="JS\Departamentos.js" />
     <Content Include="JS\Clientes.js" />
     <Content Include="JS\CrearSolicitud.js" />
-    <Content Include="JS\Intermedios.js" />
     <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />
     <Content Include="JS\TipoTrabajo.js" />
@@ -4036,12 +4060,9 @@
     <Content Include="Views\Departamento\Index.cshtml" />
     <Content Include="Views\Equipo\Index.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
-    <Content Include="Views\Consulta\Index.cshtml" />
     <Content Include="Views\Solicitud\Index.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Pruebas\Index.cshtml" />
-    <Content Include="Views\TipoTrabajo\Index.cshtml" />
-    <Content Include="Views\Intermedio\Index.cshtml" />
     <EntityDeploy Include="SOLICITUDES.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SOLICITUDES.Designer.cs</LastGenOutput>
@@ -4050,10 +4071,10 @@
       <DependentUpon>SOLICITUDES.edmx</DependentUpon>
     </Content>
     <Content Include="Views\TipoTrabajo\Index.cshtml" />
+    <Content Include="Views\ConsultaSolicitud\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ConsultaSolicitud\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -18,7 +18,7 @@ namespace ProyectoProgramacion.Controllers
 
         [AutorizarUsuario(rol: "admin,user")]
         public ActionResult CargarTipoTrabajo(){
-            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarTipoTrabajos();
 
             if (respuesta == null){
@@ -31,7 +31,7 @@ namespace ProyectoProgramacion.Controllers
         [AutorizarUsuario(rol: "admin,user")]
         public ActionResult CargarEmpleado()
         {
-            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarEmpleados();
 
             if (respuesta == null)
@@ -48,7 +48,7 @@ namespace ProyectoProgramacion.Controllers
         [AutorizarUsuario(rol: "admin,user")]
         public ActionResult CargarCliente()
         {
-            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarClientes();
 
             if (respuesta == null)
@@ -65,7 +65,7 @@ namespace ProyectoProgramacion.Controllers
         [AutorizarUsuario(rol: "admin,user")]
         public ActionResult CargarDepartamento()
         {
-            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarDepartamentos();
 
             if (respuesta == null)
@@ -82,7 +82,7 @@ namespace ProyectoProgramacion.Controllers
         [AutorizarUsuario(rol: "admin,user")]
         public ActionResult CargarEquipo()
         {
-            SolicitudModelo modelSolicitud = new SolicitudModelo();
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarEquipos();
 
             if (respuesta == null)
@@ -103,7 +103,7 @@ namespace ProyectoProgramacion.Controllers
         {
             try
             {
-                new SolicitudModelo().GuardarConsulta(sol);
+                new ConsultaSolicitud().GuardarConsulta(sol);
                 return Json(sol, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -120,7 +120,7 @@ namespace ProyectoProgramacion.Controllers
         {
             try
             {
-                new SolicitudModelo().Actualizar(sol);
+                new ConsultaSolicitud().Actualizar(sol);
                 return Json(sol, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

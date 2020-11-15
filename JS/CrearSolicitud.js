@@ -337,44 +337,47 @@ function Update() {
 //    });
 //}
 ////Function for clearing the textboxes
-//function clearTextBox() {
-//    $('#IDSolicitud').val("");
-//    $('#Empleado').val("");
-//    $('#Departamento').val("");
-//    $('#Cliente').val("");
-//    $('#Equipo').val("");
-//    $('#TipoTrabajo').val("");
-//    $('#FechaReporte').val("");
-//    $('#horaEntrada').val("");
-//    $('#horaSalida').val("");
-//    $('#tipoHora').val("");
-//    $('#cantidadHoras').val("");
-//    $('#solicitudMotivo').val("");
-//    $('#motivoDetalle').val("");
-//    $('#solicitudRepuestos').val("");
-//    $('#equipoDetenido').val("");
-//    $('#btnUpdate').hide();
-//    $('#btnAdd').show();
-//    $('#IDSolicitud').css('border-color', 'lightgrey');
-//    $('#Empleado').css('border-color', 'lightgrey');
-//    $('#Departamento').css('border-color', 'lightgrey');
-//    $('#Cliente').css('border-color', 'lightgrey');
-//    $('#Equipo').css('border-color', 'lightgrey');
-//    $('#TipoTrabajo').css('border-color', 'lightgrey');
-//    $('#FechaReporte').css('border-color', 'lightgrey');
-//    $('#horaEntrada').css('border-color', 'lightgrey');
-//    $('#horaSalida').css('border-color', 'lightgrey');
-//    $('#tipoHora').css('border-color', 'lightgrey');
-//    $('#cantidadHoras').css('border-color', 'lightgrey');
-//    $('#solicitudMotivo').css('border-color', 'lightgrey');
-//    $('#motivoDetalle').css('border-color', 'lightgrey');
-//    $('#equipoDetenido').css('border-color', 'lightgrey');
-//    $('#Empleado option').remove();
-//    $('#Departamento option').remove();
-//    $('#Cliente option').remove();
-//    $('#Equipo option').remove();
-//    $('#TipoTrabajo option').remove();
-//}
+function clearTextBox() {
+    $('#IDSolicitud').val("");
+    $('#Cliente').val("");
+    $('#Empleado').val("");
+    $('#tipoTrabajo').val("");
+    $('#Departamento').val("");
+    $('#Equipo').val("");
+    $('#fechaReporte').val("");
+    $('#horaEntrada').val("");
+    $('#horaSalida').val("");
+    $('#tipoHora').val("");
+    $('#cantidadHoras').val("");
+    $('#motivoVisita').val("");
+    $('#motivoDetalle').val("");
+    $('#solicitudRepuestos').val("");
+    $('#equipoDetenido').val("");
+    $('#btnUpdate').hide();
+    $('#btnAdd').show();
+    $('#IDSolicitud').css('border-color', 'lightgrey');
+    $('#Cliente').css('border-color', 'lightgrey');
+    $('#Departamento').css('border-color', 'lightgrey');
+    $('#Cliente').css('border-color', 'lightgrey');
+    $('#Empleado').css('border-color', 'lightgrey');
+    $('#tipoTrabajo').css('border-color', 'lightgrey');
+    $('#Departamento').css('border-color', 'lightgrey');
+    $('#Equipo').css('border-color', 'lightgrey');
+    $('#fechaReporte').css('border-color', 'lightgrey');
+    $('#horaEntrada').css('border-color', 'lightgrey');
+    $('#horaSalida').css('border-color', 'lightgrey');
+    $('#tipoHora').css('border-color', 'lightgrey');
+    $('#cantidadHoras').css('border-color', 'lightgrey');
+    $('#motivoVisita').css('border-color', 'lightgrey');
+    $('#motivoDetalle').css('border-color', 'lightgrey');
+    $('#solicitudRepuestos').css('border-color', 'lightgrey');
+    $('#equipoDetenido').css('border-color', 'lightgrey');
+    $('#Empleado option').remove();
+    $('#Departamento option').remove();
+    $('#Cliente option').remove();
+    $('#Equipo option').remove();
+    $('#TipoTrabajo option').remove();
+}
 
 
 //// Validar datos
