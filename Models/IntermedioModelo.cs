@@ -1,4 +1,5 @@
-﻿using ProyectoProgramacion.Controllers;
+﻿
+using ProyectoProgramacion.Controllers;
 using ProyectoProgramacion.ETL;
 using System;
 using System.Collections.Generic;
@@ -9,41 +10,48 @@ namespace ProyectoProgramacion.Models
 {
     public class IntermedioModelo{
 
-
         List<etlIntermedio> Intermedio = new List<etlIntermedio>();
-        public List<etlIntermedio> CargarDatosTablas(string TABLA,long ID,string IND_LIGADO){
-            using (var contextoBD = new ARMEntities()) {
+        public List<etlIntermedio> CargarDatosTablas(string TABLA, long ID, string IND_LIGADO){
+            try{
+                using (var contextoBD = new ARMEntities()){
+                    int id = (int)ID;
+                    var result = contextoBD.CONSULTAR_INFORMACION_INTERMEDIA(TABLA, id, IND_LIGADO);
 
-                int id = (int) ID;
-
-                var result = contextoBD.CONSULTAR_INFORMACION_INTERMEDIA(TABLA, id, IND_LIGADO);
-
-                foreach (var InterM in result){
-                    etlIntermedio Inter = new etlIntermedio();
-                    Inter.ID = InterM.ID;
-                    Inter.Descripcion = InterM.DESCRIPCION;
-                    Intermedio.Add(Inter);
+                    foreach (var InterM in result){
+                        etlIntermedio Inter = new etlIntermedio();
+                        Inter.ID = InterM.ID;
+                        Inter.Descripcion = InterM.DESCRIPCION;
+                        Intermedio.Add(Inter);
+                    }
+                    return Intermedio;
                 }
-
+            }catch (Exception e){
                 return Intermedio;
             }
+
         }//FIN DE ConsultarTodos
 
         List<Departamento_X_Cliente> Departamento_X_Cliente = new List<Departamento_X_Cliente>();
-        public etlDepartamentoXCliente ConsultarIDs(long ID_CLIENTE,long ID_DEPARTAMENTO){
-            try{
+        public etlDepartamentoXCliente ConsultarIDs(long ID_CLIENTE, long ID_DEPARTAMENTO)
+        {
+            try
+            {
 
                 etlDepartamentoXCliente LIGA = new etlDepartamentoXCliente();
-                using (var contextoBD = new ARMEntities()){
+                using (var contextoBD = new ARMEntities())
+                {
 
                     Departamento_X_Cliente = (from x in contextoBD.Departamento_X_Cliente where x.clienteId == ID_CLIENTE && x.departamentoId == ID_DEPARTAMENTO select x).ToList();
-                    foreach (var L in Departamento_X_Cliente){
+                    foreach (var L in Departamento_X_Cliente)
+                    {
                         LIGA.ID_Departamento = L.departamentoId;
                         LIGA.ID_Cliente = L.clienteId;
                     }
                 }
                 return LIGA;
-            }catch (Exception e){
+            }
+            catch (Exception e)
+            {
                 throw new System.Exception("Error");
             }
         }//FIN DE ConsultarIDs
@@ -63,18 +71,21 @@ namespace ProyectoProgramacion.Models
                     AGREGADO = true;
                 }
                 return AGREGADO;
-            }
-            catch (Exception e){
+            }catch (Exception e){
                 return false;
             }
-        }//FIN DE AgregarIntermedio
+        }//FIN DE LigarDepartamentoIntermedio
 
-        public bool DesligarDepartamentoIntermedio(etlDepartamentoXCliente Intermedio){
-            try{
+        public bool DesligarDepartamentoIntermedio(etlDepartamentoXCliente Intermedio)
+        {
+            try
+            {
                 bool DESLIGADO = false;
-                using (var contextoBD = new ARMEntities()){
+                using (var contextoBD = new ARMEntities())
+                {
                     var resultado = contextoBD.Departamento_X_Cliente.SingleOrDefault(b => b.departamentoId == Intermedio.ID_Departamento && b.clienteId == Intermedio.ID_Cliente);
-                    if (resultado != null){
+                    if (resultado != null)
+                    {
                         contextoBD.Departamento_X_Cliente.Remove(resultado);
                         contextoBD.SaveChanges();
                         DESLIGADO = true;
@@ -82,7 +93,8 @@ namespace ProyectoProgramacion.Models
                 }
                 return DESLIGADO;
             }
-            catch (Exception e){
+            catch (Exception e)
+            {
                 return false;
             }
         }//FIN DE DesligarDepartamentoIntermedio

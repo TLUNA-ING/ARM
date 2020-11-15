@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Models
 {
@@ -19,6 +20,25 @@ namespace ProyectoProgramacion.Models
                 return departamentos;
             }
         }//FIN DE ConsultarTodos
+
+        public List<SelectListItem> ConsultarDepartamentosActivos(){
+            try {
+                using (var contextoBD = new ARMEntities()){
+
+                    var result = (from x in contextoBD.Departamentos where x.departamentoEstado== "Activo" select x).ToList();
+
+                    var itemLista = (from item in result select new SelectListItem { Value = item.departamentoId.ToString(), Text = item.departamentoId.ToString() + " - " + item.deparatamentoNombre }).ToList();
+
+                    List<SelectListItem> ListaDepartamentos = new List<SelectListItem>();
+
+                    ListaDepartamentos.AddRange(itemLista);
+
+                    return ListaDepartamentos.ToList();
+                }
+            }catch (Exception e){
+                throw new System.Exception("");
+            }
+        }//FIN DE ConsultarClientes
 
         List<Departamentos> DEPARTAMENTOS = new List<Departamentos>();
         public List<Departamentos> ConsultarUnDepartamento(string DESCRIPCION){

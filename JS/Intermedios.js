@@ -7,13 +7,21 @@ function ActualizarCombobox() {
     var SELECCIONADO = parseFloat($("#tabla option:selected").val());
     LimpiarComboBox();
 
-    if (SELECCIONADO == 0) { //LIGAR CLIENTES
+    if (isNaN(SELECCIONADO)) {
+        LimpiarTablas();
+    }else if (SELECCIONADO == 0) { //LIGAR CLIENTES
         ConsultarClientes();
     } else if (SELECCIONADO == 1) {
-
+        ConsultarDepartamentos();
     }
+    $('#intermedios').val(-1);   
 }//ActualizarCombobox
 
+function LimpiarTablas() {
+    $("#DatosNOLigados td").remove();
+    $("#DatosLigados td").remove();
+}// FIN DE LimpiarTablas
+    
 function ConsultarClientes() {
     $.ajax({
         url: "/Intermedio/ConsultarClientes",
@@ -22,7 +30,7 @@ function ConsultarClientes() {
         dataType: "json",
         success: function (result) {
 
-            var plantilla = '';
+            var plantilla = '<option>-- Seleccione una opción --</option>';
             result.forEach(valor => {
                 plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
             });
@@ -34,12 +42,30 @@ function ConsultarClientes() {
     });
 }//FIN DE CargarClientes
 
+function ConsultarDepartamentos() {
+    $.ajax({
+        url: "/Intermedio/ConsultarDepartamentos",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var plantilla = '<option>-- Seleccione una opción --</option>';
+            result.forEach(valor => {
+                plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+            });
+
+            $("#intermedios").html(plantilla);
+        },
+        error: function (errormessage) {
+        }
+    });
+}//FIN DE ConsultarDepartamentos
+
 
 var URL = "";
 var TABLA_LIGAR = "";
 var CODIGO = ""
-
-
 var ACCION_LIGAR = "";
 var ACCION_DESLIGAR = "";
 
@@ -58,21 +84,26 @@ function ActualizarTablas() {
     CODIGO = parseFloat($("#intermedios option:selected").val());
     URL = "/Intermedio/CargarDatosTablas";
 
-    ACCION_LIGAR = "";
-    ACCION_DESLIGAR = "";
 
-    if (TABLA_LIGAR == 0) {
-        ACCION_LIGAR = "LigarDepartamento";
-        ACCION_DESLIGAR = "DesligarDepartamento"
-    } else if (TABLA_LIGAR == 1) {
-        ACCION_LIGAR = "LigarEquipo";
-        ACCION_DESLIGAR = "DesligarEquipo"
+    if (isNaN(CODIGO) == false) {
+        ACCION_LIGAR = "";
+        ACCION_DESLIGAR = "";
+
+        if (TABLA_LIGAR == 0) {
+            ACCION_LIGAR = "LigarDepartamento";
+            ACCION_DESLIGAR = "DesligarDepartamento"
+        } else if (TABLA_LIGAR == 1) {
+            ACCION_LIGAR = "LigarEquipo";
+            ACCION_DESLIGAR = "DesligarEquipo"
+        }
+
+        if (URL != "" && ACCION_LIGAR != "" && ACCION_DESLIGAR != "") {
+            Cargar_NO_Ligados();
+            Cargar_Ligados();
+        }
+    } else {
+        LimpiarTablas();
     }
-
-    if (URL != "" && ACCION_LIGAR != "" && ACCION_DESLIGAR != "") {
-    Cargar_NO_Ligados();
-    Cargar_Ligados();
-}
 }//FIN DE ActualizarTablas
 
 function Cargar_NO_Ligados() {

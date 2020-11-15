@@ -141,7 +141,6 @@
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccesoController.cs" />
-    <Compile Include="Controllers\ConsultaSolicitudController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
@@ -185,6 +184,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IntermedioModelo.cs" />
     <Compile Include="Models\TipoTrabajoModelo.cs" />
     <Compile Include="Models\DepartamentoModelo.cs" />
     <Compile Include="Models\ClienteModelo.cs" />
@@ -3721,7 +3721,7 @@
     <Content Include="JS\Departamentos.js" />
     <Content Include="JS\Clientes.js" />
     <Content Include="JS\CrearSolicitud.js" />
-    <Content Include="JS\Seguimiento.js" />
+    <Content Include="JS\Intermedios.js" />
     <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />
     <Content Include="JS\TipoTrabajo.js" />

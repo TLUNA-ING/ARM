@@ -23,7 +23,21 @@ namespace ProyectoProgramacion.Controllers
             try{
                 ClienteModelo modelCliente = new ClienteModelo();
 
-                var results = modelCliente.ConsultarClientes();
+                var results = modelCliente.ConsultarClientesActivos();
+                return Json(results);
+
+            }catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE ConsultarProvincias
+
+        [AutorizarUsuario(rol: "admin")]
+        [HttpPost]
+        public ActionResult ConsultarDepartamentos(){
+            try{
+                DepartamentoModelo modelDepartamento = new DepartamentoModelo();
+
+                var results = modelDepartamento.ConsultarDepartamentosActivos();
                 return Json(results);
 
             }catch (Exception e){

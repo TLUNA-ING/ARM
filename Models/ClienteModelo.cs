@@ -144,11 +144,11 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarEstado
 
-        public List<SelectListItem> ConsultarClientes(){
+        public List<SelectListItem> ConsultarClientesActivos(){
             try{
                 using (var contextoBD = new ARMEntities()){
 
-                    var result = (from x in contextoBD.Clientes select x).ToList();
+                    var result = (from x in contextoBD.Clientes where x.clienteEstado == "Activo" select x).ToList();
 
                     var itemLista = (from item in result select new SelectListItem { Value = item.clienteId.ToString(), Text = item.clienteId.ToString()+" - "+item.clienteNombre }).ToList();
 
@@ -161,7 +161,7 @@ namespace ProyectoProgramacion.Models
             }catch (Exception e){
                 throw new System.Exception("");
             }
-        }//FIN DE ConsultarProvincias
+        }//FIN DE ConsultarClientes
 
     }//FIN DE ClienteModelo
 }
