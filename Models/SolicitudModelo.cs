@@ -180,6 +180,39 @@ namespace ProyectoProgramacion.Models
             }
 
         }//FIN DE GUARDAR CONSULTA
+
+        public void Actualizar(Solicitudes sol)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    Solicitudes item = contextoBD.Solicitudes.Find(sol.solicitudId);
+                    item.clienteId = sol.clienteId;
+                    item.empleadoCedula = sol.empleadoCedula;
+                    item.tipoTrabajoId = sol.tipoTrabajoId;
+                    item.departamentoId = sol.departamentoId;
+                    item.equipoId = sol.equipoId;
+                    item.fechaReporte = Convert.ToDateTime(sol.fechaReporte);
+                    item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
+                    item.tipoHora = sol.tipoHora;
+                    item.horaSalida = Convert.ToDateTime(sol.horaSalida);
+                    item.cantidadHoras = sol.cantidadHoras;
+                    item.solicitudMotivo = sol.solicitudMotivo;
+                    item.motivoDetalle = sol.motivoDetalle;
+                    item.solicitudRepuestos = sol.solicitudRepuestos;
+                    item.equipoDetenido = sol.equipoDetenido;
+                    contextoBD.Solicitudes.Add(item);
+                    contextoBD.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new System.Exception("Error al actualizar");
+            }
+
+        }
+
         //public void Eliminar(string id)
         //{
         //    try

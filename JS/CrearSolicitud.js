@@ -113,59 +113,6 @@ function Add() {
 
     };
 
-
-
-    //var empObj = {
-
-
-
-    //    IDSolicitud: {
-    //        IDSolicitud: IDSolicitud
-    //    },
-    //    Cliente: {
-    //        Clientes: Cliente
-    //    },
-    //    Departamento: {
-    //        Departamentos: Departamento
-    //    },
-    //    Empleado: {
-    //        Empleados: Empleado
-    //    },
-    //    Equipo: {
-    //        Equipos: Equipo
-    //    },
-    //    TipoTrabajo: {
-    //        TipoTrabajo: TipoTrabajo
-    //    },
-    //    FechaReporte: {
-    //        FechaReporte: FechaReporte
-    //    },
-    //    HoraEntrada: {
-    //        HoraEntrada: HoraEntrada
-    //    },
-    //    HoraSalida: {
-    //        HoraSalida: HoraSalida
-    //    },
-    //    TipoHora: {
-    //        TipoHora: TipoHora
-    //    },
-    //    CantidadHoras: {
-    //        CantidadHoras: CantidadHoras
-    //    },
-    //    MotivoVisita: {
-    //        MotivoVisita: MotivoVisita
-    //    },
-    //    MotivoDetalle: {
-    //        MotivoDetalle: MotivoDetalle
-    //    },
-    //    solicitudRepuestos: {
-    //        solicitudRepuestos: solicitudRepuestos
-    //    },
-    //    EquipoDetenido: {
-    //        EquipoDetenido: EquipoDetenido
-    //    },
-    //};
-
     try {
         $.ajax({
             url: "/Solicitud/Agregar",
@@ -220,64 +167,46 @@ function Add() {
 //    });
 //    return false;
 //}
-////function for updating employee's record
-//function Update() {
-//    var res = validate();
-//    if (res == false) {
-//        return false;
-//    }
-//    var empObj = {
-//        IDSolicitud: $('#IDSolicitud').val(),
-//        Empleado: {
-//            Cedula: parseFloat($("#Empleado option:selected").val())
-//        },
-//        Nombre: $('#Nombre').val(),
-//        Departamento: {
-//            ID_Departamento: parseFloat($("#Departamento option:selected").val())
-//        },
-//        Descripcion: $('#Descripcion').val(),
-//        Cliente: {
-//            ID_Cliente: parseFloat($("#Cliente option:selected").val())
-//        },
-//        Descripcion: $('#Descripcion').val(),
-//        Equipo: {
-//            ID_Equipo: parseFloat($("#Equipo option:selected").val())
-//        },
-//        Descripcion: $('#Descripcion').val(),
-//        TipoTrabajo: {
-//            ID_TipoTrabajo: parseFloat($("#TipoTrabajo option:selected").val())
-//        },
-//        Descripcion: $('#Descripcion').val(),
+//function for updating employee's record
+function Update() {
+    var res = validate();
+    if (res == false) {
+        return false;
+    }
+    var empObj = {
+        solicitudID: $('#IDSolicitud').val(),
+        clienteId: $('#Cliente').val(),
+        empleadoCedula: $('#Empleado').val(),
+        tipoTrabajoId: $('#tipoTrabajo').val(),
+        departamentoId: $('#Departamento').val(),
+        equipoId: $('#Equipo').val(),
+        fechaReporte: $('#fechaReporte').val(),
+        horaEntrada: $('#horaEntrada').val(),
+        horaSalida: $('#horaSalida').val(),
+        tipoHora: $('#tipoHora').val(),
+        cantidadHoras: $('#cantidadHoras').val(),
+        solicitudMotivo: $('#motivoVisita').val(),
+        motivoDetalle: $('#motivoDetalle').val(),
+        solicitudRepuestos: $('#solicitudRepuestos').val(),
+        equipoDetenido: $('#equipoDetenido').val(),
+    };
+    $.ajax({
+        url: "/Solicitud/Actualizar",
+        data: JSON.stringify(empObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadTable();
+            $('#myModal').modal('hide');
 
-//        Fecha_Reporte: $('#Fecha').val(),
-//        //Reporte: $('#Reporte').val(),
-//        //Fecha: $('#Fecha').val(),
-//        horaEntrada: $('#horaEntrada').val(),
-//        horaSalida: $('#horaSalida').val(),
-//        tipoHora: $('#tipoHora').val(),
-//        cantidadHoras: $('#cantidadHoras'),
-//        solicitudMotivo: $('#solicitudMotivo').val(),
-//        motivoDetalle: $('#motivoDetalle').val(),
-//        solicitudRepuestos: $('#solicitudRepuestos').val(),
-//        equipoDetenido: $('#equipoDetenido').val(),
-//    };
-//    $.ajax({
-//        url: "/Solicitud/Actualizar",
-//        data: JSON.stringify(empObj),
-//        type: "POST",
-//        contentType: "application/json;charset=utf-8",
-//        dataType: "json",
-//        success: function (result) {
-//            loadTable();
-//            $('#myModal').modal('hide');
-
-//            clearTextBox();
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}
+            clearTextBox();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 ////function for deleting employee's record
 //function Delete(ID) {
 
