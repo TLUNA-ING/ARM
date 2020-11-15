@@ -17,9 +17,9 @@ namespace ProyectoProgramacion
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Departamentos()
         {
+            this.Departamento_X_Cliente = new HashSet<Departamento_X_Cliente>();
             this.Equipo_X_Departamento = new HashSet<Equipo_X_Departamento>();
             this.Solicitudes = new HashSet<Solicitudes>();
-            this.Clientes = new HashSet<Clientes>();
         }
     
         public int departamentoId { get; set; }
@@ -27,10 +27,10 @@ namespace ProyectoProgramacion
         public string departamentoEstado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Departamento_X_Cliente> Departamento_X_Cliente { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Equipo_X_Departamento> Equipo_X_Departamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitudes> Solicitudes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Clientes> Clientes { get; set; }
     }
 }

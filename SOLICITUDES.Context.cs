@@ -28,6 +28,7 @@ namespace ProyectoProgramacion
         }
     
         public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<Departamento_X_Cliente> Departamento_X_Cliente { get; set; }
         public virtual DbSet<Departamentos> Departamentos { get; set; }
         public virtual DbSet<Empleados> Empleados { get; set; }
         public virtual DbSet<Equipo_X_Departamento> Equipo_X_Departamento { get; set; }
@@ -42,6 +43,23 @@ namespace ProyectoProgramacion
         public virtual ObjectResult<CONSULTAR_EMPLEADOS_NO_USUARIO_Result> CONSULTAR_EMPLEADOS_NO_USUARIO()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONSULTAR_EMPLEADOS_NO_USUARIO_Result>("CONSULTAR_EMPLEADOS_NO_USUARIO");
+        }
+    
+        public virtual ObjectResult<CONSULTAR_INFORMACION_INTERMEDIA_Result> CONSULTAR_INFORMACION_INTERMEDIA(string tABLA, Nullable<int> iD, string iND_LIGADOS)
+        {
+            var tABLAParameter = tABLA != null ?
+                new ObjectParameter("TABLA", tABLA) :
+                new ObjectParameter("TABLA", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var iND_LIGADOSParameter = iND_LIGADOS != null ?
+                new ObjectParameter("IND_LIGADOS", iND_LIGADOS) :
+                new ObjectParameter("IND_LIGADOS", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONSULTAR_INFORMACION_INTERMEDIA_Result>("CONSULTAR_INFORMACION_INTERMEDIA", tABLAParameter, iDParameter, iND_LIGADOSParameter);
         }
     
         public virtual ObjectResult<CONSULTAR_UN_EMPLEADO_BD_Result> CONSULTAR_UN_EMPLEADO_BD(string cEDULA)

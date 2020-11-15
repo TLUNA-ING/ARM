@@ -90,6 +90,15 @@ function clearTextBox() {
     $('#btnAdd').show();
 }//FIN DE clearTextBox
 
+
+function clearTextBox1() {
+    ConsultarClientes();
+    ConsultarDepartamentosSeleccionados();
+    ConsultarDepartamentosNOseleccionados();
+  //  $('#myModal1').modal('hide');
+}//FIN DE clearTextBox
+
+
 function cargarAgregar() {
     clearTextBox();
 }//FIN DE CARGAR_AGREGAR
@@ -282,3 +291,47 @@ function ModificarEstado(ID) {
         }
     });
 }//FIN DE ModificarEstado
+
+
+
+
+function ConsultarDepartamentosSeleccionados() {
+    $.ajax({
+        url: "/Cliente/ConsultarClientes",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var plantilla = '';
+            result.forEach(valor => {
+                plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+            });
+
+            $("#lista_cli").html(plantilla);
+        },
+        error: function (errormessage) {
+        }
+    });
+}//FIN DE CargarClientes
+
+
+function ConsultarDepartamentosNOseleccionados() {
+    $.ajax({
+        url: "/Cliente/ConsultarClientes",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var plantilla = '';
+            result.forEach(valor => {
+                plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+            });
+
+            $("#lista_cli").html(plantilla);
+        },
+        error: function (errormessage) {
+        }
+    });
+}//FIN DE CargarClientes

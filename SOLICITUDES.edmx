@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="clienteId" />
@@ -17,11 +17,12 @@
         </EntityType>
         <EntityType Name="Departamento_X_Cliente">
           <Key>
-            <PropertyRef Name="clienteId" />
             <PropertyRef Name="departamentoId" />
+            <PropertyRef Name="clienteId" />
           </Key>
-          <Property Name="clienteId" Type="int" Nullable="false" />
           <Property Name="departamentoId" Type="int" Nullable="false" />
+          <Property Name="clienteId" Type="int" Nullable="false" />
+          <Property Name="cant_departamentos" Type="int" />
         </EntityType>
         <EntityType Name="Departamentos">
           <Key>
@@ -276,6 +277,11 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="CONSULTAR_EMPLEADOS_NO_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CONSULTAR_INFORMACION_INTERMEDIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TABLA" Type="varchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="IND_LIGADOS" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="CONSULTAR_UN_EMPLEADO_BD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CEDULA" Type="varchar" Mode="In" />
         </Function>
@@ -345,7 +351,8 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ARMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -356,11 +363,22 @@
           <Property Name="clienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="provinciaId" Type="Int32" Nullable="false" />
           <Property Name="clienteNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clienteCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clienteEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Departamento_X_Cliente" Relationship="Self.FK_Departamento_X_Cliente_Clientes" FromRole="Clientes" ToRole="Departamento_X_Cliente" />
           <NavigationProperty Name="Provincias" Relationship="Self.FK_tblClientes_tblProvincias" FromRole="Clientes" ToRole="Provincias" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblClientes" FromRole="Clientes" ToRole="Solicitudes" />
-          <NavigationProperty Name="Departamentos" Relationship="Self.Departamento_X_Cliente" FromRole="Clientes" ToRole="Departamentos" />
-          <Property Name="clienteCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="clienteEstado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Departamento_X_Cliente">
+          <Key>
+            <PropertyRef Name="departamentoId" />
+            <PropertyRef Name="clienteId" />
+          </Key>
+          <Property Name="departamentoId" Type="Int32" Nullable="false" />
+          <Property Name="clienteId" Type="Int32" Nullable="false" />
+          <Property Name="cant_departamentos" Type="Int32" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Departamento_X_Cliente_Clientes" FromRole="Departamento_X_Cliente" ToRole="Clientes" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_Departamento_X_Cliente_Departamentos" FromRole="Departamento_X_Cliente" ToRole="Departamentos" />
         </EntityType>
         <EntityType Name="Departamentos">
           <Key>
@@ -369,9 +387,9 @@
           <Property Name="departamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="deparatamentoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="departamentoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Departamento_X_Cliente" Relationship="Self.FK_Departamento_X_Cliente_Departamentos" FromRole="Departamentos" ToRole="Departamento_X_Cliente" />
           <NavigationProperty Name="Equipo_X_Departamento" Relationship="Self.FK_Equipo_x_Departamento_Departamentos" FromRole="Departamentos" ToRole="Equipo_X_Departamento" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblDepartamentos" FromRole="Departamentos" ToRole="Solicitudes" />
-          <NavigationProperty Name="Clientes" Relationship="Self.Departamento_X_Cliente" FromRole="Departamentos" ToRole="Clientes" />
         </EntityType>
         <EntityType Name="Empleados">
           <Key>
@@ -466,8 +484,8 @@
           </Key>
           <Property Name="tipoTrabajoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tipoTrabajoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoTrabajoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblTipoTrabajo" FromRole="TipoTrabajo" ToRole="Solicitudes" />
-          <Property Name="tipoTrabajoEstado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -479,6 +497,18 @@
           <NavigationProperty Name="Empleados" Relationship="Self.FK_Usuarios_Empleados" FromRole="Usuarios" ToRole="Empleados" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_tblUsuarios_tblRoles" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
+        <Association Name="FK_Departamento_X_Cliente_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Departamento_X_Cliente" Type="Self.Departamento_X_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="clienteId" />
+            </Principal>
+            <Dependent Role="Departamento_X_Cliente">
+              <PropertyRef Name="clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblClientes_tblProvincias">
           <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
@@ -500,6 +530,18 @@
             </Principal>
             <Dependent Role="Solicitudes">
               <PropertyRef Name="clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departamento_X_Cliente_Departamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Departamento_X_Cliente" Type="Self.Departamento_X_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="departamentoId" />
+            </Principal>
+            <Dependent Role="Departamento_X_Cliente">
+              <PropertyRef Name="departamentoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -611,12 +653,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Departamento_X_Cliente">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
-          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="ARMEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Departamento_X_Cliente" EntityType="Self.Departamento_X_Cliente" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" />
           <EntitySet Name="Empleados" EntityType="Self.Empleados" />
           <EntitySet Name="Equipo_X_Departamento" EntityType="Self.Equipo_X_Departamento" />
@@ -627,6 +666,10 @@
           <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" />
           <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_Departamento_X_Cliente_Clientes" Association="Self.FK_Departamento_X_Cliente_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Departamento_X_Cliente" EntitySet="Departamento_X_Cliente" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblClientes_tblProvincias" Association="Self.FK_tblClientes_tblProvincias">
             <End Role="Provincias" EntitySet="Provincias" />
             <End Role="Clientes" EntitySet="Clientes" />
@@ -634,6 +677,10 @@
           <AssociationSet Name="FK_tblSolicitud_tblClientes" Association="Self.FK_tblSolicitud_tblClientes">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departamento_X_Cliente_Departamentos" Association="Self.FK_Departamento_X_Cliente_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Departamento_X_Cliente" EntitySet="Departamento_X_Cliente" />
           </AssociationSet>
           <AssociationSet Name="FK_Equipo_x_Departamento_Departamentos" Association="Self.FK_Equipo_x_Departamento_Departamentos">
             <End Role="Departamentos" EntitySet="Departamentos" />
@@ -671,18 +718,23 @@
             <End Role="TipoTrabajo" EntitySet="TipoTrabajo" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
-          <AssociationSet Name="Departamento_X_Cliente" Association="Self.Departamento_X_Cliente">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Departamentos" EntitySet="Departamentos" />
-          </AssociationSet>
           <FunctionImport Name="CONSULTAR_EMPLEADOS_NO_USUARIO" ReturnType="Collection(ARMModel.CONSULTAR_EMPLEADOS_NO_USUARIO_Result)" />
+          <FunctionImport Name="CONSULTAR_INFORMACION_INTERMEDIA" ReturnType="Collection(ARMModel.CONSULTAR_INFORMACION_INTERMEDIA_Result)">
+            <Parameter Name="TABLA" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="IND_LIGADOS" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="CONSULTAR_UN_EMPLEADO_BD" ReturnType="Collection(ARMModel.CONSULTAR_UN_EMPLEADO_BD_Result)">
-          <Parameter Name="CEDULA" Mode="In" Type="String" />
+            <Parameter Name="CEDULA" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
           <Property Type="Int64" Name="Cedula" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="101" />
+        </ComplexType>
+        <ComplexType Name="CONSULTAR_INFORMACION_INTERMEDIA_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="CONSULTAR_UN_EMPLEADO_BD_Result">
           <Property Type="Int32" Name="TipoId" Nullable="false" />
@@ -702,11 +754,20 @@
           <EntitySetMapping Name="Clientes">
             <EntityTypeMapping TypeName="ARMModel.Clientes">
               <MappingFragment StoreEntitySet="Clientes">
-                <ScalarProperty Name="clienteEstado" ColumnName="clienteEstado" />
-                <ScalarProperty Name="clienteCorreo" ColumnName="clienteCorreo" />
                 <ScalarProperty Name="clienteId" ColumnName="clienteId" />
                 <ScalarProperty Name="provinciaId" ColumnName="provinciaId" />
                 <ScalarProperty Name="clienteNombre" ColumnName="clienteNombre" />
+                <ScalarProperty Name="clienteCorreo" ColumnName="clienteCorreo" />
+                <ScalarProperty Name="clienteEstado" ColumnName="clienteEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamento_X_Cliente">
+            <EntityTypeMapping TypeName="ARMModel.Departamento_X_Cliente">
+              <MappingFragment StoreEntitySet="Departamento_X_Cliente">
+                <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
+                <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+                <ScalarProperty Name="cant_departamentos" ColumnName="cant_departamentos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -800,9 +861,9 @@
           <EntitySetMapping Name="TipoTrabajo">
             <EntityTypeMapping TypeName="ARMModel.TipoTrabajo">
               <MappingFragment StoreEntitySet="TipoTrabajo">
-                <ScalarProperty Name="tipoTrabajoEstado" ColumnName="tipoTrabajoEstado" />
                 <ScalarProperty Name="tipoTrabajoId" ColumnName="tipoTrabajoId" />
                 <ScalarProperty Name="tipoTrabajoNombre" ColumnName="tipoTrabajoNombre" />
+                <ScalarProperty Name="tipoTrabajoEstado" ColumnName="tipoTrabajoEstado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -815,19 +876,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Departamento_X_Cliente" TypeName="ARMModel.Departamento_X_Cliente" StoreEntitySet="Departamento_X_Cliente">
-            <EndProperty Name="Clientes">
-              <ScalarProperty Name="clienteId" ColumnName="clienteId" />
-            </EndProperty>
-            <EndProperty Name="Departamentos">
-              <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="CONSULTAR_EMPLEADOS_NO_USUARIO" FunctionName="ARMModel.Store.CONSULTAR_EMPLEADOS_NO_USUARIO">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ARMModel.CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CONSULTAR_INFORMACION_INTERMEDIA" FunctionName="ARMModel.Store.CONSULTAR_INFORMACION_INTERMEDIA">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARMModel.CONSULTAR_INFORMACION_INTERMEDIA_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

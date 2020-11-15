@@ -124,5 +124,6 @@ namespace ProyectoProgramacion.Controllers
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
         }// FIN DE ModificarEstado
+
     }
 }

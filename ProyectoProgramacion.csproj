@@ -134,6 +134,9 @@
     <Compile Include="CONSULTAR_EMPLEADOS_NO_USUARIO_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
+    <Compile Include="CONSULTAR_INFORMACION_INTERMEDIA_Result.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
     <Compile Include="CONSULTAR_UN_EMPLEADO_BD_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
@@ -143,6 +146,7 @@
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IntermedioController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\SeguimientoController.cs" />
@@ -151,6 +155,9 @@
     <Compile Include="Controllers\TipoTrabajoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Departamentos.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Departamento_X_Cliente.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="Empleados.cs">
@@ -162,6 +169,8 @@
     <Compile Include="Equipo_X_Departamento.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
+    <Compile Include="ETL\etlDepartamentoXCliente.cs" />
+    <Compile Include="ETL\etlIntermedio.cs" />
     <Compile Include="ETL\etlDepartamento.cs" />
     <Compile Include="ETL\etlCanton.cs" />
     <Compile Include="ETL\etlCliente.cs" />
@@ -178,6 +187,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IntermedioModelo.cs" />
     <Compile Include="Models\TipoTrabajoModelo.cs" />
     <Compile Include="Models\DepartamentoModelo.cs" />
     <Compile Include="Models\ClienteModelo.cs" />
@@ -3715,6 +3725,7 @@
     <Content Include="JS\Departamentos.js" />
     <Content Include="JS\Clientes.js" />
     <Content Include="JS\CrearSolicitud.js" />
+    <Content Include="JS\Intermedios.js" />
     <Content Include="JS\Seguimiento.js" />
     <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />
@@ -4035,6 +4046,8 @@
     <Content Include="Views\Seguimiento\Index.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Pruebas\Index.cshtml" />
+    <Content Include="Views\TipoTrabajo\Index.cshtml" />
+    <Content Include="Views\Intermedio\Index.cshtml" />
     <EntityDeploy Include="SOLICITUDES.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SOLICITUDES.Designer.cs</LastGenOutput>
@@ -4042,7 +4055,6 @@
     <Content Include="SOLICITUDES.edmx.diagram">
       <DependentUpon>SOLICITUDES.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\TipoTrabajo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
