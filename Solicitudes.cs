@@ -11,9 +11,11 @@ namespace ProyectoProgramacion
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Solicitudes
     {
+        [Key]
         public int solicitudId { get; set; }
         public int clienteId { get; set; }
         public long empleadoCedula { get; set; }

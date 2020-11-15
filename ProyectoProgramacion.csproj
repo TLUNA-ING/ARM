@@ -141,15 +141,14 @@
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccesoController.cs" />
+    <Compile Include="Controllers\ConsultaSolicitudController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
-    <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntermedioController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
-    <Compile Include="Controllers\SeguimientoController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\TipoTrabajoController.cs" />
@@ -178,7 +177,6 @@
     <Compile Include="ETL\etlEmpleado.cs" />
     <Compile Include="ETL\etlProvincia.cs" />
     <Compile Include="ETL\etlRol.cs" />
-    <Compile Include="ETL\etlSeguimiento.cs" />
     <Compile Include="ETL\etlEquipo.cs" />
     <Compile Include="ETL\etlUsuario.cs" />
     <Compile Include="ETL\etlSolicitud.cs" />
@@ -187,14 +185,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\IntermedioModelo.cs" />
     <Compile Include="Models\TipoTrabajoModelo.cs" />
     <Compile Include="Models\DepartamentoModelo.cs" />
     <Compile Include="Models\ClienteModelo.cs" />
     <Compile Include="Models\EmpleadoModelo.cs" />
     <Compile Include="Models\ListaUsuarioModelo.cs" />
     <Compile Include="Models\ProvinciaModelo.cs" />
-    <Compile Include="Models\SeguimientoModelo.cs" />
     <Compile Include="Models\SolicitudModelo.cs" />
     <Compile Include="Models\SolicitudSeguimientoModelo.cs" />
     <Compile Include="Models\EquipoModelo.cs" />
@@ -3725,7 +3721,6 @@
     <Content Include="JS\Departamentos.js" />
     <Content Include="JS\Clientes.js" />
     <Content Include="JS\CrearSolicitud.js" />
-    <Content Include="JS\Intermedios.js" />
     <Content Include="JS\Seguimiento.js" />
     <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />
@@ -4043,7 +4038,6 @@
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Consulta\Index.cshtml" />
     <Content Include="Views\Solicitud\Index.cshtml" />
-    <Content Include="Views\Seguimiento\Index.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Pruebas\Index.cshtml" />
     <Content Include="Views\TipoTrabajo\Index.cshtml" />
@@ -4055,9 +4049,11 @@
     <Content Include="SOLICITUDES.edmx.diagram">
       <DependentUpon>SOLICITUDES.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\TipoTrabajo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ConsultaSolicitud\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

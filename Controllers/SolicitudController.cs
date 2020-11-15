@@ -114,6 +114,23 @@ namespace ProyectoProgramacion.Controllers
 
         }
 
+        [AutorizarUsuario(rol: "admin,user")]
+        [HttpPost]
+        public ActionResult Actualizar(Solicitudes sol)
+        {
+            try
+            {
+                new SolicitudModelo().Actualizar(sol);
+                return Json(sol, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+
+
+        }
+
         //[HttpPost]
         //[AutorizarUsuario(rol: "admin,user")]
         //public ActionResult Eliminar(string id)
