@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IntermedioController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
@@ -196,6 +197,8 @@
     <Compile Include="ETL\etlDepartamento.cs" />
     <Compile Include="ETL\etlCanton.cs" />
     <Compile Include="ETL\etlCliente.cs" />
+    <Compile Include="ETL\etlDepartamentoXCliente.cs" />
+    <Compile Include="ETL\etlIntermedio.cs" />
     <Compile Include="ETL\etlTipoTrabajo.cs" />
     <Compile Include="ETL\etlEmpleado.cs" />
     <Compile Include="ETL\etlProvincia.cs" />
@@ -209,6 +212,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ConsultaSolicitudModelo.cs" />
+    <Compile Include="Models\IntermedioModelo.cs" />
     <Compile Include="Models\TipoTrabajoModelo.cs" />
     <Compile Include="Models\DepartamentoModelo.cs" />
     <Compile Include="Models\ClienteModelo.cs" />
@@ -3746,6 +3750,7 @@
     <Content Include="JS\Departamentos.js" />
     <Content Include="JS\Clientes.js" />
     <Content Include="JS\CrearSolicitud.js" />
+    <Content Include="JS\Intermedios.js" />
     <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />
     <Content Include="JS\TipoTrabajo.js" />
@@ -4072,6 +4077,7 @@
     </Content>
     <Content Include="Views\TipoTrabajo\Index.cshtml" />
     <Content Include="Views\ConsultaSolicitud\Index.cshtml" />
+    <Content Include="Views\Intermedio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
