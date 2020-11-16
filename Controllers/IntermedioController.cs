@@ -18,6 +18,7 @@ namespace ProyectoProgramacion.Controllers
         }
 
 
+
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
         public ActionResult ConsultarClientes(){

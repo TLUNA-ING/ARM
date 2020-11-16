@@ -166,6 +166,9 @@
     <Compile Include="CONSULTAR_EMPLEADOS_NO_USUARIO_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
+    <Compile Include="CONSULTAR_INFORMACION_INTERMEDIA_Result.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
     <Compile Include="CONSULTAR_UN_EMPLEADO_BD_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
@@ -183,6 +186,9 @@
     <Compile Include="Controllers\TipoTrabajoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Departamentos.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Departamento_X_Cliente.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="Empleados.cs">
@@ -4068,6 +4074,9 @@
     <Content Include="Views\Solicitud\Index.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Pruebas\Index.cshtml" />
+    <Content Include="Views\TipoTrabajo\Index.cshtml" />
+    <Content Include="Views\ConsultaSolicitud\Index.cshtml" />
+    <Content Include="Views\Intermedio\Index.cshtml" />
     <EntityDeploy Include="SOLICITUDES.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SOLICITUDES.Designer.cs</LastGenOutput>
@@ -4075,9 +4084,6 @@
     <Content Include="SOLICITUDES.edmx.diagram">
       <DependentUpon>SOLICITUDES.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\TipoTrabajo\Index.cshtml" />
-    <Content Include="Views\ConsultaSolicitud\Index.cshtml" />
-    <Content Include="Views\Intermedio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

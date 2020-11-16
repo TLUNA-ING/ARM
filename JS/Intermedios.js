@@ -15,6 +15,7 @@ function ActualizarCombobox() {
         ConsultarDepartamentos();
     }
 
+
     $('#intermedios').val(-1);   
 }//ActualizarCombobox
 

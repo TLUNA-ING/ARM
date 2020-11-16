@@ -16,7 +16,7 @@ namespace ProyectoProgramacion
     {
         public int departamentoId { get; set; }
         public int equipoId { get; set; }
-        public int cant_equipos { get; set; }
+        public Nullable<int> cant_equipos { get; set; }
     
         public virtual Departamentos Departamentos { get; set; }
         public virtual Equipos Equipos { get; set; }

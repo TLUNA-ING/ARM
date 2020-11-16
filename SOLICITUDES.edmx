@@ -51,7 +51,7 @@
           </Key>
           <Property Name="departamentoId" Type="int" Nullable="false" />
           <Property Name="equipoId" Type="int" Nullable="false" />
-          <Property Name="cant_equipos" Type="int" Nullable="false" />
+          <Property Name="cant_equipos" Type="int" />
         </EntityType>
         <EntityType Name="Equipos">
           <Key>
@@ -413,7 +413,7 @@
           </Key>
           <Property Name="departamentoId" Type="Int32" Nullable="false" />
           <Property Name="equipoId" Type="Int32" Nullable="false" />
-          <Property Name="cant_equipos" Type="Int32" Nullable="false" />
+          <Property Name="cant_equipos" Type="Int32" />
           <NavigationProperty Name="Departamentos" Relationship="Self.FK_Equipo_x_Departamento_Departamentos" FromRole="Equipo_X_Departamento" ToRole="Departamentos" />
           <NavigationProperty Name="Equipos" Relationship="Self.FK_Equipo_x_Departamento_Equipos" FromRole="Equipo_X_Departamento" ToRole="Equipos" />
         </EntityType>
