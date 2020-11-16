@@ -201,7 +201,7 @@ function analyzeData(wizard, options, state)
 }
 
 /**
- * Triggers the onCanceled event.
+ * Triggers the onCancelared event.
  *
  * @static
  * @private
@@ -448,13 +448,13 @@ function getValidEnumValue(enumType, keyOrValue)
  *
  * @static
  * @private
- * @method goToNextStep
+ * @method goToSiguienteStep
  * @param wizard {Object} The jQuery wizard object
  * @param options {Object} Settings of the current wizard
  * @param state {Object} The state container of the current wizard
  * @return {Boolean} Indicates whether the action executed
  **/
-function goToNextStep(wizard, options, state)
+function goToSiguienteStep(wizard, options, state)
 {
     return paginationClick(wizard, options, state, increaseCurrentIndexBy(state, 1));
 }
@@ -464,13 +464,13 @@ function goToNextStep(wizard, options, state)
  *
  * @static
  * @private
- * @method goToPreviousStep
+ * @method goToAtrasStep
  * @param wizard {Object} The jQuery wizard object
  * @param options {Object} Settings of the current wizard
  * @param state {Object} The state container of the current wizard
  * @return {Boolean} Indicates whether the action executed
  **/
-function goToPreviousStep(wizard, options, state)
+function goToAtrasStep(wizard, options, state)
 {
     return paginationClick(wizard, options, state, decreaseCurrentIndexBy(state, 1));
 }
@@ -678,12 +678,12 @@ function keyUpHandler(event)
     if (event.keyCode === keyCodes.left)
     {
         event.preventDefault();
-        goToPreviousStep(wizard, options, state);
+        goToAtrasStep(wizard, options, state);
     }
     else if (event.keyCode === keyCodes.right)
     {
         event.preventDefault();
-        goToNextStep(wizard, options, state);
+        goToSiguienteStep(wizard, options, state);
     }
 }
 
@@ -798,11 +798,11 @@ function paginationClickHandler(event)
             break;
 
         case "next":
-            goToNextStep(wizard, options, state);
+            goToSiguienteStep(wizard, options, state);
             break;
 
         case "previous":
-            goToPreviousStep(wizard, options, state);
+            goToAtrasStep(wizard, options, state);
             break;
     }
 }
@@ -908,7 +908,7 @@ function registerEvents(wizard, options)
 {
     var eventNamespace = getEventNamespace(wizard);
 
-    wizard.bind("canceled" + eventNamespace, options.onCanceled);
+    wizard.bind("canceled" + eventNamespace, options.onCancelared);
     wizard.bind("contentLoaded" + eventNamespace, options.onContentLoaded);
     wizard.bind("finishing" + eventNamespace, options.onFinishing);
     wizard.bind("finished" + eventNamespace, options.onFinished);
@@ -1070,7 +1070,7 @@ function renderPagination(wizard, options, state)
             buttons += buttonTemplate.format("finish", options.labels.finish);
         }
 
-        if (options.enableCancelButton)
+        if (options.enableCancelarButton)
         {
             buttons += buttonTemplate.format("cancel", options.labels.cancel);
         }
@@ -1424,7 +1424,7 @@ $.fn.steps.insert = function (index, step)
  **/
 $.fn.steps.next = function ()
 {
-    return goToNextStep(this, getOptions(this), getState(this));
+    return goToSiguienteStep(this, getOptions(this), getState(this));
 };
 
 /**
@@ -1435,7 +1435,7 @@ $.fn.steps.next = function ()
  **/
 $.fn.steps.previous = function ()
 {
-    return goToPreviousStep(this, getOptions(this), getState(this));
+    return goToAtrasStep(this, getOptions(this), getState(this));
 };
 
 /**
@@ -1789,12 +1789,12 @@ var defaults = $.fn.steps.defaults = {
     /**
      * Shows the cancel button if enabled.
      *
-     * @property enableCancelButton
+     * @property enableCancelarButton
      * @type Boolean
      * @default false
      * @for defaults
      **/
-    enableCancelButton: false,
+    enableCancelarButton: false,
 
     /**
      * Shows the finish button if enabled.
@@ -1910,12 +1910,12 @@ var defaults = $.fn.steps.defaults = {
     /**
      * Fires after cancelation. 
      *
-     * @property onCanceled
+     * @property onCancelared
      * @type Event
      * @default function (event) { }
      * @for defaults
      **/
-    onCanceled: function (event) { },
+    onCancelared: function (event) { },
 
     /**
      * Fires before finishing and can be used to prevent completion by returning `false`. 
@@ -1971,10 +1971,10 @@ var defaults = $.fn.steps.defaults = {
          *
          * @property cancel
          * @type String
-         * @default "Cancel"
+         * @default "Cancelar"
          * @for defaults
          **/
-        cancel: "Cancel",
+        cancel: "Cancelar",
 
         /**
          * This label is important for accessability reasons.
@@ -2006,27 +2006,27 @@ var defaults = $.fn.steps.defaults = {
          * @default "Finish"
          * @for defaults
          **/
-        finish: "Finish",
+        finish: "Finalizar",
 
         /**
          * Label for the next button.
          *
          * @property next
          * @type String
-         * @default "Next"
+         * @default "Siguiente"
          * @for defaults
          **/
-        next: "Next",
+        next: "Siguiente",
 
         /**
          * Label for the previous button.
          *
          * @property previous
          * @type String
-         * @default "Previous"
+         * @default "Atras"
          * @for defaults
          **/
-        previous: "Previous",
+        previous: "Atras",
 
         /**
          * Label for the loading animation.

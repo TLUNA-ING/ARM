@@ -543,9 +543,9 @@ function CargarEmpleado() {
         dataType: "json",
         success: function (result) {
 
-            var Empleados = '';
+            var Empleados = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
             result.forEach(valor => { Empleados += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Empleado").html(Empleados);
+            $("#Empleados").html(Empleados);
 
         },
         error: function (errormessage) {
