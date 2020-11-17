@@ -56,7 +56,7 @@ namespace ProyectoProgramacion.Controllers
                     if (AGREGADO == true){
                         return Json("Agregado", JsonRequestBehavior.AllowGet);
                     }else{
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("666", JsonRequestBehavior.AllowGet);
                     }
                 }
             }catch (Exception e){
@@ -93,7 +93,7 @@ namespace ProyectoProgramacion.Controllers
                     }
 
                 }else{
-                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                    return Json("666", JsonRequestBehavior.AllowGet);
                 }
             }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
@@ -114,11 +114,11 @@ namespace ProyectoProgramacion.Controllers
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
                     }else{
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("666", JsonRequestBehavior.AllowGet);
                     }
 
                 }else{
-                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                    return Json("666", JsonRequestBehavior.AllowGet);
                 }
             }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);

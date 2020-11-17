@@ -219,6 +219,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccesoModelo.cs" />
     <Compile Include="Models\ConsultaSolicitudModelo.cs" />
     <Compile Include="Models\IntermedioModelo.cs" />
     <Compile Include="Models\TipoTrabajoModelo.cs" />
@@ -230,7 +231,6 @@
     <Compile Include="Models\SolicitudModelo.cs" />
     <Compile Include="Models\SolicitudSeguimientoModelo.cs" />
     <Compile Include="Models\EquipoModelo.cs" />
-    <Compile Include="Models\UsuarioModelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provincias.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
@@ -3758,6 +3758,7 @@
     <Content Include="JS\Departamentos.js" />
     <Content Include="JS\Clientes.js" />
     <Content Include="JS\CrearSolicitud.js" />
+    <Content Include="JS\Acceso.js" />
     <Content Include="JS\Intermedios.js" />
     <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />

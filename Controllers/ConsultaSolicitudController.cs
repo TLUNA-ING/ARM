@@ -65,13 +65,13 @@ namespace ProyectoProgramacion.Controllers
                     }
                     else
                     {
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("666", JsonRequestBehavior.AllowGet);
                     }
 
                 }
                 else
                 {
-                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                    return Json("666", JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)

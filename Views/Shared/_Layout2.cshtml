@@ -81,7 +81,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">ANÁLISIS Y REGISTRO DE BITÁCORAS</a>
+                <a class="navbar-brand" href="~/Home/Index">Análisis y registro de bitácoras</a>
             </div>
         </div>
     </nav>
@@ -95,8 +95,12 @@
                     <img src="~/Content/images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diana Monge</div>
-                    <div class="email">dmonge@capris.co.cr</div>
+                    @{ViewBag.NombreCompletoUsuario = Session["NombreCompletoUsuario"];
+                        ViewBag.EmailUsuario = Session["EmailUsuario"];
+                    }
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.NombreCompletoUsuario</div>
+                    <div class="email">@ViewBag.EmailUsuario</div>
+
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -107,79 +111,82 @@
                     </div>
                 </div>
             </div>
-            <!-- #User Info -->
-            <!-- Menu -->
             <div class="menu">
                 <ul class="list">
                     <li class="header">Menu Principal</li>
+                    @{var rol = Session["Rol"];
 
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons col-black">face</i>
-                            <span>Acceso</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/Empleado/">
-                                    <i class="material-icons col-black">groups</i>
-                                    <span>Empleados</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Usuario/">
-                                    <i class="material-icons col-black">groups</i>
-                                    <span>Usuarios</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        switch (rol)
+                        {
+                            case "admin":
+                                <li>
+                                    <a href="javascript:void(0);" class="menu-toggle">
+                                        <i class="material-icons col-black">face</i>
+                                        <span>Acceso</span>
+                                    </a>
+                                    <ul class="ml-menu">
+                                        <li>
+                                            <a href="/Empleado/">
+                                                <i class="material-icons col-black">groups</i>
+                                                <span>Empleados</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Usuario/">
+                                                <i class="material-icons col-black">groups</i>
+                                                <span>Usuarios</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons col-black">settings</i>
-                            <span>Mantenimientos</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/Equipo/">
-                                    <i class="material-icons col-black">construction</i>
-                                    <span>Equipos</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Cliente/">
-                                    <i class="material-icons col-black">construction</i>
-                                    <span>Clientes</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/TipoTrabajo/">
-                                    <i class="material-icons col-black">construction</i>
-                                    <span>Tipo de trabajo</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Departamento/">
-                                    <i class="material-icons col-black">construction</i>
-                                    <span>Departamentos</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="menu-toggle">
+                                        <i class="material-icons col-black">settings</i>
+                                        <span>Mantenimientos</span>
+                                    </a>
+                                    <ul class="ml-menu">
+                                        <li>
+                                            <a href="/Equipo/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Equipos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Cliente/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Clientes</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/TipoTrabajo/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Tipo de trabajo</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Departamento/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Departamentos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Intermedio/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Departamentos/Cliente - Equipos/Departamento</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                break;
+                        }
+                    }
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons col-black">settings</i>
                             <span>Movimientos</span>
                         </a>
                         <ul class="ml-menu">
-
-                            <li>
-                                <a href="/Intermedio/">
-                                    <i class="material-icons col-black">text_fields</i>
-                                    <span>Ligar intermedios</span>
-                                </a>
-                            </li>
-
                             <li>
                                 <a href="/Solicitud/">
                                     <i class="material-icons col-black">text_fields</i>
@@ -187,7 +194,7 @@
                                 </a>
                             </li>
                             <li>
-                                    <a href="/ConsultaSolicitud/">
+                                <a href="/ConsultaSolicitud/">
                                     <i class="material-icons col-black">text_fields</i>
                                     <span>Consulta Solicitudes</span>
                                 </a>
@@ -200,8 +207,7 @@
                             </li>
                         </ul>
                     </li>
-            </div>
-            <!-- #Menu -->
+</div>
         </aside>
     </section>
 

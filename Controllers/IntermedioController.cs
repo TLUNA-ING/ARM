@@ -75,10 +75,10 @@ namespace ProyectoProgramacion.Controllers
                         if (LIGADO == true){
                             return Json("Ligado", JsonRequestBehavior.AllowGet);
                         }else{
-                            return Json("XXX", JsonRequestBehavior.AllowGet);
+                            return Json("666", JsonRequestBehavior.AllowGet);
                         }
                     }else{
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("666", JsonRequestBehavior.AllowGet);
                     }
                 }
             }catch (Exception e){
@@ -99,7 +99,7 @@ namespace ProyectoProgramacion.Controllers
                     if (DESLIGADO == true) {
                         return Json("Desligado", JsonRequestBehavior.AllowGet);
                     } else {
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("666", JsonRequestBehavior.AllowGet);
                     }
                 }else{
                     return Json("No Existe", JsonRequestBehavior.AllowGet);
@@ -130,10 +130,10 @@ namespace ProyectoProgramacion.Controllers
                         if (LIGADO == true){
                             return Json("Ligado", JsonRequestBehavior.AllowGet);
                         }else{
-                            return Json("XXX", JsonRequestBehavior.AllowGet);
+                            return Json("666", JsonRequestBehavior.AllowGet);
                         }
                     }else{
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("666", JsonRequestBehavior.AllowGet);
                     }
                 }
             }
@@ -155,7 +155,7 @@ namespace ProyectoProgramacion.Controllers
                     if (DESLIGADO == true){
                         return Json("Desligado", JsonRequestBehavior.AllowGet);
                     }else{
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("666", JsonRequestBehavior.AllowGet);
                     }
                 }else{
                     return Json("No Existe", JsonRequestBehavior.AllowGet);

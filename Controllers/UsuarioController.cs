@@ -39,7 +39,7 @@ namespace ProyectoProgramacion.Controllers
                     if (ACTIVADO == true){
                         return Json("Activado", JsonRequestBehavior.AllowGet);
                     }else{
-                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                        return Json("666", JsonRequestBehavior.AllowGet);
                     }
                 }
             } catch (Exception e){

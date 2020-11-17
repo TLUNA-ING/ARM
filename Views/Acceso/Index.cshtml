@@ -28,6 +28,9 @@
 
     <!-- Custom Css -->
     <link href="~/Content/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 </head>
 
 <body class="login-page">
@@ -38,42 +41,39 @@
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_in" method="POST">
-                    <div class="msg">Ingreses sus credenciales para inciar sesión</div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="User" placeholder="Usuario" required autofocus>
-                        </div>
+                <div class="msg">Ingreses sus credenciales para inciar sesión</div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">person</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" id="usuario" placeholder="Usuario" required autofocus>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="password" class="form-control" name="Pass" placeholder="Contraseña" required>
-                        </div>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">lock</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" required>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-6 p-t-5">
-                            <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink ">
-                            <label for="rememberme">Recordar</label>
-                        </div>
-                        <div class="col-xs-6">
-                            <button class="btn btn-block bg-orange waves-effect" type="submit" action="@Url.Content("~/Acceso/Index")" id="validar">Iniciar Sesión</button>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 p-t-5">
+                        <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink ">
+                        <label for="rememberme">Recordar</label>
                     </div>
-                    <div class="row m-t-15 m-b--20">
-                        <div class="col-xs-6">
-                        </div>
-                        <div class="col-xs-6 align-right">
-                            <a href="~/Content/pages/examples/forgot-password.html">Olvidé contraseña</a>
-                        </div>
+                    <div class="col-xs-6">
+                        <button type="button" class="btn btn-block bg-orange waves-effect" id="validar" onclick="return IniciarSesion();">Iniciar Sesión</button>
                     </div>
-
-                </form>
+                </div>
+                <div class="row m-t-15 m-b--20">
+                    <div class="col-xs-6">
+                    </div>
+                    <div class="col-xs-6 align-right">
+                        <a href="~/Content/pages/examples/forgot-password.html">Olvidé contraseña</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -95,6 +95,9 @@
     <script src="~/Content/js/pages/examples/sign-in.js"></script>
 
     <script src="~/JS/main.js"></script>
+
+
+    <script src="~/JS/Acceso.js"></script>
 </body>
 
 </html>
