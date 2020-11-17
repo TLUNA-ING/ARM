@@ -13,7 +13,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Usuario</button><br /><br />
+                <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Activar usuario</button><br /><br />
             </div>
         </div>
 
@@ -47,7 +47,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Datos del Usuario</h4>
+                        <h4 class="modal-title" id="myModalLabel">Activar usuario</h4>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -56,44 +56,28 @@
                                     <div class="col-xs-6">
                                         <label for="Usuario">Usuario:</label>
                                         <div class="form-line">
-                                            <select class="form-control" name="empleados" id="empleados">
+                                            <select class="form-control" id="empleado">
                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <label for="Contraseña">Contraseña:</label>
-                                        <div class="form-line">
-                                            <input type="text" class="form-control" id="Contraseña" placeholder="Contraseña" />
                                         </div>
                                     </div>
 
                                     <div class="col-xs-6">
-                                        <label for="Confirmacion">Confirmar contraseña:</label>
-                                        <div class="form-line">
-                                            <input type="text" class="form-control" id="confirmacion" placeholder="Confirmar contraseña" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-xs-6">
                                         <label for="rol">Rol:</label>
                                         <div class="form-line">
-                                            <select name="sltrol" id="Rol" class="form-control">
+                                            <select name="sltrol" id="rol" class="form-control">
                                             </select>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
+                            <br />
+                            <p>Para poder ingresar por primera vez debe ingresar el número de cédula del empleado y la contraseña provicional <strong>ARM123</strong></p>
+                            <p>Al ingresar por primera vez el usuario deberá cambiar su contraseña.</p>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarUsuario();"><i class="material-icons">save</i></button>
+                        <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return ActivarUsuario();"><i class="material-icons">save</i></button>
                         <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarUsuario();"><i class="material-icons">save</i></button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
                     </div>
@@ -102,7 +86,6 @@
         </div>
 </section>
 
-    @section Scripts
-{
+    @section Scripts{
         @Scripts.Render("/JS/ListaUsuarios.js");
     }

@@ -1,9 +1,8 @@
-﻿//Load Data in Table when documents is ready
-$(document).ready(function () {
-    loadTable();
+﻿$(document).ready(function () {
+    CargarGrid();
 });
-//Load Data function
-function loadTable() {
+
+function CargarGrid() {
     var table = $('#DatoUsuario').dataTable({
         destroy: true,
         "language": {
@@ -27,7 +26,7 @@ function loadTable() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarEmpleado(" + row.Empleado.Cedula + ") > " +
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarUsuario(" + row.Empleado.Cedula + ") > " +
                             "<i class='material-icons'>create</i>"+
                                 " </button ></div>"
                 }
@@ -43,222 +42,136 @@ function loadTable() {
 
         ]
     });
-}
+}//FIN DE CargarGrid
 
 
-//Function for getting the Data Based upon Employee ID
-function getbyID(IDUsuario) {
-    $.ajax({
-        url: "/Usuario/consultar/" + IDUsuario,
-        typr: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            console.log(result.Rol.ID_Rol);
-            $('#Usuario').val(result.Empleado.Cedula);
-            $('#Contraseña').val(result.Password);
-            $("#Rol option[value='" + result.Rol.ID_Rol + "']").attr("selected", true);
-            $('#myModal').modal('show');
-            $('#btnUpdate').show();
-            $('#btnAdd').hide();
-            $("#Usuario").prop("disabled", true);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-    return false;
-}
-//function for updating employee's record
-function Update() {
-    var res = validate();
-    if (res == false) {
-        return false;
-    }
-    var usrObj = {
-        Cedula: $('#Usuario').val(),
-        Password: $('#Contraseña').val(),
-        Rol: {
-            ID_Rol: parseFloat($("#Rol option:selected").val())
-        }
-    };
-    $.ajax({
-        url: "/Usuario/Actualizar/",
-        data: JSON.stringify(usrObj),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            loadTable();
-            $('#myModal').modal('hide');
+function VALIDAR() {
+    var ENTRAR = false;
 
-            clearTextBox();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-//function for deleting employee's record
-function Delete(ID) {
-    console.log(ID);
-    $.ajax({
-        url: "/Usuario/Eliminar/" + ID + "",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            loadTable();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-
-}
-
-function Add() {
-    var CEDULA = parseFloat($("#fabricante option:selected").val());
-    var CONTASENA = $('#Contraseña').val();
-    var ROL = parseFloat($("#Rol option:selected").val());
-
-    if (isNaN(CEDULA)) {
-        swal("¡Cuidado!", "¡Debe seleccionar un empleado!", "warning");
-    } else if (CONTASENA == "") {
-        swal("¡Cuidado!", "¡Contraseña inválida!", "warning");
-    } else if (isNaN(ROL)) {
-        swal("¡Cuidado!", "¡Debe seleccionar un rol!", "warning");
+    if (isNaN($("#empleado option:selected").val())) {
+        MENSAJE_WARNING("¡Debe seleccionar una cédula de empleado, por favor revise los datos brindados!");
+    } else if (isNaN($("#rol option:selected").val())) {
+        MENSAJE_WARNING("¡Debe seleccionar un rol de usuario, por favor revise los datos brindados!");
     } else {
+        ENTRAR = true;
+    }
+    return ENTRAR;
+}//FIN DE VALIDAR
+
+function MENSAJE_WARNING(MENSAJE) {
+    swal({
+        title: "¡No se pudo procesar!",
+        text: MENSAJE,
+        type: "info",
+        showCancelButton: false,
+        confirmButtonText: "¡ Entendido !",
+        confirmButtonColor: '#24a0ed',
+        closeOnConfirm: true
+
+    });
+}//FIN DE MENSAJE_WARNING
+
+function ActivarUsuario() {
+    if (VALIDAR() == true) {
         var usrObj = {
-            Empleado: {
-                Cedula: CEDULA
-            },
-            Password: CONTASENA,
-            Rol: {
-                ID_Rol : ROL
-            }
+            Empleado: { Cedula: $("#empleado option:selected").val() },
+            Rol: { ID_Rol: $("#rol option:selected").val()}
         };
 
-        try {
-            $.ajax({
-                url: "/Usuario/Agregar",
-                data: JSON.stringify(usrObj),
-                type: "POST",
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                success: function (result) {
+        $.ajax({
+            url: "/Usuario/ActivarUsuario",
+            data: JSON.stringify(usrObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
 
+                if (result == "Activado") {
                     swal({
-                        title: "¡Agregado!",
-                        text: "¡El usuario fue ingresado correctamente!",
+                        title: "¡Acción realizada!",
+                        text: "¡El usuario fue activado correctamente!",
                         type: "success",
                         confirmButtonColor: "#10AF5D",
                         confirmButtonText: "Aceptar"
                     },
                         function (isConfirm) {
                             if (isConfirm) {
-                                loadTable();
+                                CargarGrid();
                                 $('#myModal').modal('hide');
                                 clearTextBox();
                             }
                         });
 
-
-
-
-
-                },
-                error: function (errormessage) {
-                    alert("Verifique que la cédula ingresada como usuario si exista");
+                } else if (result == "Existe") {
+                    MENSAJE_WARNING("¡Ya existe un usuario activado con la cédula " + $("#empleado option:selected").val() + " !");
+                    LimpiarComboBox();
+                    CARGAR_COMBO_EMPLEADOS_PENDIENTES_USUARIO();
+                } else {
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
                 }
-            });
-        } catch (err) { alert(err.responseText); }
-    }
-}
-
-    function cargarAgregar() {
-        CARGAR_COMBO_EMPLEADOS_PENDIENTES_USUARIO();
-        CARGAR_COMBO_ROL();
-        clearTextBox();
-    }
-
-    function CARGAR_COMBO_EMPLEADOS_PENDIENTES_USUARIO() {
-        $.ajax({
-            url: "/Usuario/CARGAR_EMPLEADOS",
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json",
-            success: function (result) {
-
-                var plantilla = '';
-                result.forEach(valor => {
-
-                    plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
-                });
-
-                $("#empleados").html(plantilla);
-
             },
             error: function (errormessage) {
+                alert(errormessage.responseText);
             }
         });
     }
+}//FIN DE ActivarUsuario
 
+function cargarAgregar() {
+    CARGAR_COMBO_EMPLEADOS_PENDIENTES_USUARIO();
+    CARGAR_COMBO_ROL();
+    clearTextBox();
+}//FIN DE cargarAgregar
 
-    function CARGAR_COMBO_ROL() {
-        $.ajax({
-            url: "/Usuario/CARGAR_ROLES",
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json",
-            success: function (result) {
+function CARGAR_COMBO_EMPLEADOS_PENDIENTES_USUARIO() {
+$.ajax({
+    url: "/Usuario/CARGAR_EMPLEADOS",
+    type: "POST",
+    contentType: "application/json;charset=UTF-8",
+    dataType: "json",
+    success: function (result) {
 
-                var roles = '';
+        var plantilla = '';
+        result.forEach(valor => {
 
-                result.forEach(valor => {roles += `<option value="${valor.Value}">${valor.Text}</option>`});
-                $("#Rol").html(roles);
-
-            },
-            error: function (errormessage) {
-            }
+            plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
         });
-    }
 
-    function clearTextBox() {
-        $('#Usuario').val("");
-        $('#Contraseña').val("");
-        $('#btnUpdate').hide();
-        $('#btnAdd').show();
-        $("#Usuario").prop("disabled", false);
-        $('#Usuario').css('border-color', 'lightgrey');
-        $('#Contraseña').css('border-color', 'lightgrey');
-        $('#Rol').css('border-color', 'lightgrey');
-    }
+        $("#empleado").html(plantilla);
 
-
-    // Validar datos
-    function validate() {
-        var isValid = true;
-        if ($('#Usuario').val().trim() == "") {
-            $('#Usuario').css('border-color', 'Red');
-            isValid = false;
-        }
-        else {
-            $('#Usuario').css('border-color', 'lightgrey');
-        }
-        if ($('#Contraseña').val().trim() == "") {
-            $('#Contraseña').css('border-color', 'Red');
-            isValid = false;
-        }
-        else {
-            $('#Contraseña').css('border-color', 'lightgrey');
-        }
-        if ($('#Rol').val().trim() == "") {
-            $('#Rol').css('border-color', 'Red');
-            isValid = false;
-        }
-        else {
-            $('#Rol').css('border-color', 'lightgrey');
-        }
-        return isValid;
+    },
+    error: function (errormessage) {
     }
+});
+}//FIN DE CARGAR_COMBO_EMPLEADOS_PENDIENTES_USUARIO
+
+function LimpiarComboBox() {
+    var select = document.getElementById("empleado");
+
+    var length = select.options.length;
+    for (i = length - 1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+}//FIN DE LimpiarComboBox
+
+function CARGAR_COMBO_ROL() {
+$.ajax({
+    url: "/Usuario/CARGAR_ROLES",
+    type: "POST",
+    contentType: "application/json;charset=UTF-8",
+    dataType: "json",
+    success: function (result) {
+        var roles = '';
+        result.forEach(valor => {roles += `<option value="${valor.Value}">${valor.Text}</option>`});
+        $("#rol").html(roles);
+
+    },
+    error: function (errormessage) {
+    }
+});
+}//FIN DE CARGAR_COMBO_ROL
+
+function clearTextBox() {
+    $('#btnUpdate').hide();
+    $('#btnAdd').show();
+}//FIN DE cargarAgregar

@@ -6,134 +6,71 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
 {
-    public class UsuarioController : Controller
-    {
-        // GET: USUARIOS
+    public class UsuarioController : Controller{
+
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult Index()
-        {
+        public ActionResult Index(){
             return View();
-        }
+        }//FIN DE Index
 
-
-        //Cargar datos 
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult CargarDatos()
-        {
+        public ActionResult CargarDatos(){
             ListaUsuarioModelo modelUsuario = new ListaUsuarioModelo();
             var respuesta = modelUsuario.ConsultarTodos();
-            if (respuesta == null)
-            {
+            if (respuesta == null){
                 return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
+            }else{
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
-        }
-        //Agregar datos
+        }//FIN DE 
+        //Agregar datos CargarDatos
+
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Agregar(etlUsuario usr){
-            try
-            {
+        public ActionResult ActivarUsuario(etlUsuario usr){
+            try{
                 ListaUsuarioModelo modelUsuario = new ListaUsuarioModelo();
-                modelUsuario.GuardarConsulta(usr);
-                return Json(usr, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+                var respuesta = modelUsuario.ConsultarUnUsuario(usr);
+
+                if (respuesta.Count > 0){
+                    return Json("Existe", JsonRequestBehavior.AllowGet);
+                }else{
+                    var ACTIVADO = modelUsuario.ActivarUsuario(usr);
+                    if (ACTIVADO == true){
+                        return Json("Activado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+                }
+            } catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
+        }//FIN DE ActivarUsuario
 
-
-        }
-
-        [HttpPost]
-        [AutorizarUsuario(rol: "admin")]
-        public ActionResult Eliminar(long id)
-        {
-            try
-            {
-                ListaUsuarioModelo modelUsuario = new ListaUsuarioModelo();
-                modelUsuario.Eliminar(id);
-                return Json(id, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json(e, JsonRequestBehavior.DenyGet);
-            }
-
-
-        }
-        [AutorizarUsuario(rol: "admin")]
-        public ActionResult Consultar(long id)
-        {
-            try
-            {
-                ListaUsuarioModelo modelUsuario = new ListaUsuarioModelo();
-                var respuesta = modelUsuario.Consultar(id);
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json(e, JsonRequestBehavior.DenyGet);
-            }
-
-
-        }
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult Actualizar(etlUsuario usr)
-        {
-            try
-            {
-                ListaUsuarioModelo modelUsuario = new ListaUsuarioModelo();
-                modelUsuario.Actualizar(usr);
-                return Json(usr, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json(e, JsonRequestBehavior.DenyGet);
-            }
-
-
-        }
-
-        #region "Cambios Tommy"
-        [AutorizarUsuario(rol: "admin")]
-        [HttpPost]
-        public ActionResult CARGAR_EMPLEADOS()
-        {
-            try
-            {
+        public ActionResult CARGAR_EMPLEADOS(){
+            try{
                 ListaUsuarioModelo MODEL = new ListaUsuarioModelo();
                 var results = MODEL.CONSULTAR_EMPLEADOS();
                 return Json(results);
 
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-        }
+        }//FIN DE CARGAR_EMPLEADOS
 
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
-        public ActionResult CARGAR_ROLES()
-        {
-            try
-            {
+        public ActionResult CARGAR_ROLES(){
+            try{
                 ListaUsuarioModelo MODEL = new ListaUsuarioModelo();
                 var resultado = MODEL.CONSULTAR_ROLES();
                 return Json(resultado);
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-        }
-        #endregion 
+        }//FIN DE CARGAR_ROLES
 
     }
 
