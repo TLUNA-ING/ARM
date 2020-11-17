@@ -33,11 +33,11 @@ function MENSAJE_WARNING(MENSAJE) {
     });
 }//FIN DE MENSAJE_WARNING
 
-function IniciarSesion() {
+$("#validar").click(function () {
     if (VALIDAR() == true) {
-
+        document.getElementById("validar").disabled = true;
         var usrObj = {
-            Empleado: { Cedula: $('#usuario').val().trim()},
+            Empleado: { Cedula: $('#usuario').val().trim() },
             Password: $('#contrasena').val().trim()
         };
 
@@ -54,16 +54,17 @@ function IniciarSesion() {
                 } else if (result == "No encontrado") {
                     swal({
                         title: "¡No se pudo iniciar sesión!",
-                        text:  "¡Los credenciales brindados son inválidos!",
+                        text: "¡Los credenciales brindados son inválidos!",
                         type: "error",
                         showCancelButton: false,
                         confirmButtonText: "¡ Entendido !",
                         confirmButtonColor: '#24a0ed',
                         closeOnConfirm: true
-
                     });
+                    document.getElementById("validar").disabled = false;
                 } else {
                     swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+                    document.getElementById("validar").disabled = false;
                 }
             },
             error: function (errormessage) {
@@ -71,4 +72,10 @@ function IniciarSesion() {
             }
         });
     }
-}//FIN DE IniciarSesion
+});//FIN DE IniciarSesion
+
+$("#contrasena").keyup(function (event) {
+    if (event.keyCode == 13) {
+        $("#validar").click()
+    }
+});
