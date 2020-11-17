@@ -8,10 +8,19 @@ function ActualizarCombobox() {
     LimpiarComboBox();
     LimpiarTablas();
     if (isNaN(SELECCIONADO)) {
+        document.getElementById("mensajeEncabezado").innerHTML = "";
+        document.getElementById("mensajeNoLigados").innerHTML = "";
+        document.getElementById("mensajeLigados").innerHTML = "";
         LimpiarTablas();
-    }else if (SELECCIONADO == 0) { //LIGAR CLIENTES
+    } else if (SELECCIONADO == 0) { //LIGAR CLIENTES
+        document.getElementById("mensajeEncabezado").innerHTML = "Departamentos por cliente.";
+        document.getElementById("mensajeNoLigados").innerHTML = "Departamentos sin ligar";
+        document.getElementById("mensajeLigados").innerHTML = "Departamentos ligados";  
         ConsultarClientes();
     } else if (SELECCIONADO == 1) {
+        document.getElementById("mensajeEncabezado").innerHTML = "Equipos por departamento.";
+        document.getElementById("mensajeNoLigados").innerHTML = "Equipos sin ligar";
+        document.getElementById("mensajeLigados").innerHTML = "Equipos ligados";    
         ConsultarDepartamentos();
     }
 
@@ -85,7 +94,6 @@ function ActualizarTablas() {
     TABLA_LIGAR = parseFloat($("#tabla option:selected").val());
     CODIGO = parseFloat($("#intermedios option:selected").val());
     URL = "/Intermedio/CargarDatosTablas";
-
 
     if (isNaN(CODIGO) == false) {
         ACCION_LIGAR = "";
@@ -200,19 +208,22 @@ function LigarDepartamento(ID) {
         success: function (result) {
 
             if (result == "Ligado") {
-                swal({
-                    title: "¡Acción realizada!",
-                    text: "¡Se ligó correctamente el departamento al cliente!",
-                    type: "success",
-                    confirmButtonColor: "#10AF5D",
-                    confirmButtonText: "Aceptar"
-                },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            Cargar_NO_Ligados();
-                            Cargar_Ligados();
-                        }
-                    });
+                Cargar_Ligados();
+                Cargar_NO_Ligados();
+
+                //swal({
+                //    title: "¡Acción realizada!",
+                //    text: "¡Se ligó correctamente el departamento al cliente!",
+                //    type: "success",
+                //    confirmButtonColor: "#10AF5D",
+                //    confirmButtonText: "Aceptar"
+                //},
+                //    function (isConfirm) {
+                //        if (isConfirm) {
+                //            Cargar_NO_Ligados();
+                //            Cargar_Ligados();
+                //        }
+                //    });
             } else if ("Existe") {
                 Cargar_NO_Ligados();
                 Cargar_Ligados();
@@ -242,19 +253,23 @@ function DesligarDepartamento(ID) {
         success: function (result) {
 
             if (result == "Desligado") {
-                swal({
-                    title: "¡Acción realizada!",
-                    text: "¡Se desligó correctamente el departamento del cliente!",
-                    type: "success",
-                    confirmButtonColor: "#10AF5D",
-                    confirmButtonText: "Aceptar"
-                },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            Cargar_NO_Ligados();
-                            Cargar_Ligados();
-                        }
-                    });
+
+                Cargar_NO_Ligados();
+                Cargar_Ligados();
+
+                //swal({
+                //    title: "¡Acción realizada!",
+                //    text: "¡Se desligó correctamente el departamento del cliente!",
+                //    type: "success",
+                //    confirmButtonColor: "#10AF5D",
+                //    confirmButtonText: "Aceptar"
+                //},
+                //    function (isConfirm) {
+                //        if (isConfirm) {
+                //            Cargar_NO_Ligados();
+                //            Cargar_Ligados();
+                //        }
+                //    });
             } else if ("No Existe") {
                 Cargar_NO_Ligados();
                 Cargar_Ligados();
@@ -268,66 +283,95 @@ function DesligarDepartamento(ID) {
     });
 }//FIN DE DesligarDepartamento
 
-//function LigarEquipo(ID) {
+function LigarEquipo(ID) {
+    var EquipoXDepartamentoObj = {
+        ID_Departamento: parseFloat($("#intermedios option:selected").val()),
+        ID_Equipo : ID,
+    };
 
-//    $.ajax({
-//        url: "/Equipo/ModificarEstado/" + ID,
-//        type: "POST",
-//        contentType: "application/json;charset=UTF-8",
-//        dataType: "json",
-//        success: function (result) {
+    $.ajax({
+        url: "/Intermedio/LigarEquipo",
+        data: JSON.stringify(EquipoXDepartamentoObj),
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
 
-//            if (result == "Modificado") {
-//                swal({
-//                    title: "¡Acción realizada!",
-//                    text: "¡El estado del equipo cambió correctamente!",
-//                    type: "success",
-//                    confirmButtonColor: "#10AF5D",
-//                    confirmButtonText: "Aceptar"
-//                },
-//                    function (isConfirm) {
-//                        if (isConfirm) {
-//                            CARGAR_GRID();
-//                        }
-//                    });
-//            } else {
-//                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
-//            }
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}//FIN DE ModificarEstado
+            if (result == "Ligado") {
 
-//function DesligarEquipo(ID) {
+                Cargar_Ligados();
+                Cargar_NO_Ligados();
 
-//    $.ajax({
-//        url: "/Equipo/ModificarEstado/" + ID,
-//        type: "POST",
-//        contentType: "application/json;charset=UTF-8",
-//        dataType: "json",
-//        success: function (result) {
+                //swal({
+                //    title: "¡Acción realizada!",
+                //    text: "¡Se ligó correctamente el equipo al departamento!",
+                //    type: "success",
+                //    confirmButtonColor: "#10AF5D",
+                //    confirmButtonText: "Aceptar"
+                //},
+                //    function (isConfirm) {
+                //        if (isConfirm) {
+                //            Cargar_NO_Ligados();
+                //            Cargar_Ligados();
+                //        }
+                //    });
 
-//            if (result == "Modificado") {
-//                swal({
-//                    title: "¡Acción realizada!",
-//                    text: "¡El estado del equipo cambió correctamente!",
-//                    type: "success",
-//                    confirmButtonColor: "#10AF5D",
-//                    confirmButtonText: "Aceptar"
-//                },
-//                    function (isConfirm) {
-//                        if (isConfirm) {
-//                            CARGAR_GRID();
-//                        }
-//                    });
-//            } else {
-//                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
-//            }
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}//FIN DE ModificarEstado
+            } else if ("Existe") {
+                Cargar_NO_Ligados();
+                Cargar_Ligados();
+            } else {
+                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+            }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}//FIN DE LigarEquipo
+
+function DesligarEquipo(ID) {
+
+    var EquipoXDepartamentoObj = {
+        ID_Departamento: parseFloat($("#intermedios option:selected").val()),
+        ID_Equipo: ID,
+    };
+
+    $.ajax({
+        url: "/Intermedio/DesligarEquipo",
+        data: JSON.stringify(EquipoXDepartamentoObj),
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            if (result == "Desligado") {
+
+                Cargar_NO_Ligados();
+                Cargar_Ligados();
+
+                //swal({
+                //    title: "¡Acción realizada!",
+                //    text: "¡Se desligó correctamente el equipo del departamento!",
+                //    type: "success",
+                //    confirmButtonColor: "#10AF5D",
+                //    confirmButtonText: "Aceptar"
+                //},
+                //    function (isConfirm) {
+                //        if (isConfirm) {
+                //            Cargar_NO_Ligados();
+                //            Cargar_Ligados();
+                //        }
+                //    });
+
+            } else if ("Existe") {
+                Cargar_NO_Ligados();
+                Cargar_Ligados();
+            } else {
+                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+            }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}//FIN DE DesligarEquipo

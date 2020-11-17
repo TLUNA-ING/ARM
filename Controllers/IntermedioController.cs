@@ -9,15 +9,11 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
 {
-    public class IntermedioController : Controller
-    {
+    public class IntermedioController : Controller{
 
-        // GET: Intermedio
         public ActionResult Index(){
             return View();
-        }
-
-
+        }//FIN DE Index
 
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
@@ -45,8 +41,7 @@ namespace ProyectoProgramacion.Controllers
             }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-        }//FIN DE ConsultarProvincias
-
+        }//FIN DE ConsultarDepartamentos
 
         [AutorizarUsuario(rol: "admin")]
         public ActionResult CargarDatosTablas(string TABLA,long ID,string IND_LIGADO){
@@ -58,7 +53,7 @@ namespace ProyectoProgramacion.Controllers
             }else{
                 return Json(Datos, JsonRequestBehavior.AllowGet);
             }
-        }//FIN DE CargarDatosDepartamentosNOLigados
+        }//FIN DE CargarDatosTablas
 
         [HttpPost]
         [AutorizarUsuario(rol: "admin")]
@@ -70,7 +65,7 @@ namespace ProyectoProgramacion.Controllers
 
                 var departamento = modelDepartamento.ConsultarUnDepartamentoID(Intermedio.ID_Departamento);
                 var cliente = modelCliente.ConsultarUnClienteID(Intermedio.ID_Cliente);
-                var ligado = modelIntermedio.ConsultarIDs(Intermedio.ID_Cliente, Intermedio.ID_Departamento);
+                var ligado = modelIntermedio.ConsultarIDs(Intermedio);
 
                 if (ligado.ID_Departamento != 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
@@ -86,18 +81,16 @@ namespace ProyectoProgramacion.Controllers
                         return Json("XXX", JsonRequestBehavior.AllowGet);
                     }
                 }
-            }
-            catch (Exception e){
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
         }//FIN DE LigarDepartamento
-
 
         public ActionResult DesligarDepartamento(etlDepartamentoXCliente Intermedio){
             try{
                 IntermedioModelo modelIntermedio = new IntermedioModelo();
 
-                var ligado = modelIntermedio.ConsultarIDs(Intermedio.ID_Cliente, Intermedio.ID_Departamento);
+                var ligado = modelIntermedio.ConsultarIDs(Intermedio);
 
                 if (ligado.ID_Departamento != 0) {
 
@@ -114,8 +107,63 @@ namespace ProyectoProgramacion.Controllers
             }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-        }//FIN DE LigarDepartamento
+        }//FIN DE DesligarDepartamento
 
+        [HttpPost]
+        [AutorizarUsuario(rol: "admin")]
+        public ActionResult LigarEquipo(etlEquipoXDepartamento Intermedio){
+            try{
+                DepartamentoModelo modelDepartamento = new DepartamentoModelo();
+                EquipoModelo modelCliente = new EquipoModelo();
+                IntermedioModelo modelIntermedio = new IntermedioModelo();
 
-    }
+                var departamento = modelDepartamento.ConsultarUnDepartamentoID(Intermedio.ID_Departamento);
+                var cliente = modelCliente.ConsultarUnEquipoID(Intermedio.ID_Equipo);
+
+                var ligado = modelIntermedio.ConsultarIDs_ExD(Intermedio);
+
+                if (ligado.ID_Departamento != 0){
+                    return Json("Existe", JsonRequestBehavior.AllowGet);
+                }else{
+                    if (departamento.Descripcion != "" && cliente.Descripcion != ""){
+                        var LIGADO = modelIntermedio.LigarEquipoIntermedio(Intermedio);
+                        if (LIGADO == true){
+                            return Json("Ligado", JsonRequestBehavior.AllowGet);
+                        }else{
+                            return Json("XXX", JsonRequestBehavior.AllowGet);
+                        }
+                    }else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE LigarEquipo
+
+        public ActionResult DesligarEquipo(etlEquipoXDepartamento Intermedio){
+            try{
+                IntermedioModelo modelIntermedio = new IntermedioModelo();
+
+                var ligado = modelIntermedio.ConsultarIDs_ExD(Intermedio);
+
+                if (ligado.ID_Departamento != 0){
+
+                    var DESLIGADO = modelIntermedio.DesligarEquipoIntermedio(Intermedio);
+
+                    if (DESLIGADO == true){
+                        return Json("Desligado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+                }else{
+                    return Json("No Existe", JsonRequestBehavior.AllowGet);
+                }
+            }catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE DesligarDepartamento
+
+    }//FIN DE IntermedioController
 }

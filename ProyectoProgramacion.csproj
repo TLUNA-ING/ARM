@@ -204,6 +204,7 @@
     <Compile Include="ETL\etlCanton.cs" />
     <Compile Include="ETL\etlCliente.cs" />
     <Compile Include="ETL\etlDepartamentoXCliente.cs" />
+    <Compile Include="ETL\etlEquipoXDepartamento.cs" />
     <Compile Include="ETL\etlIntermedio.cs" />
     <Compile Include="ETL\etlTipoTrabajo.cs" />
     <Compile Include="ETL\etlEmpleado.cs" />
