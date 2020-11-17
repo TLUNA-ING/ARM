@@ -40,7 +40,7 @@ function CARGAR_GRID() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick =ConsultarSolicitud(" + row.IDSolicitud + ") > " +
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick =ConsultarSolicitud(" + row.solicitudID + ") > " +
                         "<i class='material-icons'>create</i>" +
                         " </button ></div>"
                 }
