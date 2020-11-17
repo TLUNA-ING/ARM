@@ -1,0 +1,139 @@
+﻿@model ProyectoProgramacion.Solicitudes
+
+@{
+    ViewBag.Title = "Detalles";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Solicitudes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.clienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clienteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empleadoCedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empleadoCedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipoTrabajoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoTrabajoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.departamentoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.departamentoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.equipoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.equipoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.solicitudJefatura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.solicitudJefatura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaReporte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaReporte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horaEntrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horaEntrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horaSalida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horaSalida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipoHora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoHora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidadHoras)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidadHoras)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.solicitudMotivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.solicitudMotivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motivoDetalle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motivoDetalle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.solicitudRepuestos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.solicitudRepuestos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.equipoDetenido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.equipoDetenido)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.solicitudId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
