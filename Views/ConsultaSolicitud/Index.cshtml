@@ -55,177 +55,172 @@
 
         </div>
 
-        @*<div class="container-fluid">
-            <div class="block-header">
-                <h1>
-                    Consulta de Solicitudes
-                </h1>
-            </div>
-            Basic Validation
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>Datos de la solicitud</h2>
-                        </div>
-                        <div class="body">
-                            <form id="form_validation" method="POST" novalidate="novalidate">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="IDSolicitud">Numero Solicitud</label>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" id="IDSolicitud" name="ID Solicitud" required="" aria-required="true" readonly="readonly" />
-                                            </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Datos de Solicitud</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label for="IDSolicitud">Numero Solicitud</label>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="IDSolicitud" name="ID Solicitud" required="" aria-required="true" readonly="readonly" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="Cliente">Cliente</label>
-                                            <select name="sltcliente" id="Cliente" class="form-control" required="" aria-required="true">
-                                            </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label for="Cliente">Cliente</label>
+                                        <select name="sltcliente" id="Cliente" class="form-control" required="" aria-required="true">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label for="Departamento">Departamento</label>
+                                        <select name="sltDepartamento" id="Departamento" class="form-control" required="" aria-required="true">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label for="Empleado">Empleado</label>
+                                        <select name="sltEmpleado" id="Empleado" class="form-control" required="" aria-required="true">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label for="Equipo">Equipo</label>
+                                        <select name="sltEquipo" id="Equipo" class="form-control" required="" aria-required="true">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label for="TipoTrabajo">Tipo Trabajo</label>
+                                        <select name="sltTipoTrabajo" id="tipoTrabajo" class="form-control" required="" aria-required="true">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label for="fechaReporte">Fecha</label>
+                                        <div class="form-line">
+                                            <input type="date" class="form-control" id="fechaReporte" required="" aria-required="true" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="Departamento">Departamento</label>
-                                            <select name="sltDepartamento" id="Departamento" class="form-control" required="" aria-required="true">
-                                            </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label for="horaEntrada">Hora Entrada:</label>
+                                        <div class="form-line">
+                                            <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="Empleado">Empleado</label>
-                                            <select name="sltEmpleado" id="Empleado" class="form-control" required="" aria-required="true">
-                                            </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label for="horaSalida">Hora Salida:</label>
+                                        <div class="form-line">
+                                            <input type="time" class="form-control" id="horaSalida" required="" aria-required="true" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="Equipo">Equipo</label>
-                                            <select name="sltEquipo" id="Equipo" class="form-control" required="" aria-required="true">
-                                            </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label for="tipoHora">Tipo Hora:</label>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="tipoHora" required="" aria-required="true" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="TipoTrabajo">Tipo Trabajo</label>
-                                            <select name="sltTipoTrabajo" id="tipoTrabajo" class="form-control" required="" aria-required="true">
-                                            </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label for="cantidadHoras">Cantidad de Horas:</label>
+                                        <div class="form-line">
+                                            <input type="number" class="form-control" id="cantidadHoras" required="" aria-required="true" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label for="fechaReporte">Fecha</label>
-                                            <div class="form-line">
-                                                <input type="date" class="form-control" id="fechaReporte" required="" aria-required="true" />
-                                            </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label for="motivoVisita">Motivo de Visita:</label>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="motivoVisita" required="" aria-required="true" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label for="horaEntrada">Hora Entrada:</label>
-                                            <div class="form-line">
-                                                <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" />
-                                            </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label for="motivoDetalle">Motivo de Detalle:</label>
+                                        <div class="form-line">
+                                            <textarea id="motivoDetalle" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label for="horaSalida">Hora Salida:</label>
-                                            <div class="form-line">
-                                                <input type="time" class="form-control" id="horaSalida" required="" aria-required="true" />
-                                            </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label for="solicitudRepuestos">Solicitud Repuestos:</label>
+                                        <div class="form-line">
+                                            <textarea id="solicitudRepuestos" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label for="tipoHora">Tipo Hora:</label>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" id="tipoHora" required="" aria-required="true" />
-                                            </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label for="equipoDetenido">Equipo Detenido:</label>
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="equipoDetenido" required="" aria-required="true" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label for="cantidadHoras">Cantidad de Horas:</label>
-                                            <div class="form-line">
-                                                <input type="number" class="form-control" id="cantidadHoras" required="" aria-required="true" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <label for="motivoVisita">Motivo de Visita:</label>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" id="motivoVisita" required="" aria-required="true" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <label for="motivoDetalle">Motivo de Detalle:</label>
-                                            <div class="form-line">
-                                                <textarea id="motivoDetalle" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <label for="solicitudRepuestos">Solicitud Repuestos:</label>
-                                            <div class="form-line">
-                                                <textarea id="solicitudRepuestos" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <label for="equipoDetenido">Equipo Detenido:</label>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" id="equipoDetenido" required="" aria-required="true" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
-                                    <button type="button" class="btn btn-primary waves-effect" id="btnUpdate" onclick="return Add();">Modificar</button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarSolicitud();"><i class="material-icons">save</i></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
                     </div>
                 </div>
             </div>
-        </div>*@
+        </div>
     </section>
+
 </body>
 
 @section Scripts

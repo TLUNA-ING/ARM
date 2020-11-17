@@ -160,7 +160,7 @@ namespace ProyectoProgramacion.Models
             }
             catch (Exception e)
             {
-                throw new System.Exception("Error al actualizar");
+                throw new System.Exception("Error al actualizar" + e);
             }
 
         }

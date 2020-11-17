@@ -1,10 +1,7 @@
-﻿using Microsoft.OData.Edm;
-using ProyectoProgramacion.ETL;
+﻿using ProyectoProgramacion.ETL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
-using System.Windows.Documents;
 
 namespace ProyectoProgramacion.Models
 {
@@ -18,7 +15,7 @@ namespace ProyectoProgramacion.Models
                 var solicitudes = contextoBD.Solicitudes.Select(x =>
                 new etlSolicitud
                 {
-                    ID_Solicitud = (int)x.solicitudId,
+                    ID_Solicitud = x.solicitudId,
                     Cliente = new etlCliente { 
                     Nombre = x.Clientes.clienteNombre
                     //ID_Cliente = (int)x.Clientes.clienteId
@@ -55,22 +52,22 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarTodos
 
-        public Solicitudes ConsultarUnaSolicitudID(long ID)
+        public etlSolicitud ConsultarUnaSolicitudID(long ID)
         {
             try
             {
-                Solicitudes solicitudes = new Solicitudes();
+                etlSolicitud solicitudes = new etlSolicitud();
                 using (var contextoBD = new ARMEntities())
                 {
                    SOLICITUDES  = (from x in contextoBD.Solicitudes where x.solicitudId == ID select x).ToList();
                     foreach (var SOL in SOLICITUDES)
                     {
-                        solicitudes.solicitudId = SOL.solicitudId;
-                        solicitudes.clienteId = SOL.clienteId;
-                        solicitudes.tipoTrabajoId = SOL.tipoTrabajoId;
-                        solicitudes.departamentoId = SOL.departamentoId;
-                        solicitudes.equipoId = SOL.equipoId;
-                        solicitudes.fechaReporte = SOL.fechaReporte;
+                        solicitudes.ID_Solicitud = SOL.solicitudId;
+                        solicitudes.Cliente.Nombre = SOL.Clientes.clienteNombre;
+                        solicitudes.TipoTrabajo.ID_TipoTrabajo = SOL.tipoTrabajoId;
+                        solicitudes.Departamento.ID_Departamento = SOL.departamentoId;
+                        solicitudes.Equipo.ID_Equipo = SOL.equipoId;
+                        solicitudes.Fecha_Reporte = SOL.fechaReporte;
                         solicitudes.horaEntrada = SOL.horaEntrada;
                         solicitudes.horaSalida = SOL.horaSalida;
                         solicitudes.tipoHora = SOL.tipoHora;
@@ -87,7 +84,7 @@ namespace ProyectoProgramacion.Models
             {
                 throw new System.Exception("Error");
             }
-        }//FIN DE ConsultarUnDepartamentoID
+        }//FIN DE ConsultarUnaSolicitudID
 
 
         List<Solicitudes> SOLICITUDES = new List<Solicitudes>();
@@ -113,6 +110,43 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnDepartamento
 
-     
+        public bool ModificarSolicitud(etlSolicitud solicitud)
+        {
+            try
+            {
+                bool MODIFICADO = false;
+                using (var contextoBD = new ARMEntities())
+                {
+                    var SOLICITUD = contextoBD.Solicitudes.SingleOrDefault(b => b.solicitudId == solicitud.ID_Solicitud);
+                    if (SOLICITUD != null)
+                    {
+                        SOLICITUD.Clientes.clienteNombre = solicitud.Cliente.Nombre;
+                        SOLICITUD.Departamentos.deparatamentoNombre = solicitud.Departamento.Descripcion;
+                        SOLICITUD.TipoTrabajo.tipoTrabajoNombre = solicitud.TipoTrabajo.Descripcion;
+                        SOLICITUD.Empleados.empleadoNombre = solicitud.Empleado.Nombre;
+                        SOLICITUD.Equipos.equipoNombre = solicitud.Equipo.Descripcion;
+                        SOLICITUD.fechaReporte = solicitud.Fecha_Reporte;
+                        SOLICITUD.horaEntrada = solicitud.horaEntrada;
+                        SOLICITUD.horaSalida = solicitud.horaSalida;
+                        SOLICITUD.tipoHora = solicitud.tipoHora;
+                        SOLICITUD.cantidadHoras = solicitud.cantidadHoras;
+                        SOLICITUD.solicitudMotivo = solicitud.solicitudMotivo;
+                        SOLICITUD.motivoDetalle = solicitud.motivoDetalle;
+                        SOLICITUD.solicitudRepuestos = solicitud.solicitudRepuestos;
+                        SOLICITUD.equipoDetenido = solicitud.equipoDetenido;
+
+                        contextoBD.SaveChanges();
+                        MODIFICADO = true;
+                    }
+                }
+                return MODIFICADO;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE ModificarEmpleado
+
     }
 }

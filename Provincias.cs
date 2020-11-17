@@ -18,6 +18,7 @@ namespace ProyectoProgramacion
         public Provincias()
         {
             this.Clientes = new HashSet<Clientes>();
+            this.Solicitudes = new HashSet<Solicitudes>();
         }
     
         public int provinciaId { get; set; }
@@ -25,5 +26,7 @@ namespace ProyectoProgramacion
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Clientes> Clientes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Solicitudes> Solicitudes { get; set; }
     }
 }

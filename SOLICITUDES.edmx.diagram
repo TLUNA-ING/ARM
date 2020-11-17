@@ -30,6 +30,7 @@
         <AssociationConnector Association="ARMModel.FK_tblSolicitud_tblEquipos" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblUsuarios_tblRoles" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblSolicitud_tblTipoTrabajo" ManuallyRouted="false" />
+        <AssociationConnector Association="ARMModel.FK_tblSolicitud_Provincias" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

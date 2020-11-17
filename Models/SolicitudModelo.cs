@@ -25,6 +25,22 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarClientes
 
+        public List<SelectListItem> ConsultarProvincias()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from provincia in contextoBD.Provincias select provincia).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.provinciaId.ToString(), Text = item.provinciaNombre }).ToList();
+
+                List<SelectListItem> listaProvincia = new List<SelectListItem>();
+                listaProvincia.AddRange(itemLista);
+
+                return listaProvincia.ToList();
+            }
+        }//FIN DE ConsultarClientes
+
 
         public List<SelectListItem> ConsultarDepartamentos()
         {
@@ -90,64 +106,6 @@ namespace ProyectoProgramacion.Models
         }//FIN DE ConsultarEquipos
 
 
-
-
-
-
-
-
-
-        //    using (var contextoBD = new ARMEntities())
-        //    {
-        //        var respuesta = contextoBD.Solicitudes.Select(x =>
-        //        new etlSolicitud
-        //        {
-        //            ID_Solicitud = x.solicitudId,
-        //            Cliente = new etlCliente
-        //            {
-        //                ID_Cliente = x.Clientes.clienteId,
-        //                Descripcion = x.Clientes.clienteNombre,
-        //            },
-        //            Departamento = new etlDepartamento
-        //            {
-        //                ID_Departamento = x.Departamentos.departamentoId,
-        //                Descripcion = x.Departamentos.deparatamentoNombre,
-        //            },
-        //            Equipo = new etlEquipo
-        //            {
-        //                ID_Equipo = x.Equipos.equipoId,
-        //                Descripcion = x.Equipos.equipoNombre,
-        //            },
-        //            Empleado = new etlEmpleado
-        //            {
-        //                Cedula = x.Empleados.empleadoCedula,
-        //                Nombre = x.Empleados.empleadoNombre,
-        //            },
-        //            TipoTrabajo = new etlTipoTrabajo
-        //            {
-        //                ID_TipoTrabajo = x.TipoTrabajo.tipoTrabajoId,
-        //                Descripcion = x.TipoTrabajo.tipoTrabajoNombre,
-        //            },
-
-        //            Fecha_Reporte = x.fechaReporte,
-        //            //Reporte = x.solicitudMotivo.Trim(),
-        //            //Fecha = x.fechaReporte.ToString(),
-        //            horaEntrada = x.horaEntrada,
-        //            horaSalida = x.horaSalida,
-        //            tipoHora = x.tipoHora,
-        //            cantidadHoras = x.cantidadHoras,
-        //            solicitudMotivo = x.solicitudMotivo,
-        //            motivoDetalle = x.motivoDetalle,
-        //            solicitudRepuestos = x.solicitudRepuestos,
-        //            equipoDetenido = x.equipoDetenido
-
-
-        //        }).ToList();
-        //        return respuesta;
-        //    }
-
-        //}
-
         public void GuardarConsulta(Solicitudes sol)
         {
             try
@@ -156,15 +114,17 @@ namespace ProyectoProgramacion.Models
                 {
                     Solicitudes item = new Solicitudes();
 
+                    item.solicitudId = sol.solicitudId;
+                    item.provinciaId = sol.provinciaId;
                     item.clienteId = sol.clienteId;
                     item.empleadoCedula = sol.empleadoCedula;
                     item.tipoTrabajoId = sol.tipoTrabajoId;
                     item.departamentoId = sol.departamentoId;
                     item.equipoId = sol.equipoId;
-                    item.fechaReporte = Convert.ToDateTime(sol.fechaReporte);
-                    item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
+                    item.fechaReporte = sol.fechaReporte;
+                    item.horaEntrada = sol.horaEntrada;
                     item.tipoHora = sol.tipoHora;
-                    item.horaSalida = Convert.ToDateTime(sol.horaSalida);
+                    item.horaSalida = sol.horaSalida;
                     item.cantidadHoras = sol.cantidadHoras;
                     item.solicitudMotivo = sol.solicitudMotivo;
                     item.motivoDetalle = sol.motivoDetalle;
@@ -213,115 +173,5 @@ namespace ProyectoProgramacion.Models
 
         }
 
-        //public void Eliminar(string id)
-        //{
-        //    try
-        //    {
-        //        using (var contextoBD = new ARMEntities())
-        //        {
-        //            Solicitudes sol = contextoBD.Solicitudes.Find(id);
-        //            contextoBD.Solicitudes.Remove(sol);
-        //            contextoBD.SaveChanges();
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new System.Exception("Error al eliminar");
-        //    }
-
-        //}
-
-        //public etlSolicitud Consultar(string id)
-        //{
-        //    try
-        //    {
-        //        using (var contextoBD = new ARMEntities())
-        //        {
-        //            Solicitudes x = contextoBD.Solicitudes.Find(id);
-        //            etlSolicitud solicitud = new etlSolicitud
-        //            {
-        //                ID_Solicitud = x.solicitudId,
-        //                Cliente = new etlCliente
-        //                {
-        //                    ID_Cliente = x.Clientes.clienteId,
-        //                    Descripcion = x.Clientes.clienteNombre,
-        //                },
-        //                Departamento = new etlDepartamento
-        //                {
-        //                    ID_Departamento = x.Departamentos.departamentoId,
-        //                    Descripcion = x.Departamentos.deparatamentoNombre,
-        //                },
-        //                Equipo = new etlEquipo
-        //                {
-        //                    ID_Equipo = x.Equipos.equipoId,
-        //                    Descripcion = x.Equipos.equipoNombre,
-        //                },
-        //                Empleado = new etlEmpleado
-        //                {
-        //                    Cedula = x.Empleados.empleadoCedula,
-        //                    Nombre = x.Empleados.empleadoNombre,
-        //                },
-        //                TipoTrabajo = new etlTipoTrabajo
-        //                {
-        //                    ID_TipoTrabajo = x.TipoTrabajo.tipoTrabajoId,
-        //                    Descripcion = x.TipoTrabajo.tipoTrabajoNombre,
-        //                },
-        //                Fecha_Reporte = x.fechaReporte,
-        //                //Reporte = x.solicitudMotivo.Trim(),
-        //                //Fecha = x.fechaReporte.ToString(),
-        //                horaEntrada = x.horaEntrada,
-        //                horaSalida = x.horaSalida,
-        //                tipoHora = x.tipoHora,
-        //                cantidadHoras = x.cantidadHoras,
-        //                solicitudMotivo = x.solicitudMotivo,
-        //                motivoDetalle = x.motivoDetalle,
-        //                solicitudRepuestos = x.solicitudRepuestos,
-        //                equipoDetenido = x.equipoDetenido,
-
-
-        //            };
-        //            solicitud.Fecha_Reporte.ToString("yyyy-MM-dd");
-        //            return solicitud;
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new System.Exception("Error al eliminar");
-        //    }
-
-        //}
-        //public void Actualizar(etlSolicitud sol)
-        //{
-        //    try
-        //    {
-        //        using (var contextoBD = new ARMEntities())
-        //        {
-        //            Solicitudes item = contextoBD.Solicitudes.Find(sol.ID_Solicitud);
-
-        //            item.Empleados.empleadoCedula = sol.Empleado.Cedula;
-        //            item.Clientes.clienteNombre = sol.Cliente.Descripcion;
-        //            item.Equipos.equipoNombre = sol.Equipo.Descripcion;
-        //            item.Departamentos.deparatamentoNombre = sol.Departamento.Descripcion;
-        //            item.TipoTrabajo.tipoTrabajoNombre = sol.TipoTrabajo.Descripcion;
-        //            item.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
-        //            //item.solicitudMotivo = sol.Reporte;
-        //            //item.fechaReporte = Convert.ToDateTime(sol.Fecha);
-        //            item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
-        //            item.horaSalida = Convert.ToDateTime(sol.horaSalida);
-        //            item.tipoHora = sol.tipoHora;
-        //            item.cantidadHoras = sol.cantidadHoras;
-        //            item.solicitudMotivo = sol.solicitudMotivo;
-        //            item.motivoDetalle = sol.motivoDetalle;
-        //            item.solicitudRepuestos = sol.solicitudRepuestos;
-        //            item.equipoDetenido = sol.equipoDetenido;
-        //            contextoBD.SaveChanges();
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new System.Exception("Error al actualizar");
-        //    }
-
-        //}
     }
 }

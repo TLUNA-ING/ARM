@@ -95,6 +95,22 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarEquipo
 
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarProvincia()
+        {
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+            var respuesta = modelSolicitud.ConsultarProvincias();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEquipo
+
 
         ////Agregar datos
         [AutorizarUsuario(rol: "admin,user")]
@@ -131,52 +147,5 @@ namespace ProyectoProgramacion.Controllers
 
         }
 
-        //[HttpPost]
-        //[AutorizarUsuario(rol: "admin,user")]
-        //public ActionResult Eliminar(string id)
-        //{
-        //    try
-        //    {
-        //        new SolicitudModelo().Eliminar(id);
-        //        return Json(id, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Json(e, JsonRequestBehavior.DenyGet);
-        //    }
-
-
-        //}
-        //[AutorizarUsuario(rol: "admin,user")]
-        //public ActionResult Consultar(string id)
-        //{
-        //    try
-        //    {
-        //        var respuesta = new SolicitudModelo().Consultar(id);
-        //        return Json(respuesta, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Json(e, JsonRequestBehavior.DenyGet);
-        //    }
-
-
-        //}
-        //[AutorizarUsuario(rol: "admin,user")]
-        //[HttpPost]
-        //public ActionResult Actualizar(etlSolicitud sol)
-        //{
-        //    try
-        //    {
-        //        new SolicitudModelo().Actualizar(sol);
-        //        return Json(sol, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Json(e, JsonRequestBehavior.DenyGet);
-        //    }
-
-
-        //}
     }
 }

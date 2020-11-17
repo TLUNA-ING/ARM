@@ -1,9 +1,7 @@
-﻿using ProyectoProgramacion.Filters;
+﻿using ProyectoProgramacion.ETL;
+using ProyectoProgramacion.Filters;
 using ProyectoProgramacion.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
@@ -33,12 +31,12 @@ namespace ProyectoProgramacion.Controllers
         }//FIN DE CargarDatos
 
         [AutorizarUsuario(rol: "admin")]
-        public ActionResult ConsultarSolicitud(long ID)
+        public ActionResult ConsultarSolicitud(long id)
         {
             try
             {
                 ConsultaSolicitudModelo modelSolicitudes = new ConsultaSolicitudModelo();
-                var solicitudes = modelSolicitudes.ConsultarUnaSolicitudID(ID);
+                var solicitudes = modelSolicitudes.ConsultarUnaSolicitudID(id);
 
                 return Json(solicitudes, JsonRequestBehavior.AllowGet);
             }
@@ -46,37 +44,41 @@ namespace ProyectoProgramacion.Controllers
             {
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-        }// FIN DE ConsultarDepartamento
+        }// FIN DE ConsultarSolicitud
 
-        //public ActionResult ModificarSolicitud(Solicitudes Solic)
-        //{
-        //    try
-        //    {
-        //        DepartamentoModelo modelDepartamento = new DepartamentoModelo();
-        //        var departamento = modelDepartamento.ConsultarUnDepartamentoID(depart.ID_Departamento);
+        [AutorizarUsuario(rol: "admin")]
+        [HttpPost]
+        public ActionResult ModificarSolicitud(etlSolicitud sol)
+        {
+            try
+            {
+                ConsultaSolicitudModelo modelConsultaSolicitud = new ConsultaSolicitudModelo();
+                var solicitud = modelConsultaSolicitud.ConsultarUnaSolicitudID(sol.ID_Solicitud);
 
-        //        if (departamento.Descripcion != "")
-        //        {
-        //            var MODIFICADO = modelDepartamento.ModificarDepartamento(depart);
+                if (solicitud.Empleado.Nombre != "")
+                {
+                    var MODIFICADO = modelConsultaSolicitud.ModificarSolicitud(sol);
 
-        //            if (MODIFICADO == true)
-        //            {
-        //                return Json("Modificado", JsonRequestBehavior.AllowGet);
-        //            }
-        //            else
-        //            {
-        //                return Json("Existe", JsonRequestBehavior.AllowGet);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return Json("XXX", JsonRequestBehavior.AllowGet);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Json(e, JsonRequestBehavior.DenyGet);
-        //    }
-        //}//FIN DE ModificarDepartamento
+                    if (MODIFICADO == true)
+                    {
+                        return Json("Modificado", JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json("XXX", JsonRequestBehavior.AllowGet);
+                    }
+
+                }
+                else
+                {
+                    return Json("XXX", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE ModificarEmpleado
+
     }
 }
