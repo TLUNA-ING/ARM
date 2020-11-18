@@ -16,6 +16,24 @@ namespace ProyectoProgramacion.Controllers
         }
 
         [AutorizarUsuario(rol: "admin")]
+        [HttpPost]
+        public ActionResult ConsultarProvincias()
+        {
+            try
+            {
+                ConsultaSolicitudModelo modelSolicitud = new ConsultaSolicitudModelo();
+
+                var results = modelSolicitud.ConsultarProvincias();
+                return Json(results);
+
+            }
+            catch (Exception e)
+            {
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE ConsultarProvincias
+
+        [AutorizarUsuario(rol: "admin")]
         public ActionResult CargarDatos()
         {
             ConsultaSolicitudModelo modelSolicitudes = new ConsultaSolicitudModelo();

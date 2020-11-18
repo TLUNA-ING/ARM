@@ -145,7 +145,7 @@ function Cargar_NO_Ligados() {
                 "data": null,
                 "render": function (data, type, row) {
                     return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick =" + ACCION_LIGAR +"(" + row.ID + ") > " +
-                        "<i class='material-icons'>create</i>" +
+                        "<i class='material-icons'>add</i>" +
                         " </button ></div>"
                 }
             }
@@ -183,7 +183,7 @@ function Cargar_Ligados() {
                 "data": null,
                 "render": function (data, type, row) {
                     return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick ="+ ACCION_DESLIGAR+"(" + row.ID + ") > " +
-                        "<i class='material-icons'>create</i>" +
+                        "<i class='material-icons'>clear</i>" +
                         " </button ></div>"
                 }
             }

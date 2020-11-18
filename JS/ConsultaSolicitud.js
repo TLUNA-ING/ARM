@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     CARGAR_GRID();
+    CargarProvincia();
 });
+
 function CARGAR_GRID() {
     var table = $('#DatoSol').dataTable({
         destroy: true,
@@ -23,6 +25,7 @@ function CARGAR_GRID() {
         columns: [
             
             { "data": "ID_Solicitud" },
+            { "data": "Provincia.Descripcion" },
             { "data": "Cliente.Nombre" },
             { "data": "Empleado.Nombre" },
             { "data": "TipoTrabajo.Descripcion" },
@@ -40,7 +43,7 @@ function CARGAR_GRID() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick =ConsultarSolicitud(" + row.solicitudID + ") > " +
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarSolicitud(" + row.solicitudID + ") > " +
                         "<i class='material-icons'>create</i>" +
                         " </button ></div>"
                 }
@@ -52,6 +55,7 @@ function CARGAR_GRID() {
 
 function cargarAgregar() {
     $("#IDSolicitud").val("")
+    $("#Provincias").val("")
     $("#Cliente").val("")
     $("#Empleado").val("")
     $("#tipoTrabajo").val("")
@@ -80,6 +84,7 @@ function ConsultarSolicitud(ID) {
         success: function (result) {
 
             $('#IDSolicitud').val(result.solicitudID);
+            $('#Provincia').val(result);
             $('#Cliente').val(result.clienteId);
             $('#Empleado').val(result.empleadoCedula);
             $('#tipoTrabajo').val(result.tipoTrabajoId);
@@ -268,4 +273,25 @@ function validate() {
         $('#equipoDetenido').css('border-color', 'lightgrey');
     }
     return isValid;
+}
+
+
+//Inicio CargarProvincia
+function CargarProvincia() {
+    $.ajax({
+        url: "/Provincia/CargarDatos",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Provincias = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
+            result.forEach(valor => { Provincias += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Provincias").html(Provincias);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarProvincia
+
 }
