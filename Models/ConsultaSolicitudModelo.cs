@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Models
 {
@@ -16,6 +17,11 @@ namespace ProyectoProgramacion.Models
                 new etlSolicitud
                 {
                     ID_Solicitud = x.solicitudId,
+                    Provincia = new etlProvincia{
+                    Descripcion = x.Provincias.provinciaNombre
+                        //ID_Cliente = (int)x.Clientes.clienteId
+
+                    },
                     Cliente = new etlCliente { 
                     Nombre = x.Clientes.clienteNombre
                     //ID_Cliente = (int)x.Clientes.clienteId
@@ -52,6 +58,29 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarTodos
 
+        public List<SelectListItem> ConsultarProvincias()
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+
+                    var result = (from x in contextoBD.Provincias select x).ToList();
+
+                    var itemLista = (from item in result select new SelectListItem { Value = item.provinciaId.ToString(), Text = item.provinciaNombre }).ToList();
+
+                    List<SelectListItem> ListaProvincias = new List<SelectListItem>();
+
+                    ListaProvincias.AddRange(itemLista);
+
+                    return ListaProvincias.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new System.Exception("");
+            }
+        }//FIN DE ConsultarProvincias
         public etlSolicitud ConsultarUnaSolicitudID(long ID)
         {
             try
@@ -63,7 +92,9 @@ namespace ProyectoProgramacion.Models
                     foreach (var SOL in SOLICITUDES)
                     {
                         solicitudes.ID_Solicitud = SOL.solicitudId;
+                        solicitudes.Provincia.Descripcion = SOL.Provincias.provinciaNombre;
                         solicitudes.Cliente.Nombre = SOL.Clientes.clienteNombre;
+                        solicitudes.Empleado.Nombre = SOL.Empleados.empleadoNombre;
                         solicitudes.TipoTrabajo.ID_TipoTrabajo = SOL.tipoTrabajoId;
                         solicitudes.Departamento.ID_Departamento = SOL.departamentoId;
                         solicitudes.Equipo.ID_Equipo = SOL.equipoId;
@@ -121,6 +152,7 @@ namespace ProyectoProgramacion.Models
                     if (SOLICITUD != null)
                     {
                         SOLICITUD.Clientes.clienteNombre = solicitud.Cliente.Nombre;
+                        SOLICITUD.Provincias.provinciaNombre = solicitud.Provincia.Descripcion;
                         SOLICITUD.Departamentos.deparatamentoNombre = solicitud.Departamento.Descripcion;
                         SOLICITUD.TipoTrabajo.tipoTrabajoNombre = solicitud.TipoTrabajo.Descripcion;
                         SOLICITUD.Empleados.empleadoNombre = solicitud.Empleado.Nombre;

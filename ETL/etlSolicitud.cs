@@ -13,6 +13,8 @@ namespace ProyectoProgramacion.ETL
 
         public etlCliente Cliente { get; set; } = new etlCliente();
 
+        public etlProvincia Provincia { get; set; } = new etlProvincia();
+
         public etlDepartamento Departamento { get; set; } = new etlDepartamento();
 
         public etlTipoTrabajo TipoTrabajo { get; set; } = new etlTipoTrabajo();
