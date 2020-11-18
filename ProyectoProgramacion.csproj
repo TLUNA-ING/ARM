@@ -271,7 +271,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\ie9.css" />
     <Content Include="Content\css\materialize.css" />
+    <Content Include="Content\css\signature-pad.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style.min.css" />
     <Content Include="Content\css\themes\all-themes.css" />
@@ -384,6 +386,7 @@
     <Content Include="Content\images\user.jpg" />
     <Content Include="Content\images\user.png" />
     <Content Include="Content\js\admin.js" />
+    <Content Include="Content\js\app.js" />
     <Content Include="Content\js\demo.js" />
     <Content Include="Content\js\helpers.js" />
     <Content Include="Content\js\pages\cards\basic.js" />
@@ -421,6 +424,8 @@
     <Content Include="Content\js\pages\widgets\infobox\infobox-4.js" />
     <Content Include="Content\js\pages\widgets\infobox\infobox-5.js" />
     <Content Include="Content\js\script.js" />
+    <Content Include="Content\js\signature_pad.min.js" />
+    <Content Include="Content\js\signature_pad.umd.js" />
     <Content Include="Content\pages\changelogs.html" />
     <Content Include="Content\pages\charts\chartjs.html" />
     <Content Include="Content\pages\charts\flot.html" />

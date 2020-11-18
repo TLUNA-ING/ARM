@@ -43,13 +43,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <label for="TipoTrabajo">TipoTrabajo</label>
-                                            <select name="sltTipoTrabajo" id="tipoTrabajo" class="form-control" aria-required="true">
-                                            </select>
-                                        </div>
-                                    </div>
                                 </fieldset>
 
                                 <h3>Fecha y horas</h3>
@@ -93,55 +86,88 @@
                                 <h3>Descripción</h3>
                                 <fieldset>
                                     <div class="form-group form-float">
-                                        <div class="col-xs-12">
-                                            <label for="Empleados">Empleado:</label>
+                                        <div class="col-xs-6">
+                                            
                                             <div class="form-line">
+                                                <label for="Empleados">Empleado:</label>
+
                                                 <select name="sltEmpleados" id="Empleados" class="form-control" aria-required="true">
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group form-float">
-                                        <div class="col-xs-12">
-                                            <label for="motivoVisita">Motivo de Visita:</label>
+                                        <div class="col-xs-6">
                                             <div class="form-line">
-                                                <input type="text" class="form-control" id="motivoVisita" required="" aria-required="true" />
+                                                <label for="TipoTrabajo">Tipo Trabaj:</label>
+
+                                                <select name="sltTipoTrabajo" id="tipoTrabajo" class="form-control" aria-required="true">
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <label for="motivoDetalle">Motivo de Detalle:</label>
-                                            <div class="form-line">
-                                                <textarea id="motivoDetalle" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
+                            <div class="form-group form-float">
+                                <div class="col-xs-12">
+                                    <label for="motivoVisita">Motivo de Visita:</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="motivoVisita" aria-required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <label for="motivoDetalle">Motivo de Detalle:</label>
+                                    <div class="form-line">
+                                        <textarea id="motivoDetalle" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" aria-required="true"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <label for="solicitudRepuestos">Solicitud Repuestos:</label>
+                                    <div class="form-line">
+                                        <textarea id="solicitudRepuestos" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" aria-required="true"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label for="equipoDetenido">Equipo Detenido:</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="equipoDetenido" aria-required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                            </fieldset>
+
+                            <h3>Firma</h3>
+                            <fieldset>
+                                <div id="signature-pad" class="signature-pad">
+                                    <div class="signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="signature-pad--footer">
+                                        <div class="description">Firme aquí</div>
+
+                                        <div class="signature-pad--actions">
+                                            <div>
+                                                <button type="button" class="btn btn-default waves-effect clear" data-action="clear"><i class='material-icons'>clear</i></button>
+                                                <button type="button" class="btn btn-default waves-effect" data-action="undo"><i class='material-icons'>undo</i></button>
+                                                <button type="button" class="btn btn-default waves-effect save" data-action="save-png"><i class='material-icons'>save</i></button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <label for="solicitudRepuestos">Solicitud Repuestos:</label>
-                                            <div class="form-line">
-                                                <textarea id="solicitudRepuestos" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-3">
-                                            <label for="equipoDetenido">Equipo Detenido:</label>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" id="equipoDetenido" required="" aria-required="true" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <button type="button" class="btn btn-primary waves-effect" id="btnAdd" onclick="return Add();">Enviar</button>
-                                <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
-                                <button type="button" class="btn btn-primary waves-effect" id="btnPrint" onclick="return Add();">Imprimir</button>
+                                </div>
+                                <script src="~/Content/js/signature_pad.umd.js"></script>
+                                <script src="~/Content/js/app.js"></script>
+                            </fieldset>
+                            <button type="button" class="btn btn-primary waves-effect" id="btnAdd" onclick="return Add();">Enviar</button>
+                            <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
+                            <button type="button" class="btn btn-primary waves-effect" id="btnPrint" onclick="return Add();">Imprimir</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 </body>
