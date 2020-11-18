@@ -1,6 +1,11 @@
 ﻿$(document).ready(function () {
     CARGAR_GRID();
     CargarProvincia();
+    CargarCliente();
+    CargarDepartamento();
+    CargarEmpleado();
+    CargarEquipo();
+    CargarTipoTrabajo();
 });
 
 function CARGAR_GRID() {
@@ -43,7 +48,7 @@ function CARGAR_GRID() {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarSolicitud(" + row.solicitudID + ") > " +
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarSolicitud(" + row.ID_Solicitud + ") > " +
                         "<i class='material-icons'>create</i>" +
                         " </button ></div>"
                 }
@@ -83,8 +88,8 @@ function ConsultarSolicitud(ID) {
         dataType: "json",
         success: function (result) {
 
-            $('#IDSolicitud').val(result.solicitudID);
-            $('#Provincia').val(result);
+            $('#IDSolicitud').val(result.ID_Solicitud);
+            $('#Provincias').val(result.ID_Provincia);
             $('#Cliente').val(result.clienteId);
             $('#Empleado').val(result.empleadoCedula);
             $('#tipoTrabajo').val(result.tipoTrabajoId);
@@ -118,24 +123,40 @@ function ModificarSolicitud() {
         return false;
     }
 
-        var solObj = {
-          
-            solicitudID: $('#IDSolicitud').val(),
-            clienteId: $('#Cliente option:selected').val(),
-            empleadoCedula: $('#Empleado option:selected').val(),
-            tipoTrabajoId: $('#tipoTrabajo option:selected').val(),
-            departamentoId: $('#Departamento option:selected').val(),
-            equipoId: $('#Equipo option:selected').val(),
-            fechaReporte: $('#fechaReporte').val(),
-            horaEntrada: $('#horaEntrada').val(),
-            horaSalida: $('#horaSalida').val(),
-            tipoHora: $('#tipoHora').val(),
-            cantidadHoras: $('#cantidadHoras').val(),
-            solicitudMotivo: $('#motivoVisita').val(),
-            motivoDetalle: $('#motivoDetalle').val(),
-            solicitudRepuestos: $('#solicitudRepuestos').val(),
-            equipoDetenido: $('#equipoDetenido').val(),
-        };
+                var solObj = {
+                    ID_Solicitud: $('#IDSolicitud').val(),
+                    Fecha_Reporte: $('#fechaReporte').val(),
+                    horaEntrada: $('#horaEntrada').val(),
+                    horaSalida: $('#horaSalida').val(),
+                    tipoHora: $('#tipoHora').val(),
+                    cantidadHoras: $('#cantidadHoras').val(),
+                    solicitudMotivo: $('#motivoVisita').val(),
+                    motivoDetalle: $('#motivoDetalle').val(),
+                    solicitudRepuestos: $('#solicitudRepuestos').val(),
+                    equipoDetenido: $('#equipoDetenido').val(),
+
+                    Provincia: {
+                        ID_Provincia: parseFloat($("#Provincias option:selected").val())
+                    },
+                    Cliente: {
+                        ID_Cliente: parseFloat($("#Cliente option:selected").val())
+                    },
+                    Empleado: {
+                        Cedula: parseFloat($("#Empleado option:selected").val())
+                    },
+                    TipoTrabajo: {
+                        ID_TipoTrabajo: parseFloat($("#tipoTrabajo option:selected").val())
+                    },
+                    Departamento: {
+                        ID_Departamento: parseFloat($("#Departamento option:selected").val())
+                    },
+                    Equipo: {
+                        ID_Equipo: parseFloat($("#Equipo option:selected").val())
+                    },
+                    Nombre: $('#nombre_cliente').val(),
+                   
+                };
+      
 
         $.ajax({
             url: "/ConsultaSolicitud/ModificarSolicitud",
@@ -275,6 +296,98 @@ function validate() {
     return isValid;
 }
 
+function CargarCliente() {
+    $.ajax({
+        url: "/Solicitud/CargarCliente",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Clientes = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
+            result.forEach(valor => { Clientes += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Cliente").html(Clientes);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarCliente
+}
+
+
+function CargarDepartamento() {
+    $.ajax({
+        url: "/Solicitud/CargarDepartamento",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Departamento = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
+            result.forEach(valor => { Departamento += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Departamento").html(Departamento);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarDepartamento
+}
+
+function CargarTipoTrabajo() {
+    $.ajax({
+        url: "/Solicitud/CargarTipoTrabajo",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var TipoTrabajos = '';
+            result.forEach(valor => { TipoTrabajos += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#tipoTrabajo").html(TipoTrabajos);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarTipoTrabajo
+}
+
+
+function CargarEmpleado() {
+    $.ajax({
+        url: "/Solicitud/CargarEmpleado",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Empleados = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
+            result.forEach(valor => { Empleados += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Empleado").html(Empleados);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarEmpleado
+}
+
+
+function CargarEquipo() {
+    $.ajax({
+        url: "/Solicitud/CargarEquipo",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Equipos = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
+            result.forEach(valor => { Equipos += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Equipo").html(Equipos);
+
+        },
+        error: function (errormessage) {
+        }
+    });//FIN DE CargarEmpleado
+}
 
 //Inicio CargarProvincia
 function CargarProvincia() {
@@ -295,3 +408,47 @@ function CargarProvincia() {
     });//FIN DE CargarProvincia
 
 }
+
+function clearTextBox() {
+    $('#IDSolicitud').val("");
+    $('#Provincias').val("");
+    $('#Cliente').val("");
+    $('#Empleado').val("");
+    $('#tipoTrabajo').val("");
+    $('#Departamento').val("");
+    $('#Equipo').val("");
+    $('#fechaReporte').val("");
+    $('#horaEntrada').val("");
+    $('#horaSalida').val("");
+    $('#tipoHora').val("");
+    $('#cantidadHoras').val("");
+    $('#motivoVisita').val("");
+    $('#motivoDetalle').val("");
+    $('#solicitudRepuestos').val("");
+    $('#equipoDetenido').val("");
+    $('#btnUpdate').hide();
+    $('#btnAdd').show();
+    $('#IDSolicitud').css('border-color', 'lightgrey');
+    $('#Provincias').css('border-color', 'lightgrey');
+    $('#Cliente').css('border-color', 'lightgrey');
+    $('#Departamento').css('border-color', 'lightgrey');
+    $('#Cliente').css('border-color', 'lightgrey');
+    $('#Empleado').css('border-color', 'lightgrey');
+    $('#tipoTrabajo').css('border-color', 'lightgrey');
+    $('#Departamento').css('border-color', 'lightgrey');
+    $('#Equipo').css('border-color', 'lightgrey');
+    $('#fechaReporte').css('border-color', 'lightgrey');
+    $('#horaEntrada').css('border-color', 'lightgrey');
+    $('#horaSalida').css('border-color', 'lightgrey');
+    $('#tipoHora').css('border-color', 'lightgrey');
+    $('#cantidadHoras').css('border-color', 'lightgrey');
+    $('#motivoVisita').css('border-color', 'lightgrey');
+    $('#motivoDetalle').css('border-color', 'lightgrey');
+    $('#solicitudRepuestos').css('border-color', 'lightgrey');
+    $('#equipoDetenido').css('border-color', 'lightgrey');
+    $('#Empleado option').remove();
+    $('#Departamento option').remove();
+    $('#Cliente option').remove();
+    $('#Equipo option').remove();
+    $('#TipoTrabajo option').remove();
+}//FIN FUNCION DE LIMPAR CASILLAS

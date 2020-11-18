@@ -15,6 +15,89 @@ namespace ProyectoProgramacion.Controllers
             return View();
         }
 
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarTipoTrabajo()
+        {
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+            var respuesta = modelSolicitud.ConsultarTipoTrabajos();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarTipoTrabajo
+
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarEmpleado()
+        {
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+            var respuesta = modelSolicitud.ConsultarEmpleados();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEmpleado
+
+
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarCliente()
+        {
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+            var respuesta = modelSolicitud.ConsultarClientes();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEmpleado
+
+
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarDepartamento()
+        {
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+            var respuesta = modelSolicitud.ConsultarDepartamentos();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEmpleado
+
+
+        [AutorizarUsuario(rol: "admin,user")]
+        public ActionResult CargarEquipo()
+        {
+            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+            var respuesta = modelSolicitud.ConsultarEquipos();
+
+            if (respuesta == null)
+            {
+                return Json(respuesta, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }//FIN DE CargarEquipo
+
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
         public ActionResult ConsultarProvincias()

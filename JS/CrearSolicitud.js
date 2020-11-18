@@ -96,6 +96,7 @@ function Update() {
 ////Function for clearing the textboxes
 function clearTextBox() {
     $('#IDSolicitud').val("");
+    $('#Provincias').val("");
     $('#Cliente').val("");
     $('#Empleado').val("");
     $('#tipoTrabajo').val("");
@@ -113,6 +114,7 @@ function clearTextBox() {
     $('#btnUpdate').hide();
     $('#btnAdd').show();
     $('#IDSolicitud').css('border-color', 'lightgrey');
+    $('#Provincias').css('border-color', 'lightgrey');
     $('#Cliente').css('border-color', 'lightgrey');
     $('#Departamento').css('border-color', 'lightgrey');
     $('#Cliente').css('border-color', 'lightgrey');

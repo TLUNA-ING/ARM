@@ -58,29 +58,104 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarTodos
 
+        public List<SelectListItem> ConsultarClientes()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from cliente in contextoBD.Clientes select cliente).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.clienteId.ToString(), Text = item.clienteNombre }).ToList();
+
+                List<SelectListItem> listaCliente = new List<SelectListItem>();
+                listaCliente.AddRange(itemLista);
+
+                return listaCliente.ToList();
+            }
+        }//FIN DE ConsultarClientes
+
         public List<SelectListItem> ConsultarProvincias()
         {
-            try
+            using (var contextoBD = new ARMEntities())
             {
-                using (var contextoBD = new ARMEntities())
-                {
+                var result = (from provincia in contextoBD.Provincias select provincia).ToList();//Consultar todo de la tabla
 
-                    var result = (from x in contextoBD.Provincias select x).ToList();
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.provinciaId.ToString(), Text = item.provinciaNombre }).ToList();
 
-                    var itemLista = (from item in result select new SelectListItem { Value = item.provinciaId.ToString(), Text = item.provinciaNombre }).ToList();
+                List<SelectListItem> listaProvincia = new List<SelectListItem>();
+                listaProvincia.AddRange(itemLista);
 
-                    List<SelectListItem> ListaProvincias = new List<SelectListItem>();
-
-                    ListaProvincias.AddRange(itemLista);
-
-                    return ListaProvincias.ToList();
-                }
+                return listaProvincia.ToList();
             }
-            catch (Exception e)
+        }//FIN DE ConsultarClientes
+
+
+        public List<SelectListItem> ConsultarDepartamentos()
+        {
+            using (var contextoBD = new ARMEntities())
             {
-                throw new System.Exception("");
+                var result = (from departamento in contextoBD.Departamentos select departamento).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.departamentoId.ToString(), Text = item.deparatamentoNombre }).ToList();
+
+                List<SelectListItem> listaDepartamento = new List<SelectListItem>();
+                listaDepartamento.AddRange(itemLista);
+
+                return listaDepartamento.ToList();
             }
-        }//FIN DE ConsultarProvincias
+        }//FIN DE ConsultarDepartamentos
+        public List<SelectListItem> ConsultarTipoTrabajos()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from tipo in contextoBD.TipoTrabajo select tipo).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.tipoTrabajoId.ToString(), Text = item.tipoTrabajoNombre }).ToList();
+
+                List<SelectListItem> listaTipoTrabjo = new List<SelectListItem>();
+                listaTipoTrabjo.AddRange(itemLista);
+
+                return listaTipoTrabjo.ToList();
+            }
+        }//FIN DE ConsultarTipoTrabajos
+
+
+        public List<SelectListItem> ConsultarEmpleados()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from empleado in contextoBD.Empleados select empleado).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.empleadoCedula.ToString(), Text = item.empleadoNombre }).ToList();
+
+                List<SelectListItem> listaEmpleado = new List<SelectListItem>();
+                listaEmpleado.AddRange(itemLista);
+
+                return listaEmpleado.ToList();
+            }
+        }//FIN DE ConsultarEmpleados
+
+
+        public List<SelectListItem> ConsultarEquipos()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
+                var result = (from equipo in contextoBD.Equipos select equipo).ToList();//Consultar todo de la tabla
+
+                var itemLista = (from item in result
+                                 select new SelectListItem { Value = item.equipoId.ToString(), Text = item.equipoNombre }).ToList();
+
+                List<SelectListItem> listaEquipo = new List<SelectListItem>();
+                listaEquipo.AddRange(itemLista);
+
+                return listaEquipo.ToList();
+            }
+        }//FIN DE ConsultarEquipos
+
         public etlSolicitud ConsultarUnaSolicitudID(long ID)
         {
             try
@@ -92,9 +167,9 @@ namespace ProyectoProgramacion.Models
                     foreach (var SOL in SOLICITUDES)
                     {
                         solicitudes.ID_Solicitud = SOL.solicitudId;
-                        solicitudes.Provincia.Descripcion = SOL.Provincias.provinciaNombre;
-                        solicitudes.Cliente.Nombre = SOL.Clientes.clienteNombre;
-                        solicitudes.Empleado.Nombre = SOL.Empleados.empleadoNombre;
+                        solicitudes.Provincia.ID_Provincia = SOL.Provincias.provinciaId;
+                        solicitudes.Cliente.ID_Cliente = SOL.Clientes.clienteId;
+                        solicitudes.Empleado.Cedula = SOL.Empleados.empleadoCedula;
                         solicitudes.TipoTrabajo.ID_TipoTrabajo = SOL.tipoTrabajoId;
                         solicitudes.Departamento.ID_Departamento = SOL.departamentoId;
                         solicitudes.Equipo.ID_Equipo = SOL.equipoId;
@@ -151,12 +226,12 @@ namespace ProyectoProgramacion.Models
                     var SOLICITUD = contextoBD.Solicitudes.SingleOrDefault(b => b.solicitudId == solicitud.ID_Solicitud);
                     if (SOLICITUD != null)
                     {
-                        SOLICITUD.Clientes.clienteNombre = solicitud.Cliente.Nombre;
-                        SOLICITUD.Provincias.provinciaNombre = solicitud.Provincia.Descripcion;
-                        SOLICITUD.Departamentos.deparatamentoNombre = solicitud.Departamento.Descripcion;
-                        SOLICITUD.TipoTrabajo.tipoTrabajoNombre = solicitud.TipoTrabajo.Descripcion;
-                        SOLICITUD.Empleados.empleadoNombre = solicitud.Empleado.Nombre;
-                        SOLICITUD.Equipos.equipoNombre = solicitud.Equipo.Descripcion;
+                        SOLICITUD.Clientes.clienteId = solicitud.Cliente.ID_Cliente;
+                        SOLICITUD.Provincias.provinciaId = solicitud.Provincia.ID_Provincia;
+                        SOLICITUD.Departamentos.departamentoId = solicitud.Departamento.ID_Departamento;
+                        SOLICITUD.TipoTrabajo.tipoTrabajoId = solicitud.TipoTrabajo.ID_TipoTrabajo;
+                        SOLICITUD.Empleados.empleadoCedula = solicitud.Empleado.Cedula;
+                        SOLICITUD.Equipos.equipoId = solicitud.Equipo.ID_Equipo;
                         SOLICITUD.fechaReporte = solicitud.Fecha_Reporte;
                         SOLICITUD.horaEntrada = solicitud.horaEntrada;
                         SOLICITUD.horaSalida = solicitud.horaSalida;
