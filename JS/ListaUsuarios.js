@@ -23,6 +23,7 @@ function CargarGrid() {
             { "data": "Empleado.Cedula" },
             { "data": "Password" },
             { "data": "Rol.Rol" },
+            { "data": "Empleado.Estado" },
             {
                 "data": null,
                 "render": function (data, type, row) {
@@ -30,16 +31,7 @@ function CargarGrid() {
                             "<i class='material-icons'>create</i>"+
                                 " </button ></div>"
                 }
-            },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return "<div style='text-align:center'><button type='button' class='btn btn-default btn-circle waves-effect' onclick= P_ModificarEstado(" + row.Empleado.Cedula + ")>" +
-                        "<i class='material-icons'>visibility</i>" +
-                        "</button ></div> "
-                }
             }
-
         ]
     });
 }//FIN DE CargarGrid
@@ -121,9 +113,12 @@ function cargarAgregar() {
     CARGAR_COMBO_EMPLEADOS_PENDIENTES_USUARIO();
     CARGAR_COMBO_ROL();
     clearTextBox();
+    $('#MENSAJE1').show();
+    $('#MENSAJE2').show();
 }//FIN DE cargarAgregar
 
 function CARGAR_COMBO_EMPLEADOS_PENDIENTES_USUARIO() {
+document.getElementById("empleado").disabled = false;
 $.ajax({
     url: "/Usuario/CARGAR_EMPLEADOS",
     type: "POST",
@@ -175,3 +170,80 @@ function clearTextBox() {
     $('#btnUpdate').hide();
     $('#btnAdd').show();
 }//FIN DE cargarAgregar
+
+
+function ConsultarUsuario(ID) {
+    CARGAR_COMBO_ROL();
+    $.ajax({
+        url: "/Usuario/ConsultarUsuario/" + ID,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#MENSAJE1').hide();
+            $('#MENSAJE2').hide();
+            LimpiarComboBox();
+            $("#empleado").html(`<option value="${result.Empleado.Cedula}">${result.Empleado.Cedula + ' ' + result.Empleado.Nombre}</option>`);
+            $('#rol').val(result.Rol.ID_Rol);
+            document.getElementById("empleado").disabled = true;
+            $('#myModal').modal('show');
+            $('#btnUpdate').show();
+            $('#btnAdd').hide();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}//FIN DE ConsultarUsuario
+
+function LimpiarComboBox() {
+    var select = document.getElementById("empleado");
+
+    var length = select.options.length;
+    for (i = length - 1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+}//FIN DE LimpiarComboBox
+
+function ModificarUsuario() {
+    if (VALIDAR() == true) {
+        var usrObj = {
+            Empleado: { Cedula: $("#empleado option:selected").val() },
+            Rol: { ID_Rol: $("#rol option:selected").val() }
+        };
+
+        $.ajax({
+            url: "/Usuario/ModificarUsuario",
+            data: JSON.stringify(usrObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                if (result == "Modificado") {
+                    swal({
+                        title: "¡Acción realizada!",
+                        text: "¡El usuario fue modificado correctamente!",
+                        type: "success",
+                        confirmButtonColor: "#10AF5D",
+                        confirmButtonText: "Aceptar"
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                CargarGrid();
+                                $('#myModal').modal('hide');
+                                clearTextBox();
+                            }
+                        });
+
+                } else {
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+                }
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+}//FIN DE ModificarUsuario

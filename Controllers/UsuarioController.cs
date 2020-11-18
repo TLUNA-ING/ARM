@@ -72,6 +72,39 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CARGAR_ROLES
 
+        [AutorizarUsuario(rol: "admin")]
+        public ActionResult ConsultarUsuario(long ID){
+            try{
+                ListaUsuarioModelo UsuarioModel = new ListaUsuarioModelo();
+                var usuario = UsuarioModel.ConsultarUnUsuarioID(ID);
+
+                return Json(usuario, JsonRequestBehavior.AllowGet);
+            }catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }// FIN DE ConsultarUsuario
+
+        [AutorizarUsuario(rol: "admin")]
+        [HttpPost]
+        public ActionResult ModificarUsuario(etlUsuario usr){
+            try {
+                ListaUsuarioModelo UsuarioModel = new ListaUsuarioModelo();
+                var usuario = UsuarioModel.ConsultarUnUsuarioID(usr.Empleado.Cedula);
+                if (usuario.Empleado.Nombre != ""){
+                    var MODIFICADO = UsuarioModel.ModificarUsuario(usr);
+
+                    if (MODIFICADO == true){
+                        return Json("Modificado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("Existe", JsonRequestBehavior.AllowGet);
+                    }
+                } else{
+                    return Json("666", JsonRequestBehavior.AllowGet);
+                }
+            }catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE ModificarUsuario
     }
 
 }

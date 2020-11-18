@@ -13,7 +13,8 @@ namespace ProyectoProgramacion.Models
                 var respuesta = contextoBD.Usuarios.Select(x =>
                 new etlUsuario{
                     Empleado = new etlEmpleado{
-                        Cedula = x.Empleados.empleadoCedula
+                        Cedula = x.Empleados.empleadoCedula,
+                        Estado = x.Empleados.empleadoEstado
                     },
                     Password= x.usuarioContraseña,
                     Rol = new etlRol{
@@ -88,7 +89,41 @@ namespace ProyectoProgramacion.Models
                 return false;
             }
         }//FIN DE ActivarUsuario
+        public etlUsuario ConsultarUnUsuarioID(long ID){
+            try{
+                etlUsuario usuario = new etlUsuario();
+                using (var contextoBD = new ARMEntities()){
+                    USUARIOS = (from x in contextoBD.Usuarios where x.usuario == ID select x).ToList();
+                    foreach (var USU in USUARIOS){
+                        usuario.Empleado.Cedula = USU.usuario;
+                        usuario.Empleado.Nombre = USU.Empleados.empleadoNombre;
+                        usuario.Empleado.Primer_Apellido = USU.Empleados.empleadoPrimerA;
+                        usuario.Empleado.Segundo_Apellido = USU.Empleados.empleadoSegundoA;
+                        usuario.Rol.ID_Rol = USU.Roles.rolId;
+                    }
+                }
+                return usuario;
+            }catch (Exception e){
+                throw new System.Exception("Error");
+            }
+        }//FIN DE ConsultarUnUsuarioID
 
+        public bool ModificarUsuario(etlUsuario usr){
+            try{
+                bool MODIFICADO = false;
+                using (var contextoBD = new ARMEntities()){
+                    var USUARIO = contextoBD.Usuarios.SingleOrDefault(b => b.usuario == usr.Empleado.Cedula);
+                    if (USUARIO != null){
+                        USUARIO.rolId = usr.Rol.ID_Rol;
+                        contextoBD.SaveChanges();
+                        MODIFICADO = true;
+                    }
+                }
+                return MODIFICADO;
+            }catch (Exception e){
+                return false;
+            }
+        }//FIN DE ModificarUsuario
 
     }
 }
