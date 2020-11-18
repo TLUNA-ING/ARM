@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="clienteId" />
@@ -61,12 +61,17 @@
           <Property Name="equipoNombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="equipoEstado" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="Firma">
+          <Property Name="FirmaCliente" Type="varchar" MaxLength="1" />
+        </EntityType>-->
         <EntityType Name="Provincias">
           <Key>
             <PropertyRef Name="provinciaId" />
           </Key>
           <Property Name="provinciaId" Type="int" Nullable="false" />
-          <Property Name="provinciaNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="provinciaNombre" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -97,6 +102,7 @@
           <Property Name="solicitudRepuestos" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="equipoDetenido" Type="bigint" Nullable="false" />
           <Property Name="provinciaId" Type="int" />
+          <Property Name="firmaCliente" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="TipoCedula">
           <Key>
@@ -368,7 +374,8 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ARMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -448,9 +455,9 @@
             <PropertyRef Name="provinciaId" />
           </Key>
           <Property Name="provinciaId" Type="Int32" Nullable="false" />
-          <Property Name="provinciaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="provinciaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_tblClientes_tblProvincias" FromRole="Provincias" ToRole="Clientes" />
-          <NavigationProperty Name="Solicitudes" Relationship="ARMModel.FK_tblSolicitud_Provincias" FromRole="Provincias" ToRole="Solicitudes" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_Provincias" FromRole="Provincias" ToRole="Solicitudes" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -481,13 +488,14 @@
           <Property Name="motivoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="solicitudRepuestos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="equipoDetenido" Type="Int64" Nullable="false" />
+          <Property Name="provinciaId" Type="Int32" />
+          <Property Name="firmaCliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_tblSolicitud_tblClientes" FromRole="Solicitudes" ToRole="Clientes" />
           <NavigationProperty Name="Departamentos" Relationship="Self.FK_tblSolicitud_tblDepartamentos" FromRole="Solicitudes" ToRole="Departamentos" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK_tblSolicitud_tblEmpleados" FromRole="Solicitudes" ToRole="Empleados" />
           <NavigationProperty Name="Equipos" Relationship="Self.FK_tblSolicitud_tblEquipos" FromRole="Solicitudes" ToRole="Equipos" />
+          <NavigationProperty Name="Provincias" Relationship="Self.FK_tblSolicitud_Provincias" FromRole="Solicitudes" ToRole="Provincias" />
           <NavigationProperty Name="TipoTrabajo" Relationship="Self.FK_tblSolicitud_tblTipoTrabajo" FromRole="Solicitudes" ToRole="TipoTrabajo" />
-          <Property Name="provinciaId" Type="Int32" />
-          <NavigationProperty Name="Provincias" Relationship="ARMModel.FK_tblSolicitud_Provincias" FromRole="Solicitudes" ToRole="Provincias" />
         </EntityType>
         <EntityType Name="TipoCedula">
           <Key>
@@ -648,6 +656,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblSolicitud_Provincias">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="provinciaId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="provinciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblUsuarios_tblRoles">
           <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
@@ -729,6 +749,10 @@
             <End Role="Equipos" EntitySet="Equipos" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblSolicitud_Provincias" Association="Self.FK_tblSolicitud_Provincias">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblUsuarios_tblRoles" Association="Self.FK_tblUsuarios_tblRoles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -744,12 +768,8 @@
             <Parameter Name="IND_LIGADOS" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CONSULTAR_UN_EMPLEADO_BD" ReturnType="Collection(ARMModel.CONSULTAR_UN_EMPLEADO_BD_Result)">
-          <Parameter Name="CEDULA" Mode="In" Type="String" />
+            <Parameter Name="CEDULA" Mode="In" Type="String" />
           </FunctionImport>
-          <AssociationSet Name="FK_tblSolicitud_Provincias" Association="ARMModel.FK_tblSolicitud_Provincias">
-            <End Role="Provincias" EntitySet="Provincias" />
-            <End Role="Solicitudes" EntitySet="Solicitudes" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
           <Property Type="Int64" Name="Cedula" Nullable="false" />
@@ -768,18 +788,6 @@
           <Property Type="String" Name="empleadoCorreo" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="empleadoEstado" Nullable="false" MaxLength="20" />
         </ComplexType>
-        <Association Name="FK_tblSolicitud_Provincias">
-          <End Type="ARMModel.Provincias" Role="Provincias" Multiplicity="0..1" />
-          <End Type="ARMModel.Solicitudes" Role="Solicitudes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provincias">
-              <PropertyRef Name="provinciaId" />
-            </Principal>
-            <Dependent Role="Solicitudes">
-              <PropertyRef Name="provinciaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -866,7 +874,6 @@
           <EntitySetMapping Name="Solicitudes">
             <EntityTypeMapping TypeName="ARMModel.Solicitudes">
               <MappingFragment StoreEntitySet="Solicitudes">
-                <ScalarProperty Name="provinciaId" ColumnName="provinciaId" />
                 <ScalarProperty Name="solicitudId" ColumnName="solicitudId" />
                 <ScalarProperty Name="clienteId" ColumnName="clienteId" />
                 <ScalarProperty Name="empleadoCedula" ColumnName="empleadoCedula" />
@@ -883,6 +890,8 @@
                 <ScalarProperty Name="motivoDetalle" ColumnName="motivoDetalle" />
                 <ScalarProperty Name="solicitudRepuestos" ColumnName="solicitudRepuestos" />
                 <ScalarProperty Name="equipoDetenido" ColumnName="equipoDetenido" />
+                <ScalarProperty Name="provinciaId" ColumnName="provinciaId" />
+                <ScalarProperty Name="firmaCliente" ColumnName="firmaCliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

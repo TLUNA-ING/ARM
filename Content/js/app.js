@@ -97,14 +97,15 @@ undoButton.addEventListener("click", function (event) {
 //  signaturePad.penColor = color;
 //});
 
-savePNGButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    var dataURL = signaturePad.toDataURL();
-    download(dataURL, "signature.png");
-  }
-});
+//savePNGButton.addEventListener("click", function (event) {
+//  if (signaturePad.isEmpty()) {
+//    alert("Please provide a signature first.");
+//  } else {
+//      var dataURL = signaturePad.toDataURL();
+//      $("#ImgInformation").val(dataURL);
+//    download(dataURL, "signature.png");
+//  }
+//});
 
 //saveJPGButton.addEventListener("click", function (event) {
 //  if (signaturePad.isEmpty()) {
@@ -123,3 +124,54 @@ savePNGButton.addEventListener("click", function (event) {
 //    download(dataURL, "signature.svg");
 ////  }
 //});
+
+//savePNGButton.addEventListener("click", function (event) {
+//    if (signaturePad.isEmpty()) {
+//        alert("Please provide a signature first.");
+//    } else {
+//        AgregarFirma();
+//        //var dataURL = signaturePad.toDataURL();
+//        //$("#ImgInformation").val(dataURL);
+//        //download(dataURL, "signature.png");
+//    }
+//});
+
+//function AgregarFirma() {
+//    var base64 = $("#firma")[0].toDataURL();
+//    var firObj = {
+
+//        DataImg: base64
+//        //ID_Cliente: $('#id_cliente').val(),
+//    };
+
+//    $.ajax({
+//        url: "/Solicitud/GuardarFirma",
+//        data: JSON.stringify(firObj),
+//        type: "POST",
+//        contentType: "application/json;charset=utf-8",
+//        dataType: "json",
+//        success: function (result) {
+
+//            if (result == "Agregado") {
+
+//                swal({
+//                    title: "¡Acción realizada!",
+//                    text: "¡La firma fue agregada correctamente!",
+//                    type: "success",
+//                    confirmButtonColor: "#10AF5D",
+//                    confirmButtonText: "Aceptar"
+//                },
+//                    );
+
+//            } else if (result == "Existe") {
+//                MENSAJE_WARNING("¡Ya existe un cliente con el nombre: " + $('#nombre_cliente').val() + " !");
+//            } else {
+//                swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+//            }
+
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}

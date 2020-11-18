@@ -30,13 +30,14 @@ namespace ProyectoProgramacion
         public string motivoDetalle { get; set; }
         public string solicitudRepuestos { get; set; }
         public long equipoDetenido { get; set; }
-        public int provinciaId { get; set; }
+        public Nullable<int> provinciaId { get; set; }
+        public string firmaCliente { get; set; }
     
         public virtual Clientes Clientes { get; set; }
         public virtual Departamentos Departamentos { get; set; }
         public virtual Empleados Empleados { get; set; }
         public virtual Equipos Equipos { get; set; }
-        public virtual TipoTrabajo TipoTrabajo { get; set; }
         public virtual Provincias Provincias { get; set; }
+        public virtual TipoTrabajo TipoTrabajo { get; set; }
     }
 }

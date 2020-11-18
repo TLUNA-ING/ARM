@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Models
 {
-    public class ConsultaSolicitud{
+    public class ConsultaSolicitud
+    {
 
 
         public List<SelectListItem> ConsultarClientes()
@@ -57,8 +58,10 @@ namespace ProyectoProgramacion.Models
                 return listaDepartamento.ToList();
             }
         }//FIN DE ConsultarDepartamentos
-        public List<SelectListItem> ConsultarTipoTrabajos(){
-            using (var contextoBD = new ARMEntities()){
+        public List<SelectListItem> ConsultarTipoTrabajos()
+        {
+            using (var contextoBD = new ARMEntities())
+            {
                 var result = (from tipo in contextoBD.TipoTrabajo select tipo).ToList();//Consultar todo de la tabla
 
                 var itemLista = (from item in result
@@ -76,7 +79,7 @@ namespace ProyectoProgramacion.Models
         {
             using (var contextoBD = new ARMEntities())
             {
-                var result = (from empleado in contextoBD.Empleados select empleado ).ToList();//Consultar todo de la tabla
+                var result = (from empleado in contextoBD.Empleados select empleado).ToList();//Consultar todo de la tabla
 
                 var itemLista = (from item in result
                                  select new SelectListItem { Value = item.empleadoCedula.ToString(), Text = item.empleadoNombre }).ToList();
@@ -130,6 +133,7 @@ namespace ProyectoProgramacion.Models
                     item.motivoDetalle = sol.motivoDetalle;
                     item.solicitudRepuestos = sol.solicitudRepuestos;
                     item.equipoDetenido = sol.equipoDetenido;
+                    item.firmaCliente = sol.firmaCliente;
                     contextoBD.Solicitudes.Add(item);
                     contextoBD.SaveChanges();
                 }

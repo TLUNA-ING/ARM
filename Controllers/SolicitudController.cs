@@ -144,7 +144,6 @@ namespace ProyectoProgramacion.Controllers
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
 
-
         }
 
     }

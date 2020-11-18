@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4c9af4f47a3946b5933fd42ebf353798" Name="Diagram1">
-        <EntityTypeShape EntityType="ARMModel.Clientes" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.Departamento_X_Cliente" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.Departamentos" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.Empleados" Width="1.5" PointX="3.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.Equipo_X_Departamento" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.Equipos" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.Provincias" Width="1.5" PointX="1.5" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.Roles" Width="1.5" PointX="3.75" PointY="16.625" IsExpanded="true" />
+      <Diagram DiagramId="0ae93aa3be104c008295828b46045ccb" Name="Diagram1">
+        <EntityTypeShape EntityType="ARMModel.Clientes" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.Departamento_X_Cliente" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.Departamentos" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.Empleados" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.Equipo_X_Departamento" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.Equipos" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.Provincias" Width="1.5" PointX="1.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.Roles" Width="1.5" PointX="3.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Solicitudes" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.TipoCedula" Width="1.5" PointX="1.5" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.TipoTrabajo" Width="1.5" PointX="3.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.Usuarios" Width="1.5" PointX="6" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.TipoCedula" Width="1.5" PointX="1.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.TipoTrabajo" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.Usuarios" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="ARMModel.FK_Departamento_X_Cliente_Clientes" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblClientes_tblProvincias" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblSolicitud_tblClientes" ManuallyRouted="false" />
@@ -28,9 +28,9 @@
         <AssociationConnector Association="ARMModel.FK_Usuarios_Empleados" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_Equipo_x_Departamento_Equipos" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblSolicitud_tblEquipos" ManuallyRouted="false" />
+        <AssociationConnector Association="ARMModel.FK_tblSolicitud_Provincias" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblUsuarios_tblRoles" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblSolicitud_tblTipoTrabajo" ManuallyRouted="false" />
-        <AssociationConnector Association="ARMModel.FK_tblSolicitud_Provincias" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

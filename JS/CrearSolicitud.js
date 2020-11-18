@@ -10,7 +10,8 @@ $(document).ready(function () {
 
 
 function Add() {
-
+    var base64 = $("#firma")[0].toDataURL();
+    
     var empObj = {
         solicitudID: $('#IDSolicitud').val(),
         provinciaId: $('#Provincias option:selected').val(),
@@ -28,6 +29,8 @@ function Add() {
         motivoDetalle: $('#motivoDetalle').val(),
         solicitudRepuestos: $('#solicitudRepuestos').val(),
         equipoDetenido: $('#equipoDetenido').val(),
+        firmaCliente: base64
+
 
     };
 
@@ -251,3 +254,4 @@ function CargarProvincia() {
         }
     });//FIN DE CargarProvincia
 }
+
