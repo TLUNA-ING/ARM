@@ -4,5 +4,6 @@
         public string Password { get; set; } = "";
         public etlEmpleado Empleado { get; set; } = new etlEmpleado();
         public etlRol Rol { get; set; } = new etlRol();
+        public string Estado { get; set; }
     }
 }

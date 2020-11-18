@@ -12,7 +12,7 @@ namespace ProyectoProgramacion.Models{
             etlSeguridad seguridad = new etlSeguridad();
             string PASSWORD = seguridad.Encriptar(usr.Password);
             using (var contextoBD = new ARMEntities()){
-                    Usuarios user = (from d in contextoBD.Usuarios where d.Empleados.empleadoCedula == usr.Empleado.Cedula && d.usuarioContraseña == PASSWORD select d).FirstOrDefault();
+                    Usuarios user = (from d in contextoBD.Usuarios where d.Empleados.empleadoCedula == usr.Empleado.Cedula && d.usuarioContraseña == PASSWORD && d.Empleados.empleadoEstado=="Activo" select d).FirstOrDefault();
                     if (user != null) {
                         usuario.Empleado.Cedula = user.Empleados.empleadoCedula;
                         usuario.Password = user.usuarioContraseña.Trim();
