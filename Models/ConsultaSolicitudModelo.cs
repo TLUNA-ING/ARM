@@ -167,9 +167,21 @@ namespace ProyectoProgramacion.Models
                     foreach (var SOL in SOLICITUDES)
                     {
                         solicitudes.ID_Solicitud = SOL.solicitudId;
-                        solicitudes.Provincia.ID_Provincia = SOL.Provincias.provinciaId;
-                        solicitudes.Cliente.ID_Cliente = SOL.Clientes.clienteId;
-                        solicitudes.Empleado.Cedula = SOL.Empleados.empleadoCedula;
+                        solicitudes.Provincia = new etlProvincia
+                        {
+                            ID_Provincia = SOL.Provincias.provinciaId,
+                            Descripcion = SOL.Provincias.provinciaNombre
+                        };
+                        solicitudes.Cliente = new etlCliente
+                        {
+                            ID_Cliente = SOL.Clientes.clienteId,
+                            Nombre = SOL.Clientes.clienteNombre
+                        };
+                        solicitudes.Empleado = new etlEmpleado
+                        {
+                            Cedula = SOL.Empleados.empleadoCedula,
+                            Nombre = SOL.Empleados.empleadoNombre
+                        };
                         solicitudes.TipoTrabajo.ID_TipoTrabajo = SOL.tipoTrabajoId;
                         solicitudes.Departamento.ID_Departamento = SOL.departamentoId;
                         solicitudes.Equipo.ID_Equipo = SOL.equipoId;
@@ -216,31 +228,31 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnDepartamento
 
-        public bool ModificarSolicitud(etlSolicitud solicitud)
+        public bool ModificarSolicitud(etlSolicitud sol)
         {
             try
             {
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities())
                 {
-                    var SOLICITUD = contextoBD.Solicitudes.SingleOrDefault(b => b.solicitudId == solicitud.ID_Solicitud);
+                    var SOLICITUD = contextoBD.Solicitudes.SingleOrDefault(b => b.solicitudId == sol.ID_Solicitud);
                     if (SOLICITUD != null)
                     {
-                        SOLICITUD.Clientes.clienteId = solicitud.Cliente.ID_Cliente;
-                        SOLICITUD.Provincias.provinciaId = solicitud.Provincia.ID_Provincia;
-                        SOLICITUD.Departamentos.departamentoId = solicitud.Departamento.ID_Departamento;
-                        SOLICITUD.TipoTrabajo.tipoTrabajoId = solicitud.TipoTrabajo.ID_TipoTrabajo;
-                        SOLICITUD.Empleados.empleadoCedula = solicitud.Empleado.Cedula;
-                        SOLICITUD.Equipos.equipoId = solicitud.Equipo.ID_Equipo;
-                        SOLICITUD.fechaReporte = solicitud.Fecha_Reporte;
-                        SOLICITUD.horaEntrada = solicitud.horaEntrada;
-                        SOLICITUD.horaSalida = solicitud.horaSalida;
-                        SOLICITUD.tipoHora = solicitud.tipoHora;
-                        SOLICITUD.cantidadHoras = solicitud.cantidadHoras;
-                        SOLICITUD.solicitudMotivo = solicitud.solicitudMotivo;
-                        SOLICITUD.motivoDetalle = solicitud.motivoDetalle;
-                        SOLICITUD.solicitudRepuestos = solicitud.solicitudRepuestos;
-                        SOLICITUD.equipoDetenido = solicitud.equipoDetenido;
+                        SOLICITUD.Clientes.clienteId = sol.Cliente.ID_Cliente;
+                        SOLICITUD.Provincias.provinciaId = sol.Provincia.ID_Provincia;
+                        SOLICITUD.Departamentos.departamentoId = sol.Departamento.ID_Departamento;
+                        SOLICITUD.TipoTrabajo.tipoTrabajoId = sol.TipoTrabajo.ID_TipoTrabajo;
+                        SOLICITUD.Empleados.empleadoCedula = sol.Empleado.Cedula;
+                        SOLICITUD.Equipos.equipoId = sol.Equipo.ID_Equipo;
+                        SOLICITUD.fechaReporte = sol.Fecha_Reporte;
+                        SOLICITUD.horaEntrada = sol.horaEntrada;
+                        SOLICITUD.horaSalida = sol.horaSalida;
+                        SOLICITUD.tipoHora = sol.tipoHora;
+                        SOLICITUD.cantidadHoras = sol.cantidadHoras;
+                        SOLICITUD.solicitudMotivo = sol.solicitudMotivo;
+                        SOLICITUD.motivoDetalle = sol.motivoDetalle;
+                        SOLICITUD.solicitudRepuestos = sol.solicitudRepuestos;
+                        SOLICITUD.equipoDetenido = sol.equipoDetenido;
 
                         contextoBD.SaveChanges();
                         MODIFICADO = true;

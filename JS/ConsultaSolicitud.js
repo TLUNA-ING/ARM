@@ -89,13 +89,13 @@ function ConsultarSolicitud(ID) {
         success: function (result) {
 
             $('#IDSolicitud').val(result.ID_Solicitud);
-            $('#Provincias').val(result.ID_Provincia);
-            $('#Cliente').val(result.clienteId);
-            $('#Empleado').val(result.empleadoCedula);
-            $('#tipoTrabajo').val(result.tipoTrabajoId);
-            $('#Departamento').val(result.departamentoId);
-            $('#Equipo').val(result.equipoId);
-            $('#fechaReporte').val(result.fechaReporte);
+            $('#Provincias').val(result.Provincia.ID_Provincia);
+            $('#Cliente').val(result.Cliente.ID_Cliente);
+            $('#Empleado').val(result.Empleado.Cedula);
+            $('#tipoTrabajo').val(result.TipoTrabajo.ID_TipoTrabajo);
+            $('#Departamento').val(result.Departamento.ID_Departamento);
+            $('#Equipo').val(result.Equipo.ID_Equipo);
+            $('#fechaReporte').val(result.Fecha_Reporte);
             $('#horaEntrada').val(result.horaEntrada);
             $('#horaSalida').val(result.horaSalida);
             $('#tipoHora').val(result.tipoHora);
@@ -118,10 +118,10 @@ function ConsultarSolicitud(ID) {
 
 
 function ModificarSolicitud() {
-    var res = validate();
-    if (res == false) {
-        return false;
-    }
+    //var res = validate();
+    //if (res == false) {
+    //    return false;
+    //}
 
                 var solObj = {
                     ID_Solicitud: $('#IDSolicitud').val(),
@@ -153,7 +153,7 @@ function ModificarSolicitud() {
                     Equipo: {
                         ID_Equipo: parseFloat($("#Equipo option:selected").val())
                     },
-                    Nombre: $('#nombre_cliente').val(),
+                   
                    
                 };
       
