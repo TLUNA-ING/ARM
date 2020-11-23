@@ -114,6 +114,7 @@ function clearTextBox() {
     $('#motivoDetalle').val("");
     $('#solicitudRepuestos').val("");
     $('#equipoDetenido').val("");
+    $('#firma').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();
     $('#IDSolicitud').css('border-color', 'lightgrey');

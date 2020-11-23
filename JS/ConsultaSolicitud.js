@@ -8,7 +8,10 @@
     CargarTipoTrabajo();
 });
 
+
 function CARGAR_GRID() {
+
+
     var table = $('#DatoSol').dataTable({
         destroy: true,
         "language": {
@@ -24,6 +27,8 @@ function CARGAR_GRID() {
             autoWidth: false,
             dataSrc: "",
             stripeClasses: []
+              
+
 
         },
 
@@ -81,12 +86,16 @@ function cargarAgregar() {
 
 
 function ConsultarSolicitud(ID) {
+
     $.ajax({
         url: "/ConsultaSolicitud/ConsultarSolicitud/" + ID,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+
+           
+
 
             $('#IDSolicitud').val(result.ID_Solicitud);
             $('#Provincias').val(result.Provincia.ID_Provincia);
@@ -117,11 +126,11 @@ function ConsultarSolicitud(ID) {
 
 
 
+
+
+
 function ModificarSolicitud() {
-    //var res = validate();
-    //if (res == false) {
-    //    return false;
-    //}
+
 
                 var solObj = {
                     ID_Solicitud: $('#IDSolicitud').val(),
@@ -134,7 +143,6 @@ function ModificarSolicitud() {
                     motivoDetalle: $('#motivoDetalle').val(),
                     solicitudRepuestos: $('#solicitudRepuestos').val(),
                     equipoDetenido: $('#equipoDetenido').val(),
-
                     Provincia: {
                         ID_Provincia: parseFloat($("#Provincias option:selected").val())
                     },
@@ -179,6 +187,7 @@ function ModificarSolicitud() {
                                 CARGAR_GRID();
                                 $('#myModal').modal('hide');
                                 clearTextBox();
+                                
                             }
                         });
                 } else {

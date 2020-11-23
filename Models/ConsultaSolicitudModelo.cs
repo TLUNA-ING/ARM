@@ -195,7 +195,8 @@ namespace ProyectoProgramacion.Models
                         solicitudes.solicitudRepuestos = SOL.solicitudRepuestos;
                         solicitudes.equipoDetenido = SOL.equipoDetenido;
                     }
-                }
+                };
+                solicitudes.Fecha_Reporte.ToString("dd-MM-yyyy");
                 return solicitudes;
             }
             catch (Exception e)
@@ -244,15 +245,16 @@ namespace ProyectoProgramacion.Models
                         SOLICITUD.TipoTrabajo.tipoTrabajoId = sol.TipoTrabajo.ID_TipoTrabajo;
                         SOLICITUD.Empleados.empleadoCedula = sol.Empleado.Cedula;
                         SOLICITUD.Equipos.equipoId = sol.Equipo.ID_Equipo;
-                        SOLICITUD.fechaReporte = sol.Fecha_Reporte;
-                        SOLICITUD.horaEntrada = sol.horaEntrada;
-                        SOLICITUD.horaSalida = sol.horaSalida;
+                        SOLICITUD.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
+                        SOLICITUD.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
+                        SOLICITUD.horaSalida = Convert.ToDateTime(sol.horaSalida);
                         SOLICITUD.tipoHora = sol.tipoHora;
                         SOLICITUD.cantidadHoras = sol.cantidadHoras;
                         SOLICITUD.solicitudMotivo = sol.solicitudMotivo;
                         SOLICITUD.motivoDetalle = sol.motivoDetalle;
                         SOLICITUD.solicitudRepuestos = sol.solicitudRepuestos;
                         SOLICITUD.equipoDetenido = sol.equipoDetenido;
+                        SOLICITUD.firmaCliente = SOLICITUD.firmaCliente;
 
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
