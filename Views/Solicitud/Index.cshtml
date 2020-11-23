@@ -166,15 +166,19 @@
                                 <script src="~/Content/js/signature_pad.umd.js"></script>
                                 <script src="~/Content/js/app.js"></script>
                             </fieldset>
-                            <button type="button" class="btn btn-primary waves-effect" id="btnAdd" onclick="return Add();">Enviar</button>
-                            <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal" onclick="return clearTextBox();">Cerrar</button>
-                            <button type="button" class="btn btn-primary waves-effect" id="btnPrint" onclick="return Add();">Imprimir</button>
-                            </form>
+                           </form>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <div class="col-xs-9">
+            </div>
+            <div class="col-xs-3">
+                <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return Add();"><i class="material-icons">save</i></button>
+                <button type="button" class="btn bg-orange waves-effect" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
+                <button type="button" class="btn bg-orange waves-effect" id="btnPrint" onclick="return Add();"><i class="material-icons">print</i></button>
+                <button type="button" class="btn bg-orange waves-effect" id="btnPrint" onclick="return Enviar();"><i class="material-icons">mail</i></button>
+            </div>
         </div>
     </section>
 </body>

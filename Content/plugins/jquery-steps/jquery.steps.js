@@ -266,29 +266,29 @@ function destroy(wizard, options)
     return wizardSubstitute;
 }
 
-/**
- * Triggers the onFinishing and onFinished event.
- *
- * @static
- * @private
- * @method finishStep
- * @param wizard {Object} The jQuery wizard object
- * @param state {Object} The state container of the current wizard
- **/
-function finishStep(wizard, state)
-{
-    var currentStep = wizard.find(".steps li").eq(state.currentIndex);
+///**
+// * Triggers the onFinishing and onFinished event.
+// *
+// * @static
+// * @private
+// * @method finishStep
+// * @param wizard {Object} The jQuery wizard object
+// * @param state {Object} The state container of the current wizard
+// **/
+//function finishStep(wizard, state)
+//{
+//    var currentStep = wizard.find(".steps li").eq(state.currentIndex);
 
-    if (wizard.triggerHandler("finishing", [state.currentIndex]))
-    {
-        currentStep.addClass("done").removeClass("error");
-        wizard.triggerHandler("finished", [state.currentIndex]);
-    }
-    else
-    {
-        currentStep.addClass("error");
-    }
-}
+//    if (wizard.triggerHandler("finishing", [state.currentIndex]))
+//    {
+//        currentStep.addClass("done").removeClass("error");
+//        wizard.triggerHandler("finished", [state.currentIndex]);
+//    }
+//    else
+//    {
+//        currentStep.addClass("error");
+//    }
+//}
 
 /**
  * Gets or creates if not exist an unique event namespace for the given wizard instance.
@@ -793,9 +793,9 @@ function paginationClickHandler(event)
             cancel(wizard);
             break;
 
-        case "finish":
-            finishStep(wizard, state);
-            break;
+        //case "finish":
+        //    finishStep(wizard, state);
+        //    break;
 
         case "next":
             goToSiguienteStep(wizard, options, state);
@@ -834,12 +834,14 @@ function refreshPagination(wizard, options, state)
         {
             finish._enableAria(state.stepCount > 0);
             next._enableAria(state.stepCount > 1 && state.stepCount > (state.currentIndex + 1));
+            
         }
         else
         {
-            finish._showAria(options.enableFinishButton && state.stepCount === (state.currentIndex + 1));
-            next._showAria(state.stepCount === 0 || state.stepCount > (state.currentIndex + 1)).
-                _enableAria(state.stepCount > (state.currentIndex + 1) || !options.enableFinishButton);
+            //next._enableAria(false);
+            //finish._showAria(options.enableFinishButton && state.stepCount === (state.currentIndex + 1));
+            //next._showAria(state.stepCount === 0 || state.stepCount > (state.currentIndex + 1)).
+            //    _enableAria(state.stepCount > (state.currentIndex + 1) || !options.enableFinishButton);
         }
     }
 }
@@ -1065,10 +1067,10 @@ function renderPagination(wizard, options, state)
 
         buttons += buttonTemplate.format("next", options.labels.next);
 
-        if (options.enableFinishButton)
-        {
-            buttons += buttonTemplate.format("finish", options.labels.finish);
-        }
+        //if (options.enableFinishButton)
+        //{
+        //    buttons += buttonTemplate.format("finish", options.labels.finish);
+        //}
 
         if (options.enableCancelarButton)
         {
@@ -1355,11 +1357,11 @@ $.fn.steps.destroy = function ()
  * Triggers the onFinishing and onFinished event.
  *
  * @method finish
- **/
-$.fn.steps.finish = function ()
-{
-    finishStep(this, getState(this));
-};
+// //**/
+//$.fn.steps.finish = function ()
+//{
+//    finishStep(this, getState(this));
+//};
 
 /**
  * Gets the current step index.
@@ -1796,15 +1798,15 @@ var defaults = $.fn.steps.defaults = {
      **/
     enableCancelarButton: false,
 
-    /**
-     * Shows the finish button if enabled.
-     *
-     * @property enableFinishButton
-     * @type Boolean
-     * @default true
-     * @for defaults
-     **/
-    enableFinishButton: true,
+    ///**
+    // * Shows the finish button if enabled.
+    // *
+    // * @property enableFinishButton
+    // * @type Boolean
+    // * @default true
+    // * @for defaults
+    // **/
+    //enableFinishButton: true,
 
     /**
      * Not yet implemented.
