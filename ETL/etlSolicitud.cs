@@ -23,13 +23,12 @@ namespace ProyectoProgramacion.ETL
 
         public etlEquipo Equipo { get; set; } = new etlEquipo();
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Fecha_Reporte { get; set; }
+        public string Fecha_Reporte { get; set; }
 
-        public DateTime horaEntrada { get; set; }
+
+        public string horaEntrada { get; set; }
         
-        public DateTime horaSalida { get; set; }
+        public string horaSalida { get; set; }
 
         public string tipoHora { get; set; }
 

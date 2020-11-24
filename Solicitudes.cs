@@ -23,11 +23,10 @@ namespace ProyectoProgramacion
         public int equipoId { get; set; }
         public int solicitudJefatura { get; set; }
 
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        //[Required]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime fechaReporte { get; set; }
-
 
         public DateTime horaEntrada { get; set; }
         public DateTime horaSalida { get; set; }

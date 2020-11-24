@@ -13,6 +13,7 @@ namespace ProyectoProgramacion.Models
 
             using (var contextoBD = new ARMEntities())
             {
+          
                 var solicitudes = contextoBD.Solicitudes.Select(x =>
                 new etlSolicitud
                 {
@@ -43,9 +44,10 @@ namespace ProyectoProgramacion.Models
                     Descripcion = x.Equipos.equipoNombre
                      //ID_Equipo = (int)x.equipoId   
                     },
-                    Fecha_Reporte = x.fechaReporte,
-                    horaEntrada = x.horaEntrada,
-                    horaSalida = x.horaSalida,
+                    
+                    Fecha_Reporte = x.fechaReporte.ToString(),
+                    horaEntrada = x.horaEntrada.ToString(),
+                    horaSalida = x.horaSalida.ToString(),
                     tipoHora = x.tipoHora,
                     cantidadHoras = (int)x.cantidadHoras,
                     solicitudMotivo = x.solicitudMotivo,
@@ -54,6 +56,7 @@ namespace ProyectoProgramacion.Models
                     equipoDetenido = (int)x.equipoDetenido
 
                 }).ToList();
+                
                 return solicitudes;
             }
         }//FIN DE ConsultarTodos
@@ -185,9 +188,9 @@ namespace ProyectoProgramacion.Models
                         solicitudes.TipoTrabajo.ID_TipoTrabajo = SOL.tipoTrabajoId;
                         solicitudes.Departamento.ID_Departamento = SOL.departamentoId;
                         solicitudes.Equipo.ID_Equipo = SOL.equipoId;
-                        solicitudes.Fecha_Reporte = SOL.fechaReporte;
-                        solicitudes.horaEntrada = SOL.horaEntrada;
-                        solicitudes.horaSalida = SOL.horaSalida;
+                        solicitudes.Fecha_Reporte = SOL.fechaReporte.ToString();
+                        solicitudes.horaEntrada = SOL.horaEntrada.ToString();
+                        solicitudes.horaSalida = SOL.horaSalida.ToString();
                         solicitudes.tipoHora = SOL.tipoHora;
                         solicitudes.cantidadHoras = SOL.cantidadHoras;
                         solicitudes.solicitudMotivo = SOL.solicitudMotivo;
@@ -196,7 +199,6 @@ namespace ProyectoProgramacion.Models
                         solicitudes.equipoDetenido = SOL.equipoDetenido;
                     }
                 };
-                solicitudes.Fecha_Reporte.ToString("dd-MM-yyyy");
                 return solicitudes;
             }
             catch (Exception e)
