@@ -385,6 +385,7 @@
     <Content Include="Content\images\user-lg.jpg" />
     <Content Include="Content\images\user.jpg" />
     <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\usuario.png" />
     <Content Include="Content\js\admin.js" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\demo.js" />
