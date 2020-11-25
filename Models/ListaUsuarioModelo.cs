@@ -91,6 +91,7 @@ namespace ProyectoProgramacion.Models
         }//FIN DE ActivarUsuario
         public etlUsuario ConsultarUnUsuarioID(long ID){
             try{
+                etlSeguridad seguridad = new etlSeguridad();
                 etlUsuario usuario = new etlUsuario();
                 using (var contextoBD = new ARMEntities()){
                     USUARIOS = (from x in contextoBD.Usuarios where x.usuario == ID select x).ToList();
@@ -98,7 +99,9 @@ namespace ProyectoProgramacion.Models
                         usuario.Empleado.Cedula = USU.usuario;
                         usuario.Empleado.Nombre = USU.Empleados.empleadoNombre;
                         usuario.Empleado.Primer_Apellido = USU.Empleados.empleadoPrimerA;
+                        usuario.Password = seguridad.DesEncriptar(USU.usuarioContraseña);
                         usuario.Empleado.Segundo_Apellido = USU.Empleados.empleadoSegundoA;
+                        usuario.Empleado.Correo = USU.Empleados.empleadoCorreo;
                         usuario.Rol.ID_Rol = USU.Roles.rolId;
                     }
                 }

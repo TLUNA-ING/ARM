@@ -31,6 +31,49 @@ namespace ProyectoProgramacion.Models{
             return usuario;
         }//FIN DE ValidarAcceso
 
+        List<Usuarios> USUARIOS = new List<Usuarios>();
+        public etlUsuario ConsultarUsuarioID(long ID){
+            try{
+                etlSeguridad seguridad = new etlSeguridad();
+                etlUsuario usuario = new etlUsuario();
+                using (var contextoBD = new ARMEntities()){
+                    USUARIOS = (from x in contextoBD.Usuarios where x.usuario == ID select x).ToList();
+                    foreach (var USU in USUARIOS){
+                        usuario.Empleado.Cedula = USU.usuario;
+                        usuario.Empleado.Nombre = USU.Empleados.empleadoNombre;
+                        usuario.Empleado.Primer_Apellido = USU.Empleados.empleadoPrimerA;
+                        usuario.Password = seguridad.DesEncriptar(USU.usuarioContraseña);
+                        usuario.Empleado.Segundo_Apellido = USU.Empleados.empleadoSegundoA;
+                        usuario.Empleado.Correo = USU.Empleados.empleadoCorreo;
+                        usuario.Rol.ID_Rol = USU.Roles.rolId;
+                    }
+                }
+                return usuario;
+            }catch (Exception e){
+                throw new System.Exception("Error");
+            }
+        }//FIN DE ConsultarUnUsuarioID
+
+        public bool ModificarPassword(etlUsuario usr){
+            try {
+                etlSeguridad seguridad = new etlSeguridad();
+                bool MODIFICADO = false;
+                var PasswordEncriptada = seguridad.Encriptar(usr.PasswordActual);
+                using (var contextoBD = new ARMEntities()){
+                    var USUARIO = contextoBD.Usuarios.SingleOrDefault(b => b.usuario == usr.Empleado.Cedula && b.usuarioContraseña == PasswordEncriptada);
+                    if (USUARIO != null){
+
+                        USUARIO.usuarioContraseña = seguridad.Encriptar(usr.Password);
+                        contextoBD.SaveChanges();
+                        MODIFICADO = true;
+                    }
+                }
+                return MODIFICADO;
+            } catch (Exception e){
+                return false;
+            }
+        }//FIN DE ModificarEmpleado
+
     }
 
 }

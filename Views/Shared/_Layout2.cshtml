@@ -100,6 +100,8 @@
                 <div class="info-container">
                     @{ViewBag.NombreCompletoUsuario = Session["NombreCompletoUsuario"];
                         ViewBag.EmailUsuario = Session["EmailUsuario"];
+                        ViewBag.CedulaUsuario = Session["Cedula"];
+                        ViewBag.CambiarPasswordUsuario = Session["CambiarPassword"];
                     }
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.NombreCompletoUsuario</div>
                     <div class="email">@ViewBag.EmailUsuario</div>
@@ -107,7 +109,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Perfil</a></li>
+                            <li data-toggle="modal" data-target="#myModalPerfil" onclick="ConsultarUsuarioAcceso(@ViewBag.CedulaUsuario);"><a href="javascript:void(0);"><i class="material-icons">person</i>Perfil</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/Home/Logout"><i class="material-icons">input</i>Cerrar Sesión</a></li>
                         </ul>
@@ -254,7 +256,119 @@
 
     <!-- Demo Js -->
     <script src="~/Content/js/demo.js"></script>
+
+    <script src="~/JS/Acceso.js"></script>
+
+    <div class="modal fade" id="myModalPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Perfil de usuario</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>Usuario</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="usuario" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>Nombre</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="nombre" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label for="Descripcion">Correo</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="correo" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label for="Descripcion">Contraseña</label>
+                                    <div class="form-line">
+                                        <input type="password" class="form-control" id="actual_contrasena" placeholder="Contraseña actual" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-line">
+                                        <label for="provincia">Nueva contraseña</label>
+                                        <input type="password" class="form-control" id="nueva_contrasena" onkeyup="ValidarPasswords();" placeholder="Nueva contraseña" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-line">
+                                        <label for="provincia">Confirmar contraseña</label>
+                                        <input type="password" class="form-control" id="confirmar_contrasena" onkeyup="ValidarPasswords();" placeholder="Confirmar contraseña" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label id="mensaje"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-orange waves-effect" id="btnCambiar" onclick="return ModificarContrasena();"><i class="material-icons">vpn_key</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 @RenderSection("Scripts", required: false)
+
+@{
+    var CambiarPassword = Session["CambiarPassword"];
+
+    switch (CambiarPassword){
+        case "SI":
+    <script>
+
+            swal({
+                    title: "¡Debe modificar su contraseña!",
+                    text: "¡Su contraseña es la dada por defecto, por efectos de seguridad debe modificarla!",
+                    type: "warning",
+                    confirmButtonColor: "#FFA500",
+                    confirmButtonText: "Aceptar"
+                    },
+                        function(isConfirm) {
+                if (isConfirm)
+                {
+                ConsultarUsuarioAcceso(@ViewBag.CedulaUsuario);
+                $('#myModalPerfil').modal('show');
+                }
+            });
+    </script>
+            break;
+    }
+}
 </html>
