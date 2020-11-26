@@ -111,6 +111,15 @@
                         <ul class="dropdown-menu pull-right">
                             <li data-toggle="modal" data-target="#myModalPerfil" onclick="ConsultarUsuarioAcceso(@ViewBag.CedulaUsuario);"><a href="javascript:void(0);"><i class="material-icons">person</i>Perfil</a></li>
                             <li role="separator" class="divider"></li>
+                            @{ var rol1 = Session["Rol"];
+                                switch (rol1)
+                                {
+                                    case "admin":
+                                        <li data-toggle="modal" data-target="#myModalSmtp" onclick="ConsultarSMTP();"><a href="javascript:void(0);"><i class="material-icons">alternate_email</i>SMTP</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        break;
+                                }
+                            }
                             <li><a href="/Home/Logout"><i class="material-icons">input</i>Cerrar Sesión</a></li>
                         </ul>
                     </div>
@@ -259,6 +268,8 @@
 
     <script src="~/JS/Acceso.js"></script>
 
+    <script src="~/JS/Smtp.js"></script>
+
     <div class="modal fade" id="myModalPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -342,6 +353,73 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModalSmtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Configuración de SMTP</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>Correo electrónico</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="correoSMTP" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>Contraseña</label>
+                                    <div class="form-line">
+                                        <input type="password" class="form-control" id="contrasenaSMTP" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>Servidor SMTP</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="servidorSMTP" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>Puerto</label>
+                                    <div class="form-line">
+                                        <input type="number" class="form-control" id="puertoSMTP" placeholder="Se recomienda el puerto 587" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>SSL</label>
+                                    <div class="form-line">
+                                        <select class="form-control" id="sslSMTP" >
+                                            <option value="1">Si</option>
+                                            <option value="2">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-orange waves-effect" id="btnProbarSMTP" onclick="return ProbarSmtp();"><i class="material-icons">outlined_flag</i></button>
+                    <button type="button" class="btn bg-orange waves-effect" id="btnAgregarSMTP" onclick="return AgregarSmtp();"><i class="material-icons">save</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 @RenderSection("Scripts", required: false)

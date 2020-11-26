@@ -4,13 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0ae93aa3be104c008295828b46045ccb" Name="Diagram1">
+      <Diagram DiagramId="28871598104a4cc197672b5304adc8e0" Name="Diagram1">
         <EntityTypeShape EntityType="ARMModel.Clientes" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Departamento_X_Cliente" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Departamentos" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Empleados" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Equipo_X_Departamento" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Equipos" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARMModel.InfoSMTP" Width="1.5" PointX="8.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Provincias" Width="1.5" PointX="1.5" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Roles" Width="1.5" PointX="3.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Solicitudes" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />

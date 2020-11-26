@@ -11,8 +11,7 @@ namespace ProyectoProgramacion
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Solicitudes
     {
         public int solicitudId { get; set; }
@@ -22,14 +21,9 @@ namespace ProyectoProgramacion
         public int departamentoId { get; set; }
         public int equipoId { get; set; }
         public int solicitudJefatura { get; set; }
-
-        //[Required]
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime fechaReporte { get; set; }
-
-        public DateTime horaEntrada { get; set; }
-        public DateTime horaSalida { get; set; }
+        public System.DateTime fechaReporte { get; set; }
+        public System.DateTime horaEntrada { get; set; }
+        public System.DateTime horaSalida { get; set; }
         public string tipoHora { get; set; }
         public long cantidadHoras { get; set; }
         public string solicitudMotivo { get; set; }

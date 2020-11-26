@@ -33,6 +33,7 @@ namespace ProyectoProgramacion
         public virtual DbSet<Empleados> Empleados { get; set; }
         public virtual DbSet<Equipo_X_Departamento> Equipo_X_Departamento { get; set; }
         public virtual DbSet<Equipos> Equipos { get; set; }
+        public virtual DbSet<InfoSMTP> InfoSMTP { get; set; }
         public virtual DbSet<Provincias> Provincias { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Solicitudes> Solicitudes { get; set; }

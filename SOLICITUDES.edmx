@@ -66,6 +66,16 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
         <EntityType Name="Firma">
           <Property Name="FirmaCliente" Type="varchar" MaxLength="1" />
         </EntityType>-->
+        <EntityType Name="InfoSMTP">
+          <Key>
+            <PropertyRef Name="Correo" />
+          </Key>
+          <Property Name="Correo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ServidorSMTP" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Puerto" Type="int" Nullable="false" />
+          <Property Name="SSL" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="Provincias">
           <Key>
             <PropertyRef Name="provinciaId" />
@@ -92,7 +102,7 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <Property Name="departamentoId" Type="int" Nullable="false" />
           <Property Name="equipoId" Type="int" Nullable="false" />
           <Property Name="solicitudJefatura" Type="int" Nullable="false" />
-          <Property Name="fechaReporte" Type="datetime" Nullable="false" />
+          <Property Name="fechaReporte" Type="date" Nullable="false" />
           <Property Name="horaEntrada" Type="datetime" Nullable="false" />
           <Property Name="horaSalida" Type="datetime" Nullable="false" />
           <Property Name="tipoHora" Type="varchar" MaxLength="50" Nullable="false" />
@@ -311,6 +321,7 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipo_X_Departamento" EntityType="Self.Equipo_X_Departamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipos" EntityType="Self.Equipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InfoSMTP" EntityType="Self.InfoSMTP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Solicitudes" EntityType="Self.Solicitudes" Schema="dbo" store:Type="Tables" />
@@ -450,6 +461,16 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <NavigationProperty Name="Equipo_X_Departamento" Relationship="Self.FK_Equipo_x_Departamento_Equipos" FromRole="Equipos" ToRole="Equipo_X_Departamento" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblEquipos" FromRole="Equipos" ToRole="Solicitudes" />
         </EntityType>
+        <EntityType Name="InfoSMTP">
+          <Key>
+            <PropertyRef Name="Correo" />
+          </Key>
+          <Property Name="Correo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ServidorSMTP" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Puerto" Type="Int32" Nullable="false" />
+          <Property Name="SSL" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="Provincias">
           <Key>
             <PropertyRef Name="provinciaId" />
@@ -479,7 +500,7 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <Property Name="departamentoId" Type="Int32" Nullable="false" />
           <Property Name="equipoId" Type="Int32" Nullable="false" />
           <Property Name="solicitudJefatura" Type="Int32" Nullable="false" />
-          <Property Name="fechaReporte" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaReporte" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="horaEntrada" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="horaSalida" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="tipoHora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -699,6 +720,7 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <EntitySet Name="Empleados" EntityType="Self.Empleados" />
           <EntitySet Name="Equipo_X_Departamento" EntityType="Self.Equipo_X_Departamento" />
           <EntitySet Name="Equipos" EntityType="Self.Equipos" />
+          <EntitySet Name="InfoSMTP" EntityType="Self.InfoSMTP" />
           <EntitySet Name="Provincias" EntityType="Self.Provincias" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="Solicitudes" EntityType="Self.Solicitudes" />
@@ -851,6 +873,17 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
                 <ScalarProperty Name="equipoId" ColumnName="equipoId" />
                 <ScalarProperty Name="equipoNombre" ColumnName="equipoNombre" />
                 <ScalarProperty Name="equipoEstado" ColumnName="equipoEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoSMTP">
+            <EntityTypeMapping TypeName="ARMModel.InfoSMTP">
+              <MappingFragment StoreEntitySet="InfoSMTP">
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ServidorSMTP" ColumnName="ServidorSMTP" />
+                <ScalarProperty Name="Puerto" ColumnName="Puerto" />
+                <ScalarProperty Name="SSL" ColumnName="SSL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

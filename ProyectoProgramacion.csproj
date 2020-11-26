@@ -181,6 +181,7 @@
     <Compile Include="Controllers\IntermedioController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
+    <Compile Include="Controllers\SmtpController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\TipoTrabajoController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="ETL\etlEquipoXDepartamento.cs" />
     <Compile Include="ETL\etlIntermedio.cs" />
     <Compile Include="ETL\etlSeguridad.cs" />
+    <Compile Include="ETL\etlSmtp.cs" />
     <Compile Include="ETL\etlTipoTrabajo.cs" />
     <Compile Include="ETL\etlEmpleado.cs" />
     <Compile Include="ETL\etlProvincia.cs" />
@@ -219,9 +221,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InfoSMTP.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccesoModelo.cs" />
     <Compile Include="Models\ConsultaSolicitudModelo.cs" />
     <Compile Include="Models\IntermedioModelo.cs" />
+    <Compile Include="Models\SmtpModelo.cs" />
     <Compile Include="Models\TipoTrabajoModelo.cs" />
     <Compile Include="Models\DepartamentoModelo.cs" />
     <Compile Include="Models\ClienteModelo.cs" />
@@ -3766,6 +3772,7 @@
     <Content Include="JS\CrearSolicitud.js" />
     <Content Include="JS\Acceso.js" />
     <Content Include="JS\Intermedios.js" />
+    <Content Include="JS\Smtp.js" />
     <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />
     <Content Include="JS\TipoTrabajo.js" />
@@ -4097,6 +4104,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Reports\" />
+    <Folder Include="Views\Smtp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
