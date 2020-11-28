@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Solicitud" targetNamespace="http://tempuri.org/Solicitud.xsd" xmlns:mstns="http://tempuri.org/Solicitud.xsd" xmlns="http://tempuri.org/Solicitud.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ARMConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ARMConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ARMConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Solicitud" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Solicitud" msprop:Generator_UserDSName="Solicitud">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Solicitudes" msprop:Generator_TableClassName="SolicitudesDataTable" msprop:Generator_TableVarName="tableSolicitudes" msprop:Generator_TablePropName="Solicitudes" msprop:Generator_RowDeletingName="SolicitudesRowDeleting" msprop:Generator_RowChangingName="SolicitudesRowChanging" msprop:Generator_RowEvHandlerName="SolicitudesRowChangeEventHandler" msprop:Generator_RowDeletedName="SolicitudesRowDeleted" msprop:Generator_UserTableName="Solicitudes" msprop:Generator_RowChangedName="SolicitudesRowChanged" msprop:Generator_RowEvArgName="SolicitudesRowChangeEvent" msprop:Generator_RowClassName="SolicitudesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="solicitudId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnsolicitudId" msprop:Generator_ColumnPropNameInRow="solicitudId" msprop:Generator_ColumnPropNameInTable="solicitudIdColumn" msprop:Generator_UserColumnName="solicitudId" type="xs:int" />
+              <xs:element name="clienteId" msprop:Generator_ColumnVarNameInTable="columnclienteId" msprop:Generator_ColumnPropNameInRow="clienteId" msprop:Generator_ColumnPropNameInTable="clienteIdColumn" msprop:Generator_UserColumnName="clienteId" type="xs:int" />
+              <xs:element name="empleadoCedula" msprop:Generator_ColumnVarNameInTable="columnempleadoCedula" msprop:Generator_ColumnPropNameInRow="empleadoCedula" msprop:Generator_ColumnPropNameInTable="empleadoCedulaColumn" msprop:Generator_UserColumnName="empleadoCedula" type="xs:long" />
+              <xs:element name="tipoTrabajoId" msprop:Generator_ColumnVarNameInTable="columntipoTrabajoId" msprop:Generator_ColumnPropNameInRow="tipoTrabajoId" msprop:Generator_ColumnPropNameInTable="tipoTrabajoIdColumn" msprop:Generator_UserColumnName="tipoTrabajoId" type="xs:int" />
+              <xs:element name="departamentoId" msprop:Generator_ColumnVarNameInTable="columndepartamentoId" msprop:Generator_ColumnPropNameInRow="departamentoId" msprop:Generator_ColumnPropNameInTable="departamentoIdColumn" msprop:Generator_UserColumnName="departamentoId" type="xs:int" />
+              <xs:element name="equipoId" msprop:Generator_ColumnVarNameInTable="columnequipoId" msprop:Generator_ColumnPropNameInRow="equipoId" msprop:Generator_ColumnPropNameInTable="equipoIdColumn" msprop:Generator_UserColumnName="equipoId" type="xs:int" />
+              <xs:element name="solicitudJefatura" msprop:Generator_ColumnVarNameInTable="columnsolicitudJefatura" msprop:Generator_ColumnPropNameInRow="solicitudJefatura" msprop:Generator_ColumnPropNameInTable="solicitudJefaturaColumn" msprop:Generator_UserColumnName="solicitudJefatura" type="xs:int" />
+              <xs:element name="fechaReporte" msprop:Generator_ColumnVarNameInTable="columnfechaReporte" msprop:Generator_ColumnPropNameInRow="fechaReporte" msprop:Generator_ColumnPropNameInTable="fechaReporteColumn" msprop:Generator_UserColumnName="fechaReporte" type="xs:dateTime" />
+              <xs:element name="horaEntrada" msprop:Generator_ColumnVarNameInTable="columnhoraEntrada" msprop:Generator_ColumnPropNameInRow="horaEntrada" msprop:Generator_ColumnPropNameInTable="horaEntradaColumn" msprop:Generator_UserColumnName="horaEntrada" type="xs:dateTime" />
+              <xs:element name="horaSalida" msprop:Generator_ColumnVarNameInTable="columnhoraSalida" msprop:Generator_ColumnPropNameInRow="horaSalida" msprop:Generator_ColumnPropNameInTable="horaSalidaColumn" msprop:Generator_UserColumnName="horaSalida" type="xs:dateTime" />
+              <xs:element name="tipoHora" msprop:Generator_ColumnVarNameInTable="columntipoHora" msprop:Generator_ColumnPropNameInRow="tipoHora" msprop:Generator_ColumnPropNameInTable="tipoHoraColumn" msprop:Generator_UserColumnName="tipoHora">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cantidadHoras" msprop:Generator_ColumnVarNameInTable="columncantidadHoras" msprop:Generator_ColumnPropNameInRow="cantidadHoras" msprop:Generator_ColumnPropNameInTable="cantidadHorasColumn" msprop:Generator_UserColumnName="cantidadHoras" type="xs:long" />
+              <xs:element name="solicitudMotivo" msprop:Generator_ColumnVarNameInTable="columnsolicitudMotivo" msprop:Generator_ColumnPropNameInRow="solicitudMotivo" msprop:Generator_ColumnPropNameInTable="solicitudMotivoColumn" msprop:Generator_UserColumnName="solicitudMotivo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="motivoDetalle" msprop:Generator_ColumnVarNameInTable="columnmotivoDetalle" msprop:Generator_ColumnPropNameInRow="motivoDetalle" msprop:Generator_ColumnPropNameInTable="motivoDetalleColumn" msprop:Generator_UserColumnName="motivoDetalle">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="solicitudRepuestos" msprop:Generator_ColumnVarNameInTable="columnsolicitudRepuestos" msprop:Generator_ColumnPropNameInRow="solicitudRepuestos" msprop:Generator_ColumnPropNameInTable="solicitudRepuestosColumn" msprop:Generator_UserColumnName="solicitudRepuestos">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="equipoDetenido" msprop:Generator_ColumnVarNameInTable="columnequipoDetenido" msprop:Generator_ColumnPropNameInRow="equipoDetenido" msprop:Generator_ColumnPropNameInTable="equipoDetenidoColumn" msprop:Generator_UserColumnName="equipoDetenido" type="xs:long" />
+              <xs:element name="provinciaId" msprop:Generator_ColumnVarNameInTable="columnprovinciaId" msprop:Generator_ColumnPropNameInRow="provinciaId" msprop:Generator_ColumnPropNameInTable="provinciaIdColumn" msprop:Generator_UserColumnName="provinciaId" type="xs:int" minOccurs="0" />
+              <xs:element name="firmaCliente" msprop:Generator_ColumnVarNameInTable="columnfirmaCliente" msprop:Generator_ColumnPropNameInRow="firmaCliente" msprop:Generator_ColumnPropNameInTable="firmaClienteColumn" msprop:Generator_UserColumnName="firmaCliente" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Solicitudes" />
+      <xs:field xpath="mstns:solicitudId" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
