@@ -1,7 +1,9 @@
 ﻿using ProyectoProgramacion.ETL;
 using ProyectoProgramacion.Filters;
 using ProyectoProgramacion.Models;
+using Rotativa;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
@@ -15,6 +17,7 @@ namespace ProyectoProgramacion.Controllers
 
             return View();
         }//FIN DE Index
+
 
         [AutorizarUsuario(rol: "admin,user")]
         public ActionResult CargarTipoTrabajo(){
@@ -127,7 +130,7 @@ namespace ProyectoProgramacion.Controllers
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
 
-
+            
         }
 
         [AutorizarUsuario(rol: "admin,user")]
