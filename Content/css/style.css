@@ -7797,6 +7797,12 @@ fieldset[disabled] .form-control {
     top: 25%;
 }
 
+.modal-center2 {
+    position: absolute;
+    left: 13%;
+    top: 11%;
+}
+
 ​
 
 .person {

@@ -15,6 +15,15 @@
           <Property Name="clienteCorreo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="clienteEstado" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="CodigoRecuperacion">
+          <Key>
+            <PropertyRef Name="codigo" />
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="codigo" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="usuario" Type="bigint" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Departamento_X_Cliente">
           <Key>
             <PropertyRef Name="departamentoId" />
@@ -137,6 +146,18 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <Property Name="rolId" Type="int" Nullable="false" />
           <Property Name="usuarioContraseña" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK_CodigoRecuperacion_Usuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="CodigoRecuperacion" Type="Self.CodigoRecuperacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="CodigoRecuperacion">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Departamento_X_Cliente_Clientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="Departamento_X_Cliente" Type="Self.Departamento_X_Cliente" Multiplicity="*" />
@@ -314,8 +335,13 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
         <Function Name="CONSULTAR_UN_EMPLEADO_BD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CEDULA" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="INSERTAR_CODIGO_USUARIO_RECUPERACION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USUARIO" Type="varchar" Mode="In" />
+          <Parameter Name="CODIGO" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ARMModelStoreContainer">
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodigoRecuperacion" EntityType="Self.CodigoRecuperacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamento_X_Cliente" EntityType="Self.Departamento_X_Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
@@ -328,6 +354,10 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CodigoRecuperacion_Usuario" Association="Self.FK_CodigoRecuperacion_Usuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="CodigoRecuperacion" EntitySet="CodigoRecuperacion" />
+          </AssociationSet>
           <AssociationSet Name="FK_Departamento_X_Cliente_Clientes" Association="Self.FK_Departamento_X_Cliente_Clientes">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Departamento_X_Cliente" EntitySet="Departamento_X_Cliente" />
@@ -402,6 +432,16 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <NavigationProperty Name="Departamento_X_Cliente" Relationship="Self.FK_Departamento_X_Cliente_Clientes" FromRole="Clientes" ToRole="Departamento_X_Cliente" />
           <NavigationProperty Name="Provincias" Relationship="Self.FK_tblClientes_tblProvincias" FromRole="Clientes" ToRole="Provincias" />
           <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblClientes" FromRole="Clientes" ToRole="Solicitudes" />
+        </EntityType>
+        <EntityType Name="CodigoRecuperacion">
+          <Key>
+            <PropertyRef Name="codigo" />
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="codigo" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="Int64" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_CodigoRecuperacion_Usuario" FromRole="CodigoRecuperacion" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Departamento_X_Cliente">
           <Key>
@@ -542,6 +582,7 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <Property Name="usuario" Type="Int64" Nullable="false" />
           <Property Name="rolId" Type="Int32" Nullable="false" />
           <Property Name="usuarioContraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CodigoRecuperacion" Relationship="Self.FK_CodigoRecuperacion_Usuario" FromRole="Usuarios" ToRole="CodigoRecuperacion" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK_Usuarios_Empleados" FromRole="Usuarios" ToRole="Empleados" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_tblUsuarios_tblRoles" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
@@ -578,6 +619,18 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
             </Principal>
             <Dependent Role="Solicitudes">
               <PropertyRef Name="clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodigoRecuperacion_Usuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="CodigoRecuperacion" Type="Self.CodigoRecuperacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="CodigoRecuperacion">
+              <PropertyRef Name="usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -715,6 +768,7 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
         </Association>
         <EntityContainer Name="ARMEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="CodigoRecuperacion" EntityType="Self.CodigoRecuperacion" />
           <EntitySet Name="Departamento_X_Cliente" EntityType="Self.Departamento_X_Cliente" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" />
           <EntitySet Name="Empleados" EntityType="Self.Empleados" />
@@ -738,6 +792,10 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <AssociationSet Name="FK_tblSolicitud_tblClientes" Association="Self.FK_tblSolicitud_tblClientes">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodigoRecuperacion_Usuario" Association="Self.FK_CodigoRecuperacion_Usuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="CodigoRecuperacion" EntitySet="CodigoRecuperacion" />
           </AssociationSet>
           <AssociationSet Name="FK_Departamento_X_Cliente_Departamentos" Association="Self.FK_Departamento_X_Cliente_Departamentos">
             <End Role="Departamentos" EntitySet="Departamentos" />
@@ -792,6 +850,10 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
           <FunctionImport Name="CONSULTAR_UN_EMPLEADO_BD" ReturnType="Collection(ARMModel.CONSULTAR_UN_EMPLEADO_BD_Result)">
             <Parameter Name="CEDULA" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="INSERTAR_CODIGO_USUARIO_RECUPERACION">
+            <Parameter Name="USUARIO" Mode="In" Type="String" />
+            <Parameter Name="CODIGO" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
           <Property Type="Int64" Name="Cedula" Nullable="false" />
@@ -824,6 +886,15 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
                 <ScalarProperty Name="clienteNombre" ColumnName="clienteNombre" />
                 <ScalarProperty Name="clienteCorreo" ColumnName="clienteCorreo" />
                 <ScalarProperty Name="clienteEstado" ColumnName="clienteEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodigoRecuperacion">
+            <EntityTypeMapping TypeName="ARMModel.CodigoRecuperacion">
+              <MappingFragment StoreEntitySet="CodigoRecuperacion">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -983,6 +1054,7 @@ advertencia 6013: La tabla o vista 'ARM.dbo.Firma' no tiene definida una clave p
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="INSERTAR_CODIGO_USUARIO_RECUPERACION" FunctionName="ARMModel.Store.INSERTAR_CODIGO_USUARIO_RECUPERACION" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

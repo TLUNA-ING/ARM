@@ -14,10 +14,18 @@ namespace ProyectoProgramacion
     
     public partial class Usuarios
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuarios()
+        {
+            this.CodigoRecuperacion = new HashSet<CodigoRecuperacion>();
+        }
+    
         public long usuario { get; set; }
         public int rolId { get; set; }
         public string usuarioContraseña { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CodigoRecuperacion> CodigoRecuperacion { get; set; }
         public virtual Empleados Empleados { get; set; }
         public virtual Roles Roles { get; set; }
     }

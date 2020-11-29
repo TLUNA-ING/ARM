@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace ProyectoProgramacion.Models{
@@ -73,6 +74,92 @@ namespace ProyectoProgramacion.Models{
                 return false;
             }
         }//FIN DE ModificarEmpleado
+
+        private static string _numbers = "ABCDEFGHIJKLMNOPQRSTVWXYZ0123456789";
+        Random random = new Random();
+
+        public string RandomString(int tamano){
+            StringBuilder builder = new StringBuilder(tamano);
+            string numberAsString;
+
+            for (var i = 0; i < tamano; i++){
+                builder.Append(_numbers[random.Next(0, _numbers.Length)]);
+            }
+            numberAsString = builder.ToString();
+            return numberAsString;
+        }//FIN DE RandomString
+
+        public bool EnviarCodigoRecuperacion(etlUsuario usr){
+            try {
+                bool AGREGADO = false;
+                using (var contextoBD = new ARMEntities()){
+                    var CODIGO = RandomString(4);
+                    var CEDULA = usr.Empleado.Cedula.ToString();
+                    var result = contextoBD.INSERTAR_CODIGO_USUARIO_RECUPERACION(CEDULA, CODIGO);
+
+                    string SALTO = "</br>";
+                    string MENSAJE = "<p>Estimado "+ usr.Empleado.Nombre+" "+usr.Empleado.Primer_Apellido+" "+usr.Empleado.Segundo_Apellido + ".</p>";
+                    MENSAJE += SALTO;
+                    MENSAJE += "<p>Debido a la solicitud realizada para la recuperación de su contraseña por este medio enviamos el código verificador.</p>";
+                    MENSAJE += SALTO;
+                    MENSAJE += "<p>Que corresponde a:</p>";
+                    MENSAJE += SALTO;
+                    MENSAJE += "<p><strong>"+ CODIGO + "</strong></p>";
+                    MENSAJE += SALTO + SALTO + SALTO;
+                    MENSAJE += "<p>Si usted no solicitó este código de recuperación por favor pongase en contacto con su empresa.</p>";
+                    MENSAJE += SALTO + SALTO;
+                    MENSAJE += "<p><strong>Esto corresponde a un email automático por favor no responderlo.</strong></p>";
+
+                    SmtpModelo modelSmtp = new SmtpModelo();
+                    AGREGADO = modelSmtp.EnviarCorreo(usr.Empleado.Correo,"Recuperación de contraseña", MENSAJE);
+
+                }
+                return AGREGADO;
+            } catch (Exception e){
+                return false;
+            }
+        }//FIN DE ModificarEmpleado
+
+        List<CodigoRecuperacion> RECUPERACION = new List<CodigoRecuperacion>();
+
+        public etlUsuario VerificarCodigoRecuperacion(string CODIGO,long USUARIO){
+            try{
+                etlSeguridad seguridad = new etlSeguridad();
+                etlUsuario usuario = new etlUsuario();
+
+                using (var contextoBD = new ARMEntities()){
+                    RECUPERACION = (from x in contextoBD.CodigoRecuperacion where x.usuario == USUARIO && x.codigo == CODIGO select x).ToList();
+                    foreach (var USU in RECUPERACION){
+                        usuario.Empleado.Cedula = USU.usuario;
+                    }
+                }
+                return usuario;
+            }
+            catch (Exception e)
+            {
+                throw new System.Exception("Error");
+            }
+        }//FIN DE ConsultarUnUsuarioID
+
+        public bool ModificarPasswordRecuperacion(etlUsuario usr){
+            try{
+                etlSeguridad seguridad = new etlSeguridad();
+                bool MODIFICADO = false;
+
+                using (var contextoBD = new ARMEntities()){
+                    var USUARIO = contextoBD.Usuarios.SingleOrDefault(b => b.usuario == usr.Empleado.Cedula);
+                    if (USUARIO != null){
+                        USUARIO.usuarioContraseña = seguridad.Encriptar(usr.Password);
+                        contextoBD.SaveChanges();
+                        MODIFICADO = true;
+                    }
+                }
+                return MODIFICADO;
+            }
+            catch (Exception e){
+                return false;
+            }
+        }//FIN DE ModificarPasswordRecuperacion
 
     }
 

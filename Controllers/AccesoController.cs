@@ -70,5 +70,81 @@ namespace ProyectoProgramacion.Controllers{
             }
         }//FIN DE IniciarSesion
 
+        [HttpPost]
+        public ActionResult UsuarioID(long ID){
+            try{
+                AccesoModelo accesoModelo = new AccesoModelo();
+                etlUsuario usuario = accesoModelo.ConsultarUsuarioID(ID);
+                if (usuario.Empleado.Nombre != null){
+                    return Json("Encontrado", JsonRequestBehavior.AllowGet);
+                } else{
+                    return Json("No encontrado", JsonRequestBehavior.DenyGet);
+                }
+            }catch (Exception ex){
+                return Json("666", JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE UsuarioID
+
+        [HttpPost]
+        public ActionResult EnviarCorreoRecuperacion(long ID){
+            try{
+                AccesoModelo accesoModelo = new AccesoModelo();
+                etlUsuario usuario = accesoModelo.ConsultarUsuarioID(ID);
+
+                if (usuario.Empleado.Nombre != null){
+                    var ENVIADO = accesoModelo.EnviarCodigoRecuperacion(usuario);
+
+                    if (ENVIADO == true){
+                        return Json("Enviado", JsonRequestBehavior.AllowGet);
+                    }else{
+                        return Json("No enviado", JsonRequestBehavior.DenyGet);
+                    }
+
+                }else{
+                    return Json("No enviado", JsonRequestBehavior.DenyGet);
+                }
+            }catch (Exception ex){
+                return Json("666", JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE EnviarCorreoRecuperacion
+
+        [HttpPost]
+        public ActionResult VerificarCodigoRecuperacion(string CODIGO,long CEDULA){
+            try{
+                AccesoModelo accesoModelo = new AccesoModelo();
+                etlUsuario usuario = accesoModelo.VerificarCodigoRecuperacion(CODIGO,CEDULA);
+
+                if (usuario.Empleado.Cedula != 0){
+                    return Json("Coincide", JsonRequestBehavior.AllowGet);
+                } else{
+                    return Json("No coincide", JsonRequestBehavior.DenyGet);
+                }
+            }catch (Exception ex){
+                return Json("666", JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE VerificarCodigoRecuperacion
+
+        [HttpPost]
+        public ActionResult ModificarContrasenaRecuperacion(long CEDULA,string PASSWORD){
+            try{
+                AccesoModelo accesoModelo = new AccesoModelo();
+                etlUsuario usuario = accesoModelo.ConsultarUsuarioID(CEDULA);
+
+                if (usuario.Empleado.Nombre != null){
+                        usuario.Password = PASSWORD;
+                        var MODIFICADO = accesoModelo.ModificarPasswordRecuperacion(usuario);
+
+                        if (MODIFICADO == true){
+                            return Json("Modificado", JsonRequestBehavior.AllowGet);
+                        }else{
+                            return Json("Error", JsonRequestBehavior.DenyGet);
+                        }
+                }else{
+                    return Json("No encontrado", JsonRequestBehavior.DenyGet);
+                }
+            }catch (Exception ex){
+                return Json("666", JsonRequestBehavior.DenyGet);
+            }
+        }//FIN DE VerificarCodigoRecuperacion
     }
 }

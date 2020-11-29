@@ -178,6 +178,9 @@
     <Compile Include="Clientes.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
+    <Compile Include="CodigoRecuperacion.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
     <Compile Include="CONSULTAR_EMPLEADOS_NO_USUARIO_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>

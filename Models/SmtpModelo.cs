@@ -88,5 +88,49 @@ namespace ProyectoProgramacion.Models
                 return false;
             }
         }//FIN DE AgregarSmtp
+
+        public bool EnviarCorreo(string emailEnviar,string Asunto,string Mensaje){
+            try{
+                bool ENVIADO = false;
+                var client = CrearClienteSmtp();
+
+                if (client != null){
+                    MailMessage email = new MailMessage(CorreoConfigurado, emailEnviar, Asunto, Mensaje);
+                    email.IsBodyHtml = true;
+                    client.Send(email);
+                    ENVIADO = true;
+                }
+                return ENVIADO;
+            }catch (Exception e){
+                return false;
+            }
+        }//FIN DE EnviarCorreo
+
+        public string CorreoConfigurado;
+
+        public SmtpClient CrearClienteSmtp(){
+            try{
+                var smtp = ConsultarSmtp();
+
+                SmtpClient client = new SmtpClient(smtp.ServidorSMTP, smtp.Puerto);
+                if (smtp.SSL == "S"){
+                    client.EnableSsl = true;
+                } else{
+                    client.EnableSsl = false;
+                }
+
+                client.Timeout = 30000;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(smtp.Correo, smtp.Password);
+                CorreoConfigurado = smtp.Correo;
+
+                return client;
+            }
+            catch (Exception e){
+                return null;
+            }
+        }//FIN DE CrearClienteSmtp
+
     }
 }

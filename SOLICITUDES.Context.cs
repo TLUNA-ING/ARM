@@ -28,6 +28,7 @@ namespace ProyectoProgramacion
         }
     
         public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<CodigoRecuperacion> CodigoRecuperacion { get; set; }
         public virtual DbSet<Departamento_X_Cliente> Departamento_X_Cliente { get; set; }
         public virtual DbSet<Departamentos> Departamentos { get; set; }
         public virtual DbSet<Empleados> Empleados { get; set; }
@@ -70,6 +71,19 @@ namespace ProyectoProgramacion
                 new ObjectParameter("CEDULA", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONSULTAR_UN_EMPLEADO_BD_Result>("CONSULTAR_UN_EMPLEADO_BD", cEDULAParameter);
+        }
+    
+        public virtual int INSERTAR_CODIGO_USUARIO_RECUPERACION(string uSUARIO, string cODIGO)
+        {
+            var uSUARIOParameter = uSUARIO != null ?
+                new ObjectParameter("USUARIO", uSUARIO) :
+                new ObjectParameter("USUARIO", typeof(string));
+    
+            var cODIGOParameter = cODIGO != null ?
+                new ObjectParameter("CODIGO", cODIGO) :
+                new ObjectParameter("CODIGO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERTAR_CODIGO_USUARIO_RECUPERACION", uSUARIOParameter, cODIGOParameter);
         }
     }
 }
