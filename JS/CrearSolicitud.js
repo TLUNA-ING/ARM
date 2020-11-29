@@ -6,6 +6,7 @@ $(document).ready(function () {
     CargarTipoTrabajo();
     CargarEmpleado();
     CargarProvincia();
+    Print();
 });
 
 
@@ -256,3 +257,15 @@ function CargarProvincia() {
     });//FIN DE CargarProvincia
 }
 
+//function Print() {
+//    $.ajax({
+//        url: "/Solicitud/Print",
+//        type: "POST",
+//        contentType: "application/json;charset=UTF-8",
+//        dataType: "json",
+//        success: function (result) {
+//       },
+//        error: function (errormessage) {
+//        }
+//    });//FIN DE CargarEmpleado
+//}

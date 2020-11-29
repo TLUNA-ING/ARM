@@ -10,6 +10,13 @@ namespace ProyectoProgramacion.Controllers
 {
     public class SolicitudController : Controller{
 
+        private etlSolicitud objSolicitud;
+
+        public SolicitudController() {
+
+            objSolicitud = new etlSolicitud();
+        }
+
         [AutorizarUsuario(rol: "admin,user")]
         public ActionResult Index(){
             etlUsuario usuario = (etlUsuario)Session["User"];
@@ -148,6 +155,18 @@ namespace ProyectoProgramacion.Controllers
             }
 
         }
+
+        //public ActionResult ReporteSolicitud()
+        //{
+        //    List<etlSolicitud> lista = objSolicitud.findAll();
+        //    return View(lista);
+        //}
+
+        //Reporte
+        //public ActionResult Print()
+        //{
+        //    return new ActionAsPdf("Solicitud");
+        //}
 
     }
 }
