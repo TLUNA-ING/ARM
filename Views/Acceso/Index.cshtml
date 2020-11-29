@@ -70,7 +70,7 @@
                     <div class="col-xs-6">
                     </div>
                     <div class="col-xs-6 align-right">
-                        <a href="~/Content/pages/examples/forgot-password.html">Olvidé contraseña</a>
+                        <a onclick="RecuperarPassword();">Olvidé contraseña</a>
                     </div>
                 </div>
             </div>
@@ -97,6 +97,56 @@
 
 
     <script src="~/JS/Acceso.js"></script>
+
+    <div class="modal fade modal-center" id="myModalRecuperar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 350px">
+                <div class="modal-header" style="background-color:darkcyan">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" style="color:white">Código de verificación</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label>Código</label>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="uno" maxlength="1" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="dos" maxlength="1" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="tres" maxlength="1" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control text-center" id="cuatro" maxlength="1" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-cyan waves-effect" id="btnValidarCodigo"><i class="material-icons">vpn_key</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 </body>
 
 </html>
