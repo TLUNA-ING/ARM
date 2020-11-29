@@ -7791,10 +7791,18 @@ fieldset[disabled] .form-control {
     overflow-x: hidden;
 }
 
+.modal-center {
+    position: absolute;
+    left: 13%;
+    top: 25%;
+}
+
+​
+
 .person {
     background: url(../images/usuario.png) no-repeat no-repeat;
     margin: 0px 50px 0px 130px;
-    padding-bottom:40px;
+    padding-bottom: 40px;
 }
 
   .login-page .login-box .msg {

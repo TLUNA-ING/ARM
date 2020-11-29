@@ -1,9 +1,7 @@
 ﻿using ProyectoProgramacion.ETL;
 using ProyectoProgramacion.Filters;
 using ProyectoProgramacion.Models;
-using Rotativa;
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers

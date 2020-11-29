@@ -35,7 +35,7 @@ function MENSAJE_WARNING(MENSAJE) {
 
 function MENSAJE_WARNING_(MENSAJE) {
     swal({
-        title: "¡No se pudo modificar!",
+        title: "¡No se pudo procesar!",
         text: MENSAJE,
         type: "info",
         showCancelButton: false,
@@ -193,3 +193,49 @@ function ModificarContrasena() {
         });
     }
 }//FIN DE ConsultarUsuarioAcceso
+
+
+function RecuperarPassword() {
+    var USUARIO = $('#usuario').val().trim();
+    if (USUARIO != "") {
+        $('#myModalRecuperar').modal('show');
+        $('#uno').val("");
+        $('#dos').val("");
+        $('#tres').val("");
+        $('#cuatro').val("");
+    } else {
+        MENSAJE_WARNING_("¡El usuario no puede ser nulo, por favor revise los datos brindados!");
+    }
+}//FIN DE ValidarPasswords
+
+$(document).ready(function () {
+    $("#uno").keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        } else {
+            $('#dos').focus();
+        }
+    });
+
+    $("#dos").keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        } else {
+            $('#tres').focus();
+        }
+    });
+
+    $("#tres").keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        } else {
+            $('#cuatro').focus();
+        }
+    });
+
+    $("#cuatro").keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
+});
