@@ -94,7 +94,7 @@ namespace ProyectoProgramacion.Models
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()) {
                     var TIPO = contextoBD.TipoTrabajo.SingleOrDefault(b => b.tipoTrabajoId == tip.ID_TipoTrabajo);
-                    string VIEJOS = "Nombre: " + TIPO.tipoTrabajoNombre + ", ESTADO: " + TIPO.tipoTrabajoEstado;
+                    string VIEJOS = "Nombre: " + TIPO.tipoTrabajoNombre + ", Estado: " + TIPO.tipoTrabajoEstado;
 
                     if (TIPO != null){
 
