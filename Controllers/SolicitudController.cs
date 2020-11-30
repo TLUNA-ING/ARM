@@ -1,22 +1,28 @@
-﻿using ProyectoProgramacion.ETL;
+﻿using Microsoft.Reporting.WebForms;
+using ProyectoProgramacion.ETL;
 using ProyectoProgramacion.Filters;
 using ProyectoProgramacion.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
 {
-    public class SolicitudController : Controller{
+    public class SolicitudController : Controller
+    {
 
         private etlSolicitud objSolicitud;
 
-        public SolicitudController() {
+        public SolicitudController()
+        {
 
             objSolicitud = new etlSolicitud();
         }
 
         [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult Index(){
+        public ActionResult Index()
+        {
             etlUsuario usuario = (etlUsuario)Session["User"];
             if (usuario != null) { ViewBag.data = usuario.Empleado.Cedula; }
 
@@ -25,13 +31,17 @@ namespace ProyectoProgramacion.Controllers
 
 
         [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult CargarTipoTrabajo(){
+        public ActionResult CargarTipoTrabajo()
+        {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarTipoTrabajos();
 
-            if (respuesta == null){
+            if (respuesta == null)
+            {
                 return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }else{
+            }
+            else
+            {
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
         }//FIN DE CargarTipoTrabajo
@@ -135,7 +145,7 @@ namespace ProyectoProgramacion.Controllers
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
 
-            
+
         }
 
         [AutorizarUsuario(rol: "admin,user")]
@@ -153,18 +163,6 @@ namespace ProyectoProgramacion.Controllers
             }
 
         }
-
-        //public ActionResult ReporteSolicitud()
-        //{
-        //    List<etlSolicitud> lista = objSolicitud.findAll();
-        //    return View(lista);
-        //}
-
-        //Reporte
-        //public ActionResult Print()
-        //{
-        //    return new ActionAsPdf("Solicitud");
-        //}
 
     }
 }

@@ -1,7 +1,10 @@
-﻿using ProyectoProgramacion.ETL;
+﻿using Microsoft.Reporting.WebForms;
+using ProyectoProgramacion.ETL;
 using ProyectoProgramacion.Filters;
 using ProyectoProgramacion.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
@@ -125,5 +128,63 @@ namespace ProyectoProgramacion.Controllers
             }
         }// FIN DE ModificarEstado
 
+
+
+        public ActionResult Report()
+        {
+
+            var reportViewer = new ReportViewer
+            {
+                ProcessingMode = ProcessingMode.Local,
+                ShowExportControls = true,
+                ShowParameterPrompts = true,
+                ShowPageNavigationControls = true,
+                ShowRefreshButton = true,
+                ShowPrintButton = true,
+                SizeToReportContent = true,
+                AsyncRendering = false,
+            };
+            string rutaReporte = "~/Reports/rptClientes.rdlc";
+            ///construir la ruta física
+            string rutaServidor = Server.MapPath(rutaReporte);
+            reportViewer.LocalReport.ReportPath = rutaServidor;
+            //reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\ReportCategories.rdlc";
+            var infoFuenteDatos = reportViewer.LocalReport.GetDataSourceNames();
+            reportViewer.LocalReport.DataSources.Clear();
+
+            List<Clientes> CLIENTES = new List<Clientes>();
+            using (var contextoBD = new ARMEntities())
+            {
+                var respuesta = contextoBD.Clientes.Select(x =>
+                new etlCliente
+                {
+                    ID_Cliente = x.clienteId,
+                    Provincia = new etlProvincia
+                    {
+                        ID_Provincia = x.Provincias.provinciaId,
+                        Descripcion = x.Provincias.provinciaNombre
+                    },
+                    Nombre = x.clienteNombre.Trim(),
+                    Correo = x.clienteCorreo.Trim(),
+                    Estado = x.clienteEstado
+                }).ToList();
+            }
+                ReportDataSource fuenteDatos = new ReportDataSource();
+                fuenteDatos.Name = infoFuenteDatos[0];
+                fuenteDatos.Value = CLIENTES;
+                reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ClientesDataSet", CLIENTES));
+
+                reportViewer.LocalReport.Refresh();
+                ViewBag.ReportViewer = reportViewer;
+
+
+                return View();
+
+            
+
+        }
+
     }
+
+
 }
