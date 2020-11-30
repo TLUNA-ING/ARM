@@ -68,7 +68,7 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnUsuario
 
-        public bool ActivarUsuario(etlUsuario usr){
+        public bool ActivarUsuario(etlUsuario usr, long USUARIOL){
             try{
                 etlSeguridad seguridad = new etlSeguridad();
 
@@ -83,6 +83,10 @@ namespace ProyectoProgramacion.Models
                     contextoBD.Usuarios.Add(item);
                     contextoBD.SaveChanges();
                     ACTIVADO = true;
+
+                    string NUEVOS = "Usuario: "+ item.usuario + ", Rol: " + item.rolId;
+                    var ACCION = "Activación de usuario";
+                    GuardarEnBitacora(USUARIOL, ACCION, null, NUEVOS);
                 }
                 return ACTIVADO;
             }catch (Exception e){
@@ -124,7 +128,7 @@ namespace ProyectoProgramacion.Models
                         MODIFICADO = true;
                     }
                     string NUEVOS = "Rol: " + USUARIO.rolId;
-                    var ACCION = "Modificación en tabla Usuarios";
+                    var ACCION = "Modificación de datos de un usuario";
                     GuardarEnBitacora(USUARIOL, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;

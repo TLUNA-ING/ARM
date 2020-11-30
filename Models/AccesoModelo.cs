@@ -67,7 +67,7 @@ namespace ProyectoProgramacion.Models{
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
-                    var ACCION = "Se modificó la contraseña del usuario";
+                    var ACCION = "Modificación de la contraseña del usuario";
                     GuardarEnBitacora(USUARIOL, ACCION, null, null);
                 }
                 return MODIFICADO;
@@ -154,7 +154,7 @@ namespace ProyectoProgramacion.Models{
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
-                    var ACCION = "Se modificó la contraseña del usuario";
+                    var ACCION = "Modificación de la contraseña del usuario";
                     GuardarEnBitacora(USUARIOL, ACCION, null, null);
                 }
                 return MODIFICADO;

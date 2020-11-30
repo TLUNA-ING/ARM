@@ -53,7 +53,7 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnDepartamento
 
-        public bool AgregarDepartamento(etlDepartamento departamento){
+        public bool AgregarDepartamento(etlDepartamento departamento, long USUARIO){
             try{
                 bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities()){
@@ -64,6 +64,10 @@ namespace ProyectoProgramacion.Models
                     contextoBD.Departamentos.Add(item);
                     contextoBD.SaveChanges();
                     AGREGADO = true;
+
+                    string NUEVOS = "Nombre: " + item.deparatamentoNombre + ", Estado: " + item.departamentoEstado;
+                    var ACCION = "Inserción de departamento";
+                    GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
                 }
                 return AGREGADO;
             }catch (Exception e){
@@ -101,7 +105,7 @@ namespace ProyectoProgramacion.Models
                         MODIFICADO = true;
                     }
                     string NUEVOS = "Nombre: " + DEPARTAMENTO.deparatamentoNombre + ", Estado: " + DEPARTAMENTO.departamentoEstado;
-                    var ACCION = "Modificación en tabla Departamentos";
+                    var ACCION = "Modificación de datos de un departamento";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
@@ -128,7 +132,7 @@ namespace ProyectoProgramacion.Models
                         MODIFICADO = true;
                     }
                     string NUEVOS = "Nombre: " + DEPARTAMENTO.deparatamentoNombre + ", Estado: " + DEPARTAMENTO.departamentoEstado;
-                    var ACCION = "Modificación en tabla Departamentos";
+                    var ACCION = "Modificación del estado de un departamento";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;

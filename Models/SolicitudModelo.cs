@@ -97,7 +97,7 @@ namespace ProyectoProgramacion.Models
         }//FIN DE ConsultarEquipos
 
 
-        public void GuardarConsulta(Solicitudes sol)
+        public void GuardarConsulta(Solicitudes sol, long USUARIO)
         {
             try
             {
@@ -124,6 +124,15 @@ namespace ProyectoProgramacion.Models
                     item.firmaCliente = sol.firmaCliente;
                     contextoBD.Solicitudes.Add(item);
                     contextoBD.SaveChanges();
+
+                    string NUEVOS = "Cliente: " + item.clienteId + ", Empleado: " + item.empleadoCedula + ", Tipo Trabajo: " + item.tipoTrabajoId +
+                       ", Departamento: " + item.departamentoId + ", Equipo: " + item.equipoId + ", Fecha: " + item.fechaReporte +
+                        ", Hora Entrada: " + item.horaEntrada + ", Tipo Hora: " + item.tipoHora + ", Hora Salida: " + item.horaSalida +
+                         ", Horas: " + item.cantidadHoras + ", Motivo: " + item.solicitudMotivo + ", Detalle: " + item.motivoDetalle +
+                          ", Repuestos: " + item.solicitudRepuestos + ", E_Detenido: " + item.equipoDetenido;
+
+                    var ACCION = "Inserción de solicitud";
+                    GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
                 }
             }
             catch (Exception e)
@@ -170,7 +179,7 @@ namespace ProyectoProgramacion.Models
                          ", Horas: " + item.cantidadHoras + ", Motivo: " + item.solicitudMotivo + ", Detalle: " + item.motivoDetalle +
                           ", Repuestos: " + item.solicitudRepuestos + ", E_Detenido: " + item.equipoDetenido;
 
-                    var ACCION = "Modificación en tabla Solicitudes";
+                    var ACCION = "Modificación de datos de una solicitud";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 

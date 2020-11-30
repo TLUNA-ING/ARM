@@ -57,7 +57,7 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnCliente
 
-        public bool AgregarCliente(etlCliente cliente){
+        public bool AgregarCliente(etlCliente cliente,long USUARIO){
             try{
                 bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities()){
@@ -71,7 +71,13 @@ namespace ProyectoProgramacion.Models
                     contextoBD.Clientes.Add(item);
                     contextoBD.SaveChanges();
                     AGREGADO = true;
-                }
+
+                    string NUEVOS = "Provincia: " + item.provinciaId + ", Nombre: " + item.clienteNombre + ", Correo: " + item.clienteCorreo +
+                               ", Estado: " + item.clienteEstado;
+                    var ACCION = "Inserción de cliente";
+                    GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
+                }                
+
                 return AGREGADO;
             }catch (Exception e){
                 return false;
@@ -120,7 +126,7 @@ namespace ProyectoProgramacion.Models
                     }
                     string NUEVOS = "Provincia: " + CLIENTE.provinciaId + ", Nombre: " + CLIENTE.clienteNombre + ", Correo: " + CLIENTE.clienteCorreo +
                         ", Estado: " + CLIENTE.clienteEstado;
-                    var ACCION = "Modificación en tabla Clientes";
+                    var ACCION = "Modificación de datos en un cliente";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
@@ -150,7 +156,7 @@ namespace ProyectoProgramacion.Models
                     }
                     string NUEVOS = "Provincia: " + CLIENTE.provinciaId + ", Nombre: " + CLIENTE.clienteNombre + ", Correo: " + CLIENTE.clienteCorreo +
                            ", Estado: " + CLIENTE.clienteEstado;
-                    var ACCION = "Modificación en tabla Clientes";
+                    var ACCION = "Modificación del estado de un Cliente";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;

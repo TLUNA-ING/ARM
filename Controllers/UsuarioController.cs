@@ -31,11 +31,12 @@ namespace ProyectoProgramacion.Controllers
             try{
                 ListaUsuarioModelo modelUsuario = new ListaUsuarioModelo();
                 var respuesta = modelUsuario.ConsultarUnUsuario(usr);
+                long cedula = (long)Session["Cedula"];
 
                 if (respuesta.Count > 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else{
-                    var ACTIVADO = modelUsuario.ActivarUsuario(usr);
+                    var ACTIVADO = modelUsuario.ActivarUsuario(usr,cedula);
                     if (ACTIVADO == true){
                         return Json("Activado", JsonRequestBehavior.AllowGet);
                     }else{

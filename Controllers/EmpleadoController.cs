@@ -31,11 +31,12 @@ namespace ProyectoProgramacion.Controllers
             try{
                 EmpleadoModelo modelEmpleado = new EmpleadoModelo();
                 var empleado = modelEmpleado.ConsultarUnEmpleado(emp.Cedula);
+                long cedula = (long)Session["Cedula"];
 
                 if (empleado.Count > 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else {
-                  var AGREGADO =  modelEmpleado.AgregarEmpleado(emp);
+                  var AGREGADO =  modelEmpleado.AgregarEmpleado(emp,cedula);
                     if (AGREGADO == true){
                         return Json("Agregado", JsonRequestBehavior.AllowGet);
                     }else{

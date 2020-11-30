@@ -31,7 +31,7 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnTipoTrabajo
 
-        public bool AgregarTipoTrabajo(etlTipoTrabajo tipo){
+        public bool AgregarTipoTrabajo(etlTipoTrabajo tipo,long USUARIO){
             try{
                 bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities()){
@@ -42,6 +42,10 @@ namespace ProyectoProgramacion.Models
                     contextoBD.TipoTrabajo.Add(item);
                     contextoBD.SaveChanges();
                     AGREGADO = true;
+
+                    string NUEVOS = "Nombre: " + item.tipoTrabajoNombre + ", Estado: " + item.tipoTrabajoEstado;
+                    var ACCION = "Inserción de tipo de trabajo";
+                    GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
                 }
                 return AGREGADO;
             }catch (Exception e){
@@ -80,7 +84,7 @@ namespace ProyectoProgramacion.Models
                         MODIFICADO = true;
                     }
                     string NUEVOS = "Nombre: " + TIPO.tipoTrabajoNombre + ", Estado: " + TIPO.tipoTrabajoEstado;
-                    var ACCION = "Modificación en tabla Tipo Trabajo";
+                    var ACCION = "Modificación de un dato de tipo de trabajo";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
@@ -107,7 +111,7 @@ namespace ProyectoProgramacion.Models
                         MODIFICADO = true;
                     }
                     string NUEVOS = "Nombre: " + TIPO.tipoTrabajoNombre + ", Estado: " + TIPO.tipoTrabajoEstado;
-                    var ACCION = "Modificación en tabla Tipo Trabajo";
+                    var ACCION = "Modificación del estado de un tipo de trabajo";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;

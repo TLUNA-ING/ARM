@@ -24,7 +24,7 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarTodos
 
-        public bool AgregarEmpleado(etlEmpleado emp){
+        public bool AgregarEmpleado(etlEmpleado emp, long USUARIO){
             try{
                 bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities()){
@@ -40,6 +40,11 @@ namespace ProyectoProgramacion.Models
                     contextoBD.Empleados.Add(item);
                     contextoBD.SaveChanges();
                     AGREGADO = true;
+
+                    string NUEVOS = "Nombre: " + item.empleadoCedula + ", Apellido 1: " + item.empleadoPrimerA + ", Apellido 2: " + item.empleadoSegundoA +
+                      ", Correo: " + item.empleadoCorreo + ", Estado: " + item.empleadoEstado;
+                    var ACCION = "Inserción de un empleado";
+                    GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
                 }
 
                 return AGREGADO;
@@ -92,7 +97,7 @@ namespace ProyectoProgramacion.Models
 
                     string NUEVOS = "Nombre: " + EMPLEADO.empleadoCedula + ", Apellido 1: " + EMPLEADO.empleadoPrimerA + ", Apellido 2: " + EMPLEADO.empleadoSegundoA +
                        ", Correo: " + EMPLEADO.empleadoCorreo + ", Estado: " + EMPLEADO.empleadoEstado;
-                    var ACCION = "Modificación en tabla Empleado";
+                    var ACCION = "Modificación de datos de un empleado";
                     GuardarEnBitacora(USUARIO,ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
@@ -123,7 +128,7 @@ namespace ProyectoProgramacion.Models
                     }
                     string NUEVOS = "Nombre: " + EMPLEADO.empleadoCedula + ", Apellido 1: " + EMPLEADO.empleadoPrimerA + ", Apellido 2: " + EMPLEADO.empleadoSegundoA +
                       ", Correo: " + EMPLEADO.empleadoCorreo + ", Estado: " + EMPLEADO.empleadoEstado;
-                    var ACCION = "Modificación en tabla Empleado";
+                    var ACCION = "Modificación del estado de un empleado";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;

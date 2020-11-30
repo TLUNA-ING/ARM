@@ -30,12 +30,13 @@ namespace ProyectoProgramacion.Controllers
         public ActionResult AgregarDepartamento(etlDepartamento departamento) {
             try{
                 DepartamentoModelo modelDepartamento = new DepartamentoModelo();
+                long cedula = (long)Session["Cedula"];
 
                 var respuesta = modelDepartamento.ConsultarUnDepartamento(departamento.Descripcion);
                 if (respuesta.Count > 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else{
-                    var AGREGADO = modelDepartamento.AgregarDepartamento(departamento);
+                    var AGREGADO = modelDepartamento.AgregarDepartamento(departamento,cedula);
 
                     if (AGREGADO == true){
                         return Json("Agregado", JsonRequestBehavior.AllowGet);

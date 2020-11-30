@@ -62,6 +62,7 @@ namespace ProyectoProgramacion.Controllers
                 DepartamentoModelo modelDepartamento = new DepartamentoModelo();
                 ClienteModelo modelCliente = new ClienteModelo();
                 IntermedioModelo modelIntermedio = new IntermedioModelo();
+                long cedula = (long)Session["Cedula"];
 
                 var departamento = modelDepartamento.ConsultarUnDepartamentoID(Intermedio.ID_Departamento);
                 var cliente = modelCliente.ConsultarUnClienteID(Intermedio.ID_Cliente);
@@ -71,7 +72,7 @@ namespace ProyectoProgramacion.Controllers
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else{
                     if (departamento.Descripcion !="" && cliente.Nombre!=""){
-                        var LIGADO = modelIntermedio.LigarDepartamentoIntermedio(Intermedio);
+                        var LIGADO = modelIntermedio.LigarDepartamentoIntermedio(Intermedio,cedula);
                         if (LIGADO == true){
                             return Json("Ligado", JsonRequestBehavior.AllowGet);
                         }else{
@@ -89,12 +90,13 @@ namespace ProyectoProgramacion.Controllers
         public ActionResult DesligarDepartamento(etlDepartamentoXCliente Intermedio){
             try{
                 IntermedioModelo modelIntermedio = new IntermedioModelo();
+                long cedula = (long)Session["Cedula"];
 
                 var ligado = modelIntermedio.ConsultarIDs(Intermedio);
 
                 if (ligado.ID_Departamento != 0) {
 
-                    var DESLIGADO = modelIntermedio.DesligarDepartamentoIntermedio(Intermedio);
+                    var DESLIGADO = modelIntermedio.DesligarDepartamentoIntermedio(Intermedio,cedula);
 
                     if (DESLIGADO == true) {
                         return Json("Desligado", JsonRequestBehavior.AllowGet);
@@ -116,6 +118,7 @@ namespace ProyectoProgramacion.Controllers
                 DepartamentoModelo modelDepartamento = new DepartamentoModelo();
                 EquipoModelo modelCliente = new EquipoModelo();
                 IntermedioModelo modelIntermedio = new IntermedioModelo();
+                long cedula = (long)Session["Cedula"];
 
                 var departamento = modelDepartamento.ConsultarUnDepartamentoID(Intermedio.ID_Departamento);
                 var cliente = modelCliente.ConsultarUnEquipoID(Intermedio.ID_Equipo);
@@ -126,7 +129,7 @@ namespace ProyectoProgramacion.Controllers
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else{
                     if (departamento.Descripcion != "" && cliente.Descripcion != ""){
-                        var LIGADO = modelIntermedio.LigarEquipoIntermedio(Intermedio);
+                        var LIGADO = modelIntermedio.LigarEquipoIntermedio(Intermedio,cedula);
                         if (LIGADO == true){
                             return Json("Ligado", JsonRequestBehavior.AllowGet);
                         }else{
@@ -145,12 +148,13 @@ namespace ProyectoProgramacion.Controllers
         public ActionResult DesligarEquipo(etlEquipoXDepartamento Intermedio){
             try{
                 IntermedioModelo modelIntermedio = new IntermedioModelo();
+                long cedula = (long)Session["Cedula"];
 
                 var ligado = modelIntermedio.ConsultarIDs_ExD(Intermedio);
 
                 if (ligado.ID_Departamento != 0){
 
-                    var DESLIGADO = modelIntermedio.DesligarEquipoIntermedio(Intermedio);
+                    var DESLIGADO = modelIntermedio.DesligarEquipoIntermedio(Intermedio,cedula);
 
                     if (DESLIGADO == true){
                         return Json("Desligado", JsonRequestBehavior.AllowGet);

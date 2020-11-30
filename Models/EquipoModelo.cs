@@ -69,7 +69,7 @@ namespace ProyectoProgramacion.Models
                         MODIFICADO = true;
                     }
                     string NUEVOS = "Nombre: " + EQUIPO.equipoNombre + ", Estado: " + EQUIPO.equipoEstado;
-                    var ACCION = "Modificación en tabla Equipos";
+                    var ACCION = "Modificación de datos de un equipo";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
@@ -93,7 +93,7 @@ namespace ProyectoProgramacion.Models
                         MODIFICADO = true;
                     }
                     string NUEVOS = "Nombre: " + EQUIPO.equipoNombre + ", Estado: " + EQUIPO.equipoEstado;
-                    var ACCION = "Modificación en tabla Equipos";
+                    var ACCION = "Modificación del estado de un equipo";
                     GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
@@ -103,7 +103,7 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarEquipo
 
-        public bool AgregarEquipo(etlEquipo equipo){
+        public bool AgregarEquipo(etlEquipo equipo,long USUARIO){
             try{
                 bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities())
@@ -115,6 +115,10 @@ namespace ProyectoProgramacion.Models
                     contextoBD.Equipos.Add(item);
                     contextoBD.SaveChanges();
                     AGREGADO = true;
+
+                    string NUEVOS = "Nombre: " + item.equipoNombre + ", Estado: " + item.equipoEstado;
+                    var ACCION = "Inserción de equipo";
+                    GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
                 }
                 return AGREGADO;
             } catch (Exception e) {

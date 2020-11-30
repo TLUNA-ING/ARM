@@ -49,7 +49,7 @@ namespace ProyectoProgramacion.Models{
             }
         }//FIN DE ConsultarIDs
 
-        public bool LigarDepartamentoIntermedio(etlDepartamentoXCliente Intermedio){
+        public bool LigarDepartamentoIntermedio(etlDepartamentoXCliente Intermedio, long USUARIO){
             try{
                 bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities()){
@@ -62,6 +62,10 @@ namespace ProyectoProgramacion.Models{
                     contextoBD.Departamento_X_Cliente.Add(item);
                     contextoBD.SaveChanges();
                     AGREGADO = true;
+
+                    string NUEVOS = "Departamento: " + item.departamentoId + ", Cliente: " + item.clienteId;
+                    var ACCION = "Enlace de departamento";
+                    GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
                 }
                 return AGREGADO;
             }catch (Exception e){
@@ -69,16 +73,21 @@ namespace ProyectoProgramacion.Models{
             }
         }//FIN DE LigarDepartamentoIntermedio
 
-        public bool DesligarDepartamentoIntermedio(etlDepartamentoXCliente Intermedio){
+        public bool DesligarDepartamentoIntermedio(etlDepartamentoXCliente Intermedio, long USUARIO){
             try{
                 bool DESLIGADO = false;
                 using (var contextoBD = new ARMEntities()){
+
+                    string VIEJOS = "Departamento: " + Intermedio.ID_Departamento + ", Cliente: " + Intermedio.ID_Cliente;
+
                     var resultado = contextoBD.Departamento_X_Cliente.SingleOrDefault(b => b.departamentoId == Intermedio.ID_Departamento && b.clienteId == Intermedio.ID_Cliente);
                     if (resultado != null){
                         contextoBD.Departamento_X_Cliente.Remove(resultado);
                         contextoBD.SaveChanges();
                         DESLIGADO = true;
                     }
+                    var ACCION = "Desenlace de departamento";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, null);
                 }
                 return DESLIGADO;
             }catch (Exception e){
@@ -104,7 +113,7 @@ namespace ProyectoProgramacion.Models{
             }
         }//FIN DE ConsultarIDs_ExD
 
-        public bool LigarEquipoIntermedio(etlEquipoXDepartamento Intermedio){
+        public bool LigarEquipoIntermedio(etlEquipoXDepartamento Intermedio, long USUARIO){
             try{
                 bool AGREGADO = false;
                 using (var contextoBD = new ARMEntities()){
@@ -117,6 +126,10 @@ namespace ProyectoProgramacion.Models{
                     contextoBD.Equipo_X_Departamento.Add(item);
                     contextoBD.SaveChanges();
                     AGREGADO = true;
+
+                    string NUEVOS = "Departamento: " + item.departamentoId + ", Equipo: " + item.equipoId;
+                    var ACCION = "Enlace de equipo";
+                    GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
                 }
                 return AGREGADO;
             }catch (Exception e){
@@ -124,15 +137,21 @@ namespace ProyectoProgramacion.Models{
             }
         }//FIN DE LigarEquipoIntermedio
 
-        public bool DesligarEquipoIntermedio(etlEquipoXDepartamento Intermedio){
+        public bool DesligarEquipoIntermedio(etlEquipoXDepartamento Intermedio,long USUARIO){
             try{
                 bool DESLIGADO = false;
                 using (var contextoBD = new ARMEntities()){
                     var resultado = contextoBD.Equipo_X_Departamento.SingleOrDefault(b => b.departamentoId == Intermedio.ID_Departamento && b.equipoId == Intermedio.ID_Equipo);
+                   
+                    string VIEJOS = "Departamento: " + Intermedio.ID_Departamento + ", Equipo: " + Intermedio.ID_Equipo;
+
                     if (resultado != null){
                         contextoBD.Equipo_X_Departamento.Remove(resultado);
                         contextoBD.SaveChanges();
                         DESLIGADO = true;
+
+                        var ACCION = "Desenlace de equipo";
+                        GuardarEnBitacora(USUARIO, ACCION, VIEJOS, null);
                     }
                 }
                 return DESLIGADO;
@@ -140,6 +159,22 @@ namespace ProyectoProgramacion.Models{
                 return false;
             }
         }//FIN DE DesligarEquipoIntermedio
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
 
     }// FIN DE IntermedioModelo
 }

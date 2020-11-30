@@ -133,7 +133,7 @@ namespace ProyectoProgramacion.Controllers{
             try{
                 AccesoModelo accesoModelo = new AccesoModelo();
                 etlUsuario usuario = accesoModelo.ConsultarUsuarioID(CEDULA);
-                long cedula = (long)Session["Cedula"];
+                long cedula = CEDULA;
 
                 if (usuario.Empleado.Nombre != null){
                         usuario.Password = PASSWORD;

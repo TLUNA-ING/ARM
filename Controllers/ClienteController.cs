@@ -49,12 +49,13 @@ namespace ProyectoProgramacion.Controllers
         public ActionResult AgregarCliente(etlCliente cli) {
             try{
                 ClienteModelo modelCliente = new ClienteModelo();
+                long cedula = (long)Session["Cedula"];
 
                 var respuesta = modelCliente.ConsultarUnCliente(cli.Nombre);
                 if (respuesta.Count > 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else{
-                    var AGREGADO = modelCliente.AgregarCliente(cli);
+                    var AGREGADO = modelCliente.AgregarCliente(cli,cedula);
 
                     if (AGREGADO == true){
                         return Json("Agregado", JsonRequestBehavior.AllowGet);

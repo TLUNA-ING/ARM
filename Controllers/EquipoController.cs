@@ -34,12 +34,13 @@ namespace ProyectoProgramacion.Controllers
         public ActionResult AgregarEquipo(etlEquipo equipo){
             try{
                 EquipoModelo modelEquipo = new EquipoModelo();
+                long cedula = (long)Session["Cedula"];
 
                 var respuesta = modelEquipo.ConsultarUnEquipo(equipo.Descripcion);
                 if (respuesta.Count > 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else{
-                    var AGREGADO = modelEquipo.AgregarEquipo(equipo);
+                    var AGREGADO = modelEquipo.AgregarEquipo(equipo,cedula);
 
                     if (AGREGADO == true){
                         return Json("Agregado", JsonRequestBehavior.AllowGet);

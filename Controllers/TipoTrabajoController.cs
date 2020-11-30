@@ -32,12 +32,13 @@ namespace ProyectoProgramacion.Controllers
         public ActionResult AgregarTipoTrabajo(etlTipoTrabajo tipo){
             try {
                 TipoTrabajoModelo modelTipo = new TipoTrabajoModelo();
+                long cedula = (long)Session["Cedula"];
 
                 var respuesta = modelTipo.ConsultarUnTipoTrabajo(tipo.Descripcion);
                 if (respuesta.Count > 0){
                     return Json("Existe", JsonRequestBehavior.AllowGet);
                 }else{
-                    var AGREGADO = modelTipo.AgregarTipoTrabajo(tipo);
+                    var AGREGADO = modelTipo.AgregarTipoTrabajo(tipo,cedula);
 
                     if (AGREGADO == true){
                         return Json("Agregado", JsonRequestBehavior.AllowGet);
