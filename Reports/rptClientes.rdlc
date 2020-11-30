@@ -6,16 +6,16 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>1.31cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>3.19604cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>3.50542cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>3.82292cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.5cm</Width>
@@ -34,7 +34,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>cliente Id</Value>
+                              <Value>ID Cliente</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -64,7 +64,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>provincia Id</Value>
+                              <Value>Provincia</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -94,7 +94,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>cliente Nombre</Value>
+                              <Value>Nombre</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -124,7 +124,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>cliente Correo</Value>
+                              <Value>Correo</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -154,7 +154,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>cliente Estado</Value>
+                              <Value>Estado</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -357,7 +357,7 @@
         <Top>0.42016cm</Top>
         <Left>0.63724cm</Left>
         <Height>1.2cm</Height>
-        <Width>12.5cm</Width>
+        <Width>14.33437cm</Width>
         <Style>
           <Border>
             <Style>None</Style>

@@ -152,27 +152,33 @@ namespace ProyectoProgramacion.Controllers
             var infoFuenteDatos = reportViewer.LocalReport.GetDataSourceNames();
             reportViewer.LocalReport.DataSources.Clear();
 
-            List<Clientes> CLIENTES = new List<Clientes>();
+            //List<Clientes> CLIENTES = new List<Clientes>();
+            //using (var contextoBD = new ARMEntities())
+            //{
+            //    var respuesta = contextoBD.Clientes.Select(x =>
+            //    new etlCliente
+            //    {
+            //        ID_Cliente = x.clienteId,
+            //        Provincia = new etlProvincia
+            //        {
+            //            ID_Provincia = x.Provincias.provinciaId,
+            //            Descripcion = x.Provincias.provinciaNombre
+            //        },
+            //        Nombre = x.clienteNombre.Trim(),
+            //        Correo = x.clienteCorreo.Trim(),
+            //        Estado = x.clienteEstado
+            //    }).ToList();
+            //}
+
+            List<Clientes> datosReporte;
             using (var contextoBD = new ARMEntities())
             {
-                var respuesta = contextoBD.Clientes.Select(x =>
-                new etlCliente
-                {
-                    ID_Cliente = x.clienteId,
-                    Provincia = new etlProvincia
-                    {
-                        ID_Provincia = x.Provincias.provinciaId,
-                        Descripcion = x.Provincias.provinciaNombre
-                    },
-                    Nombre = x.clienteNombre.Trim(),
-                    Correo = x.clienteCorreo.Trim(),
-                    Estado = x.clienteEstado
-                }).ToList();
+                datosReporte = contextoBD.Clientes.ToList();
             }
-                ReportDataSource fuenteDatos = new ReportDataSource();
+            ReportDataSource fuenteDatos = new ReportDataSource();
                 fuenteDatos.Name = infoFuenteDatos[0];
-                fuenteDatos.Value = CLIENTES;
-                reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ClientesDataSet", CLIENTES));
+                fuenteDatos.Value = datosReporte;
+                reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ClientesDataSet", datosReporte));
 
                 reportViewer.LocalReport.Refresh();
                 ViewBag.ReportViewer = reportViewer;
@@ -183,6 +189,7 @@ namespace ProyectoProgramacion.Controllers
             
 
         }
+
 
     }
 
