@@ -32,7 +32,9 @@ namespace ProyectoProgramacion.Controllers{
                     }else {
                         Session["CambiarPassword"] = "NO";
                     }
-
+                    long USUARIO = (long)Session["Cedula"];
+                    String ACCION = "Inicio de sesión";
+                    accesoModelo.GuardarEnBitacora(USUARIO, ACCION, null, null);
                     return Json("Encontrado", JsonRequestBehavior.AllowGet);
                 }else{
                     return Json("No encontrado", JsonRequestBehavior.DenyGet);
@@ -48,9 +50,11 @@ namespace ProyectoProgramacion.Controllers{
             try{
                 AccesoModelo accesoModelo = new AccesoModelo();
                 etlUsuario usuario = accesoModelo.ConsultarUsuarioID(usr.Empleado.Cedula);
+                long cedula = (long)Session["Cedula"];
+
                 if (usuario.Empleado.Nombre != null){
                     if (usuario.Password != usr.Password) {
-                        var MODIFICADO = accesoModelo.ModificarPassword(usr);
+                        var MODIFICADO = accesoModelo.ModificarPassword(usr,cedula);
 
                         if (MODIFICADO == true){
                             return Json("Modificado", JsonRequestBehavior.AllowGet);
@@ -129,10 +133,11 @@ namespace ProyectoProgramacion.Controllers{
             try{
                 AccesoModelo accesoModelo = new AccesoModelo();
                 etlUsuario usuario = accesoModelo.ConsultarUsuarioID(CEDULA);
+                long cedula = (long)Session["Cedula"];
 
                 if (usuario.Empleado.Nombre != null){
                         usuario.Password = PASSWORD;
-                        var MODIFICADO = accesoModelo.ModificarPasswordRecuperacion(usuario);
+                        var MODIFICADO = accesoModelo.ModificarPasswordRecuperacion(usuario,cedula);
 
                         if (MODIFICADO == true){
                             return Json("Modificado", JsonRequestBehavior.AllowGet);

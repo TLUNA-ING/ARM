@@ -26,7 +26,6 @@ namespace ProyectoProgramacion.Models{
                         usuario.Rol.ID_Rol = user.Roles.rolId;
                         usuario.Rol.Rol = user.Roles.rolNombre.Trim();
                         usuario.Rol.Descripcion = user.Roles.rolDescripcion.Trim();
-
                     }
                 }
             return usuario;
@@ -55,7 +54,7 @@ namespace ProyectoProgramacion.Models{
             }
         }//FIN DE ConsultarUnUsuarioID
 
-        public bool ModificarPassword(etlUsuario usr){
+        public bool ModificarPassword(etlUsuario usr, long USUARIOL){
             try {
                 etlSeguridad seguridad = new etlSeguridad();
                 bool MODIFICADO = false;
@@ -68,6 +67,8 @@ namespace ProyectoProgramacion.Models{
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    var ACCION = "Se modificó la contraseña del usuario";
+                    GuardarEnBitacora(USUARIOL, ACCION, null, null);
                 }
                 return MODIFICADO;
             } catch (Exception e){
@@ -141,7 +142,7 @@ namespace ProyectoProgramacion.Models{
             }
         }//FIN DE ConsultarUnUsuarioID
 
-        public bool ModificarPasswordRecuperacion(etlUsuario usr){
+        public bool ModificarPasswordRecuperacion(etlUsuario usr,long USUARIOL){
             try{
                 etlSeguridad seguridad = new etlSeguridad();
                 bool MODIFICADO = false;
@@ -153,6 +154,8 @@ namespace ProyectoProgramacion.Models{
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    var ACCION = "Se modificó la contraseña del usuario";
+                    GuardarEnBitacora(USUARIOL, ACCION, null, null);
                 }
                 return MODIFICADO;
             }
@@ -160,6 +163,22 @@ namespace ProyectoProgramacion.Models{
                 return false;
             }
         }//FIN DE ModificarPasswordRecuperacion
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
 
     }
 
