@@ -89,16 +89,20 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnDepartamentoID
 
-        public bool ModificarDepartamento(etlDepartamento depart) {
+        public bool ModificarDepartamento(etlDepartamento depart,long USUARIO) {
             try {
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()){
                     var DEPARTAMENTO = contextoBD.Departamentos.SingleOrDefault(b => b.departamentoId == depart.ID_Departamento);
+                    string VIEJOS = "Nombre: " + DEPARTAMENTO.deparatamentoNombre + ", Estado: " + DEPARTAMENTO.departamentoEstado;
                     if (DEPARTAMENTO != null) {
                         DEPARTAMENTO.deparatamentoNombre = depart.Descripcion;
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Nombre: " + DEPARTAMENTO.deparatamentoNombre + ", Estado: " + DEPARTAMENTO.departamentoEstado;
+                    var ACCION = "Modificación en tabla Departamentos";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
             }catch (Exception e) {
@@ -106,11 +110,13 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarDepartamento
 
-        public bool ModificarEstado(etlDepartamento depart){
+        public bool ModificarEstado(etlDepartamento depart, long USUARIO){
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()){
                     var DEPARTAMENTO = contextoBD.Departamentos.SingleOrDefault(b => b.departamentoId == depart.ID_Departamento);
+                    string VIEJOS = "Nombre: " + DEPARTAMENTO.deparatamentoNombre + ", Estado: " + DEPARTAMENTO.departamentoEstado;
+                    
                     if (DEPARTAMENTO != null){
 
                         if (DEPARTAMENTO.departamentoEstado == "Activo"){
@@ -121,12 +127,31 @@ namespace ProyectoProgramacion.Models
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Nombre: " + DEPARTAMENTO.deparatamentoNombre + ", Estado: " + DEPARTAMENTO.departamentoEstado;
+                    var ACCION = "Modificación en tabla Departamentos";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
             }catch (Exception e){
                 return false;
             }
         }//FIN DE ModificarEstado
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
 
     }
 }

@@ -41,6 +41,7 @@ namespace ProyectoProgramacion.Models
                     contextoBD.SaveChanges();
                     AGREGADO = true;
                 }
+
                 return AGREGADO;
             }catch (Exception e) {
                 return false;
@@ -68,12 +69,17 @@ namespace ProyectoProgramacion.Models
                 return empleado;
             }
         }//FIN DE ConsultarUnEmpleadoID
-
-        public bool ModificarEmpleado(etlEmpleado empleado) {
+        
+        public bool ModificarEmpleado(etlEmpleado empleado,long USUARIO) {
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()){
                     var EMPLEADO = contextoBD.Empleados.SingleOrDefault(b => b.empleadoCedula == empleado.Cedula);
+
+                    string VIEJOS = "Nombre: " + EMPLEADO.empleadoCedula + ", Apellido 1: " + EMPLEADO.empleadoPrimerA + ", Apellido 2: " + EMPLEADO.empleadoSegundoA +
+                        ", Correo: " + EMPLEADO.empleadoCorreo + ", Estado: " + EMPLEADO.empleadoEstado;
+                    
+
                     if (EMPLEADO != null){
                         EMPLEADO.empleadoNombre = empleado.Nombre;
                         EMPLEADO.empleadoPrimerA = empleado.Primer_Apellido;
@@ -81,7 +87,13 @@ namespace ProyectoProgramacion.Models
                         EMPLEADO.empleadoCorreo = empleado.Correo;
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
+
                     }
+
+                    string NUEVOS = "Nombre: " + EMPLEADO.empleadoCedula + ", Apellido 1: " + EMPLEADO.empleadoPrimerA + ", Apellido 2: " + EMPLEADO.empleadoSegundoA +
+                       ", Correo: " + EMPLEADO.empleadoCorreo + ", Estado: " + EMPLEADO.empleadoEstado;
+                    var ACCION = "Modificación en tabla Empleado";
+                    GuardarEnBitacora(USUARIO,ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
 
@@ -90,12 +102,15 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarEmpleado
 
-        public bool ModificarEstado(etlEmpleado empleado){
+        public bool ModificarEstado(etlEmpleado empleado, long USUARIO){
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()){
 
                     var EMPLEADO = contextoBD.Empleados.SingleOrDefault(b => b.empleadoCedula == empleado.Cedula);
+                    string VIEJOS = "Nombre: " + EMPLEADO.empleadoCedula + ", Apellido 1: " + EMPLEADO.empleadoPrimerA + ", Apellido 2: " + EMPLEADO.empleadoSegundoA +
+                       ", Correo: " + EMPLEADO.empleadoCorreo + ", Estado: " + EMPLEADO.empleadoEstado;
+
                     if (EMPLEADO != null){
 
                         if (EMPLEADO.empleadoEstado == "Activo"){
@@ -106,6 +121,10 @@ namespace ProyectoProgramacion.Models
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Nombre: " + EMPLEADO.empleadoCedula + ", Apellido 1: " + EMPLEADO.empleadoPrimerA + ", Apellido 2: " + EMPLEADO.empleadoSegundoA +
+                      ", Correo: " + EMPLEADO.empleadoCorreo + ", Estado: " + EMPLEADO.empleadoEstado;
+                    var ACCION = "Modificación en tabla Empleado";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
 
@@ -145,6 +164,23 @@ namespace ProyectoProgramacion.Models
                 throw new System.Exception("Error");
             }
         }//FIN DE ConsultarUnEmpleado
+
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
 
     }
 }

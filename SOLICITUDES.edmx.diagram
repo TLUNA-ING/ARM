@@ -34,6 +34,8 @@
         <AssociationConnector Association="ARMModel.FK_tblSolicitud_Provincias" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblUsuarios_tblRoles" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblSolicitud_tblTipoTrabajo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ARMModel.Bitacora" Width="1.5" PointX="8.25" PointY="1.125" />
+        <AssociationConnector Association="ARMModel.FK_Bitacora_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

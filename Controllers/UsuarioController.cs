@@ -90,8 +90,10 @@ namespace ProyectoProgramacion.Controllers
             try {
                 ListaUsuarioModelo UsuarioModel = new ListaUsuarioModelo();
                 var usuario = UsuarioModel.ConsultarUnUsuarioID(usr.Empleado.Cedula);
+                long cedula = (long)Session["Cedula"];
+
                 if (usuario.Empleado.Nombre != ""){
-                    var MODIFICADO = UsuarioModel.ModificarUsuario(usr);
+                    var MODIFICADO = UsuarioModel.ModificarUsuario(usr,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);

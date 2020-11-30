@@ -10,7 +10,7 @@ namespace ProyectoProgramacion.Controllers{
             if (Session["User"] == null) { 
                 return View(); 
             }else { 
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "Solicitud"); 
             }
         }//FIN DE INDEX
 

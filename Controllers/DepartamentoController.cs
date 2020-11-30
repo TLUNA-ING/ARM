@@ -66,9 +66,10 @@ namespace ProyectoProgramacion.Controllers
             try{
                 DepartamentoModelo modelDepartamento = new DepartamentoModelo();
                 var departamento = modelDepartamento.ConsultarUnDepartamentoID(depart.ID_Departamento);
+                long cedula = (long)Session["Cedula"];
 
                 if (departamento.Descripcion != ""){
-                    var MODIFICADO = modelDepartamento.ModificarDepartamento(depart);
+                    var MODIFICADO = modelDepartamento.ModificarDepartamento(depart,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
@@ -89,9 +90,10 @@ namespace ProyectoProgramacion.Controllers
             try{
                 DepartamentoModelo modelDepartamento = new DepartamentoModelo();
                 var departamento = modelDepartamento.ConsultarUnDepartamentoID(id);
+                long cedula = (long)Session["Cedula"];
 
                 if (departamento.Descripcion != ""){
-                    var MODIFICADO = modelDepartamento.ModificarEstado(departamento);
+                    var MODIFICADO = modelDepartamento.ModificarEstado(departamento,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);

@@ -51,11 +51,13 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnEquipoID
 
-        public bool ModificarEstado(etlEquipo equipo){
+        public bool ModificarEstado(etlEquipo equipo,long USUARIO){
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()){
                     var EQUIPO = contextoBD.Equipos.SingleOrDefault(b => b.equipoId == equipo.ID_Equipo);
+                    string VIEJOS = "Nombre: " + EQUIPO.equipoNombre + ", Estado: " + EQUIPO.equipoEstado;
+
                     if (EQUIPO != null){
 
                         if (EQUIPO.equipoEstado =="Activo"){
@@ -66,6 +68,9 @@ namespace ProyectoProgramacion.Models
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Nombre: " + EQUIPO.equipoNombre + ", Estado: " + EQUIPO.equipoEstado;
+                    var ACCION = "Modificación en tabla Equipos";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
 
@@ -74,17 +79,22 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarEstado
 
-        public bool ModificarEquipo(etlEquipo equip){
+        public bool ModificarEquipo(etlEquipo equip, long USUARIO){
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities())
                 {
                     var EQUIPO = contextoBD.Equipos.SingleOrDefault(b => b.equipoId == equip.ID_Equipo);
+                    string VIEJOS = "Nombre: " + EQUIPO.equipoNombre + ", Estado: " + EQUIPO.equipoEstado;
+
                     if (EQUIPO != null){
                         EQUIPO.equipoNombre = equip.Descripcion;
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Nombre: " + EQUIPO.equipoNombre + ", Estado: " + EQUIPO.equipoEstado;
+                    var ACCION = "Modificación en tabla Equipos";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
 
@@ -111,6 +121,23 @@ namespace ProyectoProgramacion.Models
                 return false;
             }
         }//FIN DE AgregarEquipo
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
 
     }//FIN DE EquipoModelo
+
 }

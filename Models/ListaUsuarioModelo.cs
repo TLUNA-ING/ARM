@@ -111,16 +111,21 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnUsuarioID
 
-        public bool ModificarUsuario(etlUsuario usr){
+        public bool ModificarUsuario(etlUsuario usr, long USUARIOL){
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()){
                     var USUARIO = contextoBD.Usuarios.SingleOrDefault(b => b.usuario == usr.Empleado.Cedula);
+                    string VIEJOS = "Nombre: " + USUARIO.rolId;
+
                     if (USUARIO != null){
                         USUARIO.rolId = usr.Rol.ID_Rol;
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Rol: " + USUARIO.rolId;
+                    var ACCION = "Modificación en tabla Usuarios";
+                    GuardarEnBitacora(USUARIOL, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
             }catch (Exception e){
@@ -128,5 +133,21 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarUsuario
 
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
     }
 }

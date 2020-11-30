@@ -41,6 +41,7 @@ namespace ProyectoProgramacion
         public virtual DbSet<TipoCedula> TipoCedula { get; set; }
         public virtual DbSet<TipoTrabajo> TipoTrabajo { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Bitacora> Bitacora { get; set; }
     
         public virtual ObjectResult<CONSULTAR_EMPLEADOS_NO_USUARIO_Result> CONSULTAR_EMPLEADOS_NO_USUARIO()
         {
@@ -84,6 +85,40 @@ namespace ProyectoProgramacion
                 new ObjectParameter("CODIGO", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERTAR_CODIGO_USUARIO_RECUPERACION", uSUARIOParameter, cODIGOParameter);
+        }
+    
+        public virtual int INSERTAR_EN_BITACORA(Nullable<long> uSUARIO, string aCCION, string vIEJOS, string nUEVOS)
+        {
+            var uSUARIOParameter = uSUARIO.HasValue ?
+                new ObjectParameter("USUARIO", uSUARIO) :
+                new ObjectParameter("USUARIO", typeof(long));
+    
+            var aCCIONParameter = aCCION != null ?
+                new ObjectParameter("ACCION", aCCION) :
+                new ObjectParameter("ACCION", typeof(string));
+    
+            var vIEJOSParameter = vIEJOS != null ?
+                new ObjectParameter("VIEJOS", vIEJOS) :
+                new ObjectParameter("VIEJOS", typeof(string));
+    
+            var nUEVOSParameter = nUEVOS != null ?
+                new ObjectParameter("NUEVOS", nUEVOS) :
+                new ObjectParameter("NUEVOS", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERTAR_EN_BITACORA", uSUARIOParameter, aCCIONParameter, vIEJOSParameter, nUEVOSParameter);
+        }
+    
+        public virtual ObjectResult<solicitudesPorRangoFechas_Result> solicitudesPorRangoFechas(Nullable<System.DateTime> fechainicial, Nullable<System.DateTime> fechafinal)
+        {
+            var fechainicialParameter = fechainicial.HasValue ?
+                new ObjectParameter("fechainicial", fechainicial) :
+                new ObjectParameter("fechainicial", typeof(System.DateTime));
+    
+            var fechafinalParameter = fechafinal.HasValue ?
+                new ObjectParameter("fechafinal", fechafinal) :
+                new ObjectParameter("fechafinal", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<solicitudesPorRangoFechas_Result>("solicitudesPorRangoFechas", fechainicialParameter, fechafinalParameter);
         }
     }
 }

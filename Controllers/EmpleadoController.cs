@@ -66,8 +66,10 @@ namespace ProyectoProgramacion.Controllers
                 EmpleadoModelo modelEmpleado = new EmpleadoModelo();
                 var empleado = modelEmpleado.ConsultarUnEmpleadoID(emp.Cedula);
 
-                if (empleado.Nombre != ""){
-                    var MODIFICADO = modelEmpleado.ModificarEmpleado(emp);
+                long cedula = (long)Session["Cedula"];
+                if (empleado.Nombre != "") {
+
+                    var MODIFICADO = modelEmpleado.ModificarEmpleado(emp,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
@@ -90,8 +92,10 @@ namespace ProyectoProgramacion.Controllers
                 EmpleadoModelo modelEmpleado = new EmpleadoModelo();
                 var empleado = modelEmpleado.ConsultarUnEmpleadoID(id);
 
+                long cedula = (long)Session["Cedula"];
+
                 if (empleado.Nombre != ""){
-                    var MODIFICADO = modelEmpleado.ModificarEstado(empleado);
+                    var MODIFICADO = modelEmpleado.ModificarEstado(empleado,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);

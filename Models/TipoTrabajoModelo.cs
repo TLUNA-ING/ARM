@@ -67,16 +67,21 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnEquipoID
 
-        public bool ModificarTipoTrabajo(etlTipoTrabajo tip) {
+        public bool ModificarTipoTrabajo(etlTipoTrabajo tip, long USUARIO) {
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()) {
                     var TIPO = contextoBD.TipoTrabajo.SingleOrDefault(b => b.tipoTrabajoId == tip.ID_TipoTrabajo);
+                    string VIEJOS = "Nombre: " + TIPO.tipoTrabajoNombre + ", Estado: " + TIPO.tipoTrabajoEstado;
+
                     if (TIPO != null){
                         TIPO.tipoTrabajoNombre = tip.Descripcion;
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Nombre: " + TIPO.tipoTrabajoNombre + ", Estado: " + TIPO.tipoTrabajoEstado;
+                    var ACCION = "Modificación en tabla Tipo Trabajo";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
             } catch (Exception e){
@@ -84,11 +89,13 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarTipoTrabajo
 
-        public bool ModificarEstado(etlTipoTrabajo tip){
+        public bool ModificarEstado(etlTipoTrabajo tip, long USUARIO){
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()) {
                     var TIPO = contextoBD.TipoTrabajo.SingleOrDefault(b => b.tipoTrabajoId == tip.ID_TipoTrabajo);
+                    string VIEJOS = "Nombre: " + TIPO.tipoTrabajoNombre + ", ESTADO: " + TIPO.tipoTrabajoEstado;
+
                     if (TIPO != null){
 
                         if (TIPO.tipoTrabajoEstado == "Activo"){
@@ -99,12 +106,31 @@ namespace ProyectoProgramacion.Models
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Nombre: " + TIPO.tipoTrabajoNombre + ", Estado: " + TIPO.tipoTrabajoEstado;
+                    var ACCION = "Modificación en tabla Tipo Trabajo";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
             } catch (Exception e){
                 return false;
             }
         }//FIN DE ModificarEstado
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
 
     }//FIN DE TipoTrabajoModelo
 }

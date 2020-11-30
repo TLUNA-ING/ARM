@@ -68,9 +68,10 @@ namespace ProyectoProgramacion.Controllers
             try{
                 TipoTrabajoModelo modelTipo = new TipoTrabajoModelo();
                 var tipo = modelTipo.ConsultarUnTipoTrabajoID(tip.ID_TipoTrabajo);
+                long cedula = (long)Session["Cedula"];
 
                 if (tipo.Descripcion != ""){
-                    var MODIFICADO = modelTipo.ModificarTipoTrabajo(tip);
+                    var MODIFICADO = modelTipo.ModificarTipoTrabajo(tip,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
@@ -92,9 +93,10 @@ namespace ProyectoProgramacion.Controllers
             try{
                 TipoTrabajoModelo modelTipo = new TipoTrabajoModelo();
                 var tipo = modelTipo.ConsultarUnTipoTrabajoID(id);
+                long cedula = (long)Session["Cedula"];
 
                 if (tipo.Descripcion != ""){
-                    var MODIFICADO = modelTipo.ModificarEstado(tipo);
+                    var MODIFICADO = modelTipo.ModificarEstado(tipo,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);

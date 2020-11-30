@@ -85,9 +85,10 @@ namespace ProyectoProgramacion.Controllers
             try{
                 ClienteModelo modelCliente = new ClienteModelo();
                 var tipo = modelCliente.ConsultarUnClienteID(cli.ID_Cliente);
+                long cedula = (long)Session["Cedula"];
 
                 if (tipo.Nombre != ""){
-                    var MODIFICADO = modelCliente.ModificarCliente(cli);
+                    var MODIFICADO = modelCliente.ModificarCliente(cli,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
@@ -110,9 +111,10 @@ namespace ProyectoProgramacion.Controllers
             try{
                 ClienteModelo modelCliente = new ClienteModelo();
                 var cliente = modelCliente.ConsultarUnClienteID(ID);
+                long cedula = (long)Session["Cedula"];
 
                 if (cliente.Nombre != ""){
-                    var MODIFICADO = modelCliente.ModificarEstado(cliente);
+                    var MODIFICADO = modelCliente.ModificarEstado(cliente,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);

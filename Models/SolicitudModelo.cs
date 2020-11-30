@@ -145,13 +145,20 @@ namespace ProyectoProgramacion.Models
 
         }//FIN DE GUARDAR CONSULTA
 
-        public void Actualizar(Solicitudes sol)
+        public void Actualizar(Solicitudes sol,long USUARIO)
         {
             try
             {
                 using (var contextoBD = new ARMEntities())
                 {
+
                     Solicitudes item = contextoBD.Solicitudes.Find(sol.solicitudId);
+                    string VIEJOS = "Cliente: " + item.clienteId + ", Empleado: " + item.empleadoCedula + ", Tipo Trabajo: " + item.tipoTrabajoId +
+                       ", Departamento: " + item.departamentoId + ", Equipo: " + item.equipoId + ", Fecha: " + item.fechaReporte +
+                        ", Hora Entrada: " + item.horaEntrada + ", Tipo Hora: " + item.tipoHora + ", Hora Salida: " + item.horaSalida +
+                         ", Horas: " + item.cantidadHoras + ", Motivo: " + item.solicitudMotivo + ", Detalle: " + item.motivoDetalle +
+                          ", Repuestos: " + item.solicitudRepuestos + ", E_Detenido: " + item.equipoDetenido;
+
                     item.clienteId = sol.clienteId;
                     item.empleadoCedula = sol.empleadoCedula;
                     item.tipoTrabajoId = sol.tipoTrabajoId;
@@ -168,7 +175,17 @@ namespace ProyectoProgramacion.Models
                     item.equipoDetenido = sol.equipoDetenido;
                     contextoBD.Solicitudes.Add(item);
                     contextoBD.SaveChanges();
+
+                    string NUEVOS = "Cliente: " + item.clienteId + ", Empleado: " + item.empleadoCedula + ", Tipo Trabajo: " + item.tipoTrabajoId +
+                       ", Departamento: " + item.departamentoId + ", Equipo: " + item.equipoId + ", Fecha: " + item.fechaReporte +
+                        ", Hora Entrada: " + item.horaEntrada + ", Tipo Hora: " + item.tipoHora + ", Hora Salida: " + item.horaSalida +
+                         ", Horas: " + item.cantidadHoras + ", Motivo: " + item.solicitudMotivo + ", Detalle: " + item.motivoDetalle +
+                          ", Repuestos: " + item.solicitudRepuestos + ", E_Detenido: " + item.equipoDetenido;
+
+                    var ACCION = "Modificación en tabla Solicitudes";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
+                
             }
             catch (Exception e)
             {
@@ -176,6 +193,22 @@ namespace ProyectoProgramacion.Models
             }
 
         }
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
 
     }
 }

@@ -103,11 +103,14 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarUnClienteID
 
-        public bool ModificarCliente(etlCliente cli){
+        public bool ModificarCliente(etlCliente cli,long USUARIO){
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()){
                     var CLIENTE = contextoBD.Clientes.SingleOrDefault(b => b.clienteId == cli.ID_Cliente);
+                    string VIEJOS = "Provincia: " + CLIENTE.provinciaId + ", Nombre: " + CLIENTE.clienteNombre + ", Correo: " + CLIENTE.clienteCorreo +
+                        ", Estado: " + CLIENTE.clienteEstado;
+                    
                     if (CLIENTE != null){
                         CLIENTE.provinciaId = cli.Provincia.ID_Provincia;
                         CLIENTE.clienteNombre = cli.Nombre;
@@ -115,6 +118,10 @@ namespace ProyectoProgramacion.Models
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
                     }
+                    string NUEVOS = "Provincia: " + CLIENTE.provinciaId + ", Nombre: " + CLIENTE.clienteNombre + ", Correo: " + CLIENTE.clienteCorreo +
+                        ", Estado: " + CLIENTE.clienteEstado;
+                    var ACCION = "Modificación en tabla Clientes";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
             }catch (Exception e){
@@ -122,11 +129,14 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ModificarCliente
 
-        public bool ModificarEstado(etlCliente cli){
+        public bool ModificarEstado(etlCliente cli, long USUARIO){
             try{
                 bool MODIFICADO = false;
                 using (var contextoBD = new ARMEntities()){
                     var CLIENTE = contextoBD.Clientes.SingleOrDefault(b => b.clienteId == cli.ID_Cliente);
+                    string VIEJOS = "Provincia: " + CLIENTE.provinciaId + ", Nombre: " + CLIENTE.clienteNombre + ", Correo: " + CLIENTE.clienteCorreo +
+                             ", Estado: " + CLIENTE.clienteEstado;
+
                     if (CLIENTE != null){
 
                         if (CLIENTE.clienteEstado == "Activo"){
@@ -136,7 +146,12 @@ namespace ProyectoProgramacion.Models
                         }
                         contextoBD.SaveChanges();
                         MODIFICADO = true;
+
                     }
+                    string NUEVOS = "Provincia: " + CLIENTE.provinciaId + ", Nombre: " + CLIENTE.clienteNombre + ", Correo: " + CLIENTE.clienteCorreo +
+                           ", Estado: " + CLIENTE.clienteEstado;
+                    var ACCION = "Modificación en tabla Clientes";
+                    GuardarEnBitacora(USUARIO, ACCION, VIEJOS, NUEVOS);
                 }
                 return MODIFICADO;
             }catch (Exception e){
@@ -162,6 +177,22 @@ namespace ProyectoProgramacion.Models
                 throw new System.Exception("");
             }
         }//FIN DE ConsultarClientes
+        public bool GuardarEnBitacora(long USUARIO, string ACCION, string VIEJOS, string NUEVOS)
+        {
+            try
+            {
+                using (var contextoBD = new ARMEntities())
+                {
+                    var result = contextoBD.INSERTAR_EN_BITACORA(USUARIO, ACCION, VIEJOS, NUEVOS);
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }//FIN DE INGRESO EN BITACORA
 
     }//FIN DE ClienteModelo
 }

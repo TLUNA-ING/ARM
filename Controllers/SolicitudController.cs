@@ -154,7 +154,8 @@ namespace ProyectoProgramacion.Controllers
         {
             try
             {
-                new ConsultaSolicitud().Actualizar(sol);
+                long cedula = (long)Session["Cedula"];
+                new ConsultaSolicitud().Actualizar(sol,cedula);
                 return Json(sol, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

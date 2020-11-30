@@ -184,6 +184,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ARMDataSource.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Bitacora.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
     <Compile Include="Clientes.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
@@ -288,6 +291,9 @@
     <Compile Include="SOLICITUDES1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
+    <Compile Include="solicitudesPorRangoFechas_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoCedula.cs">

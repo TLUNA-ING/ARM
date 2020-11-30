@@ -58,9 +58,10 @@ namespace ProyectoProgramacion.Controllers
             try{
                 EquipoModelo modelEquipo = new EquipoModelo();
                 var equipo = modelEquipo.ConsultarUnEquipoID(id);
+                long cedula = (long)Session["Cedula"];
 
                 if (equipo.Descripcion!=""){
-                    var MODIFICADO = modelEquipo.ModificarEstado(equipo);
+                    var MODIFICADO = modelEquipo.ModificarEstado(equipo,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
@@ -94,9 +95,10 @@ namespace ProyectoProgramacion.Controllers
             try{
                 EquipoModelo modelEquipo = new EquipoModelo();
                 var equipo = modelEquipo.ConsultarUnEquipoID(equip.ID_Equipo);
+                long cedula = (long)Session["Cedula"];
 
                 if (equipo.Descripcion != ""){
-                    var MODIFICADO = modelEquipo.ModificarEquipo(equip);
+                    var MODIFICADO = modelEquipo.ModificarEquipo(equip,cedula);
 
                     if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
