@@ -211,19 +211,6 @@ function LigarDepartamento(ID) {
                 Cargar_Ligados();
                 Cargar_NO_Ligados();
 
-                //swal({
-                //    title: "¡Acción realizada!",
-                //    text: "¡Se ligó correctamente el departamento al cliente!",
-                //    type: "success",
-                //    confirmButtonColor: "#10AF5D",
-                //    confirmButtonText: "Aceptar"
-                //},
-                //    function (isConfirm) {
-                //        if (isConfirm) {
-                //            Cargar_NO_Ligados();
-                //            Cargar_Ligados();
-                //        }
-                //    });
             } else if ("Existe") {
                 Cargar_NO_Ligados();
                 Cargar_Ligados();
@@ -257,19 +244,6 @@ function DesligarDepartamento(ID) {
                 Cargar_NO_Ligados();
                 Cargar_Ligados();
 
-                //swal({
-                //    title: "¡Acción realizada!",
-                //    text: "¡Se desligó correctamente el departamento del cliente!",
-                //    type: "success",
-                //    confirmButtonColor: "#10AF5D",
-                //    confirmButtonText: "Aceptar"
-                //},
-                //    function (isConfirm) {
-                //        if (isConfirm) {
-                //            Cargar_NO_Ligados();
-                //            Cargar_Ligados();
-                //        }
-                //    });
             } else if ("No Existe") {
                 Cargar_NO_Ligados();
                 Cargar_Ligados();
@@ -301,20 +275,6 @@ function LigarEquipo(ID) {
 
                 Cargar_Ligados();
                 Cargar_NO_Ligados();
-
-                //swal({
-                //    title: "¡Acción realizada!",
-                //    text: "¡Se ligó correctamente el equipo al departamento!",
-                //    type: "success",
-                //    confirmButtonColor: "#10AF5D",
-                //    confirmButtonText: "Aceptar"
-                //},
-                //    function (isConfirm) {
-                //        if (isConfirm) {
-                //            Cargar_NO_Ligados();
-                //            Cargar_Ligados();
-                //        }
-                //    });
 
             } else if ("Existe") {
                 Cargar_NO_Ligados();
@@ -348,20 +308,6 @@ function DesligarEquipo(ID) {
 
                 Cargar_NO_Ligados();
                 Cargar_Ligados();
-
-                //swal({
-                //    title: "¡Acción realizada!",
-                //    text: "¡Se desligó correctamente el equipo del departamento!",
-                //    type: "success",
-                //    confirmButtonColor: "#10AF5D",
-                //    confirmButtonText: "Aceptar"
-                //},
-                //    function (isConfirm) {
-                //        if (isConfirm) {
-                //            Cargar_NO_Ligados();
-                //            Cargar_Ligados();
-                //        }
-                //    });
 
             } else if ("Existe") {
                 Cargar_NO_Ligados();

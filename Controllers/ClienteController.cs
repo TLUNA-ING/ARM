@@ -154,24 +154,6 @@ namespace ProyectoProgramacion.Controllers
             var infoFuenteDatos = reportViewer.LocalReport.GetDataSourceNames();
             reportViewer.LocalReport.DataSources.Clear();
 
-            //List<Clientes> CLIENTES = new List<Clientes>();
-            //using (var contextoBD = new ARMEntities())
-            //{
-            //    var respuesta = contextoBD.Clientes.Select(x =>
-            //    new etlCliente
-            //    {
-            //        ID_Cliente = x.clienteId,
-            //        Provincia = new etlProvincia
-            //        {
-            //            ID_Provincia = x.Provincias.provinciaId,
-            //            Descripcion = x.Provincias.provinciaNombre
-            //        },
-            //        Nombre = x.clienteNombre.Trim(),
-            //        Correo = x.clienteCorreo.Trim(),
-            //        Estado = x.clienteEstado
-            //    }).ToList();
-            //}
-
             List<Clientes> datosReporte;
             using (var contextoBD = new ARMEntities())
             {

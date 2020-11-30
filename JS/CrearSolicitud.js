@@ -1,14 +1,15 @@
 ﻿
 $(document).ready(function () {
-    CargarEquipo();
-    CargarDepartamento();
-    CargarCliente();
-    CargarTipoTrabajo();
-    CargarEmpleado();
     CargarProvincia();
+    CargarEmpleado();
+    CargarTipoTrabajo();
     Print();
-});
 
+    $("#template").change(function () {
+        var e = document.getElementById("template");
+        var id = e.options[e.selectedIndex].value;
+    });
+});
 
 function Add() {
     var base64 = $("#firma")[0].toDataURL();
@@ -29,10 +30,8 @@ function Add() {
         solicitudMotivo: $('#motivoVisita').val(),
         motivoDetalle: $('#motivoDetalle').val(),
         solicitudRepuestos: $('#solicitudRepuestos').val(),
-        equipoDetenido: $('#equipoDetenido').val(),
+        equipoDetenido: $("#equipoDetenido option:selected").val(),
         firmaCliente: base64
-
-
     };
 
     try {
@@ -55,7 +54,6 @@ function Add() {
  
 }//FIN FUNCION AGREGAR
 
-
 function Update() {
     var res = validate();
     if (res == false) {
@@ -76,7 +74,7 @@ function Update() {
         solicitudMotivo: $('#motivoVisita').val(),
         motivoDetalle: $('#motivoDetalle').val(),
         solicitudRepuestos: $('#solicitudRepuestos').val(),
-        equipoDetenido: $('#equipoDetenido').val(),
+        equipoDetenido: $("#equipoDetenido option:selected").val(),
     };
     $.ajax({
         url: "/Solicitud/Actualizar",
@@ -96,8 +94,6 @@ function Update() {
     });
 }//FIN FUNCION ACTUALIZAR
 
-
-////Function for clearing the textboxes
 function clearTextBox() {
     $('#IDSolicitud').val("");
     $('#Provincias').val("");
@@ -114,7 +110,7 @@ function clearTextBox() {
     $('#motivoVisita').val("");
     $('#motivoDetalle').val("");
     $('#solicitudRepuestos').val("");
-    $('#equipoDetenido').val("");
+    $('#equipoDetenido').val("0");
     $('#firma').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();
@@ -143,45 +139,6 @@ function clearTextBox() {
     $('#TipoTrabajo option').remove();
 }//FIN FUNCION DE LIMPAR CASILLAS
 
-
-
-function CargarCliente() {
-    $.ajax({
-        url: "/Solicitud/CargarCliente",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var Clientes = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Clientes += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Cliente").html(Clientes);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarCliente
-}
-
-
-function CargarDepartamento() {
-    $.ajax({
-        url: "/Solicitud/CargarDepartamento",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var Departamento = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Departamento += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Departamento").html(Departamento);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarDepartamento
-}
-
 function CargarTipoTrabajo() {
     $.ajax({
         url: "/Solicitud/CargarTipoTrabajo",
@@ -197,9 +154,8 @@ function CargarTipoTrabajo() {
         },
         error: function (errormessage) {
         }
-    });//FIN DE CargarTipoTrabajo
-}
-
+    });
+}//FIN DE CargarTipoTrabajo
 
 function CargarEmpleado() {
     $.ajax({
@@ -216,29 +172,9 @@ function CargarEmpleado() {
         },
         error: function (errormessage) {
         }
-    });//FIN DE CargarEmpleado
-}
+    });
+}//FIN DE CargarEmpleado
 
-
-function CargarEquipo() {
-    $.ajax({
-        url: "/Solicitud/CargarEquipo",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var Equipos = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Equipos += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Equipo").html(Equipos);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarEmpleado
-}
-
-//Inicio CargarProvincia
 function CargarProvincia() {
     $.ajax({
         url: "/Provincia/CargarDatos",
@@ -246,26 +182,117 @@ function CargarProvincia() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            var plantilla = '<option>-- Seleccione una opción --</option>';
+            result.forEach(valor => {
+                plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+            });
 
-            var Provincias = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Provincias += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Provincias").html(Provincias);
-
+            $("#Provincias").html(plantilla);
         },
         error: function (errormessage) {
         }
-    });//FIN DE CargarProvincia
-}
+    });
+}//FIN DE CargarProvincia
 
-//function Print() {
-//    $.ajax({
-//        url: "/Solicitud/Print",
-//        type: "POST",
-//        contentType: "application/json;charset=UTF-8",
-//        dataType: "json",
-//        success: function (result) {
-//       },
-//        error: function (errormessage) {
-//        }
-//    });//FIN DE CargarEmpleado
-//}
+function CargarCliente() {
+    LimpiarCombobox("Cliente");
+    var ID_PROVINCIA = $('#Provincias option:selected').val();
+    if (isNaN(ID_PROVINCIA) == false) {
+
+        var ProvinciaObj = {
+            ID_Provincia: ID_PROVINCIA
+        };
+
+        $.ajax({
+            url: "/Solicitud/CargarCliente",
+            data: JSON.stringify(ProvinciaObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                var plantilla = '<option>-- Seleccione una opción --</option>';
+                result.forEach(valor => {
+                    plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+                });
+
+                $("#Cliente").html(plantilla);
+            },
+            error: function (errormessage) {
+            }
+        });
+    } else {
+        LimpiarCombobox("Cliente");
+    } 
+}//FIN DE CargarCliente
+
+
+function CargarDepartamentos() {
+    LimpiarCombobox("Equipo");
+    var ID_CLIENTE = $('#Cliente option:selected').val();
+    if (isNaN(ID_CLIENTE) == false) {
+
+        var ClienteObj = {
+            ID_Cliente: ID_CLIENTE
+        };
+
+        $.ajax({
+            url: "/Solicitud/CargarDepartamento",
+            data: JSON.stringify(ClienteObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                var plantilla = '<option>-- Seleccione una opción --</option>';
+                result.forEach(valor => {
+                    plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+                });
+
+                $("#Departamento").html(plantilla);
+            },
+            error: function (errormessage) {
+            }
+        });
+    } else {
+        LimpiarCombobox("Departamento");
+    } 
+}//FIN DE CargarDepartamento
+
+function CargarEquipos() {
+    var ID_DEPARTAMENTO = $('#Departamento option:selected').val();
+    if (isNaN(ID_DEPARTAMENTO) == false) {
+        var DepartamentoObj = {
+            ID_Departamento: ID_DEPARTAMENTO
+        };
+
+        $.ajax({
+            url: "/Solicitud/CargarEquipo",
+            data: JSON.stringify(DepartamentoObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                var plantilla = '<option>-- Seleccione una opción --</option>';
+                result.forEach(valor => {
+                    plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+                });
+
+                $("#Equipo").html(plantilla);
+            },
+            error: function (errormessage) {
+            }
+        });
+    } else {
+        LimpiarCombobox("Equipo");
+    }
+}//FIN DE CargarEquipos
+
+function LimpiarCombobox(COMBO) {
+    var select = document.getElementById(COMBO);
+    var length = select.options.length;
+    for (i = length - 1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+}//FIN DE LimpiarCombobox

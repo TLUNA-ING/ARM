@@ -64,54 +64,35 @@ namespace ProyectoProgramacion.Controllers
 
 
         [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult CargarCliente()
-        {
+        public ActionResult CargarCliente(etlProvincia provincia){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-            var respuesta = modelSolicitud.ConsultarClientes();
+            var respuesta = modelSolicitud.ConsultarClientes(provincia.ID_Provincia);
 
-            if (respuesta == null)
-            {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-        }//FIN DE CargarEmpleado
-
+            return Json(respuesta);
+        }//FIN DE CargarCliente
 
         [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult CargarDepartamento()
-        {
+        public ActionResult CargarDepartamento(etlCliente cliente){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-            var respuesta = modelSolicitud.ConsultarDepartamentos();
+            var respuesta = modelSolicitud.ConsultarDepartamentos(cliente.ID_Cliente);
 
-            if (respuesta == null)
-            {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-        }//FIN DE CargarEmpleado
-
+            return Json(respuesta);
+        }//FIN DE CargarDepartamento
 
         [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult CargarEquipo()
-        {
-            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-            var respuesta = modelSolicitud.ConsultarEquipos();
+        [HttpPost]
+        public ActionResult CargarEquipo(etlDepartamento departamento){
+            try{
+                ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+                var respuesta = modelSolicitud.ConsultarEquipos(departamento.ID_Departamento);
 
-            if (respuesta == null)
-            {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
+                return Json(respuesta);
+
+            }catch (Exception e){
+                return Json(e, JsonRequestBehavior.DenyGet);
             }
         }//FIN DE CargarEquipo
+
 
         [AutorizarUsuario(rol: "admin,user")]
         public ActionResult CargarProvincia()

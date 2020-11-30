@@ -167,14 +167,14 @@ function ModificarContrasena() {
                 if (result == "Modificado") {
                     swal({
                         title: "¡Acción realizada!",
-                        text: "¡Se modificó correctamente la contraseña!",
+                        text: "¡Se modificó correctamente la contraseña, debe ingresar al sistema nuevamente!",
                         type: "success",
                         confirmButtonColor: "#10AF5D",
                         confirmButtonText: "Aceptar"
                     },
                         function (isConfirm) {
                             if (isConfirm) {
-                                $('#myModalPerfil').modal('hide');
+                                window.location.href = "/Home/Logout";
                             }
                         });
                 } else if (result == "Misma contraseña") {
@@ -439,4 +439,4 @@ function CambiarPassword() {
             }
         });
     }
-}//FIN DE ModificarContrasena
+}//FIN DE CambiarPassword
