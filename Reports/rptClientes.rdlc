@@ -34,8 +34,11 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>ID Cliente</Value>
-                              <Style />
+                              <Value>ID</Value>
+                              <Style>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -65,7 +68,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Provincia</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -95,7 +101,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Nombre</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -125,7 +134,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Correo</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -155,7 +167,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Estado</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -357,7 +372,7 @@
         <Top>0.42016cm</Top>
         <Left>0.63724cm</Left>
         <Height>1.2cm</Height>
-        <Width>14.33437cm</Width>
+        <Width>14.33438cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -365,7 +380,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>0.90625in</Height>
+    <Height>3.94792in</Height>
     <Style />
   </Body>
   <Width>6.5in</Width>
@@ -381,6 +396,7 @@
               <Source>Embedded</Source>
               <Value>ARM2</Value>
               <Sizing>FitProportional</Sizing>
+              <Left>0.42875cm</Left>
               <Height>1.80551cm</Height>
               <Width>2.92875cm</Width>
               <Style>
@@ -398,7 +414,7 @@
                     <TextRun>
                       <Value>REPORTE DE CLIENTES</Value>
                       <Style>
-                        <FontSize>16pt</FontSize>
+                        <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -408,10 +424,42 @@
               </Paragraphs>
               <rd:DefaultName>Textbox11</rd:DefaultName>
               <Top>0.29104cm</Top>
-              <Left>4.65667cm</Left>
+              <Left>4.61729cm</Left>
               <Height>0.81167cm</Height>
-              <Width>7.31541cm</Width>
+              <Width>7.89749cm</Width>
               <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="ExecutionTime">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!ExecutionTime</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>ExecutionTime</rd:DefaultName>
+              <Top>0.29104cm</Top>
+              <Left>13.1498cm</Left>
+              <Height>0.6cm</Height>
+              <Width>2.5cm</Width>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -430,7 +478,8 @@
           <Width>15.99375cm</Width>
           <Style>
             <Border>
-              <Style>None</Style>
+              <Style>Solid</Style>
+              <Width>2pt</Width>
             </Border>
           </Style>
         </Rectangle>
@@ -442,39 +491,10 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>2.54cm</Height>
+      <Height>5.34458cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
-        <Textbox Name="ExecutionTime">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=Globals!ExecutionTime</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>ExecutionTime</rd:DefaultName>
-          <Top>0.65828cm</Top>
-          <Left>10.92412cm</Left>
-          <Height>0.6cm</Height>
-          <Width>2.5cm</Width>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
         <Textbox Name="Textbox6">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
@@ -483,7 +503,9 @@
               <TextRuns>
                 <TextRun>
                   <Value>Capris Medica</Value>
-                  <Style />
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -492,7 +514,9 @@
               <TextRuns>
                 <TextRun>
                   <Value>2521-5110</Value>
-                  <Style />
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -501,18 +525,18 @@
               <TextRuns>
                 <TextRun>
                   <Value>ventascaprismedica@capris.co.cr</Value>
-                  <Style />
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox6</rd:DefaultName>
-          <Top>0.07056cm</Top>
-          <Left>0.20849cm</Left>
+          <Top>1.6316cm</Top>
           <Height>1.56739cm</Height>
           <Width>6.12479cm</Width>
-          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -531,18 +555,20 @@
               <TextRuns>
                 <TextRun>
                   <Value>=Globals!OverallPageNumber</Value>
-                  <Style />
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>OverallPageNumber</rd:DefaultName>
-          <Top>0.65828cm</Top>
-          <Left>13.70224cm</Left>
+          <Top>2.28149cm</Top>
+          <Left>14.01cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
-          <ZIndex>2</ZIndex>
+          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
