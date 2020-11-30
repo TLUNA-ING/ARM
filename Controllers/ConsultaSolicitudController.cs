@@ -48,55 +48,55 @@ namespace ProyectoProgramacion.Controllers
         }//FIN DE CargarEmpleado
 
 
-        [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult CargarCliente()
-        {
-            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-            var respuesta = modelSolicitud.ConsultarClientes();
+        //[AutorizarUsuario(rol: "admin,user")]
+        //public ActionResult CargarCliente()
+        //{
+        //    ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+        //    var respuesta = modelSolicitud.ConsultarClientes();
 
-            if (respuesta == null)
-            {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-        }//FIN DE CargarEmpleado
-
-
-        [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult CargarDepartamento()
-        {
-            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-            var respuesta = modelSolicitud.ConsultarDepartamentos();
-
-            if (respuesta == null)
-            {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-        }//FIN DE CargarEmpleado
+        //    if (respuesta == null)
+        //    {
+        //        return Json(respuesta, JsonRequestBehavior.DenyGet);
+        //    }
+        //    else
+        //    {
+        //        return Json(respuesta, JsonRequestBehavior.AllowGet);
+        //    }
+        //}//FIN DE CargarEmpleado
 
 
-        [AutorizarUsuario(rol: "admin,user")]
-        public ActionResult CargarEquipo()
-        {
-            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-            var respuesta = modelSolicitud.ConsultarEquipos();
+        //[AutorizarUsuario(rol: "admin,user")]
+        //public ActionResult CargarDepartamento()
+        //{
+        //    ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+        //    var respuesta = modelSolicitud.ConsultarDepartamentos();
 
-            if (respuesta == null)
-            {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-        }//FIN DE CargarEquipo
+        //    if (respuesta == null)
+        //    {
+        //        return Json(respuesta, JsonRequestBehavior.DenyGet);
+        //    }
+        //    else
+        //    {
+        //        return Json(respuesta, JsonRequestBehavior.AllowGet);
+        //    }
+        //}//FIN DE CargarEmpleado
+
+
+        //[AutorizarUsuario(rol: "admin,user")]
+        //public ActionResult CargarEquipo()
+        //{
+        //    ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
+        //    var respuesta = modelSolicitud.ConsultarEquipos();
+
+        //    if (respuesta == null)
+        //    {
+        //        return Json(respuesta, JsonRequestBehavior.DenyGet);
+        //    }
+        //    else
+        //    {
+        //        return Json(respuesta, JsonRequestBehavior.AllowGet);
+        //    }
+        //}//FIN DE CargarEquipo
 
         [AutorizarUsuario(rol: "admin")]
         [HttpPost]
