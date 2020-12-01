@@ -31,7 +31,10 @@ function Add() {
         motivoDetalle: $('#motivoDetalle').val(),
         solicitudRepuestos: $('#solicitudRepuestos').val(),
         equipoDetenido: $("#equipoDetenido option:selected").val(),
-        firmaCliente: base64
+        firmaCliente: base64,
+        correoMQC: $('#correoMQC').val(),
+        cedulaMQC: $('#cedulaMQC').val(),
+        nombreMQC: $('#nombreMQC').val()
     };
 
     try {
@@ -75,6 +78,9 @@ function Update() {
         motivoDetalle: $('#motivoDetalle').val(),
         solicitudRepuestos: $('#solicitudRepuestos').val(),
         equipoDetenido: $("#equipoDetenido option:selected").val(),
+        correoMQC: $('#correoMQC').val(),
+        cedulaMQC: $('#cedulaMQC').val(),
+        nombreMQC: $('#nombreMQC').val()
     };
     $.ajax({
         url: "/Solicitud/Actualizar",
@@ -110,7 +116,10 @@ function clearTextBox() {
     $('#motivoVisita').val("");
     $('#motivoDetalle').val("");
     $('#solicitudRepuestos').val("");
-    $('#equipoDetenido').val("0");
+    $('#equipoDetenido').val("");
+    $('#correoMQC').val(""),
+    $('#cedulaMQC').val(""),
+    $('#nombreMQC').val("")
     $('#firma').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();

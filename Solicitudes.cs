@@ -32,6 +32,9 @@ namespace ProyectoProgramacion
         public long equipoDetenido { get; set; }
         public Nullable<int> provinciaId { get; set; }
         public string firmaCliente { get; set; }
+        public string nombreMQC { get; set; }
+        public string correoMQC { get; set; }
+        public string cedulaMQC { get; set; }
     
         public virtual Clientes Clientes { get; set; }
         public virtual Departamentos Departamentos { get; set; }
