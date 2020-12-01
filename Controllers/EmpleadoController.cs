@@ -1,7 +1,10 @@
-﻿using ProyectoProgramacion.ETL;
+﻿using Microsoft.Reporting.WebForms;
+using ProyectoProgramacion.ETL;
 using ProyectoProgramacion.Filters;
 using ProyectoProgramacion.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
@@ -126,6 +129,48 @@ namespace ProyectoProgramacion.Controllers
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
         }//FIN DE CargarTipoCedula
+
+        public ActionResult Report()
+        {
+
+            var reportViewer = new ReportViewer
+            {
+                ProcessingMode = ProcessingMode.Local,
+                ShowExportControls = true,
+                ShowParameterPrompts = true,
+                ShowPageNavigationControls = true,
+                ShowRefreshButton = true,
+                ShowPrintButton = true,
+                SizeToReportContent = true,
+                AsyncRendering = false,
+            };
+            string rutaReporte = "~/Reports/rptEmpleados.rdlc";
+            ///construir la ruta física
+            string rutaServidor = Server.MapPath(rutaReporte);
+            reportViewer.LocalReport.ReportPath = rutaServidor;
+            //reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\ReportCategories.rdlc";
+            var infoFuenteDatos = reportViewer.LocalReport.GetDataSourceNames();
+            reportViewer.LocalReport.DataSources.Clear();
+
+            List<InformacionEmpleados_Result> datosReporte;
+            using (var contextoBD = new ARMEntities())
+            {
+                datosReporte = contextoBD.InformacionEmpleados().ToList();
+            }
+            ReportDataSource fuenteDatos = new ReportDataSource();
+            fuenteDatos.Name = infoFuenteDatos[0];
+            fuenteDatos.Value = datosReporte;
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("EmpleadosDataSet", datosReporte));
+
+            reportViewer.LocalReport.Refresh();
+            ViewBag.ReportViewer = reportViewer;
+
+
+            return View();
+
+
+
+        }//FIN DE REPORT
 
     }//FIN DE EmpleadoController
 }

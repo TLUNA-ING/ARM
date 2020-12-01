@@ -356,6 +356,8 @@
         <Function Name="CONSULTAR_UN_EMPLEADO_BD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CEDULA" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="InformacionClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="InformacionEmpleados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="INSERTAR_CODIGO_USUARIO_RECUPERACION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USUARIO" Type="varchar" Mode="In" />
           <Parameter Name="CODIGO" Type="varchar" Mode="In" />
@@ -366,10 +368,7 @@
           <Parameter Name="VIEJOS" Type="varchar(max)" Mode="In" />
           <Parameter Name="NUEVOS" Type="varchar(max)" Mode="In" />
         </Function>
-        <Function Name="solicitudesPorRangoFechas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="fechainicial" Type="datetime" Mode="In" />
-          <Parameter Name="fechafinal" Type="datetime" Mode="In" />
-        </Function>
+        <Function Name="solicitudesPorRangoFechas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ARMModelStoreContainer">
           <EntitySet Name="Bitacora" EntityType="Self.Bitacora" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
@@ -900,14 +899,14 @@
             <Parameter Name="NUEVOS" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="solicitudesPorRangoFechas" ReturnType="Collection(ARMModel.solicitudesPorRangoFechas_Result)">
-            <Parameter Name="fechainicial" Mode="In" Type="DateTime" />
-            <Parameter Name="fechafinal" Mode="In" Type="DateTime" />
-          </FunctionImport>
+            </FunctionImport>
           <EntitySet Name="Bitacora" EntityType="ARMModel.Bitacora" />
           <AssociationSet Name="FK_Bitacora_Usuarios" Association="ARMModel.FK_Bitacora_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Bitacora" EntitySet="Bitacora" />
           </AssociationSet>
+          <FunctionImport Name="InformacionClientes" ReturnType="Collection(ARMModel.InformacionClientes_Result)" />
+          <FunctionImport Name="InformacionEmpleados" ReturnType="Collection(ARMModel.InformacionEmpleados_Result)" />
         </EntityContainer>
         <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
           <Property Type="Int64" Name="Cedula" Nullable="false" />
@@ -969,6 +968,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="InformacionClientes_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="NombreCliente" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Correo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Provincia" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="InformacionEmpleados_Result">
+          <Property Type="Int64" Name="Cedula" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido1" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido2" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Correo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="20" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1191,6 +1205,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InformacionClientes" FunctionName="ARMModel.Store.InformacionClientes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARMModel.InformacionClientes_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InformacionEmpleados" FunctionName="ARMModel.Store.InformacionEmpleados">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARMModel.InformacionEmpleados_Result">
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
+                <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

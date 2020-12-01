@@ -6,16 +6,16 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.31cm</Width>
+              <Width>2.5cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.19604cm</Width>
+              <Width>2.5cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.50542cm</Width>
+              <Width>2.5cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.82292cm</Width>
+              <Width>2.5cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.5cm</Width>
@@ -34,7 +34,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>ID</Value>
+                              <Value>Id Cliente</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -50,6 +50,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>DarkOrange</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -67,7 +68,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Provincia</Value>
+                              <Value>Nombre Cliente</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -83,6 +84,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>DarkOrange</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -100,7 +102,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Nombre</Value>
+                              <Value>Correo</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -116,6 +118,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>DarkOrange</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -126,40 +129,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox7">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Correo</Value>
-                              <Style>
-                                <FontSize>11pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox7</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox9">
+                    <Textbox Name="Textbox8">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -176,12 +146,47 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox9</rd:DefaultName>
+                      <rd:DefaultName>Textbox8</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>DarkOrange</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox10">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Provincia</Value>
+                              <Style>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox10</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>DarkOrange</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -197,21 +202,21 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="clienteId">
+                    <Textbox Name="IdCliente">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!clienteId.Value</Value>
+                              <Value>=Fields!IdCliente.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>clienteId</rd:DefaultName>
+                      <rd:DefaultName>IdCliente</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -227,21 +232,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="provinciaId">
+                    <Textbox Name="NombreCliente">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!provinciaId.Value</Value>
+                              <Value>=Fields!NombreCliente.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>provinciaId</rd:DefaultName>
+                      <rd:DefaultName>NombreCliente</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -257,21 +262,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="clienteNombre">
+                    <Textbox Name="Correo">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!clienteNombre.Value</Value>
+                              <Value>=Fields!Correo.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>clienteNombre</rd:DefaultName>
+                      <rd:DefaultName>Correo</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -287,21 +292,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="clienteCorreo">
+                    <Textbox Name="Estado">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!clienteCorreo.Value</Value>
+                              <Value>=Fields!Estado.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>clienteCorreo</rd:DefaultName>
+                      <rd:DefaultName>Estado</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -317,21 +322,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="clienteEstado">
+                    <Textbox Name="Provincia">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!clienteEstado.Value</Value>
+                              <Value>=Fields!Provincia.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>clienteEstado</rd:DefaultName>
+                      <rd:DefaultName>Provincia</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -369,10 +374,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ClientesDataSet</DataSetName>
-        <Top>0.42016cm</Top>
-        <Left>0.63724cm</Left>
+        <Top>0.94615cm</Top>
+        <Left>0.98662cm</Left>
         <Height>1.2cm</Height>
-        <Width>14.33438cm</Width>
+        <Width>12.5cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -380,10 +385,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>3.94792in</Height>
+    <Height>1.375in</Height>
     <Style />
   </Body>
-  <Width>6.5in</Width>
+  <Width>8.25285in</Width>
   <Page>
     <PageHeader>
       <Height>3.07234cm</Height>
@@ -396,7 +401,8 @@
               <Source>Embedded</Source>
               <Value>ARM2</Value>
               <Sizing>FitProportional</Sizing>
-              <Left>0.42875cm</Left>
+              <Top>0.15296cm</Top>
+              <Left>0.34938cm</Left>
               <Height>1.80551cm</Height>
               <Width>2.92875cm</Width>
               <Style>
@@ -423,10 +429,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox11</rd:DefaultName>
-              <Top>0.29104cm</Top>
-              <Left>4.61729cm</Left>
+              <Top>0.15296cm</Top>
+              <Left>3.87839cm</Left>
               <Height>0.81167cm</Height>
-              <Width>7.89749cm</Width>
+              <Width>8.7177cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -455,11 +461,43 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>0.29104cm</Top>
-              <Left>13.1498cm</Left>
+              <Top>0.15296cm</Top>
+              <Left>12.77248cm</Left>
               <Height>0.6cm</Height>
-              <Width>2.5cm</Width>
+              <Width>3.39829cm</Width>
               <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox45">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>CAPRIS MEDICA</Value>
+                      <Style>
+                        <FontSize>14pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox45</rd:DefaultName>
+              <Top>1.07047cm</Top>
+              <Left>5.74401cm</Left>
+              <Height>0.78521cm</Height>
+              <Width>4.48438cm</Width>
+              <ZIndex>3</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -475,7 +513,7 @@
           <Top>0.28787cm</Top>
           <Left>0.20849cm</Left>
           <Height>2.55516cm</Height>
-          <Width>15.99375cm</Width>
+          <Width>16.62875cm</Width>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -491,7 +529,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>5.34458cm</Height>
+      <Height>2.98979cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -503,6 +541,17 @@
               <TextRuns>
                 <TextRun>
                   <Value>Capris Medica</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>3101005113</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -534,8 +583,9 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox6</rd:DefaultName>
-          <Top>1.6316cm</Top>
-          <Height>1.56739cm</Height>
+          <Top>0.17639cm</Top>
+          <Left>0.20849cm</Left>
+          <Height>1.83197cm</Height>
           <Width>6.12479cm</Width>
           <Style>
             <Border>
@@ -564,8 +614,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>OverallPageNumber</rd:DefaultName>
-          <Top>2.28149cm</Top>
-          <Left>14.01cm</Left>
+          <Top>0.90566cm</Top>
+          <Left>13.87926cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <ZIndex>1</ZIndex>
@@ -597,49 +647,49 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="ARMDataSource">
+    <DataSource Name="ARMDataSet2">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>a184e014-cce3-4c3e-9a44-c0d74ffd2825</rd:DataSourceID>
+      <rd:DataSourceID>68475232-f658-441a-a61d-e778941747da</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="ClientesDataSet">
       <Query>
-        <DataSourceName>ARMDataSource</DataSourceName>
+        <DataSourceName>ARMDataSet2</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="clienteId">
-          <DataField>clienteId</DataField>
+        <Field Name="IdCliente">
+          <DataField>IdCliente</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="provinciaId">
-          <DataField>provinciaId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="clienteNombre">
-          <DataField>clienteNombre</DataField>
+        <Field Name="NombreCliente">
+          <DataField>NombreCliente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="clienteCorreo">
-          <DataField>clienteCorreo</DataField>
+        <Field Name="Correo">
+          <DataField>Correo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="clienteEstado">
-          <DataField>clienteEstado</DataField>
+        <Field Name="Estado">
+          <DataField>Estado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Provincia">
+          <DataField>Provincia</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>ARMDataSource</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\jfigueroa\source\repos\TLUNA-ING\ARM\ARMDataSource.xsd</rd:SchemaPath>
-        <rd:TableName>Clientes</rd:TableName>
+        <rd:DataSetName>ARMDataSet2</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\jfigueroa\Desktop\Personal\Analisis 2\ARM\ARMDataSet2.xsd</rd:SchemaPath>
+        <rd:TableName>InformacionClientes</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>ClientesTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>InformacionClientesTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

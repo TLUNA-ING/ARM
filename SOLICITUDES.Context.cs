@@ -108,17 +108,19 @@ namespace ProyectoProgramacion
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERTAR_EN_BITACORA", uSUARIOParameter, aCCIONParameter, vIEJOSParameter, nUEVOSParameter);
         }
     
-        public virtual ObjectResult<solicitudesPorRangoFechas_Result> solicitudesPorRangoFechas(Nullable<System.DateTime> fechainicial, Nullable<System.DateTime> fechafinal)
+        public virtual ObjectResult<solicitudesPorRangoFechas_Result> solicitudesPorRangoFechas()
         {
-            var fechainicialParameter = fechainicial.HasValue ?
-                new ObjectParameter("fechainicial", fechainicial) :
-                new ObjectParameter("fechainicial", typeof(System.DateTime));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<solicitudesPorRangoFechas_Result>("solicitudesPorRangoFechas");
+        }
     
-            var fechafinalParameter = fechafinal.HasValue ?
-                new ObjectParameter("fechafinal", fechafinal) :
-                new ObjectParameter("fechafinal", typeof(System.DateTime));
+        public virtual ObjectResult<InformacionClientes_Result> InformacionClientes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InformacionClientes_Result>("InformacionClientes");
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<solicitudesPorRangoFechas_Result>("solicitudesPorRangoFechas", fechainicialParameter, fechafinalParameter);
+        public virtual ObjectResult<InformacionEmpleados_Result> InformacionEmpleados()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InformacionEmpleados_Result>("InformacionEmpleados");
         }
     }
 }
