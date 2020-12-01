@@ -42,6 +42,12 @@ namespace ProyectoProgramacion.ETL
 
         public long equipoDetenido { get; set; }
 
+        public Nullable<System.TimeSpan> tiempoDetenido { get; set; }
+        public string correoMQC { get; set; }
+        public string nombreMQC { get; set; }
+        public string cedulaMQC { get; set; }
+
+
         public string firmaCliente { get; set; }
 
 

@@ -50,6 +50,10 @@ function CARGAR_GRID() {
             { "data": "motivoDetalle" },
             { "data": "solicitudRepuestos" },
             { "data": "equipoDetenido" },
+            { "data": "tiempoDetenido" },
+            { "data": "correoMQC" },
+            { "data": "nombreMQC" },
+            { "data": "cedulaMQC" },
             {
                 "data": null,
                 "render": function (data, type, row) {
@@ -113,6 +117,10 @@ function ConsultarSolicitud(ID) {
             $('#motivoDetalle').val(result.motivoDetalle);
             $('#solicitudRepuestos').val(result.solicitudRepuestos);
             $('#equipoDetenido').val(result.equipoDetenido);
+            $('#tiempoDetenido').val(result.tiempoDetenido);
+            $('#correoMQC').val(result.correoMQC);
+            $('#nombreMQC').val(result.nombreMQC);
+            $('#cedulaMQC').val(result.cedulaMQC);
             $('#myModal').modal('show');
             $('#btnUpdate').show();
             $('#btnAdd').hide();
@@ -143,6 +151,10 @@ function ModificarSolicitud() {
                     motivoDetalle: $('#motivoDetalle').val(),
                     solicitudRepuestos: $('#solicitudRepuestos').val(),
                     equipoDetenido: $('#equipoDetenido').val(),
+                    tiempoDetenido: $('#tiempoDetenido').val(),
+                    correoMQC: $('#correoMQC').val(),
+                    cedulaMQC: $('#cedulaMQC').val(),
+                    nombreMQC: $('#nombreMQC').val(),
                     Provincia: {
                         ID_Provincia: parseFloat($("#Provincias option:selected").val())
                     },
@@ -435,6 +447,10 @@ function clearTextBox() {
     $('#motivoDetalle').val("");
     $('#solicitudRepuestos').val("");
     $('#equipoDetenido').val("");
+    $('#tiempoDetenido').val("");
+    $('#correoMQC').val("");
+    $('#cedulaMQC').val("");
+    $('#nombreMQC').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();
     $('#IDSolicitud').css('border-color', 'lightgrey');

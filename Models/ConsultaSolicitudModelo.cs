@@ -53,7 +53,11 @@ namespace ProyectoProgramacion.Models
                     solicitudMotivo = x.solicitudMotivo,
                     motivoDetalle = x.motivoDetalle,
                     solicitudRepuestos = x.solicitudRepuestos,
-                    equipoDetenido = (int)x.equipoDetenido
+                    equipoDetenido = (int)x.equipoDetenido,
+                    tiempoDetenido = (TimeSpan)x.tiempoDetenido,
+                    correoMQC = x.correoMQC,
+                    nombreMQC = x.nombreMQC,
+                    cedulaMQC = x.cedulaMQC
 
                 }).ToList();
                 
