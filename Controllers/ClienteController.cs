@@ -155,10 +155,10 @@ namespace ProyectoProgramacion.Controllers
             var infoFuenteDatos = reportViewer.LocalReport.GetDataSourceNames();
             reportViewer.LocalReport.DataSources.Clear();
 
-            List<Clientes> datosReporte;
+            List<InformacionClientes_Result> datosReporte;
             using (var contextoBD = new ARMEntities())
             {
-                datosReporte = contextoBD.Clientes.ToList();
+                datosReporte = contextoBD.InformacionClientes().ToList();
             }
             ReportDataSource fuenteDatos = new ReportDataSource();
                 fuenteDatos.Name = infoFuenteDatos[0];
