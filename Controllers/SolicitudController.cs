@@ -20,7 +20,7 @@ namespace ProyectoProgramacion.Controllers
             objSolicitud = new etlSolicitud();
         }
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult Index()
         {
             etlUsuario usuario = (etlUsuario)Session["User"];
@@ -30,7 +30,7 @@ namespace ProyectoProgramacion.Controllers
         }//FIN DE Index
 
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult CargarTipoTrabajo()
         {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
@@ -46,7 +46,7 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarTipoTrabajo
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult CargarEmpleado()
         {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
@@ -63,7 +63,7 @@ namespace ProyectoProgramacion.Controllers
         }//FIN DE CargarEmpleado
 
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult CargarCliente(etlProvincia provincia){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarClientes(provincia.ID_Provincia);
@@ -71,7 +71,7 @@ namespace ProyectoProgramacion.Controllers
             return Json(respuesta);
         }//FIN DE CargarCliente
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult CargarDepartamento(etlCliente cliente){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarDepartamentos(cliente.ID_Cliente);
@@ -79,7 +79,7 @@ namespace ProyectoProgramacion.Controllers
             return Json(respuesta);
         }//FIN DE CargarDepartamento
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         [HttpPost]
         public ActionResult CargarEquipo(etlDepartamento departamento){
             try{
@@ -94,7 +94,7 @@ namespace ProyectoProgramacion.Controllers
         }//FIN DE CargarEquipo
 
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult CargarProvincia()
         {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
@@ -112,7 +112,7 @@ namespace ProyectoProgramacion.Controllers
 
 
         ////Agregar datos
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         [HttpPost]
         public ActionResult Agregar(Solicitudes sol)
         {
@@ -130,7 +130,7 @@ namespace ProyectoProgramacion.Controllers
 
         }
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         [HttpPost]
         public ActionResult Actualizar(Solicitudes sol)
         {

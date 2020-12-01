@@ -42,7 +42,7 @@ namespace ProyectoProgramacion.Models
         {
             using (var contextoBD = new ARMEntities())
             {
-                var result = (from tipo in contextoBD.TipoTrabajo select tipo).ToList();//Consultar todo de la tabla
+                var result = (from tipo in contextoBD.TipoTrabajo where tipo.tipoTrabajoEstado == "Activo" select tipo).ToList();//Consultar todo de la tabla
 
                 var itemLista = (from item in result
                                  select new SelectListItem { Value = item.tipoTrabajoId.ToString(), Text = item.tipoTrabajoNombre }).ToList();
@@ -59,7 +59,7 @@ namespace ProyectoProgramacion.Models
         {
             using (var contextoBD = new ARMEntities())
             {
-                var result = (from empleado in contextoBD.Empleados select empleado).ToList();//Consultar todo de la tabla
+                var result = (from empleado in contextoBD.Empleados where empleado.empleadoEstado == "Activo" select empleado).ToList();//Consultar todo de la tabla
 
                 var itemLista = (from item in result
                                  select new SelectListItem { Value = item.empleadoCedula.ToString(), Text = item.empleadoNombre }).ToList();
