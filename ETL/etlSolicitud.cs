@@ -32,7 +32,7 @@ namespace ProyectoProgramacion.ETL
 
         public string tipoHora { get; set; }
 
-        public long cantidadHoras { get; set; }
+        public string cantidadHoras { get; set; }
 
         public string solicitudMotivo { get; set; }
 

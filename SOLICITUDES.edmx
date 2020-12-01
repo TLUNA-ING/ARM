@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bitacora">
           <Key>
             <PropertyRef Name="bitacoraId" />
@@ -23,7 +23,7 @@
           <Property Name="clienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="provinciaId" Type="int" Nullable="false" />
           <Property Name="clienteNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="clienteCorreo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clienteCorreo" Type="varchar" MaxLength="50" />
           <Property Name="clienteEstado" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="CodigoRecuperacion">
@@ -116,21 +116,21 @@
           <Property Name="tipoTrabajoId" Type="int" Nullable="false" />
           <Property Name="departamentoId" Type="int" Nullable="false" />
           <Property Name="equipoId" Type="int" Nullable="false" />
-          <Property Name="solicitudJefatura" Type="int" Nullable="false" />
           <Property Name="fechaReporte" Type="date" Nullable="false" />
           <Property Name="horaEntrada" Type="datetime" Nullable="false" />
           <Property Name="horaSalida" Type="datetime" Nullable="false" />
           <Property Name="tipoHora" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cantidadHoras" Type="bigint" Nullable="false" />
-          <Property Name="solicitudMotivo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cantidadHoras" Type="time" Precision="7" Nullable="false" />
+          <Property Name="solicitudMotivo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="motivoDetalle" Type="varchar(max)" Nullable="false" />
-          <Property Name="solicitudRepuestos" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="equipoDetenido" Type="bigint" Nullable="false" />
-          <Property Name="provinciaId" Type="int" />
-          <Property Name="firmaCliente" Type="varchar(max)" />
-          <Property Name="nombreMQC" Type="varchar" MaxLength="30" />
-          <Property Name="correoMQC" Type="varchar" MaxLength="50" />
-          <Property Name="cedulaMQC" Type="varchar" MaxLength="20" />
+          <Property Name="solicitudRepuestos" Type="varchar" MaxLength="100" />
+          <Property Name="equipoDetenido" Type="bigint" />
+          <Property Name="tiempoDetenido" Type="time" Precision="7" />
+          <Property Name="provinciaId" Type="int" Nullable="false" />
+          <Property Name="firmaCliente" Type="varchar(max)" Nullable="false" />
+          <Property Name="nombreMQC" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="correoMQC" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cedulaMQC" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoCedula">
           <Key>
@@ -154,6 +154,24 @@
           <Property Name="usuario" Type="bigint" Nullable="false" />
           <Property Name="rolId" Type="int" Nullable="false" />
           <Property Name="usuarioContraseña" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_Bitacora_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
@@ -239,31 +257,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblClientes_tblProvincias">
-          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provincias">
-              <PropertyRef Name="provinciaId" />
-            </Principal>
-            <Dependent Role="Clientes">
-              <PropertyRef Name="provinciaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblSolicitud_Provincias">
-          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
-          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provincias">
-              <PropertyRef Name="provinciaId" />
-            </Principal>
-            <Dependent Role="Solicitudes">
-              <PropertyRef Name="provinciaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblSolicitud_tblClientes">
+        <Association Name="FK_Solicitudes_Clientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -275,7 +269,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_tblDepartamentos">
+        <Association Name="FK_Solicitudes_Departamentos">
           <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -287,7 +281,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_tblEmpleados">
+        <Association Name="FK_Solicitudes_Empleados">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -299,7 +293,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_tblEquipos">
+        <Association Name="FK_Solicitudes_Equipos">
           <End Role="Equipos" Type="Self.Equipos" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -311,7 +305,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_tblTipoTrabajo">
+        <Association Name="FK_Solicitudes_Provincias">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="provinciaId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="provinciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitudes_TipoTrabajo">
           <End Role="TipoTrabajo" Type="Self.TipoTrabajo" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -320,6 +326,18 @@
             </Principal>
             <Dependent Role="Solicitudes">
               <PropertyRef Name="tipoTrabajoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblClientes_tblProvincias">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="provinciaId" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="provinciaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -369,6 +387,12 @@
           <Parameter Name="NUEVOS" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="solicitudesPorRangoFechas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SPDetalleSolicitud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="solicitudID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SPsolicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="solicitudID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ARMModelStoreContainer">
           <EntitySet Name="Bitacora" EntityType="Self.Bitacora" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
@@ -385,6 +409,16 @@
           <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Bitacora_Usuarios" Association="Self.FK_Bitacora_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Bitacora" EntitySet="Bitacora" />
@@ -413,33 +447,33 @@
             <End Role="Equipos" EntitySet="Equipos" />
             <End Role="Equipo_X_Departamento" EntitySet="Equipo_X_Departamento" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblClientes_tblProvincias" Association="Self.FK_tblClientes_tblProvincias">
-            <End Role="Provincias" EntitySet="Provincias" />
-            <End Role="Clientes" EntitySet="Clientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_Provincias" Association="Self.FK_tblSolicitud_Provincias">
-            <End Role="Provincias" EntitySet="Provincias" />
-            <End Role="Solicitudes" EntitySet="Solicitudes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblClientes" Association="Self.FK_tblSolicitud_tblClientes">
+          <AssociationSet Name="FK_Solicitudes_Clientes" Association="Self.FK_Solicitudes_Clientes">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblDepartamentos" Association="Self.FK_tblSolicitud_tblDepartamentos">
+          <AssociationSet Name="FK_Solicitudes_Departamentos" Association="Self.FK_Solicitudes_Departamentos">
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblEmpleados" Association="Self.FK_tblSolicitud_tblEmpleados">
+          <AssociationSet Name="FK_Solicitudes_Empleados" Association="Self.FK_Solicitudes_Empleados">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblEquipos" Association="Self.FK_tblSolicitud_tblEquipos">
+          <AssociationSet Name="FK_Solicitudes_Equipos" Association="Self.FK_Solicitudes_Equipos">
             <End Role="Equipos" EntitySet="Equipos" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblTipoTrabajo" Association="Self.FK_tblSolicitud_tblTipoTrabajo">
+          <AssociationSet Name="FK_Solicitudes_Provincias" Association="Self.FK_Solicitudes_Provincias">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitudes_TipoTrabajo" Association="Self.FK_Solicitudes_TipoTrabajo">
             <End Role="TipoTrabajo" EntitySet="TipoTrabajo" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblClientes_tblProvincias" Association="Self.FK_tblClientes_tblProvincias">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_tblUsuarios_tblRoles" Association="Self.FK_tblUsuarios_tblRoles">
             <End Role="Roles" EntitySet="Roles" />
@@ -450,10 +484,23 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ARMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bitacora">
+          <Key>
+            <PropertyRef Name="bitacoraId" />
+          </Key>
+          <Property Name="bitacoraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuarioId" Type="Int64" />
+          <Property Name="fechaHora" Type="DateTime" Precision="3" />
+          <Property Name="accionRealizada" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="valoresViejos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="valoresNuevos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Bitacora_Usuarios" FromRole="Bitacora" ToRole="Usuarios" />
+        </EntityType>
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="clienteId" />
@@ -461,11 +508,11 @@
           <Property Name="clienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="provinciaId" Type="Int32" Nullable="false" />
           <Property Name="clienteNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="clienteCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clienteCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="clienteEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Departamento_X_Cliente" Relationship="Self.FK_Departamento_X_Cliente_Clientes" FromRole="Clientes" ToRole="Departamento_X_Cliente" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_Solicitudes_Clientes" FromRole="Clientes" ToRole="Solicitudes" />
           <NavigationProperty Name="Provincias" Relationship="Self.FK_tblClientes_tblProvincias" FromRole="Clientes" ToRole="Provincias" />
-          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblClientes" FromRole="Clientes" ToRole="Solicitudes" />
         </EntityType>
         <EntityType Name="CodigoRecuperacion">
           <Key>
@@ -497,7 +544,7 @@
           <Property Name="departamentoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Departamento_X_Cliente" Relationship="Self.FK_Departamento_X_Cliente_Departamentos" FromRole="Departamentos" ToRole="Departamento_X_Cliente" />
           <NavigationProperty Name="Equipo_X_Departamento" Relationship="Self.FK_Equipo_x_Departamento_Departamentos" FromRole="Departamentos" ToRole="Equipo_X_Departamento" />
-          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblDepartamentos" FromRole="Departamentos" ToRole="Solicitudes" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_Solicitudes_Departamentos" FromRole="Departamentos" ToRole="Solicitudes" />
         </EntityType>
         <EntityType Name="Empleados">
           <Key>
@@ -511,7 +558,7 @@
           <Property Name="empleadoCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="empleadoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="TipoCedula" Relationship="Self.FK_Empleados_Tipo_Ced" FromRole="Empleados" ToRole="TipoCedula" />
-          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblEmpleados" FromRole="Empleados" ToRole="Solicitudes" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_Solicitudes_Empleados" FromRole="Empleados" ToRole="Solicitudes" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Empleados" FromRole="Empleados" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Equipo_X_Departamento">
@@ -533,7 +580,7 @@
           <Property Name="equipoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="equipoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Equipo_X_Departamento" Relationship="Self.FK_Equipo_x_Departamento_Equipos" FromRole="Equipos" ToRole="Equipo_X_Departamento" />
-          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblEquipos" FromRole="Equipos" ToRole="Solicitudes" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_Solicitudes_Equipos" FromRole="Equipos" ToRole="Solicitudes" />
         </EntityType>
         <EntityType Name="InfoSMTP">
           <Key>
@@ -552,7 +599,7 @@
           <Property Name="provinciaId" Type="Int32" Nullable="false" />
           <Property Name="provinciaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_tblClientes_tblProvincias" FromRole="Provincias" ToRole="Clientes" />
-          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_Provincias" FromRole="Provincias" ToRole="Solicitudes" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_Solicitudes_Provincias" FromRole="Provincias" ToRole="Solicitudes" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -573,27 +620,27 @@
           <Property Name="tipoTrabajoId" Type="Int32" Nullable="false" />
           <Property Name="departamentoId" Type="Int32" Nullable="false" />
           <Property Name="equipoId" Type="Int32" Nullable="false" />
-          <Property Name="solicitudJefatura" Type="Int32" Nullable="false" />
           <Property Name="fechaReporte" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="horaEntrada" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="horaSalida" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="tipoHora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cantidadHoras" Type="Int64" Nullable="false" />
-          <Property Name="solicitudMotivo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cantidadHoras" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="solicitudMotivo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="motivoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="solicitudRepuestos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="equipoDetenido" Type="Int64" Nullable="false" />
-          <Property Name="provinciaId" Type="Int32" />
-          <Property Name="firmaCliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_tblSolicitud_tblClientes" FromRole="Solicitudes" ToRole="Clientes" />
-          <NavigationProperty Name="Departamentos" Relationship="Self.FK_tblSolicitud_tblDepartamentos" FromRole="Solicitudes" ToRole="Departamentos" />
-          <NavigationProperty Name="Empleados" Relationship="Self.FK_tblSolicitud_tblEmpleados" FromRole="Solicitudes" ToRole="Empleados" />
-          <NavigationProperty Name="Equipos" Relationship="Self.FK_tblSolicitud_tblEquipos" FromRole="Solicitudes" ToRole="Equipos" />
-          <NavigationProperty Name="Provincias" Relationship="Self.FK_tblSolicitud_Provincias" FromRole="Solicitudes" ToRole="Provincias" />
-          <NavigationProperty Name="TipoTrabajo" Relationship="Self.FK_tblSolicitud_tblTipoTrabajo" FromRole="Solicitudes" ToRole="TipoTrabajo" />
-          <Property Name="nombreMQC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="correoMQC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cedulaMQC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="solicitudRepuestos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="equipoDetenido" Type="Int64" />
+          <Property Name="tiempoDetenido" Type="Time" Precision="7" />
+          <Property Name="provinciaId" Type="Int32" Nullable="false" />
+          <Property Name="firmaCliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombreMQC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correoMQC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cedulaMQC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Solicitudes_Clientes" FromRole="Solicitudes" ToRole="Clientes" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_Solicitudes_Departamentos" FromRole="Solicitudes" ToRole="Departamentos" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Solicitudes_Empleados" FromRole="Solicitudes" ToRole="Empleados" />
+          <NavigationProperty Name="Equipos" Relationship="Self.FK_Solicitudes_Equipos" FromRole="Solicitudes" ToRole="Equipos" />
+          <NavigationProperty Name="Provincias" Relationship="Self.FK_Solicitudes_Provincias" FromRole="Solicitudes" ToRole="Provincias" />
+          <NavigationProperty Name="TipoTrabajo" Relationship="Self.FK_Solicitudes_TipoTrabajo" FromRole="Solicitudes" ToRole="TipoTrabajo" />
         </EntityType>
         <EntityType Name="TipoCedula">
           <Key>
@@ -610,7 +657,7 @@
           <Property Name="tipoTrabajoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tipoTrabajoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tipoTrabajoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_tblSolicitud_tblTipoTrabajo" FromRole="TipoTrabajo" ToRole="Solicitudes" />
+          <NavigationProperty Name="Solicitudes" Relationship="Self.FK_Solicitudes_TipoTrabajo" FromRole="TipoTrabajo" ToRole="Solicitudes" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -619,11 +666,39 @@
           <Property Name="usuario" Type="Int64" Nullable="false" />
           <Property Name="rolId" Type="Int32" Nullable="false" />
           <Property Name="usuarioContraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Bitacora" Relationship="Self.FK_Bitacora_Usuarios" FromRole="Usuarios" ToRole="Bitacora" />
           <NavigationProperty Name="CodigoRecuperacion" Relationship="Self.FK_CodigoRecuperacion_Usuario" FromRole="Usuarios" ToRole="CodigoRecuperacion" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK_Usuarios_Empleados" FromRole="Usuarios" ToRole="Empleados" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_tblUsuarios_tblRoles" FromRole="Usuarios" ToRole="Roles" />
-          <NavigationProperty Name="Bitacora" Relationship="ARMModel.FK_Bitacora_Usuarios" FromRole="Usuarios" ToRole="Bitacora" />
         </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Bitacora_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Bitacora" Type="Self.Bitacora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="Bitacora">
+              <PropertyRef Name="usuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Departamento_X_Cliente_Clientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="Departamento_X_Cliente" Type="Self.Departamento_X_Cliente" Multiplicity="*" />
@@ -632,6 +707,18 @@
               <PropertyRef Name="clienteId" />
             </Principal>
             <Dependent Role="Departamento_X_Cliente">
+              <PropertyRef Name="clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitudes_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="clienteId" />
+            </Principal>
+            <Dependent Role="Solicitudes">
               <PropertyRef Name="clienteId" />
             </Dependent>
           </ReferentialConstraint>
@@ -645,18 +732,6 @@
             </Principal>
             <Dependent Role="Clientes">
               <PropertyRef Name="provinciaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblSolicitud_tblClientes">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="clienteId" />
-            </Principal>
-            <Dependent Role="Solicitudes">
-              <PropertyRef Name="clienteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -696,7 +771,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_tblDepartamentos">
+        <Association Name="FK_Solicitudes_Departamentos">
           <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -720,7 +795,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_tblEmpleados">
+        <Association Name="FK_Solicitudes_Empleados">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -756,7 +831,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_tblEquipos">
+        <Association Name="FK_Solicitudes_Equipos">
           <End Role="Equipos" Type="Self.Equipos" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -768,8 +843,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_Provincias">
-          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+        <Association Name="FK_Solicitudes_Provincias">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Provincias">
@@ -792,7 +867,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSolicitud_tblTipoTrabajo">
+        <Association Name="FK_Solicitudes_TipoTrabajo">
           <End Role="TipoTrabajo" Type="Self.TipoTrabajo" Multiplicity="1" />
           <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -805,6 +880,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ARMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bitacora" EntityType="Self.Bitacora" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" />
           <EntitySet Name="CodigoRecuperacion" EntityType="Self.CodigoRecuperacion" />
           <EntitySet Name="Departamento_X_Cliente" EntityType="Self.Departamento_X_Cliente" />
@@ -819,17 +895,22 @@
           <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" />
           <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+          <AssociationSet Name="FK_Bitacora_Usuarios" Association="Self.FK_Bitacora_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Bitacora" EntitySet="Bitacora" />
+          </AssociationSet>
           <AssociationSet Name="FK_Departamento_X_Cliente_Clientes" Association="Self.FK_Departamento_X_Cliente_Clientes">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Departamento_X_Cliente" EntitySet="Departamento_X_Cliente" />
           </AssociationSet>
+          <AssociationSet Name="FK_Solicitudes_Clientes" Association="Self.FK_Solicitudes_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblClientes_tblProvincias" Association="Self.FK_tblClientes_tblProvincias">
             <End Role="Provincias" EntitySet="Provincias" />
             <End Role="Clientes" EntitySet="Clientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblClientes" Association="Self.FK_tblSolicitud_tblClientes">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
           <AssociationSet Name="FK_CodigoRecuperacion_Usuario" Association="Self.FK_CodigoRecuperacion_Usuario">
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -843,7 +924,7 @@
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Equipo_X_Departamento" EntitySet="Equipo_X_Departamento" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblDepartamentos" Association="Self.FK_tblSolicitud_tblDepartamentos">
+          <AssociationSet Name="FK_Solicitudes_Departamentos" Association="Self.FK_Solicitudes_Departamentos">
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
@@ -851,7 +932,7 @@
             <End Role="TipoCedula" EntitySet="TipoCedula" />
             <End Role="Empleados" EntitySet="Empleados" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblEmpleados" Association="Self.FK_tblSolicitud_tblEmpleados">
+          <AssociationSet Name="FK_Solicitudes_Empleados" Association="Self.FK_Solicitudes_Empleados">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
@@ -863,11 +944,11 @@
             <End Role="Equipos" EntitySet="Equipos" />
             <End Role="Equipo_X_Departamento" EntitySet="Equipo_X_Departamento" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblEquipos" Association="Self.FK_tblSolicitud_tblEquipos">
+          <AssociationSet Name="FK_Solicitudes_Equipos" Association="Self.FK_Solicitudes_Equipos">
             <End Role="Equipos" EntitySet="Equipos" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_Provincias" Association="Self.FK_tblSolicitud_Provincias">
+          <AssociationSet Name="FK_Solicitudes_Provincias" Association="Self.FK_Solicitudes_Provincias">
             <End Role="Provincias" EntitySet="Provincias" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
@@ -875,7 +956,7 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSolicitud_tblTipoTrabajo" Association="Self.FK_tblSolicitud_tblTipoTrabajo">
+          <AssociationSet Name="FK_Solicitudes_TipoTrabajo" Association="Self.FK_Solicitudes_TipoTrabajo">
             <End Role="TipoTrabajo" EntitySet="TipoTrabajo" />
             <End Role="Solicitudes" EntitySet="Solicitudes" />
           </AssociationSet>
@@ -886,8 +967,10 @@
             <Parameter Name="IND_LIGADOS" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CONSULTAR_UN_EMPLEADO_BD" ReturnType="Collection(ARMModel.CONSULTAR_UN_EMPLEADO_BD_Result)">
-          <Parameter Name="CEDULA" Mode="In" Type="String" />
+            <Parameter Name="CEDULA" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="InformacionClientes" ReturnType="Collection(ARMModel.InformacionClientes_Result)" />
+          <FunctionImport Name="InformacionEmpleados" ReturnType="Collection(ARMModel.InformacionEmpleados_Result)" />
           <FunctionImport Name="INSERTAR_CODIGO_USUARIO_RECUPERACION">
             <Parameter Name="USUARIO" Mode="In" Type="String" />
             <Parameter Name="CODIGO" Mode="In" Type="String" />
@@ -898,15 +981,13 @@
             <Parameter Name="VIEJOS" Mode="In" Type="String" />
             <Parameter Name="NUEVOS" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="solicitudesPorRangoFechas" ReturnType="Collection(ARMModel.solicitudesPorRangoFechas_Result)">
-            </FunctionImport>
-          <EntitySet Name="Bitacora" EntityType="ARMModel.Bitacora" />
-          <AssociationSet Name="FK_Bitacora_Usuarios" Association="ARMModel.FK_Bitacora_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="Bitacora" EntitySet="Bitacora" />
-          </AssociationSet>
-          <FunctionImport Name="InformacionClientes" ReturnType="Collection(ARMModel.InformacionClientes_Result)" />
-          <FunctionImport Name="InformacionEmpleados" ReturnType="Collection(ARMModel.InformacionEmpleados_Result)" />
+          <FunctionImport Name="solicitudesPorRangoFechas" ReturnType="Collection(ARMModel.solicitudesPorRangoFechas_Result)" />
+          <FunctionImport Name="SPDetalleSolicitud" ReturnType="Collection(ARMModel.SPDetalleSolicitud_Result)">
+            <Parameter Name="solicitudID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SPsolicitudes" ReturnType="Collection(ARMModel.SPsolicitudes_Result)">
+            <Parameter Name="solicitudID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
           <Property Type="Int64" Name="Cedula" Nullable="false" />
@@ -925,53 +1006,10 @@
           <Property Type="String" Name="empleadoCorreo" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="empleadoEstado" Nullable="false" MaxLength="20" />
         </ComplexType>
-        <ComplexType Name="solicitudesPorRangoFechas_Result">
-          <Property Type="Int32" Name="NumeroSolicitud" Nullable="false" />
-          <Property Type="String" Name="NombreCliente" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="NombreEmpleado" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="NombreTrabajo" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Departamento" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Equipo" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Provincia" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="fechaReporte" Nullable="false" />
-          <Property Type="DateTime" Name="horaEntrada" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="horaSalida" Nullable="false" Precision="23" />
-          <Property Type="String" Name="tipoHora" Nullable="false" MaxLength="50" />
-          <Property Type="Int64" Name="cantidadHoras" Nullable="false" />
-          <Property Type="String" Name="solicitudMotivo" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="motivoDetalle" Nullable="false" />
-          <Property Type="String" Name="solicitudRepuestos" Nullable="false" MaxLength="100" />
-          <Property Type="Int64" Name="equipoDetenido" Nullable="false" />
-          <Property Type="String" Name="firmaCliente" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="Bitacora">
-          <Key>
-            <PropertyRef Name="bitacoraId" />
-          </Key>
-          <Property Name="bitacoraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="usuarioId" Type="Int64" />
-          <Property Name="fechaHora" Type="DateTime" Precision="3" />
-          <Property Name="accionRealizada" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="valoresViejos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="valoresNuevos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuarios" Relationship="ARMModel.FK_Bitacora_Usuarios" FromRole="Bitacora" ToRole="Usuarios" />
-        </EntityType>
-        <Association Name="FK_Bitacora_Usuarios">
-          <End Type="ARMModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
-          <End Type="ARMModel.Bitacora" Role="Bitacora" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="usuario" />
-            </Principal>
-            <Dependent Role="Bitacora">
-              <PropertyRef Name="usuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="InformacionClientes_Result">
           <Property Type="Int32" Name="IdCliente" Nullable="false" />
           <Property Type="String" Name="NombreCliente" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Correo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Estado" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="Provincia" Nullable="true" MaxLength="50" />
         </ComplexType>
@@ -983,12 +1021,82 @@
           <Property Type="String" Name="Correo" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Estado" Nullable="false" MaxLength="20" />
         </ComplexType>
+        <ComplexType Name="solicitudesPorRangoFechas_Result">
+          <Property Type="Int32" Name="NumeroSolicitud" Nullable="false" />
+          <Property Type="String" Name="NombreCliente" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NombreEmpleado" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NombreTrabajo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Departamento" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Equipo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Provincia" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fechaReporte" Nullable="false" />
+          <Property Type="DateTime" Name="horaEntrada" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="horaSalida" Nullable="false" Precision="23" />
+          <Property Type="Time" Name="cantidadHoras" Nullable="false" />
+          <Property Type="String" Name="tipoHora" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="solicitudMotivo" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="motivoDetalle" Nullable="false" />
+          <Property Type="String" Name="solicitudRepuestos" Nullable="true" MaxLength="100" />
+          <Property Type="Int64" Name="equipoDetenido" Nullable="true" />
+          <Property Type="String" Name="firmaCliente" Nullable="false" />
+          <Property Type="Time" Name="tiempoDetenido" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SPDetalleSolicitud_Result">
+          <Property Type="Int32" Name="solicitudId" Nullable="false" />
+          <Property Type="String" Name="clienteNombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="empleadoNombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="provinciaNombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="deparatamentoNombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="equipoNombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="tipoTrabajoNombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombreMQC" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="cedulaMQC" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="fechaReporte" Nullable="false" />
+          <Property Type="DateTime" Name="horaEntrada" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="horaSalida" Nullable="false" Precision="23" />
+          <Property Type="String" Name="solicitudMotivo" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="motivoDetalle" Nullable="false" />
+          <Property Type="Time" Name="cantidadHoras" Nullable="false" />
+          <Property Type="String" Name="tipoHora" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="solicitudRepuestos" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SPsolicitudes_Result">
+          <Property Type="Int32" Name="solicitudId" Nullable="false" />
+          <Property Type="Int64" Name="empleadoCedula" Nullable="false" />
+          <Property Type="Int32" Name="departamentoId" Nullable="false" />
+          <Property Type="Int32" Name="clienteId" Nullable="false" />
+          <Property Type="Int32" Name="equipoId" Nullable="false" />
+          <Property Type="Int32" Name="provinciaId" Nullable="false" />
+          <Property Type="Int32" Name="tipoTrabajoId" Nullable="false" />
+          <Property Type="DateTime" Name="fechaReporte" Nullable="false" />
+          <Property Type="DateTime" Name="horaEntrada" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="horaSalida" Nullable="false" Precision="23" />
+          <Property Type="String" Name="tipoHora" Nullable="false" MaxLength="50" />
+          <Property Type="Time" Name="cantidadHoras" Nullable="false" />
+          <Property Type="String" Name="solicitudMotivo" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="motivoDetalle" Nullable="false" />
+          <Property Type="String" Name="solicitudRepuestos" Nullable="true" MaxLength="100" />
+          <Property Type="Int64" Name="equipoDetenido" Nullable="true" />
+          <Property Type="String" Name="firmaCliente" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ARMModelStoreContainer" CdmEntityContainer="ARMEntities">
+          <EntitySetMapping Name="Bitacora">
+            <EntityTypeMapping TypeName="ARMModel.Bitacora">
+              <MappingFragment StoreEntitySet="Bitacora">
+                <ScalarProperty Name="bitacoraId" ColumnName="bitacoraId" />
+                <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+                <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
+                <ScalarProperty Name="accionRealizada" ColumnName="accionRealizada" />
+                <ScalarProperty Name="valoresViejos" ColumnName="valoresViejos" />
+                <ScalarProperty Name="valoresNuevos" ColumnName="valoresNuevos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Clientes">
             <EntityTypeMapping TypeName="ARMModel.Clientes">
               <MappingFragment StoreEntitySet="Clientes">
@@ -1089,16 +1197,12 @@
           <EntitySetMapping Name="Solicitudes">
             <EntityTypeMapping TypeName="ARMModel.Solicitudes">
               <MappingFragment StoreEntitySet="Solicitudes">
-                <ScalarProperty Name="cedulaMQC" ColumnName="cedulaMQC" />
-                <ScalarProperty Name="correoMQC" ColumnName="correoMQC" />
-                <ScalarProperty Name="nombreMQC" ColumnName="nombreMQC" />
                 <ScalarProperty Name="solicitudId" ColumnName="solicitudId" />
                 <ScalarProperty Name="clienteId" ColumnName="clienteId" />
                 <ScalarProperty Name="empleadoCedula" ColumnName="empleadoCedula" />
                 <ScalarProperty Name="tipoTrabajoId" ColumnName="tipoTrabajoId" />
                 <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
                 <ScalarProperty Name="equipoId" ColumnName="equipoId" />
-                <ScalarProperty Name="solicitudJefatura" ColumnName="solicitudJefatura" />
                 <ScalarProperty Name="fechaReporte" ColumnName="fechaReporte" />
                 <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
                 <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
@@ -1108,8 +1212,12 @@
                 <ScalarProperty Name="motivoDetalle" ColumnName="motivoDetalle" />
                 <ScalarProperty Name="solicitudRepuestos" ColumnName="solicitudRepuestos" />
                 <ScalarProperty Name="equipoDetenido" ColumnName="equipoDetenido" />
+                <ScalarProperty Name="tiempoDetenido" ColumnName="tiempoDetenido" />
                 <ScalarProperty Name="provinciaId" ColumnName="provinciaId" />
                 <ScalarProperty Name="firmaCliente" ColumnName="firmaCliente" />
+                <ScalarProperty Name="nombreMQC" ColumnName="nombreMQC" />
+                <ScalarProperty Name="correoMQC" ColumnName="correoMQC" />
+                <ScalarProperty Name="cedulaMQC" ColumnName="cedulaMQC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1136,6 +1244,18 @@
                 <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="rolId" ColumnName="rolId" />
                 <ScalarProperty Name="usuarioContraseña" ColumnName="usuarioContraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="ARMModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1168,43 +1288,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="INSERTAR_CODIGO_USUARIO_RECUPERACION" FunctionName="ARMModel.Store.INSERTAR_CODIGO_USUARIO_RECUPERACION" />
-          <FunctionImportMapping FunctionImportName="INSERTAR_EN_BITACORA" FunctionName="ARMModel.Store.INSERTAR_EN_BITACORA" />
-          <FunctionImportMapping FunctionImportName="solicitudesPorRangoFechas" FunctionName="ARMModel.Store.solicitudesPorRangoFechas">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ARMModel.solicitudesPorRangoFechas_Result">
-                <ScalarProperty Name="NumeroSolicitud" ColumnName="NumeroSolicitud" />
-                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
-                <ScalarProperty Name="NombreEmpleado" ColumnName="NombreEmpleado" />
-                <ScalarProperty Name="NombreTrabajo" ColumnName="NombreTrabajo" />
-                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
-                <ScalarProperty Name="Equipo" ColumnName="Equipo" />
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-                <ScalarProperty Name="fechaReporte" ColumnName="fechaReporte" />
-                <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
-                <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
-                <ScalarProperty Name="tipoHora" ColumnName="tipoHora" />
-                <ScalarProperty Name="cantidadHoras" ColumnName="cantidadHoras" />
-                <ScalarProperty Name="solicitudMotivo" ColumnName="solicitudMotivo" />
-                <ScalarProperty Name="motivoDetalle" ColumnName="motivoDetalle" />
-                <ScalarProperty Name="solicitudRepuestos" ColumnName="solicitudRepuestos" />
-                <ScalarProperty Name="equipoDetenido" ColumnName="equipoDetenido" />
-                <ScalarProperty Name="firmaCliente" ColumnName="firmaCliente" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="Bitacora">
-            <EntityTypeMapping TypeName="ARMModel.Bitacora">
-              <MappingFragment StoreEntitySet="Bitacora">
-                <ScalarProperty Name="valoresNuevos" ColumnName="valoresNuevos" />
-                <ScalarProperty Name="valoresViejos" ColumnName="valoresViejos" />
-                <ScalarProperty Name="accionRealizada" ColumnName="accionRealizada" />
-                <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
-                <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
-                <ScalarProperty Name="bitacoraId" ColumnName="bitacoraId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InformacionClientes" FunctionName="ARMModel.Store.InformacionClientes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ARMModel.InformacionClientes_Result">
@@ -1225,6 +1308,78 @@
                 <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="INSERTAR_CODIGO_USUARIO_RECUPERACION" FunctionName="ARMModel.Store.INSERTAR_CODIGO_USUARIO_RECUPERACION" />
+          <FunctionImportMapping FunctionImportName="INSERTAR_EN_BITACORA" FunctionName="ARMModel.Store.INSERTAR_EN_BITACORA" />
+          <FunctionImportMapping FunctionImportName="solicitudesPorRangoFechas" FunctionName="ARMModel.Store.solicitudesPorRangoFechas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARMModel.solicitudesPorRangoFechas_Result">
+                <ScalarProperty Name="NumeroSolicitud" ColumnName="NumeroSolicitud" />
+                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+                <ScalarProperty Name="NombreEmpleado" ColumnName="NombreEmpleado" />
+                <ScalarProperty Name="NombreTrabajo" ColumnName="NombreTrabajo" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Equipo" ColumnName="Equipo" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="fechaReporte" ColumnName="fechaReporte" />
+                <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
+                <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
+                <ScalarProperty Name="cantidadHoras" ColumnName="cantidadHoras" />
+                <ScalarProperty Name="tipoHora" ColumnName="tipoHora" />
+                <ScalarProperty Name="solicitudMotivo" ColumnName="solicitudMotivo" />
+                <ScalarProperty Name="motivoDetalle" ColumnName="motivoDetalle" />
+                <ScalarProperty Name="solicitudRepuestos" ColumnName="solicitudRepuestos" />
+                <ScalarProperty Name="equipoDetenido" ColumnName="equipoDetenido" />
+                <ScalarProperty Name="firmaCliente" ColumnName="firmaCliente" />
+                <ScalarProperty Name="tiempoDetenido" ColumnName="tiempoDetenido" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SPDetalleSolicitud" FunctionName="ARMModel.Store.SPDetalleSolicitud">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARMModel.SPDetalleSolicitud_Result">
+                <ScalarProperty Name="solicitudId" ColumnName="solicitudId" />
+                <ScalarProperty Name="clienteNombre" ColumnName="clienteNombre" />
+                <ScalarProperty Name="empleadoNombre" ColumnName="empleadoNombre" />
+                <ScalarProperty Name="provinciaNombre" ColumnName="provinciaNombre" />
+                <ScalarProperty Name="deparatamentoNombre" ColumnName="deparatamentoNombre" />
+                <ScalarProperty Name="equipoNombre" ColumnName="equipoNombre" />
+                <ScalarProperty Name="tipoTrabajoNombre" ColumnName="tipoTrabajoNombre" />
+                <ScalarProperty Name="nombreMQC" ColumnName="nombreMQC" />
+                <ScalarProperty Name="cedulaMQC" ColumnName="cedulaMQC" />
+                <ScalarProperty Name="fechaReporte" ColumnName="fechaReporte" />
+                <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
+                <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
+                <ScalarProperty Name="solicitudMotivo" ColumnName="solicitudMotivo" />
+                <ScalarProperty Name="motivoDetalle" ColumnName="motivoDetalle" />
+                <ScalarProperty Name="cantidadHoras" ColumnName="cantidadHoras" />
+                <ScalarProperty Name="tipoHora" ColumnName="tipoHora" />
+                <ScalarProperty Name="solicitudRepuestos" ColumnName="solicitudRepuestos" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SPsolicitudes" FunctionName="ARMModel.Store.SPsolicitudes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARMModel.SPsolicitudes_Result">
+                <ScalarProperty Name="solicitudId" ColumnName="solicitudId" />
+                <ScalarProperty Name="empleadoCedula" ColumnName="empleadoCedula" />
+                <ScalarProperty Name="departamentoId" ColumnName="departamentoId" />
+                <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+                <ScalarProperty Name="equipoId" ColumnName="equipoId" />
+                <ScalarProperty Name="provinciaId" ColumnName="provinciaId" />
+                <ScalarProperty Name="tipoTrabajoId" ColumnName="tipoTrabajoId" />
+                <ScalarProperty Name="fechaReporte" ColumnName="fechaReporte" />
+                <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
+                <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
+                <ScalarProperty Name="tipoHora" ColumnName="tipoHora" />
+                <ScalarProperty Name="cantidadHoras" ColumnName="cantidadHoras" />
+                <ScalarProperty Name="solicitudMotivo" ColumnName="solicitudMotivo" />
+                <ScalarProperty Name="motivoDetalle" ColumnName="motivoDetalle" />
+                <ScalarProperty Name="solicitudRepuestos" ColumnName="solicitudRepuestos" />
+                <ScalarProperty Name="equipoDetenido" ColumnName="equipoDetenido" />
+                <ScalarProperty Name="firmaCliente" ColumnName="firmaCliente" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

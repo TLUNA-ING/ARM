@@ -214,6 +214,9 @@
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\TipoTrabajoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="database_firewall_rules.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
     <Compile Include="Departamentos.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
@@ -298,6 +301,12 @@
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="solicitudesPorRangoFechas_Result.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SPDetalleSolicitud_Result.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SPsolicitudes_Result.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoCedula.cs">
@@ -4865,13 +4874,6 @@
     <Content Include="Views\TipoTrabajo\Index.cshtml" />
     <Content Include="Views\ConsultaSolicitud\Index.cshtml" />
     <Content Include="Views\Intermedio\Index.cshtml" />
-    <EntityDeploy Include="SOLICITUDES.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SOLICITUDES.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="SOLICITUDES.edmx.diagram">
-      <DependentUpon>SOLICITUDES.edmx</DependentUpon>
-    </Content>
     <Content Include="Views\Cliente\Report.cshtml" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
@@ -4887,6 +4889,13 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Solicitud\Report.cshtml" />
     <Content Include="Views\Empleado\Report.cshtml" />
+    <EntityDeploy Include="SOLICITUDES.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SOLICITUDES.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="SOLICITUDES.edmx.diagram">
+      <DependentUpon>SOLICITUDES.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

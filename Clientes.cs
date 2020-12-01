@@ -29,8 +29,8 @@ namespace ProyectoProgramacion
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Departamento_X_Cliente> Departamento_X_Cliente { get; set; }
-        public virtual Provincias Provincias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitudes> Solicitudes { get; set; }
+        public virtual Provincias Provincias { get; set; }
     }
 }

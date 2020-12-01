@@ -49,7 +49,7 @@ namespace ProyectoProgramacion.Models
                     horaEntrada = x.horaEntrada.ToString(),
                     horaSalida = x.horaSalida.ToString(),
                     tipoHora = x.tipoHora,
-                    cantidadHoras = (int)x.cantidadHoras,
+                    cantidadHoras = x.cantidadHoras.ToString(),
                     solicitudMotivo = x.solicitudMotivo,
                     motivoDetalle = x.motivoDetalle,
                     solicitudRepuestos = x.solicitudRepuestos,
@@ -192,11 +192,11 @@ namespace ProyectoProgramacion.Models
                         solicitudes.horaEntrada = SOL.horaEntrada.ToString();
                         solicitudes.horaSalida = SOL.horaSalida.ToString();
                         solicitudes.tipoHora = SOL.tipoHora;
-                        solicitudes.cantidadHoras = SOL.cantidadHoras;
+                        solicitudes.cantidadHoras = SOL.cantidadHoras.ToString();
                         solicitudes.solicitudMotivo = SOL.solicitudMotivo;
                         solicitudes.motivoDetalle = SOL.motivoDetalle;
                         solicitudes.solicitudRepuestos = SOL.solicitudRepuestos;
-                        solicitudes.equipoDetenido = SOL.equipoDetenido;
+                        solicitudes.equipoDetenido = (long)SOL.equipoDetenido;
                     }
                 };
                 return solicitudes;
@@ -251,7 +251,7 @@ namespace ProyectoProgramacion.Models
                         SOLICITUD.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
                         SOLICITUD.horaSalida = Convert.ToDateTime(sol.horaSalida);
                         SOLICITUD.tipoHora = sol.tipoHora;
-                        SOLICITUD.cantidadHoras = sol.cantidadHoras;
+                        SOLICITUD.cantidadHoras = TimeSpan.Parse(sol.cantidadHoras);
                         SOLICITUD.solicitudMotivo = sol.solicitudMotivo;
                         SOLICITUD.motivoDetalle = sol.motivoDetalle;
                         SOLICITUD.solicitudRepuestos = sol.solicitudRepuestos;

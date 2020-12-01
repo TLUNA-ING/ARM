@@ -31,6 +31,7 @@ function Add() {
         motivoDetalle: $('#motivoDetalle').val(),
         solicitudRepuestos: $('#solicitudRepuestos').val(),
         equipoDetenido: $("#equipoDetenido option:selected").val(),
+        tiempoDetenido: $('#tiempoDetenido').val(),
         firmaCliente: base64,
         correoMQC: $('#correoMQC').val(),
         cedulaMQC: $('#cedulaMQC').val(),
@@ -53,7 +54,7 @@ function Add() {
                 alert('Revise los datos agregados, ya que no pueden haber campos vacios');
             }
         });
-    } catch (err) { alert('Revise los datos agregados, ya que no pueden haber campos vacios'); }
+    } catch (err) { alert('Error'); }
  
 }//FIN FUNCION AGREGAR
 
@@ -78,6 +79,7 @@ function Update() {
         motivoDetalle: $('#motivoDetalle').val(),
         solicitudRepuestos: $('#solicitudRepuestos').val(),
         equipoDetenido: $("#equipoDetenido option:selected").val(),
+        tiempoDetenido: $('#tiempoDetenido').val(),
         correoMQC: $('#correoMQC').val(),
         cedulaMQC: $('#cedulaMQC').val(),
         nombreMQC: $('#nombreMQC').val()
@@ -117,6 +119,7 @@ function clearTextBox() {
     $('#motivoDetalle').val("");
     $('#solicitudRepuestos').val("");
     $('#equipoDetenido').val("");
+    $('#tiempoDetenido').val(""),
     $('#correoMQC').val(""),
     $('#cedulaMQC').val(""),
     $('#nombreMQC').val("")

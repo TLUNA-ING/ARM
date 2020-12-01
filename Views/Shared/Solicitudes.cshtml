@@ -94,13 +94,28 @@
                     <img src="~/Content/images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div++ class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diana Monge</div>
-                    <div class="email">dmonge@capris.co.cr</div>
+                    @{ViewBag.NombreCompletoUsuario = Session["NombreCompletoUsuario"];
+                        ViewBag.EmailUsuario = Session["EmailUsuario"];
+                        ViewBag.CedulaUsuario = Session["Cedula"];
+                        ViewBag.CambiarPasswordUsuario = Session["CambiarPassword"];
+                    }
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.NombreCompletoUsuario</div>
+                    <div class="email">@ViewBag.EmailUsuario</div>
+
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Perfil</a></li>
+                            <li data-toggle="modal" data-target="#myModalPerfil" onclick="ConsultarUsuarioAcceso(@ViewBag.CedulaUsuario);"><a href="javascript:void(0);"><i class="material-icons">person</i>Perfil</a></li>
                             <li role="separator" class="divider"></li>
+                            @{ var rol1 = Session["Rol"];
+                                switch (rol1)
+                                {
+                                    case "admin":
+                                        <li data-toggle="modal" data-target="#myModalSmtp" onclick="ConsultarSMTP();"><a href="javascript:void(0);"><i class="material-icons">alternate_email</i>SMTP</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        break;
+                                }
+                            }
                             <li><a href="/Home/Logout"><i class="material-icons">input</i>Cerrar Sesión</a></li>
                         </ul>
                     </div>
@@ -111,78 +126,121 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MENU PRINCIPAL</li>
-                    <li>
-                        <a href="/Empleado/">
-                            <i class="material-icons col-light-blue" >face</i>
-                            <span>Empleados</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons col-black">settings</i>
-                            <span>Mantenimientos</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/Equipo/">
-                                    <i class="material-icons col-black">construction</i>
-                                    <span>Equipos</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Cliente/">
-                                    <i class="material-icons col-black">construction</i>
-                                    <span>Clientes</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Empleado/">
-                                    <i class="material-icons col-black">construction</i>
-                                    <span>Tipo de trabajo</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Departamento/">
-                                    <i class="material-icons col-black">construction</i>
-                                    <span>Departamentos</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons col-black">article</i>
-                            <span>Movimientos</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/Solicitud/">
-                                    <i class="material-icons col-black">text_fields</i>
-                                    <span>Solicitudes</span>
-                                </a>
-                            </li>
+                    @{var rol = Session["Rol"];
 
-                            <li>
-                                <a href="/Consulta/">
-                                    <i class="material-icons col-black">history</i>
-                                    <span>Consulta de Solicitudes</span>
-                                </a>
-                            </li>
+                        switch (rol)
+                        {
+                            case "admin":
+                                <li>
+                                    <a href="javascript:void(0);" class="menu-toggle">
+                                        <i class="material-icons col-black">face</i>
+                                        <span>Acceso</span>
+                                    </a>
+                                    <ul class="ml-menu">
+                                        <li>
+                                            <a href="/Empleado/">
+                                                <i class="material-icons col-black">groups</i>
+                                                <span>Empleados</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Usuario/">
+                                                <i class="material-icons col-black">groups</i>
+                                                <span>Usuarios</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="/Reportes/">
-                            <i class="material-icons col-light-blue">history</i>
-                            <span>Reportes</span>
-                        </a>
-                    </li>
-                    @*<li>
-                        <a href="/Consulta/">
-                            <i class="material-icons col-light-blue">history</i>
-                            <span>Consulta de Solicitudes</span>
-                        </a>
-                    </li>*@
+                                <li>
+                                    <a href="javascript:void(0);" class="menu-toggle">
+                                        <i class="material-icons col-black">settings</i>
+                                        <span>Mantenimientos</span>
+                                    </a>
+                                    <ul class="ml-menu">
+                                        <li>
+                                            <a href="/Equipo/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Equipos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Cliente/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Clientes</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/TipoTrabajo/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Tipo de trabajo</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Departamento/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Departamentos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Intermedio/">
+                                                <i class="material-icons col-black">construction</i>
+                                                <span>Departamentos/Cliente - Equipos/Departamento</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                break;
+                        }
+                    }
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons col-black">insert_drive_file</i>
+                        <span>Movimientos</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="/Solicitud/">
+                                <i class="material-icons col-black">assignment</i>
+                                <span>Solicitudes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/ConsultaSolicitud/">
+                                <i class="material-icons col-black">search</i>
+                                <span>Consulta Solicitudes</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons col-black">insert_drive_file</i>
+                        <span>Reportes</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="/Cliente/Report">
+                                <i class="material-icons col-black">description</i>
+                                <span>Reporte Clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Solicitud/Report">
+                                <i class="material-icons col-black">description</i>
+                                <span>Reporte Solicitudes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Empleado/Report">
+                                <i class="material-icons col-black">description</i>
+                                <span>Reporte Empleados</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 </ul>
             </div>
             <!-- #Menu -->

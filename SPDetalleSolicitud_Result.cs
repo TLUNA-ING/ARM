@@ -11,25 +11,24 @@ namespace ProyectoProgramacion
 {
     using System;
     
-    public partial class solicitudesPorRangoFechas_Result
+    public partial class SPDetalleSolicitud_Result
     {
-        public int NumeroSolicitud { get; set; }
-        public string NombreCliente { get; set; }
-        public string NombreEmpleado { get; set; }
-        public string NombreTrabajo { get; set; }
-        public string Departamento { get; set; }
-        public string Equipo { get; set; }
-        public string Provincia { get; set; }
+        public int solicitudId { get; set; }
+        public string clienteNombre { get; set; }
+        public string empleadoNombre { get; set; }
+        public string provinciaNombre { get; set; }
+        public string deparatamentoNombre { get; set; }
+        public string equipoNombre { get; set; }
+        public string tipoTrabajoNombre { get; set; }
+        public string nombreMQC { get; set; }
+        public string cedulaMQC { get; set; }
         public System.DateTime fechaReporte { get; set; }
         public System.DateTime horaEntrada { get; set; }
         public System.DateTime horaSalida { get; set; }
-        public System.TimeSpan cantidadHoras { get; set; }
-        public string tipoHora { get; set; }
         public string solicitudMotivo { get; set; }
         public string motivoDetalle { get; set; }
+        public System.TimeSpan cantidadHoras { get; set; }
+        public string tipoHora { get; set; }
         public string solicitudRepuestos { get; set; }
-        public Nullable<long> equipoDetenido { get; set; }
-        public string firmaCliente { get; set; }
-        public Nullable<System.TimeSpan> tiempoDetenido { get; set; }
     }
 }

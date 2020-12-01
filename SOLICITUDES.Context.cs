@@ -27,6 +27,7 @@ namespace ProyectoProgramacion
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Bitacora> Bitacora { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<CodigoRecuperacion> CodigoRecuperacion { get; set; }
         public virtual DbSet<Departamento_X_Cliente> Departamento_X_Cliente { get; set; }
@@ -41,7 +42,7 @@ namespace ProyectoProgramacion
         public virtual DbSet<TipoCedula> TipoCedula { get; set; }
         public virtual DbSet<TipoTrabajo> TipoTrabajo { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
-        public virtual DbSet<Bitacora> Bitacora { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     
         public virtual ObjectResult<CONSULTAR_EMPLEADOS_NO_USUARIO_Result> CONSULTAR_EMPLEADOS_NO_USUARIO()
         {
@@ -72,6 +73,16 @@ namespace ProyectoProgramacion
                 new ObjectParameter("CEDULA", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONSULTAR_UN_EMPLEADO_BD_Result>("CONSULTAR_UN_EMPLEADO_BD", cEDULAParameter);
+        }
+    
+        public virtual ObjectResult<InformacionClientes_Result> InformacionClientes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InformacionClientes_Result>("InformacionClientes");
+        }
+    
+        public virtual ObjectResult<InformacionEmpleados_Result> InformacionEmpleados()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InformacionEmpleados_Result>("InformacionEmpleados");
         }
     
         public virtual int INSERTAR_CODIGO_USUARIO_RECUPERACION(string uSUARIO, string cODIGO)
@@ -113,14 +124,22 @@ namespace ProyectoProgramacion
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<solicitudesPorRangoFechas_Result>("solicitudesPorRangoFechas");
         }
     
-        public virtual ObjectResult<InformacionClientes_Result> InformacionClientes()
+        public virtual ObjectResult<SPDetalleSolicitud_Result> SPDetalleSolicitud(Nullable<int> solicitudID)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InformacionClientes_Result>("InformacionClientes");
+            var solicitudIDParameter = solicitudID.HasValue ?
+                new ObjectParameter("solicitudID", solicitudID) :
+                new ObjectParameter("solicitudID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SPDetalleSolicitud_Result>("SPDetalleSolicitud", solicitudIDParameter);
         }
     
-        public virtual ObjectResult<InformacionEmpleados_Result> InformacionEmpleados()
+        public virtual ObjectResult<SPsolicitudes_Result> SPsolicitudes(Nullable<int> solicitudID)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InformacionEmpleados_Result>("InformacionEmpleados");
+            var solicitudIDParameter = solicitudID.HasValue ?
+                new ObjectParameter("solicitudID", solicitudID) :
+                new ObjectParameter("solicitudID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SPsolicitudes_Result>("SPsolicitudes", solicitudIDParameter);
         }
     }
 }

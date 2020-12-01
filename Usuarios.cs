@@ -17,8 +17,8 @@ namespace ProyectoProgramacion
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuarios()
         {
-            this.CodigoRecuperacion = new HashSet<CodigoRecuperacion>();
             this.Bitacora = new HashSet<Bitacora>();
+            this.CodigoRecuperacion = new HashSet<CodigoRecuperacion>();
         }
     
         public long usuario { get; set; }
@@ -26,10 +26,10 @@ namespace ProyectoProgramacion
         public string usuarioContraseña { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bitacora> Bitacora { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodigoRecuperacion> CodigoRecuperacion { get; set; }
         public virtual Empleados Empleados { get; set; }
         public virtual Roles Roles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bitacora> Bitacora { get; set; }
     }
 }

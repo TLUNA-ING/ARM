@@ -10,16 +10,16 @@
 namespace ProyectoProgramacion
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Solicitudes
+    public partial class SPsolicitudes_Result
     {
         public int solicitudId { get; set; }
-        public int clienteId { get; set; }
         public long empleadoCedula { get; set; }
-        public int tipoTrabajoId { get; set; }
         public int departamentoId { get; set; }
+        public int clienteId { get; set; }
         public int equipoId { get; set; }
+        public int provinciaId { get; set; }
+        public int tipoTrabajoId { get; set; }
         public System.DateTime fechaReporte { get; set; }
         public System.DateTime horaEntrada { get; set; }
         public System.DateTime horaSalida { get; set; }
@@ -29,18 +29,6 @@ namespace ProyectoProgramacion
         public string motivoDetalle { get; set; }
         public string solicitudRepuestos { get; set; }
         public Nullable<long> equipoDetenido { get; set; }
-        public Nullable<System.TimeSpan> tiempoDetenido { get; set; }
-        public int provinciaId { get; set; }
         public string firmaCliente { get; set; }
-        public string nombreMQC { get; set; }
-        public string correoMQC { get; set; }
-        public string cedulaMQC { get; set; }
-    
-        public virtual Clientes Clientes { get; set; }
-        public virtual Departamentos Departamentos { get; set; }
-        public virtual Empleados Empleados { get; set; }
-        public virtual Equipos Equipos { get; set; }
-        public virtual Provincias Provincias { get; set; }
-        public virtual TipoTrabajo TipoTrabajo { get; set; }
     }
 }
