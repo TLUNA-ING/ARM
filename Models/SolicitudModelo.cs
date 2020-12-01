@@ -122,6 +122,9 @@ namespace ProyectoProgramacion.Models
                     item.solicitudRepuestos = sol.solicitudRepuestos;
                     item.equipoDetenido = sol.equipoDetenido;
                     item.firmaCliente = sol.firmaCliente;
+                    item.cedulaMQC = sol.cedulaMQC;
+                    item.correoMQC = sol.correoMQC;
+                    item.nombreMQC = item.nombreMQC;
                     contextoBD.Solicitudes.Add(item);
                     contextoBD.SaveChanges();
 
@@ -170,6 +173,9 @@ namespace ProyectoProgramacion.Models
                     item.motivoDetalle = sol.motivoDetalle;
                     item.solicitudRepuestos = sol.solicitudRepuestos;
                     item.equipoDetenido = sol.equipoDetenido;
+                    item.cedulaMQC = sol.cedulaMQC;
+                    item.correoMQC = sol.correoMQC;
+                    item.nombreMQC = sol.nombreMQC;
                     contextoBD.Solicitudes.Add(item);
                     contextoBD.SaveChanges();
 

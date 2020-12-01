@@ -97,7 +97,7 @@
                 <div class="image">
                     <img src="~/Content/images/user.png" width="48" height="48" alt="User" />
                 </div>
-                <div class="info-container">
+                <div++ class="info-container">
                     @{ViewBag.NombreCompletoUsuario = Session["NombreCompletoUsuario"];
                         ViewBag.EmailUsuario = Session["EmailUsuario"];
                         ViewBag.CedulaUsuario = Session["Cedula"];
@@ -123,7 +123,7 @@
                             <li><a href="/Home/Logout"><i class="material-icons">input</i>Cerrar Sesión</a></li>
                         </ul>
                     </div>
-                </div>
+                </div++>
             </div>
             <div class="menu">
                 <ul class="list">
@@ -222,7 +222,7 @@
                             <i class="material-icons col-black">insert_drive_file</i>
                             <span>Reportes</span>
                         </a>
-                        <ul>
+                        <ul class="ml-menu">
                             <li>
                                 <a href="/Cliente/Report">
                                     <i class="material-icons col-black">description</i>
