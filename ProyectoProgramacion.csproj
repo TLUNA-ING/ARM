@@ -279,6 +279,13 @@
     <Compile Include="Provincias.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
+    <Compile Include="Reports\FrmReporteSolicitud.aspx.cs">
+      <DependentUpon>FrmReporteSolicitud.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\FrmReporteSolicitud.aspx.designer.cs">
+      <DependentUpon>FrmReporteSolicitud.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Roles.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
@@ -4260,6 +4267,7 @@
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
     <Content Include="packages\WebGrease.1.6.0\lib\WebGrease.dll" />
     <Content Include="packages\WebGrease.1.6.0\tools\WG.EXE" />
+    <Content Include="Reports\FrmReporteSolicitud.aspx" />
     <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
@@ -4910,6 +4918,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\rptClientes.rdlc" />
+    <EmbeddedResource Include="Reports\rptDetalleSolicitud.rdlc" />
     <EmbeddedResource Include="Reports\rptEmpleados.rdlc" />
     <EmbeddedResource Include="Reports\rptSolicitudes.rdlc" />
   </ItemGroup>
