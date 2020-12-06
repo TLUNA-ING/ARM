@@ -494,6 +494,7 @@ function Print(id) {
     $.getJSON("/ConsultaSolicitud/Report2/"+id, function (data) {
         //Muestra el iframe 
 
+        $("#myReport").modal("show");
         $('#reporte').html(data);
     });
     //location.href = '@Url.Action("Report1","ConsultaSolicitud")';
