@@ -3,7 +3,6 @@ $(document).ready(function () {
     CargarProvincia();
     CargarEmpleado();
     CargarTipoTrabajo();
-    Print();
 
     $("#template").change(function () {
         var e = document.getElementById("template");
