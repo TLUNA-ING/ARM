@@ -62,6 +62,14 @@ function CARGAR_GRID() {
                         " </button ></div>"
                 }
             },
+            {
+                "data": null,
+                "render": function (data, type, row) {
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = Print(" + row.ID_Solicitud + ") > " +
+                        "<i class='material-icons'>print</i>" +
+                        " </button ></div>"
+                }
+            },
 
         ]
     });
@@ -477,3 +485,29 @@ function clearTextBox() {
     $('#Equipo option').remove();
     $('#TipoTrabajo option').remove();
 }//FIN FUNCION DE LIMPAR CASILLAS
+
+
+
+function Print(id) {
+
+
+    $.getJSON("/ConsultaSolicitud/Report1/" + id, function (data) {
+        //Muestra el iframe 
+
+        $('#reporte').html(data);
+    });
+    //location.href = '@Url.Action("Report1","ConsultaSolicitud")';
+
+    //$.ajax({
+    //    url: "/ConsultaSolicitud/Report1/" + id,
+    //    type: "POST",
+    //    dataType: JSON,
+    //    success: function (result) {
+            
+    //    },
+    //    error: function (errormessage) {
+    //        alert(errormessage.responseText);
+    //    }
+    //});
+//return false;
+}//FIN DE ConsultarSolicitud

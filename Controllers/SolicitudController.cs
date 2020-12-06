@@ -189,5 +189,48 @@ namespace ProyectoProgramacion.Controllers
 
         }
 
+        public ActionResult Report1()
+        {
+
+
+
+            var reportViewer = new ReportViewer
+            {
+                ProcessingMode = ProcessingMode.Local,
+                ShowExportControls = true,
+                ShowParameterPrompts = true,
+                ShowPageNavigationControls = true,
+                ShowRefreshButton = true,
+                ShowPrintButton = true,
+                SizeToReportContent = true,
+                AsyncRendering = false,
+            };
+
+            string rutaReporte = "~/Reports/rptDetalleSolicitud.rdlc";
+            string rutaServidor = Server.MapPath(rutaReporte);
+            reportViewer.LocalReport.ReportPath = rutaServidor;
+
+            //var infoFuenteDatos = reportViewer.LocalReport.
+
+
+            List<SPDetalleSolicitud_Result> datosReporte;
+            using (var contextoBD = new ARMEntities())
+            {
+                datosReporte = contextoBD.SPDetalleSolicitud(2).ToList();
+            }
+            ReportDataSource fuenteDatos = new ReportDataSource("DetalleSolicitudDataSet", datosReporte);
+            reportViewer.LocalReport.DataSources.Clear();
+            //fuenteDatos.Name = infoFuenteDatos[0];
+            //fuenteDatos.Value = datosReporte;
+            reportViewer.LocalReport.DataSources.Add(fuenteDatos);
+            reportViewer.LocalReport.Refresh();
+
+            ViewBag.ReportViewer = reportViewer;
+
+
+            return View();
+
+        }
+
     }
 }
