@@ -5,6 +5,7 @@ using ProyectoProgramacion.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
@@ -184,9 +185,20 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE ModificarEmpleado
 
-        public ActionResult Report1(int id)
+        public JsonResult Report2(int id)
         {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<iframe id='ifReporte' width='100%' style='height: 480px' frameborder='0'");
+            
+            sb.AppendFormat("src='Report1/"+id+"'");
+            sb.Append("></iframe>");
+            //Retorna el stringBuilder en JSON y se permite todas las peticiones GET
 
+            return this.Json(sb.ToString(), JsonRequestBehavior.AllowGet);
+        }
+
+            public ActionResult Report1(int id)
+        {
 
 
             var reportViewer = new ReportViewer
@@ -224,7 +236,6 @@ namespace ProyectoProgramacion.Controllers
 
 
             return View();
-
         }
 
     }

@@ -491,7 +491,7 @@ function clearTextBox() {
 function Print(id) {
 
 
-    $.getJSON("/ConsultaSolicitud/Report1/" + id, function (data) {
+    $.getJSON("/ConsultaSolicitud/Report2/"+id, function (data) {
         //Muestra el iframe 
 
         $('#reporte').html(data);
