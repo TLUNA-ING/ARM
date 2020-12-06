@@ -12,13 +12,13 @@ namespace ProyectoProgramacion.Controllers
     public class ConsultaSolicitudController : Controller
     {
         // GET: ConsultaSolicitud
-        [AutorizarUsuario(rol: "admin")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult CargarTipoTrabajo()
         {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
@@ -34,7 +34,7 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarTipoTrabajo
 
-        [AutorizarUsuario(rol: "admin,user")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult CargarEmpleado()
         {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
@@ -101,7 +101,7 @@ namespace ProyectoProgramacion.Controllers
         //    }
         //}//FIN DE CargarEquipo
 
-        [AutorizarUsuario(rol: "admin")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         [HttpPost]
         public ActionResult ConsultarProvincias()
         {
@@ -119,7 +119,7 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE ConsultarProvincias
 
-        [AutorizarUsuario(rol: "admin")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult CargarDatos()
         {
             ConsultaSolicitudModelo modelSolicitudes = new ConsultaSolicitudModelo();
@@ -134,7 +134,7 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarDatos
 
-        [AutorizarUsuario(rol: "admin")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         public ActionResult ConsultarSolicitud(long id)
         {
             try
@@ -150,7 +150,7 @@ namespace ProyectoProgramacion.Controllers
             }
         }// FIN DE ConsultarSolicitud
 
-        [AutorizarUsuario(rol: "admin")]
+        [AutorizarUsuario(rol: "admin,registrador")]
         [HttpPost]
         public ActionResult ModificarSolicitud(etlSolicitud sol)
         {
