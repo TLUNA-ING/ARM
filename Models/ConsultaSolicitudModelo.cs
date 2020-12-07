@@ -207,6 +207,7 @@ namespace ProyectoProgramacion.Models
                         solicitudes.cedulaMQC = SOL.cedulaMQC;
                         solicitudes.firmaCliente = null;
                         
+                        
                     }
                 };
                 return solicitudes;

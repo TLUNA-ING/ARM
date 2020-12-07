@@ -501,18 +501,4 @@ function Print(id) {
         $("#myReport").modal("show");
         $('#reporte').html(data);
     });
-    //location.href = '@Url.Action("Report1","ConsultaSolicitud")';
-
-    //$.ajax({
-    //    url: "/ConsultaSolicitud/Report1/" + id,
-    //    type: "POST",
-    //    dataType: JSON,
-    //    success: function (result) {
-            
-    //    },
-    //    error: function (errormessage) {
-    //        alert(errormessage.responseText);
-    //    }
-    //});
-//return false;
-}//FIN DE ConsultarSolicitud
+}//FIN DE FUNCION IMPRIMIR
