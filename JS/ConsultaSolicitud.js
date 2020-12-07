@@ -92,6 +92,10 @@ function cargarAgregar() {
     $("#motivoDetalle").val("")
     $("#solicitudRepuestos").val("")
     $("#equipoDetenido").val("")
+    $("#tiempoDetenido").val("")
+    $("#correoMQC").val("")
+    $("#nombreMQC").val("")
+    $("#cedulaMQC").val("")
     $('#btnUpdate').hide();
     $('#btnAdd').show();
 }//FIN DE CARGAR_AGREGAR

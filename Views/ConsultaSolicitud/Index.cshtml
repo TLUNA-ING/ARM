@@ -217,15 +217,39 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <label for="equipoDetenido">Equipo Detenido:</label>
-                                    <div class="form-line">
-                                        <select id="equipoDetenido" class="form-control" required="" aria-required="true">
-                                            <option>1</option>
-                                            <option>0</option>
-                                        </select>
-                                    </div>
+                            <div class="col-xs-3">
+                                <label for="equipoDetenido">Equipo Detenido: </label>
+                                <div class="form-line">
+                                    <select id="equipoDetenido" class="form-control" required="" aria-required="true">
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="tiempoDetenido">Tiempo Detenido: </label>
+                                <div class="form-line">
+                                    <input type="time" class="form-control" id="tiempoDetenido" aria-required="true" placeholder="HH:MM" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="cedulaMQC">* Cédula del MQC:</label>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" id="cedulaMQC" aria-required="true" />
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <label for="nombreMQC">* Nombre Completo del MQC:</label>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" id="nombreMQC" aria-required="true" />
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <label for="correoMQC">* Correo del MQC:</label>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" id="correoMQC" aria-required="true" />
                                 </div>
                             </div>
                         </div>

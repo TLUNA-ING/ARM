@@ -4,7 +4,9 @@ using ProyectoProgramacion.Filters;
 using ProyectoProgramacion.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
@@ -64,7 +66,7 @@ namespace ProyectoProgramacion.Controllers
 
 
         [AutorizarUsuario(rol: "admin,registrador")]
-        public ActionResult CargarCliente(etlProvincia provincia){
+        public ActionResult CargarCliente(etlProvincia provincia) {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarClientes(provincia.ID_Provincia);
 
@@ -72,7 +74,7 @@ namespace ProyectoProgramacion.Controllers
         }//FIN DE CargarCliente
 
         [AutorizarUsuario(rol: "admin,registrador")]
-        public ActionResult CargarDepartamento(etlCliente cliente){
+        public ActionResult CargarDepartamento(etlCliente cliente) {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarDepartamentos(cliente.ID_Cliente);
 
@@ -81,14 +83,14 @@ namespace ProyectoProgramacion.Controllers
 
         [AutorizarUsuario(rol: "admin,registrador")]
         [HttpPost]
-        public ActionResult CargarEquipo(etlDepartamento departamento){
-            try{
+        public ActionResult CargarEquipo(etlDepartamento departamento) {
+            try {
                 ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
                 var respuesta = modelSolicitud.ConsultarEquipos(departamento.ID_Departamento);
 
                 return Json(respuesta);
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
         }//FIN DE CargarEquipo
@@ -119,7 +121,7 @@ namespace ProyectoProgramacion.Controllers
             try
             {
                 long cedula = (long)Session["Cedula"];
-                new ConsultaSolicitud().GuardarConsulta(sol,cedula);
+                new ConsultaSolicitud().GuardarConsulta(sol, cedula);
                 return Json(sol, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -137,7 +139,7 @@ namespace ProyectoProgramacion.Controllers
             try
             {
                 long cedula = (long)Session["Cedula"];
-                new ConsultaSolicitud().Actualizar(sol,cedula);
+                new ConsultaSolicitud().Actualizar(sol, cedula);
                 return Json(sol, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -165,7 +167,6 @@ namespace ProyectoProgramacion.Controllers
             ///construir la ruta física
             string rutaServidor = Server.MapPath(rutaReporte);
             reportViewer.LocalReport.ReportPath = rutaServidor;
-            //reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\ReportCategories.rdlc";
             var infoFuenteDatos = reportViewer.LocalReport.GetDataSourceNames();
             reportViewer.LocalReport.DataSources.Clear();
 
@@ -187,50 +188,80 @@ namespace ProyectoProgramacion.Controllers
 
 
 
-        }
+        }//FIN DE REPORTE DE SOLICITUDES GENERAL
 
-        public ActionResult Report1()
+        public ActionResult EnviaCorreo(etlSolicitud sol)
         {
-
-
-
-            var reportViewer = new ReportViewer
+            try
             {
-                ProcessingMode = ProcessingMode.Local,
-                ShowExportControls = true,
-                ShowParameterPrompts = true,
-                ShowPageNavigationControls = true,
-                ShowRefreshButton = true,
-                ShowPrintButton = true,
-                SizeToReportContent = true,
-                AsyncRendering = false,
-            };
+                ConsultaSolicitudModelo modelConsultaSolicitud = new ConsultaSolicitudModelo();
+                var solicitud = modelConsultaSolicitud.ConsultarUnaSolicitudID(sol.ID_Solicitud);
 
-            string rutaReporte = "~/Reports/rptDetalleSolicitud.rdlc";
-            string rutaServidor = Server.MapPath(rutaReporte);
-            reportViewer.LocalReport.ReportPath = rutaServidor;
+                //var aliasfrom = GetCampo("Nombre Remitente", "Pepito");
+                //var emailFrom = GetCampo("Email Remitente", "pepito@mail.com");
 
-            //var infoFuenteDatos = reportViewer.LocalReport.
+                var aliasTo = GetCampo("Nombre Destinatario", sol.nombreMQC);
+                var emailTo = GetCampo("Email Destinatario", sol.correoMQC);
 
+                var host = GetCampo("Servidor SMTP", "smtp.gmail.com");
+                //var puertoSeguro = GetCampo("El Servidor SMTP usa un puerto Seguro? [S (SÍ)/N (NO)]").ToLower() == "s";
 
-            List<SPDetalleSolicitud_Result> datosReporte;
-            using (var contextoBD = new ARMEntities())
-            {
-                datosReporte = contextoBD.SPDetalleSolicitud(2).ToList();
+                using (var viewer = new LocalReport())
+                {
+                    viewer.DataSources.Add(new ReportDataSource("data", sol));
+                    viewer.Refresh();
+                    // Para que esta línea funcione se debe escoger el archivo DemoReporte.rdlc y en las propiedades de archivo
+                    // ajustarlo a "Copiar siempre" en 'Copiar en el directorio de salida'.
+                    viewer.ReportPath = "./Reports/DemoReporte.rdlc";
+                    var bytes = viewer.Render("PDF");
+
+                    etlSmtp smtp = new etlSmtp(); 
+                    var correo = new MailMessage { From = new MailAddress(smtp.Correo, "Bitacoras Capris Medica") };
+
+                    correo.To.Add(new MailAddress(emailTo, aliasTo));
+                    correo.Subject = "Reporte como Correo";
+                    correo.Attachments.Add(new Attachment(new MemoryStream(bytes), "Reporte.pdf"));
+
+                    correo.Body = "Estimado usuario, se le adjunta el reporte.";
+
+                    SmtpModelo modelSmtp = new SmtpModelo();
+                    var SMTP = modelSmtp.ConsultarSmtp();
+
+                    if (SMTP == null)
+                    {
+                        return Json(SMTP, JsonRequestBehavior.DenyGet);
+                    }
+                    else
+                    {
+                        return Json(SMTP, JsonRequestBehavior.AllowGet);
+                    }
+                }
             }
-            ReportDataSource fuenteDatos = new ReportDataSource("DetalleSolicitudDataSet", datosReporte);
-            reportViewer.LocalReport.DataSources.Clear();
-            //fuenteDatos.Name = infoFuenteDatos[0];
-            //fuenteDatos.Value = datosReporte;
-            reportViewer.LocalReport.DataSources.Add(fuenteDatos);
-            reportViewer.LocalReport.Refresh();
-
-            ViewBag.ReportViewer = reportViewer;
-
-
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.ReadLine();
+            }
             return View();
-
         }
+
+        private static string GetCampo(string nombreCampo, string sugerencia = "")
+        {
+            Console.WriteLine("Ingrese el valor para {0}{1}:", nombreCampo, string.IsNullOrEmpty(sugerencia) ? sugerencia : $" Ejm:({sugerencia})");
+            return Console.ReadLine();
+        }
+
+
+      
 
     }
-}
+
+
+
+
+
+    }
+

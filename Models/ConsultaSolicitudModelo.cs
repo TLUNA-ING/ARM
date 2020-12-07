@@ -54,7 +54,7 @@ namespace ProyectoProgramacion.Models
                     motivoDetalle = x.motivoDetalle,
                     solicitudRepuestos = x.solicitudRepuestos,
                     equipoDetenido = (int)x.equipoDetenido,
-                    tiempoDetenido = (TimeSpan)x.tiempoDetenido,
+                    tiempoDetenido = x.tiempoDetenido.ToString(),
                     correoMQC = x.correoMQC,
                     nombreMQC = x.nombreMQC,
                     cedulaMQC = x.cedulaMQC
@@ -201,6 +201,12 @@ namespace ProyectoProgramacion.Models
                         solicitudes.motivoDetalle = SOL.motivoDetalle;
                         solicitudes.solicitudRepuestos = SOL.solicitudRepuestos;
                         solicitudes.equipoDetenido = (long)SOL.equipoDetenido;
+                        solicitudes.tiempoDetenido = SOL.tiempoDetenido.ToString();
+                        solicitudes.correoMQC = SOL.correoMQC;
+                        solicitudes.nombreMQC = SOL.nombreMQC;
+                        solicitudes.cedulaMQC = SOL.cedulaMQC;
+                        solicitudes.firmaCliente = null;
+                        
                     }
                 };
                 return solicitudes;
@@ -260,6 +266,10 @@ namespace ProyectoProgramacion.Models
                         SOLICITUD.motivoDetalle = sol.motivoDetalle;
                         SOLICITUD.solicitudRepuestos = sol.solicitudRepuestos;
                         SOLICITUD.equipoDetenido = sol.equipoDetenido;
+                        SOLICITUD.tiempoDetenido = TimeSpan.Parse(sol.tiempoDetenido);
+                        SOLICITUD.correoMQC = sol.correoMQC;
+                        SOLICITUD.cedulaMQC = sol.cedulaMQC;
+                        SOLICITUD.nombreMQC = sol.nombreMQC;
                         SOLICITUD.firmaCliente = SOLICITUD.firmaCliente;
 
                         contextoBD.SaveChanges();

@@ -47,10 +47,13 @@ function Add() {
             success: function (result) {
                 //loadTable();
                 //$('#myModal').modal('hide');
+                MENSAJE_EXITO("¡Solicitud agregada con exito" + " !");
                 clearTextBox();
             },
             error: function (result) {
-                alert('Revise los datos agregados, ya que no pueden haber campos vacios');
+                //alert('Revise los datos agregados, ya que no pueden haber campos vacios');
+                //swal("¡Error!", "¡Ocurrió un error, Revise los datos agregados, ya que no pueden haber campos vacios", "Error");
+                MENSAJE_WARNING("¡Revise los datos agregados, ya que no pueden haber campos vacios "  + " !");
             }
         });
     } catch (err) { alert('Error'); }
@@ -118,10 +121,10 @@ function clearTextBox() {
     $('#motivoDetalle').val("");
     $('#solicitudRepuestos').val("");
     $('#equipoDetenido').val("");
-    $('#tiempoDetenido').val(""),
-    $('#correoMQC').val(""),
-    $('#cedulaMQC').val(""),
-    $('#nombreMQC').val("")
+    $('#tiempoDetenido').val("");
+    $('#correoMQC').val("");
+    $('#cedulaMQC').val("");
+    $('#nombreMQC').val("");
     $('#firma').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();
@@ -307,3 +310,43 @@ function LimpiarCombobox(COMBO) {
         select.options[i] = null;
     }
 }//FIN DE LimpiarCombobox
+
+function Enviar() {
+    $.ajax({
+        url: "/Solicitud/EnviaCorreo",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+        },
+        error: function (errormessage) {
+        }
+    });
+} 
+
+
+function MENSAJE_WARNING(MENSAJE) {
+    swal({
+        title: "¡No se pudo procesar!",
+        text: MENSAJE,
+        type: "info",
+        showCancelButton: false,
+        confirmButtonText: "¡ Entendido !",
+        confirmButtonColor: '#24a0ed',
+        closeOnConfirm: true
+    });
+}//FIN DE MENSAJE_WARNING
+
+
+function MENSAJE_EXITO(MENSAJE) {
+    swal({
+        
+        title: "¡Acción realizada!",
+        text: MENSAJE,
+        type: "success",
+        confirmButtonColor: "#10AF5D",
+        confirmButtonText: "Aceptar"
+                    
+    });
+}//FIN DE MENSAJE_WARNING

@@ -28,8 +28,8 @@ namespace ProyectoProgramacion
         public string solicitudMotivo { get; set; }
         public string motivoDetalle { get; set; }
         public string solicitudRepuestos { get; set; }
-        public Nullable<long> equipoDetenido { get; set; }
-        public Nullable<System.TimeSpan> tiempoDetenido { get; set; }
+        public long equipoDetenido { get; set; }
+        public System.TimeSpan tiempoDetenido { get; set; }
         public int provinciaId { get; set; }
         public string firmaCliente { get; set; }
         public string nombreMQC { get; set; }
