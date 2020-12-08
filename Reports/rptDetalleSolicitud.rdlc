@@ -574,6 +574,22 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Image Name="Firma">
+        <Source>Database</Source>
+        <Value>=System.Convert.FromBase64String(Parameters!firmaCliente.Value)</Value>
+        <MIMEType>image/png</MIMEType>
+        <Sizing>FitProportional</Sizing>
+        <Top>0.31433cm</Top>
+        <Left>15.03315cm</Left>
+        <Height>1.5cm</Height>
+        <Width>1.5cm</Width>
+        <ZIndex>9</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
     </ReportItems>
     <Height>2.22119in</Height>
     <Style />
@@ -1281,7 +1297,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ARMDataSource1</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\jfigueroa\Desktop\Personal\Analisis 2\ARM\ARMDataSource1.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\dmonge\Desktop\U\ARMDataSource1.xsd</rd:SchemaPath>
         <rd:TableName>SPDetalleSolicitud</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

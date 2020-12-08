@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ARMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bitacora">
           <Key>
             <PropertyRef Name="bitacoraId" />
@@ -154,6 +154,24 @@
           <Property Name="usuario" Type="bigint" Nullable="false" />
           <Property Name="rolId" Type="int" Nullable="false" />
           <Property Name="usuarioContraseña" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_Bitacora_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
@@ -391,6 +409,16 @@
           <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Bitacora_Usuarios" Association="Self.FK_Bitacora_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Bitacora" EntitySet="Bitacora" />
@@ -456,8 +484,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ARMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -922,7 +949,7 @@
             <Parameter Name="IND_LIGADOS" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CONSULTAR_UN_EMPLEADO_BD" ReturnType="Collection(ARMModel.CONSULTAR_UN_EMPLEADO_BD_Result)">
-            <Parameter Name="CEDULA" Mode="In" Type="String" />
+          <Parameter Name="CEDULA" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InformacionClientes" ReturnType="Collection(ARMModel.InformacionClientes_Result)" />
           <FunctionImport Name="InformacionEmpleados" ReturnType="Collection(ARMModel.InformacionEmpleados_Result)" />
@@ -938,11 +965,12 @@
           </FunctionImport>
           <FunctionImport Name="solicitudesPorRangoFechas" ReturnType="Collection(ARMModel.solicitudesPorRangoFechas_Result)" />
           <FunctionImport Name="SPDetalleSolicitud" ReturnType="Collection(ARMModel.SPDetalleSolicitud_Result)">
-            <Parameter Name="solicitudID" Mode="In" Type="Int32" />
+          <Parameter Name="solicitudID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SPsolicitudes" ReturnType="Collection(ARMModel.SPsolicitudes_Result)">
-            <Parameter Name="solicitudID" Mode="In" Type="Int32" />
+          <Parameter Name="solicitudID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="database_firewall_rules" EntityType="ARMModel.database_firewall_rules" />
         </EntityContainer>
         <ComplexType Name="CONSULTAR_EMPLEADOS_NO_USUARIO_Result">
           <Property Type="Int64" Name="Cedula" Nullable="false" />
@@ -1034,6 +1062,22 @@
           <Property Type="Int64" Name="equipoDetenido" Nullable="true" />
           <Property Type="String" Name="firmaCliente" Nullable="true" />
         </ComplexType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1326,6 +1370,18 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="ARMModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

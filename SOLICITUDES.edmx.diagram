@@ -36,6 +36,7 @@
         <AssociationConnector Association="ARMModel.FK_Solicitudes_Provincias" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblUsuarios_tblRoles" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_Solicitudes_TipoTrabajo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ARMModel.database_firewall_rules" Width="1.5" PointX="10.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
