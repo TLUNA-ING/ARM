@@ -78,7 +78,7 @@
                                 <div class="col-xs-6">
                                     <label for="Provincias">Provincia</label>
                                     <div class="form-line">
-                                        <select name="sltProvincia" id="Provincias" class="form-control" required="" aria-required="true">
+                                        <select name="sltProvincia" id="Provincias" class="form-control" onchange="CargarCliente();" >
                                         </select>
                                     </div>
                                 </div>
@@ -90,15 +90,14 @@
                                 <div class="col-xs-6">
                                     <label for="Cliente">Cliente</label>
                                     <div class="form-line">
-                                        <select name="sltcliente" id="Cliente" class="form-control" required="" aria-required="true">
+                                        <select name="sltcliente" id="Cliente" class="form-control" onchange="CargarDepartamentos();">
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="col-xs-6">
                                     <label for="Departamento">Departamento</label>
                                     <div class="form-line">
-                                        <select name="sltDepartamento" id="Departamento" class="form-control" required="" aria-required="true">
+                                        <select name="sltDepartamento" id="Departamento" class="form-control"onchange="CargarEquipos();">
                                         </select>
                                     </div>
                                 </div>
@@ -108,16 +107,16 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <label for="Empleado">Empleado</label>
+                                    <label for="Equipo">Equipo</label>
                                     <div class="form-line">
-                                        <select name="sltEmpleado" id="Empleado" class="form-control" required="" aria-required="true">
+                                        <select name="sltEquipo" id="Equipo" class="form-control" required="" aria-required="true">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
-                                    <label for="Equipo">Equipo</label>
+                                    <label for="Empleado">Empleado</label>
                                     <div class="form-line">
-                                        <select name="sltEquipo" id="Equipo" class="form-control" required="" aria-required="true">
+                                        <select name="sltEmpleado" id="Empleado" class="form-control" required="" aria-required="true">
                                         </select>
                                     </div>
                                 </div>
@@ -175,7 +174,7 @@
                                             <div class="col-xs-6">
                                                 <label for="horaEntrada">Hora Entrada:</label>
                                                 <div class="form-line">
-                                                    <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" value="10:00" />
+                                                    <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" />
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
@@ -189,7 +188,7 @@
                                             <div class="col-xs-6">
                                                 <label for="horaEntrada">Hora Entrada:</label>
                                                 <div class="form-line">
-                                                    <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" value="10:00" />
+                                                    <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" />
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
@@ -234,7 +233,7 @@
                                 <div class="col-xs-6">
                                     <label for="cantidadHoras">Cantidad de Horas:</label>
                                     <div class="form-line">
-                                        <input type="number" class="form-control" id="cantidadHoras" required="" aria-required="true" />
+                                        <input type="text" class="form-control" id="cantidadHoras"  aria-required="true" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +254,7 @@
                                 <div class="col-xs-12">
                                     <label for="motivoDetalle">Motivo de Detalle:</label>
                                     <div class="form-line">
-                                        <textarea id="motivoDetalle" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
+                                        <textarea id="motivoDetalle" class="form-control" aria-required="true"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +264,7 @@
                                 <div class="col-xs-12">
                                     <label for="solicitudRepuestos">Solicitud Repuestos:</label>
                                     <div class="form-line">
-                                        <textarea id="solicitudRepuestos" class="form-control" rows="4" style="resize:none;width:100%;max-width:none" required="" aria-required="true"></textarea>
+                                        <textarea id="solicitudRepuestos" class="form-control" aria-required="true"></textarea>
                                     </div>
                                 </div>
                             </div>

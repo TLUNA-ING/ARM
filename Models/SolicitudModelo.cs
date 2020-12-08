@@ -54,7 +54,6 @@ namespace ProyectoProgramacion.Models
             }
         }//FIN DE ConsultarTipoTrabajos
 
-
         public List<SelectListItem> ConsultarEmpleados()
         {
             using (var contextoBD = new ARMEntities())
@@ -70,7 +69,6 @@ namespace ProyectoProgramacion.Models
                 return listaEmpleado.ToList();
             }
         }//FIN DE ConsultarEmpleados
-
 
         public List<SelectListItem> ConsultarDepartamentos(int ID_CLIENTE){
             using (var contextoBD = new ARMEntities()){
@@ -97,31 +95,46 @@ namespace ProyectoProgramacion.Models
         }//FIN DE ConsultarEquipos
 
 
-        public void GuardarConsulta(Solicitudes sol, long USUARIO)
-        {
-            try
-            {
-                using (var contextoBD = new ARMEntities())
-                {
+        public void GuardarConsulta(Solicitudes sol, long USUARIO){
+            try{
+                using (var contextoBD = new ARMEntities()){
+
                     Solicitudes item = new Solicitudes();
 
                     item.solicitudId = sol.solicitudId;
-                    item.provinciaId = sol.provinciaId;
                     item.clienteId = sol.clienteId;
                     item.empleadoCedula = sol.empleadoCedula;
                     item.tipoTrabajoId = sol.tipoTrabajoId;
                     item.departamentoId = sol.departamentoId;
                     item.equipoId = sol.equipoId;
                     item.fechaReporte = sol.fechaReporte;
-                    item.horaEntrada = sol.horaEntrada;
-                    item.tipoHora = sol.tipoHora;
+                    item.horaEntrada = sol.horaEntrada;         
                     item.horaSalida = sol.horaSalida;
-                    item.cantidadHoras = sol.cantidadHoras;
+                    item.tipoHora = sol.tipoHora;
+
+                    DateTime HoraSalida = sol.horaSalida;
+                    DateTime HoraEntrada = sol.horaEntrada;
+                    TimeSpan span = HoraSalida.Subtract(HoraEntrada);
+                    string horas = span.Hours.ToString();
+                    string minutos = span.Minutes.ToString();
+                    if (horas.Length == 1){
+                        horas = "0" + horas;
+                    }
+                    if (minutos.Length == 1){
+                        minutos = "0" + minutos;
+                    }
+                    string CantidadHoras = horas + ":" + minutos;
+
+
+                    item.cantidadHoras = CantidadHoras;
                     item.solicitudMotivo = sol.solicitudMotivo;
                     item.motivoDetalle = sol.motivoDetalle;
+
                     item.solicitudRepuestos = sol.solicitudRepuestos;
                     item.equipoDetenido = sol.equipoDetenido;
                     item.tiempoDetenido = sol.tiempoDetenido;
+
+                    item.provinciaId = sol.provinciaId;
                     item.firmaCliente = sol.firmaCliente;
                     item.cedulaMQC = sol.cedulaMQC;
                     item.correoMQC = sol.correoMQC;
@@ -138,12 +151,9 @@ namespace ProyectoProgramacion.Models
                     var ACCION = "Inserción de solicitud";
                     GuardarEnBitacora(USUARIO, ACCION, null, NUEVOS);
                 }
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 throw new System.Exception("ID ya existe o hay datos sin llenar");
             }
-
         }//FIN DE GUARDAR CONSULTA
 
         public void Actualizar(Solicitudes sol,long USUARIO)
@@ -165,7 +175,7 @@ namespace ProyectoProgramacion.Models
                     item.tipoTrabajoId = sol.tipoTrabajoId;
                     item.departamentoId = sol.departamentoId;
                     item.equipoId = sol.equipoId;
-                    item.fechaReporte = Convert.ToDateTime(sol.fechaReporte);
+                   // item.fechaReporte = Convert.ToDateTime(sol.fechaReporte);
                     item.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
                     item.tipoHora = sol.tipoHora;
                     item.horaSalida = Convert.ToDateTime(sol.horaSalida);

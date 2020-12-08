@@ -116,21 +116,21 @@
           <Property Name="tipoTrabajoId" Type="int" Nullable="false" />
           <Property Name="departamentoId" Type="int" Nullable="false" />
           <Property Name="equipoId" Type="int" Nullable="false" />
-          <Property Name="fechaReporte" Type="date" Nullable="false" />
+          <Property Name="fechaReporte" Type="datetime" Nullable="false" />
           <Property Name="horaEntrada" Type="datetime" Nullable="false" />
           <Property Name="horaSalida" Type="datetime" Nullable="false" />
           <Property Name="tipoHora" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cantidadHoras" Type="time" Precision="7" Nullable="false" />
+          <Property Name="cantidadHoras" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="solicitudMotivo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="motivoDetalle" Type="varchar(max)" Nullable="false" />
           <Property Name="solicitudRepuestos" Type="varchar" MaxLength="100" />
           <Property Name="equipoDetenido" Type="bigint" />
-          <Property Name="tiempoDetenido" Type="time" Precision="7" />
+          <Property Name="tiempoDetenido" Type="decimal" Precision="18" Scale="2" />
           <Property Name="provinciaId" Type="int" Nullable="false" />
-          <Property Name="firmaCliente" Type="varchar(max)" Nullable="false" />
-          <Property Name="nombreMQC" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="correoMQC" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cedulaMQC" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="firmaCliente" Type="varchar(max)" />
+          <Property Name="nombreMQC" Type="varchar" MaxLength="30" />
+          <Property Name="correoMQC" Type="varchar" MaxLength="50" />
+          <Property Name="cedulaMQC" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="TipoCedula">
           <Key>
@@ -154,24 +154,6 @@
           <Property Name="usuario" Type="bigint" Nullable="false" />
           <Property Name="rolId" Type="int" Nullable="false" />
           <Property Name="usuarioContraseña" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="create_date" Type="datetime" Nullable="false" />
-          <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_Bitacora_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
@@ -409,16 +391,6 @@ advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene de
           <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
-            <DefiningQuery>SELECT 
-    [database_firewall_rules].[id] AS [id], 
-    [database_firewall_rules].[name] AS [name], 
-    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
-    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
-    [database_firewall_rules].[create_date] AS [create_date], 
-    [database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Bitacora_Usuarios" Association="Self.FK_Bitacora_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Bitacora" EntitySet="Bitacora" />
@@ -620,21 +592,21 @@ advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene de
           <Property Name="tipoTrabajoId" Type="Int32" Nullable="false" />
           <Property Name="departamentoId" Type="Int32" Nullable="false" />
           <Property Name="equipoId" Type="Int32" Nullable="false" />
-          <Property Name="fechaReporte" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fechaReporte" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="horaEntrada" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="horaSalida" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="tipoHora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cantidadHoras" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="cantidadHoras" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="solicitudMotivo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="motivoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="solicitudRepuestos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="equipoDetenido" Type="Int64" />
-          <Property Name="tiempoDetenido" Type="Time" Precision="7" />
+          <Property Name="tiempoDetenido" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="provinciaId" Type="Int32" Nullable="false" />
-          <Property Name="firmaCliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombreMQC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="correoMQC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cedulaMQC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firmaCliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nombreMQC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="correoMQC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cedulaMQC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_Solicitudes_Clientes" FromRole="Solicitudes" ToRole="Clientes" />
           <NavigationProperty Name="Departamentos" Relationship="Self.FK_Solicitudes_Departamentos" FromRole="Solicitudes" ToRole="Departamentos" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK_Solicitudes_Empleados" FromRole="Solicitudes" ToRole="Empleados" />
@@ -670,22 +642,6 @@ advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene de
           <NavigationProperty Name="CodigoRecuperacion" Relationship="Self.FK_CodigoRecuperacion_Usuario" FromRole="Usuarios" ToRole="CodigoRecuperacion" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK_Usuarios_Empleados" FromRole="Usuarios" ToRole="Empleados" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_tblUsuarios_tblRoles" FromRole="Usuarios" ToRole="Roles" />
-        </EntityType>
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_Bitacora_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
@@ -895,7 +851,6 @@ advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene de
           <EntitySet Name="TipoCedula" EntityType="Self.TipoCedula" />
           <EntitySet Name="TipoTrabajo" EntityType="Self.TipoTrabajo" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
           <AssociationSet Name="FK_Bitacora_Usuarios" Association="Self.FK_Bitacora_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Bitacora" EntitySet="Bitacora" />
@@ -1029,17 +984,17 @@ advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene de
           <Property Type="String" Name="Departamento" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Equipo" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Provincia" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="fechaReporte" Nullable="false" />
+          <Property Type="DateTime" Name="fechaReporte" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="horaEntrada" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="horaSalida" Nullable="false" Precision="23" />
-          <Property Type="Time" Name="cantidadHoras" Nullable="false" />
+          <Property Type="String" Name="cantidadHoras" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="tipoHora" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="solicitudMotivo" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="motivoDetalle" Nullable="false" />
           <Property Type="String" Name="solicitudRepuestos" Nullable="true" MaxLength="100" />
           <Property Type="Int64" Name="equipoDetenido" Nullable="true" />
-          <Property Type="String" Name="firmaCliente" Nullable="false" />
-          <Property Type="Time" Name="tiempoDetenido" Nullable="true" />
+          <Property Type="String" Name="firmaCliente" Nullable="true" />
+          <Property Type="Decimal" Name="tiempoDetenido" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
         <ComplexType Name="SPDetalleSolicitud_Result">
           <Property Type="Int32" Name="solicitudId" Nullable="false" />
@@ -1049,14 +1004,14 @@ advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene de
           <Property Type="String" Name="deparatamentoNombre" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="equipoNombre" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="tipoTrabajoNombre" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="nombreMQC" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="cedulaMQC" Nullable="false" MaxLength="20" />
-          <Property Type="DateTime" Name="fechaReporte" Nullable="false" />
+          <Property Type="String" Name="nombreMQC" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="cedulaMQC" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="fechaReporte" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="horaEntrada" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="horaSalida" Nullable="false" Precision="23" />
           <Property Type="String" Name="solicitudMotivo" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="motivoDetalle" Nullable="false" />
-          <Property Type="Time" Name="cantidadHoras" Nullable="false" />
+          <Property Type="String" Name="cantidadHoras" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="tipoHora" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="solicitudRepuestos" Nullable="true" MaxLength="100" />
         </ComplexType>
@@ -1068,16 +1023,16 @@ advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene de
           <Property Type="Int32" Name="equipoId" Nullable="false" />
           <Property Type="Int32" Name="provinciaId" Nullable="false" />
           <Property Type="Int32" Name="tipoTrabajoId" Nullable="false" />
-          <Property Type="DateTime" Name="fechaReporte" Nullable="false" />
+          <Property Type="DateTime" Name="fechaReporte" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="horaEntrada" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="horaSalida" Nullable="false" Precision="23" />
           <Property Type="String" Name="tipoHora" Nullable="false" MaxLength="50" />
-          <Property Type="Time" Name="cantidadHoras" Nullable="false" />
+          <Property Type="String" Name="cantidadHoras" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="solicitudMotivo" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="motivoDetalle" Nullable="false" />
           <Property Type="String" Name="solicitudRepuestos" Nullable="true" MaxLength="100" />
           <Property Type="Int64" Name="equipoDetenido" Nullable="true" />
-          <Property Type="String" Name="firmaCliente" Nullable="false" />
+          <Property Type="String" Name="firmaCliente" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1244,18 +1199,6 @@ advertencia 6002: La tabla o vista 'ARM.sys.database_firewall_rules' no tiene de
                 <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="rolId" ColumnName="rolId" />
                 <ScalarProperty Name="usuarioContraseña" ColumnName="usuarioContraseña" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="database_firewall_rules">
-            <EntityTypeMapping TypeName="ARMModel.database_firewall_rules">
-              <MappingFragment StoreEntitySet="database_firewall_rules">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
-                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

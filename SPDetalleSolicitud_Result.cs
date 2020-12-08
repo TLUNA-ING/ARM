@@ -27,7 +27,7 @@ namespace ProyectoProgramacion
         public System.DateTime horaSalida { get; set; }
         public string solicitudMotivo { get; set; }
         public string motivoDetalle { get; set; }
-        public System.TimeSpan cantidadHoras { get; set; }
+        public string cantidadHoras { get; set; }
         public string tipoHora { get; set; }
         public string solicitudRepuestos { get; set; }
     }

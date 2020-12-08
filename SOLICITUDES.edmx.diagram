@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c56a197b731f45ce8f942f1cf1f51df1" Name="Diagram1">
+      <Diagram DiagramId="402b665acb2343e2a2719319c76104a4" Name="Diagram1">
         <EntityTypeShape EntityType="ARMModel.Bitacora" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Clientes" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.CodigoRecuperacion" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
@@ -20,7 +20,6 @@
         <EntityTypeShape EntityType="ARMModel.TipoCedula" Width="1.5" PointX="1.5" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.TipoTrabajo" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Usuarios" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARMModel.database_firewall_rules" Width="1.5" PointX="8.75" PointY="11" IsExpanded="true" />
         <AssociationConnector Association="ARMModel.FK_Bitacora_Usuarios" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_Departamento_X_Cliente_Clientes" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_Solicitudes_Clientes" ManuallyRouted="false" />

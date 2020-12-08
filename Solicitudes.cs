@@ -24,12 +24,12 @@ namespace ProyectoProgramacion
         public System.DateTime horaEntrada { get; set; }
         public System.DateTime horaSalida { get; set; }
         public string tipoHora { get; set; }
-        public System.TimeSpan cantidadHoras { get; set; }
+        public string cantidadHoras { get; set; }
         public string solicitudMotivo { get; set; }
         public string motivoDetalle { get; set; }
         public string solicitudRepuestos { get; set; }
-        public long equipoDetenido { get; set; }
-        public System.TimeSpan tiempoDetenido { get; set; }
+        public Nullable<long> equipoDetenido { get; set; }
+        public Nullable<decimal> tiempoDetenido { get; set; }
         public int provinciaId { get; set; }
         public string firmaCliente { get; set; }
         public string nombreMQC { get; set; }

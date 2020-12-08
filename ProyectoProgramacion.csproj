@@ -214,9 +214,6 @@
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\TipoTrabajoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="database_firewall_rules.cs">
-      <DependentUpon>SOLICITUDES.tt</DependentUpon>
-    </Compile>
     <Compile Include="Departamentos.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
@@ -4897,6 +4894,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Solicitud\Report.cshtml" />
     <Content Include="Views\Empleado\Report.cshtml" />
+    <Content Include="Views\ConsultaSolicitud\Report1.cshtml" />
     <EntityDeploy Include="SOLICITUDES.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SOLICITUDES.Designer.cs</LastGenOutput>
@@ -4904,7 +4902,6 @@
     <Content Include="SOLICITUDES.edmx.diagram">
       <DependentUpon>SOLICITUDES.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\ConsultaSolicitud\Report1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

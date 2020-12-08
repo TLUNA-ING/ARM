@@ -19,55 +19,6 @@ namespace ProyectoProgramacion.Controllers
             return View();
         }
 
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        public ActionResult CargarTipoTrabajo()
-        {
-            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-            var respuesta = modelSolicitud.ConsultarTipoTrabajos();
-
-            if (respuesta == null)
-            {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-        }//FIN DE CargarTipoTrabajo
-        
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        public ActionResult CargarEmpleado()
-        {
-            ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-            var respuesta = modelSolicitud.ConsultarEmpleados();
-
-            if (respuesta == null)
-            {
-                return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-                return Json(respuesta, JsonRequestBehavior.AllowGet);
-            }
-        }//FIN DE CargarEmpleado
-
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        [HttpPost]
-        public ActionResult ConsultarProvincias()
-        {
-            try
-            {
-                ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
-
-                var results = modelSolicitud.ConsultarProvincias();
-                return Json(results);
-
-            }
-            catch (Exception e)
-            {
-                return Json(e, JsonRequestBehavior.DenyGet);
-            }
-        }//FIN DE ConsultarProvincias
 
         [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarDatos()
@@ -85,17 +36,13 @@ namespace ProyectoProgramacion.Controllers
         }//FIN DE CargarDatos
 
         [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        public ActionResult ConsultarSolicitud(long id)
-        {
-            try
-            {
+        public ActionResult ConsultarSolicitud(long id){
+            try{
                 ConsultaSolicitudModelo modelSolicitudes = new ConsultaSolicitudModelo();
                 var solicitudes = modelSolicitudes.ConsultarUnaSolicitudID(id);
 
                 return Json(solicitudes, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
         }// FIN DE ConsultarSolicitud
