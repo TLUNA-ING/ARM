@@ -84,7 +84,7 @@
   <xs:element name="ARMDataSource1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ARMDataSource1" msprop:Generator_UserDSName="ARMDataSource1">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="solicitudesPorRangoFechas" msprop:Generator_TableClassName="solicitudesPorRangoFechasDataTable" msprop:Generator_TableVarName="tablesolicitudesPorRangoFechas" msprop:Generator_RowChangedName="solicitudesPorRangoFechasRowChanged" msprop:Generator_TablePropName="solicitudesPorRangoFechas" msprop:Generator_RowDeletingName="solicitudesPorRangoFechasRowDeleting" msprop:Generator_RowChangingName="solicitudesPorRangoFechasRowChanging" msprop:Generator_RowEvHandlerName="solicitudesPorRangoFechasRowChangeEventHandler" msprop:Generator_RowDeletedName="solicitudesPorRangoFechasRowDeleted" msprop:Generator_RowClassName="solicitudesPorRangoFechasRow" msprop:Generator_UserTableName="solicitudesPorRangoFechas" msprop:Generator_RowEvArgName="solicitudesPorRangoFechasRowChangeEvent">
+        <xs:element name="solicitudesPorRangoFechas" msprop:Generator_TableClassName="solicitudesPorRangoFechasDataTable" msprop:Generator_TableVarName="tablesolicitudesPorRangoFechas" msprop:Generator_TablePropName="solicitudesPorRangoFechas" msprop:Generator_RowDeletingName="solicitudesPorRangoFechasRowDeleting" msprop:Generator_RowChangingName="solicitudesPorRangoFechasRowChanging" msprop:Generator_RowEvHandlerName="solicitudesPorRangoFechasRowChangeEventHandler" msprop:Generator_RowDeletedName="solicitudesPorRangoFechasRowDeleted" msprop:Generator_UserTableName="solicitudesPorRangoFechas" msprop:Generator_RowChangedName="solicitudesPorRangoFechasRowChanged" msprop:Generator_RowEvArgName="solicitudesPorRangoFechasRowChangeEvent" msprop:Generator_RowClassName="solicitudesPorRangoFechasRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="NumeroSolicitud" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnNumeroSolicitud" msprop:Generator_ColumnPropNameInRow="NumeroSolicitud" msprop:Generator_ColumnPropNameInTable="NumeroSolicitudColumn" msprop:Generator_UserColumnName="NumeroSolicitud" type="xs:int" />
@@ -173,7 +173,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SPDetalleSolicitud" msprop:Generator_TableClassName="SPDetalleSolicitudDataTable" msprop:Generator_TableVarName="tableSPDetalleSolicitud" msprop:Generator_TablePropName="SPDetalleSolicitud" msprop:Generator_RowDeletingName="SPDetalleSolicitudRowDeleting" msprop:Generator_RowChangingName="SPDetalleSolicitudRowChanging" msprop:Generator_RowEvHandlerName="SPDetalleSolicitudRowChangeEventHandler" msprop:Generator_RowDeletedName="SPDetalleSolicitudRowDeleted" msprop:Generator_UserTableName="SPDetalleSolicitud" msprop:Generator_RowChangedName="SPDetalleSolicitudRowChanged" msprop:Generator_RowEvArgName="SPDetalleSolicitudRowChangeEvent" msprop:Generator_RowClassName="SPDetalleSolicitudRow">
+        <xs:element name="SPDetalleSolicitud" msprop:Generator_TableClassName="SPDetalleSolicitudDataTable" msprop:Generator_TableVarName="tableSPDetalleSolicitud" msprop:Generator_RowChangedName="SPDetalleSolicitudRowChanged" msprop:Generator_TablePropName="SPDetalleSolicitud" msprop:Generator_RowDeletingName="SPDetalleSolicitudRowDeleting" msprop:Generator_RowChangingName="SPDetalleSolicitudRowChanging" msprop:Generator_RowEvHandlerName="SPDetalleSolicitudRowChangeEventHandler" msprop:Generator_RowDeletedName="SPDetalleSolicitudRowDeleted" msprop:Generator_RowClassName="SPDetalleSolicitudRow" msprop:Generator_UserTableName="SPDetalleSolicitud" msprop:Generator_RowEvArgName="SPDetalleSolicitudRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="solicitudId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnsolicitudId" msprop:Generator_ColumnPropNameInRow="solicitudId" msprop:Generator_ColumnPropNameInTable="solicitudIdColumn" msprop:Generator_UserColumnName="solicitudId" type="xs:int" />
@@ -265,6 +265,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="firmaCliente" msprop:Generator_ColumnVarNameInTable="columnfirmaCliente" msprop:Generator_ColumnPropNameInRow="firmaCliente" msprop:Generator_ColumnPropNameInTable="firmaClienteColumn" msprop:Generator_UserColumnName="firmaCliente" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

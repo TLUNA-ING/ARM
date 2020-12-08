@@ -873,6 +873,8 @@ namespace ProyectoProgramacion {
             
             private global::System.Data.DataColumn columnsolicitudRepuestos;
             
+            private global::System.Data.DataColumn columnfirmaCliente;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SPDetalleSolicitudDataTable() {
@@ -1044,6 +1046,14 @@ namespace ProyectoProgramacion {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn firmaClienteColumn {
+                get {
+                    return this.columnfirmaCliente;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1095,7 +1105,8 @@ namespace ProyectoProgramacion {
                         string motivoDetalle, 
                         System.TimeSpan cantidadHoras, 
                         string tipoHora, 
-                        string solicitudRepuestos) {
+                        string solicitudRepuestos, 
+                        string firmaCliente) {
                 SPDetalleSolicitudRow rowSPDetalleSolicitudRow = ((SPDetalleSolicitudRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1114,7 +1125,8 @@ namespace ProyectoProgramacion {
                         motivoDetalle,
                         cantidadHoras,
                         tipoHora,
-                        solicitudRepuestos};
+                        solicitudRepuestos,
+                        firmaCliente};
                 rowSPDetalleSolicitudRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSPDetalleSolicitudRow);
                 return rowSPDetalleSolicitudRow;
@@ -1161,6 +1173,7 @@ namespace ProyectoProgramacion {
                 this.columncantidadHoras = base.Columns["cantidadHoras"];
                 this.columntipoHora = base.Columns["tipoHora"];
                 this.columnsolicitudRepuestos = base.Columns["solicitudRepuestos"];
+                this.columnfirmaCliente = base.Columns["firmaCliente"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1200,6 +1213,8 @@ namespace ProyectoProgramacion {
                 base.Columns.Add(this.columntipoHora);
                 this.columnsolicitudRepuestos = new global::System.Data.DataColumn("solicitudRepuestos", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsolicitudRepuestos);
+                this.columnfirmaCliente = new global::System.Data.DataColumn("firmaCliente", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfirmaCliente);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnsolicitudId}, true));
                 this.columnsolicitudId.AutoIncrement = true;
@@ -1813,6 +1828,23 @@ namespace ProyectoProgramacion {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string firmaCliente {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPDetalleSolicitud.firmaClienteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'firmaCliente\' de la tabla \'SPDetalleSolicitud\' es DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableSPDetalleSolicitud.firmaClienteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsprovinciaNombreNull() {
                 return this.IsNull(this.tableSPDetalleSolicitud.provinciaNombreColumn);
             }
@@ -1833,6 +1865,18 @@ namespace ProyectoProgramacion {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetsolicitudRepuestosNull() {
                 this[this.tableSPDetalleSolicitud.solicitudRepuestosColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsfirmaClienteNull() {
+                return this.IsNull(this.tableSPDetalleSolicitud.firmaClienteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetfirmaClienteNull() {
+                this[this.tableSPDetalleSolicitud.firmaClienteColumn] = global::System.Convert.DBNull;
             }
         }
         
