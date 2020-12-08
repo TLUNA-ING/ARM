@@ -75,65 +75,65 @@
                                         <input type="text" class="form-control" id="IDSolicitud" name="ID Solicitud" required="" aria-required="true" readonly="readonly" />
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
                                 <div class="col-xs-6">
                                     <label for="Provincias">Provincia</label>
-                                    <select name="sltProvincia" id="Provincias" class="form-control" required="" aria-required="true">
-                                    </select>
+                                    <div class="form-line">
+                                        <select name="sltProvincia" id="Provincias" class="form-control" required="" onchange="CargarCliente();" aria-required="true">
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-6">
                                     <label for="Cliente">Cliente</label>
-                                    <select name="sltcliente" id="Cliente" class="form-control" required="" aria-required="true">
-                                    </select>
+                                    <div class="form-line">
+                                        <select name="sltcliente" id="Cliente" class="form-control" required="" onchange="CargarDepartamentos();" aria-required="true">
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
+
                                 <div class="col-xs-6">
                                     <label for="Departamento">Departamento</label>
-                                    <select name="sltDepartamento" id="Departamento" class="form-control" required="" aria-required="true">
-                                    </select>
+                                    <div class="form-line">
+                                        <select name="sltDepartamento" id="Departamento" class="form-control" required="" onchange="CargarEquipos();" aria-required="true">
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-6">
                                     <label for="Empleado">Empleado</label>
-                                    <select name="sltEmpleado" id="Empleado" class="form-control" required="" aria-required="true">
-                                    </select>
+                                    <div class="form-line">
+                                        <select name="sltEmpleado" id="Empleado" class="form-control" required="" aria-required="true">
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
                                 <div class="col-xs-6">
                                     <label for="Equipo">Equipo</label>
-                                    <select name="sltEquipo" id="Equipo" class="form-control" required="" aria-required="true">
-                                    </select>
+                                    <div class="form-line">
+                                        <select name="sltEquipo" id="Equipo" class="form-control" required="" aria-required="true">
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-6">
                                     <label for="TipoTrabajo">Tipo Trabajo</label>
-                                    <select name="sltTipoTrabajo" id="tipoTrabajo" class="form-control" required="" aria-required="true">
-                                    </select>
+                                    <div class="form-line">
+                                        <select name="sltTipoTrabajo" id="tipoTrabajo" class="form-control" required="" aria-required="true">
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-xs-6">
                                     <label for="fechaReporte">Fecha</label>
                                     <div class="form-line">
                                         <input type="date" class="form-control" id="fechaReporte" required="" aria-required="true" />
@@ -141,19 +141,16 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-xs-6">
                                     <label for="horaEntrada">Hora Entrada:</label>
                                     <div class="form-line">
                                         <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" value="10:00" />
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-xs-6">
                                     <label for="horaSalida">Hora Salida:</label>
                                     <div class="form-line">
                                         <input type="time" class="form-control" id="horaSalida" required="" aria-required="true" />
@@ -161,9 +158,10 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-xs-6">
                                     <label for="tipoHora">Tipo Hora:</label>
                                     <div class="form-line">
                                         <select id="tipoHora" class="form-control" required="" aria-required="true">
@@ -174,11 +172,7 @@
 
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-xs-6">
                                     <label for="cantidadHoras">Cantidad de Horas:</label>
                                     <div class="form-line">
                                         <input type="number" class="form-control" id="cantidadHoras" required="" aria-required="true" />
@@ -186,6 +180,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12">

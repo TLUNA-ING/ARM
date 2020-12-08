@@ -240,7 +240,6 @@ function CargarCliente() {
     } 
 }//FIN DE CargarCliente
 
-
 function CargarDepartamentos() {
     LimpiarCombobox("Equipo");
     var ID_CLIENTE = $('#Cliente option:selected').val();
@@ -324,7 +323,6 @@ function Enviar() {
         }
     });
 } 
-
 
 function MENSAJE_WARNING(MENSAJE) {
     swal({

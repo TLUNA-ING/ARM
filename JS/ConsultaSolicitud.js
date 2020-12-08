@@ -1,16 +1,15 @@
 ﻿$(document).ready(function () {
     CARGAR_GRID();
-    CargarProvincia();
-    CargarCliente();
-    CargarDepartamento();
     CargarEmpleado();
-    CargarEquipo();
     CargarTipoTrabajo();
 });
 
+var ID_PROVINCIA = "";
+var ID_CLIENTE = "";
+var ID_DEPARATAMENTO = "";
+var ID_EQUIPO = "";
 
 function CARGAR_GRID() {
-
 
     var table = $('#DatoSol').dataTable({
         destroy: true,
@@ -109,20 +108,48 @@ function ConsultarSolicitud(ID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
-           
-
-
             $('#IDSolicitud').val(result.ID_Solicitud);
-            $('#Provincias').val(result.Provincia.ID_Provincia);
-            $('#Cliente').val(result.Cliente.ID_Cliente);
+
+            ID_PROVINCIA = result.Provincia.ID_Provincia;
+            ID_CLIENTE = result.Cliente.ID_Cliente;
+            ID_DEPARATAMENTO = result.Departamento.ID_Departamento;
+            ID_EQUIPO = result.Equipo.ID_Equipo;
+
             $('#Empleado').val(result.Empleado.Cedula);
             $('#tipoTrabajo').val(result.TipoTrabajo.ID_TipoTrabajo);
-            $('#Departamento').val(result.Departamento.ID_Departamento);
-            $('#Equipo').val(result.Equipo.ID_Equipo);
-            $('#fechaReporte').val(result.Fecha_Reporte);
-            $('#horaEntrada').val(result.horaEntrada);
-            $('#horaSalida').val(result.horaSalida);
+
+
+
+            var D = new Date();
+            D = result.Fecha_Reporte;
+            var N = D.toString();
+
+            var DD = N.substring(0, 2);
+            var MM = N.substring(2, 4);
+            var AAAA = N.substring(5, 9);
+            var FECHA = '06' + '/' + '12' + '/' + '2020'
+            $('#fechaReporte').val(FECHA);
+
+
+            D = result.horaEntrada;
+            N = D.toString();
+
+            var H = N.substring(10, 12);
+            var M = N.substring(13, 15);
+            var HORA = H + ':' + M
+            $('#horaEntrada').val(HORA);
+
+
+            D = result.horaSalida;
+            N = D.toString();
+
+            H = N.substring(10, 12);
+            M = N.substring(13, 15);
+            HORA = H + ':' + M
+            $('#horaSalida').val(HORA);
+
+            CargarProvincia();
+
             $('#tipoHora').val(result.tipoHora);
             $('#cantidadHoras').val(result.cantidadHoras);
             $('#motivoVisita').val(result.solicitudMotivo);
@@ -144,9 +171,10 @@ function ConsultarSolicitud(ID) {
     return false;
 }//FIN DE ConsultarSolicitud
 
-
-
-
+function getMinutesBetweenDates(startDate, endDate) {
+    var diff = endDate.getTime() - startDate.getTime();
+    return (diff / 60000);
+}
 
 
 function ModificarSolicitud() {
@@ -329,118 +357,11 @@ function validate() {
     return isValid;
 }
 
-function CargarCliente() {
-    $.ajax({
-        url: "/Solicitud/CargarCliente",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var Clientes = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Clientes += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Cliente").html(Clientes);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarCliente
-}
 
 
-function CargarDepartamento() {
-    $.ajax({
-        url: "/Solicitud/CargarDepartamento",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var Departamento = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Departamento += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Departamento").html(Departamento);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarDepartamento
-}
-
-function CargarTipoTrabajo() {
-    $.ajax({
-        url: "/Solicitud/CargarTipoTrabajo",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var TipoTrabajos = '';
-            result.forEach(valor => { TipoTrabajos += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#tipoTrabajo").html(TipoTrabajos);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarTipoTrabajo
-}
 
 
-function CargarEmpleado() {
-    $.ajax({
-        url: "/Solicitud/CargarEmpleado",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
 
-            var Empleados = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Empleados += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Empleado").html(Empleados);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarEmpleado
-}
-
-
-function CargarEquipo() {
-    $.ajax({
-        url: "/Solicitud/CargarEquipo",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var Equipos = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Equipos += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Equipo").html(Equipos);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarEmpleado
-}
-
-//Inicio CargarProvincia
-function CargarProvincia() {
-    $.ajax({
-        url: "/Provincia/CargarDatos",
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var Provincias = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Provincias += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Provincias").html(Provincias);
-
-        },
-        error: function (errormessage) {
-        }
-    });//FIN DE CargarProvincia
-
-}
 
 function clearTextBox() {
     $('#IDSolicitud').val("");
@@ -491,7 +412,6 @@ function clearTextBox() {
 }//FIN FUNCION DE LIMPAR CASILLAS
 
 
-
 function Print(id) {
 
 
@@ -502,3 +422,187 @@ function Print(id) {
         $('#reporte').html(data);
     });
 }//FIN DE FUNCION IMPRIMIR
+
+
+function CargarTipoTrabajo() {
+    $.ajax({
+        url: "/Solicitud/CargarTipoTrabajo",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var TipoTrabajos = '';
+            result.forEach(valor => { TipoTrabajos += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#tipoTrabajo").html(TipoTrabajos);
+
+        },
+        error: function (errormessage) {
+        }
+    });
+}//FIN DE CargarTipoTrabajo
+
+function CargarEmpleado() {
+    $.ajax({
+        url: "/Solicitud/CargarEmpleado",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var Empleados = '<option>-- Seleccione una opción --</option>';
+            result.forEach(valor => { Empleados += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Empleado").html(Empleados);
+
+        },
+        error: function (errormessage) {
+        }
+    });
+}//FIN DE CargarEmpleado
+
+function CargarProvincia() {
+    $.ajax({
+        url: "/Provincia/CargarDatos",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var plantilla = '<option>-- Seleccione una opción --</option>';
+            result.forEach(valor => {
+                plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+            });
+
+            $("#Provincias").html(plantilla);
+
+            if (ID_PROVINCIA !="") {
+                $('#Provincias').val(ID_PROVINCIA);
+                CargarCliente();
+            }
+
+        },
+        error: function (errormessage) {
+        }
+    });
+}//FIN DE CargarProvincia
+function CargarCliente() {
+    LimpiarCombobox("Cliente");
+    var ID_PROVINCIA = $('#Provincias option:selected').val();
+    if (isNaN(ID_PROVINCIA) == false) {
+
+        var ProvinciaObj = {
+            ID_Provincia: ID_PROVINCIA
+        };
+
+        $.ajax({
+            url: "/Solicitud/CargarCliente",
+            data: JSON.stringify(ProvinciaObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                var plantilla = '<option>-- Seleccione una opción --</option>';
+                result.forEach(valor => {
+                    plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+                });
+                $("#Cliente").html(plantilla);
+
+                if (ID_PROVINCIA != "") {
+                    ID_PROVINCIA=""
+                }
+                if (ID_CLIENTE != "") {
+                    $('#Cliente').val(ID_CLIENTE);
+                    CargarDepartamentos();
+                }
+
+            },
+            error: function (errormessage) {
+            }
+        });
+    } else {
+        LimpiarCombobox("Cliente");
+    }
+}//FIN DE CargarCliente
+function CargarDepartamentos() {
+    LimpiarCombobox("Equipo");
+    var ID_CLIENTE = $('#Cliente option:selected').val();
+    if (isNaN(ID_CLIENTE) == false) {
+
+        var ClienteObj = {
+            ID_Cliente: ID_CLIENTE
+        };
+
+        $.ajax({
+            url: "/Solicitud/CargarDepartamento",
+            data: JSON.stringify(ClienteObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                var plantilla = '<option>-- Seleccione una opción --</option>';
+                result.forEach(valor => {
+                    plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+                });
+
+                $("#Departamento").html(plantilla);
+
+                if (ID_CLIENTE != "") {
+                    ID_CLIENTE = ""
+                }
+                if (ID_DEPARATAMENTO != "") {
+                    $('#Departamento').val(ID_DEPARATAMENTO);
+                    CargarEquipos();
+                }
+
+            },
+            error: function (errormessage) {
+            }
+        });
+    } else {
+        LimpiarCombobox("Departamento");
+    }
+}//FIN DE CargarDepartamento
+function CargarEquipos() {
+    var ID_DEPARTAMENTO = $('#Departamento option:selected').val();
+    if (isNaN(ID_DEPARTAMENTO) == false) {
+        var DepartamentoObj = {
+            ID_Departamento: ID_DEPARTAMENTO
+        };
+
+        $.ajax({
+            url: "/Solicitud/CargarEquipo",
+            data: JSON.stringify(DepartamentoObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                var plantilla = '<option>-- Seleccione una opción --</option>';
+                result.forEach(valor => {
+                    plantilla += `<option value="${valor.Value}">${valor.Text}</option>`
+                });
+
+                $("#Equipo").html(plantilla);
+                if (ID_DEPARATAMENTO != "") {
+                    $('#Equipo').val(ID_EQUIPO);
+                    ID_DEPARATAMENTO = ""
+                    ID_EQUIPO = ""
+                }
+
+            },
+            error: function (errormessage) {
+            }
+        });
+    } else {
+        LimpiarCombobox("Equipo");
+    }
+}//FIN DE CargarEquipos
+
+function LimpiarCombobox(COMBO) {
+    var select = document.getElementById(COMBO);
+    var length = select.options.length;
+    for (i = length - 1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+}//FIN DE LimpiarCombobox
