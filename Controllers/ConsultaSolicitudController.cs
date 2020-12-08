@@ -13,13 +13,13 @@ namespace ProyectoProgramacion.Controllers
     public class ConsultaSolicitudController : Controller
     {
         // GET: ConsultaSolicitud
-        [AutorizarUsuario(rol: "admin,registrador")]
+        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [AutorizarUsuario(rol: "admin,registrador")]
+        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarTipoTrabajo()
         {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
@@ -34,8 +34,8 @@ namespace ProyectoProgramacion.Controllers
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
         }//FIN DE CargarTipoTrabajo
-
-        [AutorizarUsuario(rol: "admin,registrador")]
+        
+        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarEmpleado()
         {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
@@ -51,13 +51,13 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarEmpleado
 
-        [AutorizarUsuario(rol: "admin,registrador")]
+        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         [HttpPost]
         public ActionResult ConsultarProvincias()
         {
             try
             {
-                ConsultaSolicitudModelo modelSolicitud = new ConsultaSolicitudModelo();
+                ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
 
                 var results = modelSolicitud.ConsultarProvincias();
                 return Json(results);
@@ -69,7 +69,7 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE ConsultarProvincias
 
-        [AutorizarUsuario(rol: "admin,registrador")]
+        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarDatos()
         {
             ConsultaSolicitudModelo modelSolicitudes = new ConsultaSolicitudModelo();
@@ -84,7 +84,7 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarDatos
 
-        [AutorizarUsuario(rol: "admin,registrador")]
+        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult ConsultarSolicitud(long id)
         {
             try
@@ -100,7 +100,7 @@ namespace ProyectoProgramacion.Controllers
             }
         }// FIN DE ConsultarSolicitud
 
-        [AutorizarUsuario(rol: "admin,registrador")]
+        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         [HttpPost]
         public ActionResult ModificarSolicitud(etlSolicitud sol)
         {

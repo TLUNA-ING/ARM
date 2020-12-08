@@ -217,33 +217,41 @@
                         </ul>
 
                     </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons col-black">insert_drive_file</i>
-                            <span>Reportes</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/Cliente/Report">
-                                    <i class="material-icons col-black">description</i>
-                                    <span>Reporte Clientes</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Solicitud/Report">
-                                    <i class="material-icons col-black">description</i>
-                                    <span>Reporte Solicitudes</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Empleado/Report">
-                                    <i class="material-icons col-black">description</i>
-                                    <span>Reporte Empleados</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                    @{
+
+                        switch (rol)
+                        {
+                            case "admin":
+                                <li>
+                                    <a href="javascript:void(0);" class="menu-toggle">
+                                        <i class="material-icons col-black">insert_drive_file</i>
+                                        <span>Reportes</span>
+                                    </a>
+                                    <ul class="ml-menu">
+                                        <li>
+                                            <a href="/Cliente/Report">
+                                                <i class="material-icons col-black">description</i>
+                                                <span>Reporte Clientes</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Solicitud/Report">
+                                                <i class="material-icons col-black">description</i>
+                                                <span>Reporte Solicitudes</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Empleado/Report">
+                                                <i class="material-icons col-black">description</i>
+                                                <span>Reporte Empleados</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                break;
+                        }
+                    }
+                </ul>                 
             </div>
         </aside>
     </section>

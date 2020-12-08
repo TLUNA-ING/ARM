@@ -32,7 +32,22 @@ function CARGAR_GRID() {
         },
 
         columns: [
-            
+            {
+                "data": null,
+                "render": function (data, type, row) {
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarSolicitud(" + row.ID_Solicitud + ") > " +
+                        "<i class='material-icons'>create</i>" +
+                        " </button ></div>"
+                }
+            },
+            {
+                "data": null,
+                "render": function (data, type, row) {
+                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = Print(" + row.ID_Solicitud + ") > " +
+                        "<i class='material-icons'>print</i>" +
+                        " </button ></div>"
+                }
+            },
             { "data": "ID_Solicitud" },
             { "data": "Provincia.Descripcion" },
             { "data": "Cliente.Nombre" },
@@ -53,22 +68,6 @@ function CARGAR_GRID() {
             { "data": "correoMQC" },
             { "data": "nombreMQC" },
             { "data": "cedulaMQC" },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = ConsultarSolicitud(" + row.ID_Solicitud + ") > " +
-                        "<i class='material-icons'>create</i>" +
-                        " </button ></div>"
-                }
-            },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return "<div style='text-align:center'><button type ='button' class='btn btn-default btn-circle waves-effect' onclick = Print(" + row.ID_Solicitud + ") > " +
-                        "<i class='material-icons'>print</i>" +
-                        " </button ></div>"
-                }
-            },
 
         ]
     });
@@ -110,10 +109,10 @@ function ConsultarSolicitud(ID) {
         success: function (result) {
             $('#IDSolicitud').val(result.ID_Solicitud);
 
-            ID_PROVINCIA = result.Provincia.ID_Provincia;
-            ID_CLIENTE = result.Cliente.ID_Cliente;
-            ID_DEPARATAMENTO = result.Departamento.ID_Departamento;
-            ID_EQUIPO = result.Equipo.ID_Equipo;
+            $('#Provincias').val(result.Provincia.ID_PROVINCIA);
+            $('#Cliente').val(result.Cliente.ID_Cliente);
+            $('#Departamento').val(result.Departamento.ID_Departamento);
+            $('#Equipo').val(result.Equipo.ID_Equipo);
 
             $('#Empleado').val(result.Empleado.Cedula);
             $('#tipoTrabajo').val(result.TipoTrabajo.ID_TipoTrabajo);
