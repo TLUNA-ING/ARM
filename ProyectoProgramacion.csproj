@@ -214,6 +214,9 @@
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\TipoTrabajoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="database_firewall_rules.cs">
+      <DependentUpon>SOLICITUDES.tt</DependentUpon>
+    </Compile>
     <Compile Include="Departamentos.cs">
       <DependentUpon>SOLICITUDES.tt</DependentUpon>
     </Compile>
