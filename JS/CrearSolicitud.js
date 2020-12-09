@@ -89,7 +89,7 @@ function CargarEmpleado() {
             var plantilla = '<option>-- Seleccione una opción --</option>';
             result.forEach(valor => { plantilla += `<option value="${valor.Value}">${valor.Text}</option>` });
             $("#Empleados").html(plantilla);
-
+            CargarEmpleadoActual();
         },
         error: function (errormessage) {
         }
@@ -300,6 +300,12 @@ function IniciarlizarFechas() {
     var yyyy = today.getFullYear();
     var hora = today.getHours();
     var minuto = today.getMinutes();
+
+    if (minuto.length==1) {
+        minuto = "0" + minuto;
+    }
+
+
     document.getElementById("fechaReporte").value = yyyy + "-" + mm + "-" + dd;
     document.getElementById("horaSalida").value = hora + ":" + minuto;
     document.getElementById("tipoHora").value = "Normal";
@@ -309,34 +315,20 @@ function IniciarlizarFechas() {
 }//FIN DE IniciarlizarFechas
 
 function clearTextBox() {
-    $('#IDSolicitud').val("");
-    $('#Provincias').val("");
-    $('#Cliente').val("");
-    $('#Empleado').val("");
-    $('#tipoTrabajo').val("");
-    $('#Departamento').val("");
-    $('#Equipo').val("");
-    $('#fechaReporte').val("");
-    $('#horaEntrada').val("");
-    $('#horaSalida').val("");
-    $('#tipoHora').val("");
-    $('#cantidadHoras').val("");
+    $('#horaEntrada').val("")
+    document.getElementById("Provincias").selectedIndex = "0";
+    LimpiarCombobox("Cliente");
+    LimpiarCombobox("Departamento");
+    LimpiarCombobox("Equipo");
+    document.getElementById("tipoTrabajo").selectedIndex = "0";
     $('#motivoVisita').val("");
     $('#motivoDetalle').val("");
     $('#solicitudRepuestos').val("");
-    $('#equipoDetenido').val("");
-    $('#tiempoDetenido').val("");
-    $('#correoMQC').val("");
     $('#cedulaMQC').val("");
     $('#nombreMQC').val("");
+    $('#correoMQC').val("");
     $('#firma').val("");
-    $('#btnUpdate').hide();
-    $('#btnAdd').show();
-    $('#Empleado option').remove();
-    $('#Departamento option').remove();
-    $('#Cliente option').remove();
-    $('#Equipo option').remove();
-    $('#TipoTrabajo option').remove();
+    IniciarlizarFechas();
 }//FIN FUNCION DE LIMPAR CASILLAS
 
 
