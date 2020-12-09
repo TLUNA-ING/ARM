@@ -8,150 +8,57 @@ $(document).ready(function () {
         var e = document.getElementById("template");
         var id = e.options[e.selectedIndex].value;
     });
+    IniciarlizarFechas();
 });
 
-function Add() {
-    var base64 = $("#firma")[0].toDataURL();
-    
-    var empObj = {
-        solicitudID: $('#IDSolicitud').val(),
-        provinciaId: $('#Provincias option:selected').val(),
-        clienteId: $('#Cliente option:selected').val(),
-        empleadoCedula: $('#Empleados option:selected').val(),
-        tipoTrabajoId: $('#tipoTrabajo option:selected').val(),
-        departamentoId: $('#Departamento option:selected').val(),
-        equipoId: $('#Equipo option:selected').val(),
-        fechaReporte: $('#fechaReporte').val(),
-        horaEntrada: $('#horaEntrada').val(),
-        horaSalida: $('#horaSalida').val(),
-        tipoHora: $('#tipoHora').val(),
-        cantidadHoras: $('#cantidadHoras').val(),
-        solicitudMotivo: $('#motivoVisita').val(),
-        motivoDetalle: $('#motivoDetalle').val(),
-        solicitudRepuestos: $('#solicitudRepuestos').val(),
-        equipoDetenido: $("#equipoDetenido option:selected").val(),
-        tiempoDetenido: $('#tiempoDetenido').val(),
-        firmaCliente: base64,
-        correoMQC: $('#correoMQC').val(),
-        cedulaMQC: $('#cedulaMQC').val(),
-        nombreMQC: $('#nombreMQC').val()
-    };
+function AgregarNuevaSolicitud() {
+    if (VALIDAR() == true) {
+        var base64 = $("#firma")[0].toDataURL();
+        var empObj = {
+            solicitudID: $('#IDSolicitud').val(),
+            provinciaId: $('#Provincias option:selected').val(),
+            clienteId: $('#Cliente option:selected').val(),
+            empleadoCedula: $('#Empleados option:selected').val(),
+            tipoTrabajoId: $('#tipoTrabajo option:selected').val(),
+            departamentoId: $('#Departamento option:selected').val(),
+            equipoId: $('#Equipo option:selected').val(),
+            fechaReporte: $('#fechaReporte').val(),
+            horaEntrada: $('#horaEntrada').val(),
+            horaSalida: $('#horaSalida').val(),
+            tipoHora: $('#tipoHora').val(),
+            cantidadHoras: $('#cantidadHoras').val(),
+            solicitudMotivo: $('#motivoVisita').val(),
+            motivoDetalle: $('#motivoDetalle').val(),
+            solicitudRepuestos: $('#solicitudRepuestos').val(),
+            equipoDetenido: $("#equipoDetenido option:selected").val(),
+            tiempoDetenido: $('#tiempoDetenido').val(),
+            firmaCliente: base64,
+            correoMQC: $('#correoMQC').val(),
+            cedulaMQC: $('#cedulaMQC').val(),
+            nombreMQC: $('#nombreMQC').val()
+        };
 
-    try {
-        $.ajax({
-            url: "/Solicitud/Agregar",
-            data: JSON.stringify(empObj),
-            type: "POST",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                //loadTable();
-                //$('#myModal').modal('hide');
-                MENSAJE_EXITO("¡Solicitud agregada con exito" + " !");
-                clearTextBox();
-            },
-            error: function (result) {
-                //alert('Revise los datos agregados, ya que no pueden haber campos vacios');
-                //swal("¡Error!", "¡Ocurrió un error, Revise los datos agregados, ya que no pueden haber campos vacios", "Error");
-                MENSAJE_WARNING("¡Revise los datos agregados, ya que no pueden haber campos vacios "  + " !");
-            }
-        });
-    } catch (err) { alert('Error'); }
- 
-}//FIN FUNCION AGREGAR
-
-function Update() {
-    var res = validate();
-    if (res == false) {
-        return false;
-    }
-    var empObj = {
-        solicitudID: $('#IDSolicitud').val(),
-        clienteId: $('#Cliente').val(),
-        empleadoCedula: $('#Empleados').val(),
-        tipoTrabajoId: $('#tipoTrabajo').val(),
-        departamentoId: $('#Departamento').val(),
-        equipoId: $('#Equipo').val(),
-        fechaReporte: $('#fechaReporte').val(),
-        horaEntrada: $('#horaEntrada').val(),
-        horaSalida: $('#horaSalida').val(),
-        tipoHora: $('#tipoHora').val(),
-        cantidadHoras: $('#cantidadHoras').val(),
-        solicitudMotivo: $('#motivoVisita').val(),
-        motivoDetalle: $('#motivoDetalle').val(),
-        solicitudRepuestos: $('#solicitudRepuestos').val(),
-        equipoDetenido: $("#equipoDetenido option:selected").val(),
-        tiempoDetenido: $('#tiempoDetenido').val(),
-        correoMQC: $('#correoMQC').val(),
-        cedulaMQC: $('#cedulaMQC').val(),
-        nombreMQC: $('#nombreMQC').val()
-    };
-    $.ajax({
-        url: "/Solicitud/Actualizar",
-        data: JSON.stringify(empObj),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            loadTable();
-            $('#myModal').modal('hide');
-
-            clearTextBox();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
+        try {
+            $.ajax({
+                url: "/Solicitud/Agregar",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    MENSAJE_EXITO("¡Solicitud agregada con exito" + " !");
+                    clearTextBox();
+                    IniciarlizarFechas();
+                },
+                error: function (result) {
+                    swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
+                }
+            });
+        } catch (err) {
+            swal("¡Error!", "¡Ocurrió un error, intentelo más tarde!", "error");
         }
-    });
-}//FIN FUNCION ACTUALIZAR
-
-function clearTextBox() {
-    $('#IDSolicitud').val("");
-    $('#Provincias').val("");
-    $('#Cliente').val("");
-    $('#Empleado').val("");
-    $('#tipoTrabajo').val("");
-    $('#Departamento').val("");
-    $('#Equipo').val("");
-    $('#fechaReporte').val("");
-    $('#horaEntrada').val("");
-    $('#horaSalida').val("");
-    $('#tipoHora').val("");
-    $('#cantidadHoras').val("");
-    $('#motivoVisita').val("");
-    $('#motivoDetalle').val("");
-    $('#solicitudRepuestos').val("");
-    $('#equipoDetenido').val("");
-    $('#tiempoDetenido').val("");
-    $('#correoMQC').val("");
-    $('#cedulaMQC').val("");
-    $('#nombreMQC').val("");
-    $('#firma').val("");
-    $('#btnUpdate').hide();
-    $('#btnAdd').show();
-    $('#IDSolicitud').css('border-color', 'lightgrey');
-    $('#Provincias').css('border-color', 'lightgrey');
-    $('#Cliente').css('border-color', 'lightgrey');
-    $('#Departamento').css('border-color', 'lightgrey');
-    $('#Cliente').css('border-color', 'lightgrey');
-    $('#Empleado').css('border-color', 'lightgrey');
-    $('#tipoTrabajo').css('border-color', 'lightgrey');
-    $('#Departamento').css('border-color', 'lightgrey');
-    $('#Equipo').css('border-color', 'lightgrey');
-    $('#fechaReporte').css('border-color', 'lightgrey');
-    $('#horaEntrada').css('border-color', 'lightgrey');
-    $('#horaSalida').css('border-color', 'lightgrey');
-    $('#tipoHora').css('border-color', 'lightgrey');
-    $('#cantidadHoras').css('border-color', 'lightgrey');
-    $('#motivoVisita').css('border-color', 'lightgrey');
-    $('#motivoDetalle').css('border-color', 'lightgrey');
-    $('#solicitudRepuestos').css('border-color', 'lightgrey');
-    $('#equipoDetenido').css('border-color', 'lightgrey');
-    $('#Empleado option').remove();
-    $('#Departamento option').remove();
-    $('#Cliente option').remove();
-    $('#Equipo option').remove();
-    $('#TipoTrabajo option').remove();
-}//FIN FUNCION DE LIMPAR CASILLAS
+    }
+}//FIN FUNCION AGREGAR
 
 function CargarTipoTrabajo() {
     $.ajax({
@@ -161,9 +68,9 @@ function CargarTipoTrabajo() {
         dataType: "json",
         success: function (result) {
 
-            var TipoTrabajos = '';
-            result.forEach(valor => { TipoTrabajos += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#tipoTrabajo").html(TipoTrabajos);
+            var plantilla = '<option>-- Seleccione una opción --</option>';
+            result.forEach(valor => { plantilla += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#tipoTrabajo").html(plantilla);
 
         },
         error: function (errormessage) {
@@ -179,9 +86,9 @@ function CargarEmpleado() {
         dataType: "json",
         success: function (result) {
 
-            var Empleados = `<option value="0" selected="true" disabled>--Seleccione--</option>`;
-            result.forEach(valor => { Empleados += `<option value="${valor.Value}">${valor.Text}</option>` });
-            $("#Empleados").html(Empleados);
+            var plantilla = '<option>-- Seleccione una opción --</option>';
+            result.forEach(valor => { plantilla += `<option value="${valor.Value}">${valor.Text}</option>` });
+            $("#Empleados").html(plantilla);
 
         },
         error: function (errormessage) {
@@ -210,6 +117,8 @@ function CargarProvincia() {
 
 function CargarCliente() {
     LimpiarCombobox("Cliente");
+    LimpiarCombobox("Departamento");
+    LimpiarCombobox("Equipo");
     var ID_PROVINCIA = $('#Provincias option:selected').val();
     if (isNaN(ID_PROVINCIA) == false) {
 
@@ -235,12 +144,11 @@ function CargarCliente() {
             error: function (errormessage) {
             }
         });
-    } else {
-        LimpiarCombobox("Cliente");
-    } 
+    }
 }//FIN DE CargarCliente
 
 function CargarDepartamentos() {
+    LimpiarCombobox("Departamento");
     LimpiarCombobox("Equipo");
     var ID_CLIENTE = $('#Cliente option:selected').val();
     if (isNaN(ID_CLIENTE) == false) {
@@ -267,8 +175,6 @@ function CargarDepartamentos() {
             error: function (errormessage) {
             }
         });
-    } else {
-        LimpiarCombobox("Departamento");
     } 
 }//FIN DE CargarDepartamento
 
@@ -310,20 +216,6 @@ function LimpiarCombobox(COMBO) {
     }
 }//FIN DE LimpiarCombobox
 
-function Enviar() {
-    $.ajax({
-        url: "/Solicitud/EnviaCorreo",
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-
-        },
-        error: function (errormessage) {
-        }
-    });
-} 
-
 function MENSAJE_WARNING(MENSAJE) {
     swal({
         title: "¡No se pudo procesar!",
@@ -336,7 +228,6 @@ function MENSAJE_WARNING(MENSAJE) {
     });
 }//FIN DE MENSAJE_WARNING
 
-
 function MENSAJE_EXITO(MENSAJE) {
     swal({
         
@@ -348,3 +239,117 @@ function MENSAJE_EXITO(MENSAJE) {
                     
     });
 }//FIN DE MENSAJE_WARNING
+
+function VALIDAR() {
+    var ENTRAR = false;
+    var PROVINCIA = parseFloat($("#Provincias option:selected").val());
+    var ID_CLIENTE = parseFloat($("#Cliente option:selected").val());
+    var ID_DEPARTAMENTO = parseFloat($("#Departamento option:selected").val());
+    var ID_EQUIPO = parseFloat($("#Equipo option:selected").val());
+    var Fecha_Reporte = $('#fechaReporte').val();
+    var horaEntrada = $('#horaEntrada').val();
+    var horaSalida = $('#horaSalida').val();
+    var ID_TIPO_H = $('#tipoHora').val();
+    var ID_EMPLEADO = parseFloat($("#Empleados option:selected").val());
+    var ID_TIPO_T = parseFloat($("#tipoTrabajo option:selected").val());
+    var motivoVisita = $('#motivoVisita').val();
+    var motivoDetalle = $('#motivoDetalle').val();
+
+    var tiempoDetenido = $('#tiempoDetenido').val();
+
+    if (tiempoDetenido=="") {
+        document.getElementById("tiempoDetenido").value = "00:00";
+    }
+
+    if (isNaN(PROVINCIA) == true) {
+        MENSAJE_WARNING("¡Provincia inválida, por favor revise los datos brindados!");
+    } else if (isNaN(ID_CLIENTE) == true) {
+        MENSAJE_WARNING("¡Cliente inválido, por favor revise los datos brindados!");
+    } else if (isNaN(ID_DEPARTAMENTO) == true) {
+        MENSAJE_WARNING("¡Departamento inválido, por favor revise los datos brindados!");
+    } else if (isNaN(ID_EQUIPO) == true) {
+        MENSAJE_WARNING("¡Equipo inválido, por favor revise los datos brindados!");
+    } else if (Fecha_Reporte == "") {
+        MENSAJE_WARNING("¡Fecha inválida, por favor revise los datos brindados!");
+    } else if (horaEntrada == "") {
+        MENSAJE_WARNING("¡Hora de entrada inválida, por favor revise los datos brindados!");
+    } else if (horaSalida == "") {
+        MENSAJE_WARNING("¡Hora de salida inválida, por favor revise los datos brindados!");
+    } else if (horaEntrada > horaSalida) {
+        MENSAJE_WARNING("¡La hora de entrada no puede ser mayor a la hora de salida, por favor revise los datos brindados!");
+    } else if (ID_TIPO_H == "") {
+        MENSAJE_WARNING("¡El tipo de hora es inválido, por favor revise los datos brindados!");
+    } else if (isNaN(ID_EMPLEADO) == true) {
+        MENSAJE_WARNING("¡Empleado inválido, por favor revise los datos brindados!");
+    } else if (isNaN(ID_TIPO_T) == true) {
+        MENSAJE_WARNING("¡Tipo trabajo inválido, por favor revise los datos brindados!");
+    } else if (motivoVisita == "") {
+        MENSAJE_WARNING("¡Descrpción de trabajo inválido, por favor revise los datos brindados!");
+    } else if (motivoDetalle == "") {
+        MENSAJE_WARNING("¡Motivo de detalle inválido, por favor revise los datos brindados!");
+    } else {
+        ENTRAR = true;
+    }
+    return ENTRAR;
+}//FIN DE VALIDAR
+
+function IniciarlizarFechas() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+    var hora = today.getHours();
+    var minuto = today.getMinutes();
+    document.getElementById("fechaReporte").value = yyyy + "-" + mm + "-" + dd;
+    document.getElementById("horaSalida").value = hora + ":" + minuto;
+    document.getElementById("tipoHora").value = "Normal";
+    document.getElementById("equipoDetenido").value = "0";
+    document.getElementById("tiempoDetenido").value = "00:00";
+    CargarEmpleadoActual();
+}//FIN DE IniciarlizarFechas
+
+function clearTextBox() {
+    $('#IDSolicitud').val("");
+    $('#Provincias').val("");
+    $('#Cliente').val("");
+    $('#Empleado').val("");
+    $('#tipoTrabajo').val("");
+    $('#Departamento').val("");
+    $('#Equipo').val("");
+    $('#fechaReporte').val("");
+    $('#horaEntrada').val("");
+    $('#horaSalida').val("");
+    $('#tipoHora').val("");
+    $('#cantidadHoras').val("");
+    $('#motivoVisita').val("");
+    $('#motivoDetalle').val("");
+    $('#solicitudRepuestos').val("");
+    $('#equipoDetenido').val("");
+    $('#tiempoDetenido').val("");
+    $('#correoMQC').val("");
+    $('#cedulaMQC').val("");
+    $('#nombreMQC').val("");
+    $('#firma').val("");
+    $('#btnUpdate').hide();
+    $('#btnAdd').show();
+    $('#Empleado option').remove();
+    $('#Departamento option').remove();
+    $('#Cliente option').remove();
+    $('#Equipo option').remove();
+    $('#TipoTrabajo option').remove();
+}//FIN FUNCION DE LIMPAR CASILLAS
+
+
+function CargarEmpleadoActual() {
+    $.ajax({
+        url: "/Solicitud/CargarEmpleadoActual",
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#Empleados').val(result);
+        },
+        error: function (errormessage) {
+        }
+    });
+}//FIN DE CargarProvincia

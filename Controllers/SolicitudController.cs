@@ -23,8 +23,7 @@ namespace ProyectoProgramacion.Controllers
         }
 
         [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        public ActionResult Index()
-        {
+        public ActionResult Index(){
             etlUsuario usuario = (etlUsuario)Session["User"];
             if (usuario != null) { ViewBag.data = usuario.Empleado.Cedula; }
 
@@ -33,35 +32,32 @@ namespace ProyectoProgramacion.Controllers
 
 
         [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        public ActionResult CargarTipoTrabajo()
-        {
+        public ActionResult CargarTipoTrabajo(){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarTipoTrabajos();
 
-            if (respuesta == null)
-            {
+            if (respuesta == null){
                 return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
+            }else{
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
         }//FIN DE CargarTipoTrabajo
 
         [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        public ActionResult CargarEmpleado()
-        {
+        public ActionResult CargarEmpleado(){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarEmpleados();
 
-            if (respuesta == null)
-            {
+            if (respuesta == null){
                 return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
+            }else{
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
+        }//FIN DE CargarEmpleado
+
+        public ActionResult CargarEmpleadoActual(){
+            var respuesta = Session["Cedula"];
+            return Json(respuesta);
         }//FIN DE CargarEmpleado
 
 
@@ -69,7 +65,6 @@ namespace ProyectoProgramacion.Controllers
         public ActionResult CargarCliente(etlProvincia provincia) {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarClientes(provincia.ID_Provincia);
-
             return Json(respuesta);
         }//FIN DE CargarCliente
 
@@ -77,7 +72,6 @@ namespace ProyectoProgramacion.Controllers
         public ActionResult CargarDepartamento(etlCliente cliente) {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarDepartamentos(cliente.ID_Cliente);
-
             return Json(respuesta);
         }//FIN DE CargarDepartamento
 
@@ -87,27 +81,20 @@ namespace ProyectoProgramacion.Controllers
             try {
                 ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
                 var respuesta = modelSolicitud.ConsultarEquipos(departamento.ID_Departamento);
-
                 return Json(respuesta);
-
             } catch (Exception e) {
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
         }//FIN DE CargarEquipo
 
-
         [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        public ActionResult CargarProvincia()
-        {
+        public ActionResult CargarProvincia(){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarProvincias();
 
-            if (respuesta == null)
-            {
+            if (respuesta == null){
                 return Json(respuesta, JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
+            }else{
                 return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
         }//FIN DE CargarEquipo
@@ -116,38 +103,15 @@ namespace ProyectoProgramacion.Controllers
         ////Agregar datos
         [AutorizarUsuario(rol: "admin,registrador,modificador")]
         [HttpPost]
-        public ActionResult Agregar(Solicitudes sol)
-        {
-            try
-            {
+        public ActionResult Agregar(Solicitudes sol){
+            try{
                 long cedula = (long)Session["Cedula"];
                 new ConsultaSolicitud().GuardarConsulta(sol, cedula);
                 return Json(sol, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
-
-
-        }
-
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
-        [HttpPost]
-        public ActionResult Actualizar(Solicitudes sol)
-        {
-            try
-            {
-                long cedula = (long)Session["Cedula"];
-                new ConsultaSolicitud().Actualizar(sol, cedula);
-                return Json(sol, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return Json(e, JsonRequestBehavior.DenyGet);
-            }
-
-        }
+        }//FIN DE Agregar
 
         public ActionResult Report()
         {

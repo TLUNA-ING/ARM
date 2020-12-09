@@ -30,5 +30,6 @@ namespace ProyectoProgramacion
         public string cantidadHoras { get; set; }
         public string tipoHora { get; set; }
         public string solicitudRepuestos { get; set; }
+        public string firmaCliente { get; set; }
     }
 }

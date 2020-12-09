@@ -125,7 +125,7 @@
           <Property Name="motivoDetalle" Type="varchar(max)" Nullable="false" />
           <Property Name="solicitudRepuestos" Type="varchar" MaxLength="100" />
           <Property Name="equipoDetenido" Type="bigint" />
-          <Property Name="tiempoDetenido" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="tiempoDetenido" Type="varchar" MaxLength="10" />
           <Property Name="provinciaId" Type="int" Nullable="false" />
           <Property Name="firmaCliente" Type="varchar(max)" />
           <Property Name="nombreMQC" Type="varchar" MaxLength="30" />
@@ -601,7 +601,7 @@
           <Property Name="motivoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="solicitudRepuestos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="equipoDetenido" Type="Int64" />
-          <Property Name="tiempoDetenido" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="tiempoDetenido" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="provinciaId" Type="Int32" Nullable="false" />
           <Property Name="firmaCliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="nombreMQC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -994,7 +994,7 @@
           <Property Type="String" Name="solicitudRepuestos" Nullable="true" MaxLength="100" />
           <Property Type="Int64" Name="equipoDetenido" Nullable="true" />
           <Property Type="String" Name="firmaCliente" Nullable="true" />
-          <Property Type="Decimal" Name="tiempoDetenido" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="tiempoDetenido" Nullable="true" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="SPDetalleSolicitud_Result">
           <Property Type="Int32" Name="solicitudId" Nullable="false" />
@@ -1014,6 +1014,7 @@
           <Property Type="String" Name="cantidadHoras" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="tipoHora" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="solicitudRepuestos" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="firmaCliente" Nullable="true" />
         </ComplexType>
         <ComplexType Name="SPsolicitudes_Result">
           <Property Type="Int32" Name="solicitudId" Nullable="false" />
@@ -1300,6 +1301,7 @@
                 <ScalarProperty Name="cantidadHoras" ColumnName="cantidadHoras" />
                 <ScalarProperty Name="tipoHora" ColumnName="tipoHora" />
                 <ScalarProperty Name="solicitudRepuestos" ColumnName="solicitudRepuestos" />
+                <ScalarProperty Name="firmaCliente" ColumnName="firmaCliente" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

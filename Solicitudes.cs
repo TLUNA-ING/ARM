@@ -29,7 +29,7 @@ namespace ProyectoProgramacion
         public string motivoDetalle { get; set; }
         public string solicitudRepuestos { get; set; }
         public Nullable<long> equipoDetenido { get; set; }
-        public Nullable<decimal> tiempoDetenido { get; set; }
+        public string tiempoDetenido { get; set; }
         public int provinciaId { get; set; }
         public string firmaCliente { get; set; }
         public string nombreMQC { get; set; }

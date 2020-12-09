@@ -63,7 +63,7 @@ function CARGAR_GRID() {
             { "data": "solicitudMotivo" },
             { "data": "motivoDetalle" },
             { "data": "solicitudRepuestos" },
-            { "data": "equipoDetenido" },
+            { "data": "equipoDetenidoS" },
             { "data": "tiempoDetenido" },
             { "data": "correoMQC" },
             { "data": "nombreMQC" },
@@ -72,32 +72,6 @@ function CARGAR_GRID() {
         ]
     });
 }//FIN DE CARGAR_GRID
-
-function cargarAgregar() {
-    $("#IDSolicitud").val("")
-    $("#Provincias").val("")
-    $("#Cliente").val("")
-    $("#Empleado").val("")
-    $("#tipoTrabajo").val("")
-    $("#Departamento").val("")
-    $("#Equipo").val("")
-    $("#fechaReporte").val("")
-    $("#horaEntrada").val("")
-    $("#horaSalida").val("")
-    $("#tipoHora").val("")
-    $("#cantidadHoras").val("")
-    $("#motivoVisita").val("")
-    $("#motivoDetalle").val("")
-    $("#solicitudRepuestos").val("")
-    $("#equipoDetenido").val("")
-    $("#tiempoDetenido").val("")
-    $("#correoMQC").val("")
-    $("#nombreMQC").val("")
-    $("#cedulaMQC").val("")
-    $('#btnUpdate').hide();
-    $('#btnAdd').show();
-}//FIN DE CARGAR_AGREGAR
-
 
 function ConsultarSolicitud(ID) {
 
@@ -111,33 +85,28 @@ function ConsultarSolicitud(ID) {
             $('#Empleado').val(result.Empleado.Cedula);
             $('#tipoTrabajo').val(result.TipoTrabajo.ID_TipoTrabajo);
 
-             ID_PROVINCIA = result.Provincia.ID_Provincia;
-             ID_CLIENTE = result.Cliente.ID_Cliente;
-             ID_DEPARATAMENTO = result.Departamento.ID_Departamento;
-             ID_EQUIPO = result.Equipo.ID_Equipo;
+            document.getElementById("fechaReporte").value = result.Fecha_Reporte;
 
-
-
+            ID_PROVINCIA = result.Provincia.ID_Provincia;
+            ID_CLIENTE = result.Cliente.ID_Cliente;
+            ID_DEPARATAMENTO = result.Departamento.ID_Departamento;
+            ID_EQUIPO = result.Equipo.ID_Equipo;
             var D = new Date();
             D = result.horaEntrada;
             var N = D.toString();
-
             var H = N.substring(10, 12);
             var M = N.substring(13, 15);
             var HORA = H + ':' + M
             $('#horaEntrada').val(HORA);
 
-
             D = result.horaSalida;
             N = D.toString();
-
             H = N.substring(10, 12);
             M = N.substring(13, 15);
             HORA = H + ':' + M
             $('#horaSalida').val(HORA);
 
             CargarProvincia();
-
             $('#tipoHora').val(result.tipoHora);
             $('#cantidadHoras').val(result.cantidadHoras);
             $('#motivoVisita').val(result.solicitudMotivo);
@@ -160,42 +129,29 @@ function ConsultarSolicitud(ID) {
 }//FIN DE ConsultarSolicitud
 
 function ModificarSolicitud() {
-
-    var solObj = {
-        ID_Solicitud: $('#IDSolicitud').val(),
-        Fecha_Reporte: $('#fechaReporte').val(),
-        horaEntrada: $('#horaEntrada').val(),
-        horaSalida: $('#horaSalida').val(),
-        tipoHora: $('#tipoHora').val(),
-        cantidadHoras: $('#cantidadHoras').val(),
-        solicitudMotivo: $('#motivoVisita').val(),
-        motivoDetalle: $('#motivoDetalle').val(),
-        solicitudRepuestos: $('#solicitudRepuestos').val(),
-        equipoDetenido: $('#equipoDetenido').val(),
-        tiempoDetenido: $('#tiempoDetenido').val(),
-        correoMQC: $('#correoMQC').val(),
-        cedulaMQC: $('#cedulaMQC').val(),
-        nombreMQC: $('#nombreMQC').val(),
-        Provincia: {
-            ID_Provincia: parseFloat($("#Provincias option:selected").val())
-        },
-        Cliente: {
-            ID_Cliente: parseFloat($("#Cliente option:selected").val())
-        },
-        Empleado: {
-            Cedula: parseFloat($("#Empleado option:selected").val())
-        },
-        TipoTrabajo: {
-            ID_TipoTrabajo: parseFloat($("#tipoTrabajo option:selected").val())
-        },
-        Departamento: {
-            ID_Departamento: parseFloat($("#Departamento option:selected").val())
-        },
-        Equipo: {
-            ID_Equipo: parseFloat($("#Equipo option:selected").val())
-        },         
-    };
-      
+    if (VALIDAR() == true){
+        var solObj = {
+            ID_Solicitud: $('#IDSolicitud').val(),
+            Cliente: { ID_Cliente: parseFloat($("#Cliente option:selected").val()) },    
+            Empleado: { Cedula: parseFloat($("#Empleado option:selected").val()) },
+            TipoTrabajo: { ID_TipoTrabajo: parseFloat($("#tipoTrabajo option:selected").val()) },
+            Departamento: { ID_Departamento: parseFloat($("#Departamento option:selected").val()) },
+            Equipo: { ID_Equipo: parseFloat($("#Equipo option:selected").val()) },  
+            Fecha_Reporte: $('#fechaReporte').val(),
+            horaEntrada: $('#horaEntrada').val(),
+            horaSalida: $('#horaSalida').val(),
+            tipoHora: $('#tipoHora').val(),
+            cantidadHoras: $('#cantidadHoras').val(),
+            solicitudMotivo: $('#motivoVisita').val(),
+            motivoDetalle: $('#motivoDetalle').val(),
+            solicitudRepuestos: $('#solicitudRepuestos').val(),
+            equipoDetenido: parseFloat($("#equipoDetenido option:selected").val()),
+            tiempoDetenido: $('#tiempoDetenido').val(),
+            Provincia: { ID_Provincia: parseFloat($("#Provincias option:selected").val()) },
+            nombreMQC: $('#nombreMQC').val(),
+            correoMQC: $('#correoMQC').val(),
+            cedulaMQC: $('#cedulaMQC').val(),
+        }
 
         $.ajax({
             url: "/ConsultaSolicitud/ModificarSolicitud",
@@ -218,7 +174,6 @@ function ModificarSolicitud() {
                                 CARGAR_GRID();
                                 $('#myModal').modal('hide');
                                 clearTextBox();
-                                
                             }
                         });
                 } else {
@@ -229,59 +184,29 @@ function ModificarSolicitud() {
                 alert(errormessage.responseText);
             }
         });
-    
+    }     
 }//FIN DE ModificarSolicitud
-
-
-
-
 
 function clearTextBox() {
     $('#IDSolicitud').val("");
-    $('#Provincias').val("");
-    $('#Cliente').val("");
-    $('#Empleado').val("");
-    $('#tipoTrabajo').val("");
-    $('#Departamento').val("");
-    $('#Equipo').val("");
+    LimpiarCombobox("Cliente");
+    LimpiarCombobox("Departamento");
+    LimpiarCombobox("Equipo");
     $('#fechaReporte').val("");
     $('#horaEntrada').val("");
     $('#horaSalida').val("");
-    $('#tipoHora').val("");
     $('#cantidadHoras').val("");
     $('#motivoVisita').val("");
     $('#motivoDetalle').val("");
     $('#solicitudRepuestos').val("");
-    $('#equipoDetenido').val("");
     $('#tiempoDetenido').val("");
-    $('#correoMQC').val("");
+
     $('#cedulaMQC').val("");
+    $('#correoMQC').val("");
     $('#nombreMQC').val("");
+
     $('#btnUpdate').hide();
     $('#btnAdd').show();
-    $('#IDSolicitud').css('border-color', 'lightgrey');
-    $('#Provincias').css('border-color', 'lightgrey');
-    $('#Cliente').css('border-color', 'lightgrey');
-    $('#Departamento').css('border-color', 'lightgrey');
-    $('#Cliente').css('border-color', 'lightgrey');
-    $('#Empleado').css('border-color', 'lightgrey');
-    $('#tipoTrabajo').css('border-color', 'lightgrey');
-    $('#Departamento').css('border-color', 'lightgrey');
-    $('#Equipo').css('border-color', 'lightgrey');
-    $('#fechaReporte').css('border-color', 'lightgrey');
-    $('#horaEntrada').css('border-color', 'lightgrey');
-    $('#horaSalida').css('border-color', 'lightgrey');
-    $('#tipoHora').css('border-color', 'lightgrey');
-    $('#cantidadHoras').css('border-color', 'lightgrey');
-    $('#motivoVisita').css('border-color', 'lightgrey');
-    $('#motivoDetalle').css('border-color', 'lightgrey');
-    $('#solicitudRepuestos').css('border-color', 'lightgrey');
-    $('#equipoDetenido').css('border-color', 'lightgrey');
-    $('#Empleado option').remove();
-    $('#Departamento option').remove();
-    $('#Cliente option').remove();
-    $('#Equipo option').remove();
-    $('#TipoTrabajo option').remove();
 }//FIN FUNCION DE LIMPAR CASILLAS
 
 function Print(id) {
@@ -294,7 +219,6 @@ function Print(id) {
         $('#reporte').html(data);
     });
 }//FIN DE FUNCION IMPRIMIR
-
 
 function CargarTipoTrabajo() {
     $.ajax({
@@ -481,3 +405,68 @@ function LimpiarCombobox(COMBO) {
         select.options[i] = null;
     }
 }//FIN DE LimpiarCombobox
+
+function VALIDAR() {
+    var ENTRAR = false;
+    var PROVINCIA = parseFloat($("#Provincias option:selected").val());
+    var ID_CLIENTE = parseFloat($("#Cliente option:selected").val());
+    var ID_DEPARTAMENTO = parseFloat($("#Departamento option:selected").val());
+    var ID_EQUIPO = parseFloat($("#Equipo option:selected").val());
+    var ID_EMPLEADO = parseFloat($("#Empleado option:selected").val());
+    var ID_TIPO_T = parseFloat($("#tipoTrabajo option:selected").val());
+
+    var Fecha_Reporte= $('#fechaReporte').val();
+    var horaEntrada = $('#horaEntrada').val();
+    var horaSalida = $('#horaSalida').val();
+    var tipoHora =$('#tipoHora').val();
+    var cantidadHoras = $('#cantidadHoras').val();
+    var solicitudMotivo = $('#motivoVisita').val();
+    var motivoDetalle = $('#motivoDetalle').val();
+
+
+    if (isNaN(PROVINCIA)==true) {
+        MENSAJE_WARNING("¡Provincia inválida, por favor revise los datos brindados!");
+    } else if (isNaN(ID_CLIENTE) == true) {
+        MENSAJE_WARNING("¡Cliente inválido, por favor revise los datos brindados!");
+    } else if (isNaN(ID_DEPARTAMENTO) == true) {
+        MENSAJE_WARNING("¡Departamento inválido, por favor revise los datos brindados!");
+    } else if (isNaN(ID_EQUIPO) == true) {
+        MENSAJE_WARNING("¡Equipo inválido, por favor revise los datos brindados!");
+    } else if (isNaN(ID_EMPLEADO) == true) {
+        MENSAJE_WARNING("¡Empleado inválido, por favor revise los datos brindados!");
+    } else if (isNaN(ID_TIPO_T) == true) {
+        MENSAJE_WARNING("¡Tipo trabajo inválido, por favor revise los datos brindados!");
+    } else if (Fecha_Reporte =="") {
+        MENSAJE_WARNING("¡Fecha de reporte inválida, por favor revise los datos brindados!");
+    } else if (horaEntrada == "") {
+        MENSAJE_WARNING("¡Hora de entrada inválida, por favor revise los datos brindados!");
+    } else if (horaSalida == "") {
+        MENSAJE_WARNING("¡Hora de salida inválida, por favor revise los datos brindados!");
+    } else if (horaEntrada > horaSalida) {
+        MENSAJE_WARNING("¡La hora de entrada no puede ser mayor a la hora de salida, por favor revise los datos brindados!");
+    } else if (tipoHora == "") {
+        MENSAJE_WARNING("¡Tipo de hora inválida, por favor revise los datos brindados!");
+    } else if (cantidadHoras == "") {
+        MENSAJE_WARNING("¡Cantidad de horas inválida, por favor revise los datos brindados!");
+    } else if (solicitudMotivo == "") {
+        MENSAJE_WARNING("¡Motivo de visita inválido, por favor revise los datos brindados!");
+    } else if (motivoDetalle == "") {
+        MENSAJE_WARNING("¡Motivo de detalle inválido, por favor revise los datos brindados!");
+    } else {
+        ENTRAR = true;
+    }  
+    return ENTRAR;
+}//FIN DE VALIDAR
+
+function MENSAJE_WARNING(MENSAJE) {
+    swal({
+        title: "¡No se pudo procesar!",
+        text: MENSAJE,
+        type: "info",
+        showCancelButton: false,
+        confirmButtonText: "¡ Entendido !",
+        confirmButtonColor: '#24a0ed',
+        closeOnConfirm: true
+
+    });
+}//FIN DE MENSAJE_WARNING

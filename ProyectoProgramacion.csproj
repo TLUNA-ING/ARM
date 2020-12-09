@@ -3820,7 +3820,6 @@
     <Content Include="JS\Acceso.js" />
     <Content Include="JS\Intermedios.js" />
     <Content Include="JS\Smtp.js" />
-    <Content Include="JS\Solicitud.js" />
     <Content Include="JS\Equipos.js" />
     <Content Include="JS\TipoTrabajo.js" />
     <Content Include="packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll" />

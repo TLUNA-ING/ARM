@@ -30,6 +30,6 @@ namespace ProyectoProgramacion
         public string solicitudRepuestos { get; set; }
         public Nullable<long> equipoDetenido { get; set; }
         public string firmaCliente { get; set; }
-        public Nullable<decimal> tiempoDetenido { get; set; }
+        public string tiempoDetenido { get; set; }
     }
 }

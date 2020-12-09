@@ -1,6 +1,7 @@
 ﻿using ProyectoProgramacion.ETL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -60,7 +61,22 @@ namespace ProyectoProgramacion.Models
                     cedulaMQC = x.cedulaMQC
 
                 }).ToList();
-                
+                foreach (var SOL in solicitudes){
+                    DateTime Fecha = DateTime.Parse(SOL.Fecha_Reporte);
+                    SOL.Fecha_Reporte = Fecha.ToString("dd/MM/yyyy");
+
+                    DateTime Fecha_Entrada = DateTime.Parse(SOL.horaEntrada);
+                    SOL.horaEntrada = Fecha_Entrada.ToString("hh:mm");
+
+                    DateTime Fecha_Salida = DateTime.Parse(SOL.horaSalida);
+                    SOL.horaSalida = Fecha_Salida.ToString("hh:mm");
+
+                    if (SOL.equipoDetenido == 1){
+                        SOL.equipoDetenidoS = "Si";
+                    }else{
+                        SOL.equipoDetenidoS = "No";
+                    }
+                }
                 return solicitudes;
             }
         }//FIN DE ConsultarTodos
@@ -80,7 +96,8 @@ namespace ProyectoProgramacion.Models
                         solicitudes.TipoTrabajo.ID_TipoTrabajo = SOL.tipoTrabajoId;
                         solicitudes.Departamento.ID_Departamento = SOL.departamentoId;
                         solicitudes.Equipo.ID_Equipo = SOL.equipoId;
-                        solicitudes.Fecha_Reporte = SOL.fechaReporte.ToString();
+                        solicitudes.Fecha_Reporte = SOL.fechaReporte.ToString("yyyy/MM/dd");
+                        solicitudes.Fecha_Reporte = solicitudes.Fecha_Reporte.Replace("/", "-");
                         solicitudes.horaEntrada = SOL.horaEntrada.ToString();
                         solicitudes.horaSalida = SOL.horaSalida.ToString();
                         solicitudes.tipoHora = SOL.tipoHora;
@@ -109,33 +126,44 @@ namespace ProyectoProgramacion.Models
 
         List<Solicitudes> SOLICITUDES = new List<Solicitudes>();
       
-        public bool ModificarSolicitud(etlSolicitud sol)
-        {
-            try
-            {
+        public bool ModificarSolicitud(etlSolicitud sol){
+            try {
                 bool MODIFICADO = false;
-                using (var contextoBD = new ARMEntities())
-                {
+                using (var contextoBD = new ARMEntities()){
                     var SOLICITUD = contextoBD.Solicitudes.SingleOrDefault(b => b.solicitudId == sol.ID_Solicitud);
-                    if (SOLICITUD != null)
-                    {
-                        SOLICITUD.Clientes.clienteId = sol.Cliente.ID_Cliente;
-                        SOLICITUD.Provincias.provinciaId = sol.Provincia.ID_Provincia;
-                        SOLICITUD.Departamentos.departamentoId = sol.Departamento.ID_Departamento;
-                        SOLICITUD.TipoTrabajo.tipoTrabajoId = sol.TipoTrabajo.ID_TipoTrabajo;
-                        SOLICITUD.Empleados.empleadoCedula = sol.Empleado.Cedula;
-                        SOLICITUD.Equipos.equipoId = sol.Equipo.ID_Equipo;
-                        //SOLICITUD.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
+                    if (SOLICITUD != null){
+
+                        SOLICITUD.clienteId = sol.Cliente.ID_Cliente;
+                        SOLICITUD.empleadoCedula = sol.Empleado.Cedula;
+                        SOLICITUD.tipoTrabajoId = sol.TipoTrabajo.ID_TipoTrabajo;
+                        SOLICITUD.departamentoId = sol.Departamento.ID_Departamento;
+                        SOLICITUD.equipoId = sol.Equipo.ID_Equipo;
+                        SOLICITUD.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
                         SOLICITUD.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
                         SOLICITUD.horaSalida = Convert.ToDateTime(sol.horaSalida);
                         SOLICITUD.tipoHora = sol.tipoHora;
-                        SOLICITUD.cantidadHoras = sol.cantidadHoras;
+
+                        DateTime HoraSalida = Convert.ToDateTime(sol.horaSalida);
+                        DateTime HoraEntrada = Convert.ToDateTime(sol.horaEntrada);
+                        TimeSpan span = HoraSalida.Subtract(HoraEntrada);
+                        string horas = span.Hours.ToString();
+                        string minutos = span.Minutes.ToString();
+                        if (horas.Length == 1){
+                            horas = "0" + horas;
+                        }
+                        if (minutos.Length == 1){
+                            minutos = "0" + minutos;
+                        }
+                        string CantidadHoras = horas + ":" + minutos;
+                        SOLICITUD.cantidadHoras = CantidadHoras;
+
                         SOLICITUD.solicitudMotivo = sol.solicitudMotivo;
                         SOLICITUD.motivoDetalle = sol.motivoDetalle;
                         SOLICITUD.solicitudRepuestos = sol.solicitudRepuestos;
-                        //SOLICITUD.equipoDetenido = long.Parse(sol.equipoDetenido);
-                        //    //sol.;
-                        //SOLICITUD.tiempoDetenido = sol.tiempoDetenido;
+
+                        SOLICITUD.equipoDetenido = sol.equipoDetenido;
+                        SOLICITUD.tiempoDetenido = sol.tiempoDetenido;
+                        SOLICITUD.provinciaId = sol.Provincia.ID_Provincia;
                         SOLICITUD.correoMQC = sol.correoMQC;
                         SOLICITUD.cedulaMQC = sol.cedulaMQC;
                         SOLICITUD.nombreMQC = sol.nombreMQC;
@@ -146,10 +174,7 @@ namespace ProyectoProgramacion.Models
                     }
                 }
                 return MODIFICADO;
-
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 return false;
             }
         }//FIN DE ModificarEmpleado

@@ -49,29 +49,21 @@ namespace ProyectoProgramacion.Controllers
 
         [AutorizarUsuario(rol: "admin,registrador,modificador")]
         [HttpPost]
-        public ActionResult ModificarSolicitud(etlSolicitud sol)
-        {
-            try
-            {
+        public ActionResult ModificarSolicitud(etlSolicitud sol){
+            try {
                 ConsultaSolicitudModelo modelConsultaSolicitud = new ConsultaSolicitudModelo();
                 var solicitud = modelConsultaSolicitud.ConsultarUnaSolicitudID(sol.ID_Solicitud);
 
-                if (solicitud.Empleado.Nombre != "")
-                {
+                if (solicitud.Empleado.Nombre != "") {
                     var MODIFICADO = modelConsultaSolicitud.ModificarSolicitud(sol);
 
-                    if (MODIFICADO == true)
-                    {
+                    if (MODIFICADO == true){
                         return Json("Modificado", JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
+                    }else{
                         return Json("666", JsonRequestBehavior.AllowGet);
                     }
 
-                }
-                else
-                {
+                }else{
                     return Json("666", JsonRequestBehavior.AllowGet);
                 }
             }

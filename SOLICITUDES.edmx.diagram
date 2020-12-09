@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="402b665acb2343e2a2719319c76104a4" Name="Diagram1">
+      <Diagram DiagramId="cd79357a09da4dad95ce728087955081" Name="Diagram1">
         <EntityTypeShape EntityType="ARMModel.Bitacora" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Clientes" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.CodigoRecuperacion" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />

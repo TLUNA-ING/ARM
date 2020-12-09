@@ -40,7 +40,8 @@ namespace ProyectoProgramacion.ETL
 
         public string solicitudRepuestos { get; set; }
 
-        public decimal equipoDetenido { get; set; }
+        public long equipoDetenido { get; set; }
+        public string equipoDetenidoS { get; set; }
 
         public string tiempoDetenido { get; set; }
         public string correoMQC { get; set; }
