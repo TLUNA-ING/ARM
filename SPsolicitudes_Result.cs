@@ -21,8 +21,8 @@ namespace ProyectoProgramacion
         public int provinciaId { get; set; }
         public int tipoTrabajoId { get; set; }
         public System.DateTime fechaReporte { get; set; }
-        public System.DateTime horaEntrada { get; set; }
-        public System.DateTime horaSalida { get; set; }
+        public string horaEntrada { get; set; }
+        public string horaSalida { get; set; }
         public string tipoHora { get; set; }
         public string cantidadHoras { get; set; }
         public string solicitudMotivo { get; set; }

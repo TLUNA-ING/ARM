@@ -109,8 +109,8 @@ namespace ProyectoProgramacion.Models
                     item.horaSalida = sol.horaSalida;
                     item.tipoHora = sol.tipoHora;
 
-                    DateTime HoraSalida = sol.horaSalida;
-                    DateTime HoraEntrada = sol.horaEntrada;
+                    DateTime HoraSalida = DateTime.Parse(sol.horaSalida);
+                    DateTime HoraEntrada = DateTime.Parse(sol.horaEntrada);
                     TimeSpan span = HoraSalida.Subtract(HoraEntrada);
                     string horas = span.Hours.ToString();
                     string minutos = span.Minutes.ToString();

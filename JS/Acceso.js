@@ -298,6 +298,9 @@ function RecuperarPassword() {
                                     }
                                 });
 
+                            } else {
+                                document.getElementById("olvide").disabled = false;
+                                document.getElementById("validar").disabled = false;
                             }
                         });
                 } else if (result == "No encontrado") {

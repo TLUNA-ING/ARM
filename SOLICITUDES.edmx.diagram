@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd79357a09da4dad95ce728087955081" Name="Diagram1">
+      <Diagram DiagramId="7e3a2e482f2e4604875b383be8d2db30" Name="Diagram1">
         <EntityTypeShape EntityType="ARMModel.Bitacora" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.Clientes" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ARMModel.CodigoRecuperacion" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
@@ -36,7 +36,6 @@
         <AssociationConnector Association="ARMModel.FK_Solicitudes_Provincias" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_tblUsuarios_tblRoles" ManuallyRouted="false" />
         <AssociationConnector Association="ARMModel.FK_Solicitudes_TipoTrabajo" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ARMModel.database_firewall_rules" Width="1.5" PointX="10.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

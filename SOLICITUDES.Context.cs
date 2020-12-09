@@ -42,7 +42,6 @@ namespace ProyectoProgramacion
         public virtual DbSet<TipoCedula> TipoCedula { get; set; }
         public virtual DbSet<TipoTrabajo> TipoTrabajo { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     
         public virtual ObjectResult<CONSULTAR_EMPLEADOS_NO_USUARIO_Result> CONSULTAR_EMPLEADOS_NO_USUARIO()
         {

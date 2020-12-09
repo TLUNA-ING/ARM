@@ -23,8 +23,8 @@ namespace ProyectoProgramacion
         public string nombreMQC { get; set; }
         public string cedulaMQC { get; set; }
         public System.DateTime fechaReporte { get; set; }
-        public System.DateTime horaEntrada { get; set; }
-        public System.DateTime horaSalida { get; set; }
+        public string horaEntrada { get; set; }
+        public string horaSalida { get; set; }
         public string solicitudMotivo { get; set; }
         public string motivoDetalle { get; set; }
         public string cantidadHoras { get; set; }

@@ -87,8 +87,8 @@ namespace ProyectoProgramacion.Models
                 using (var contextoBD = new ARMEntities()){
                    SOLICITUDES  = (from x in contextoBD.Solicitudes where x.solicitudId == ID select x).ToList();
                     foreach (var SOL in SOLICITUDES){
-                        solicitudes.ID_Solicitud = SOL.solicitudId;
 
+                        solicitudes.ID_Solicitud = SOL.solicitudId;
                         solicitudes.Provincia = new etlProvincia{ID_Provincia = SOL.Provincias.provinciaId,Descripcion = SOL.Provincias.provinciaNombre};
                         solicitudes.Cliente = new etlCliente{ ID_Cliente = SOL.Clientes.clienteId,Nombre = SOL.Clientes.clienteNombre};
                         solicitudes.Empleado = new etlEmpleado{Cedula = SOL.Empleados.empleadoCedula,Nombre = SOL.Empleados.empleadoNombre};
@@ -98,15 +98,15 @@ namespace ProyectoProgramacion.Models
                         solicitudes.Equipo.ID_Equipo = SOL.equipoId;
                         solicitudes.Fecha_Reporte = SOL.fechaReporte.ToString("yyyy/MM/dd");
                         solicitudes.Fecha_Reporte = solicitudes.Fecha_Reporte.Replace("/", "-");
-                        solicitudes.horaEntrada = SOL.horaEntrada.ToString();
-                        solicitudes.horaSalida = SOL.horaSalida.ToString();
+                        solicitudes.horaEntrada = SOL.horaEntrada;
+                        solicitudes.horaSalida = SOL.horaSalida;
                         solicitudes.tipoHora = SOL.tipoHora;
                         solicitudes.cantidadHoras = SOL.cantidadHoras;
                         solicitudes.solicitudMotivo = SOL.solicitudMotivo;
                         solicitudes.motivoDetalle = SOL.motivoDetalle;
                         solicitudes.solicitudRepuestos = SOL.solicitudRepuestos;
                         solicitudes.equipoDetenido = (long)SOL.equipoDetenido;
-                        solicitudes.tiempoDetenido = SOL.tiempoDetenido.ToString();
+                        solicitudes.tiempoDetenido = SOL.tiempoDetenido;
                         solicitudes.correoMQC = SOL.correoMQC;
                         solicitudes.nombreMQC = SOL.nombreMQC;
                         solicitudes.cedulaMQC = SOL.cedulaMQC;
@@ -139,8 +139,8 @@ namespace ProyectoProgramacion.Models
                         SOLICITUD.departamentoId = sol.Departamento.ID_Departamento;
                         SOLICITUD.equipoId = sol.Equipo.ID_Equipo;
                         SOLICITUD.fechaReporte = Convert.ToDateTime(sol.Fecha_Reporte);
-                        SOLICITUD.horaEntrada = Convert.ToDateTime(sol.horaEntrada);
-                        SOLICITUD.horaSalida = Convert.ToDateTime(sol.horaSalida);
+                        SOLICITUD.horaEntrada = sol.horaEntrada;
+                        SOLICITUD.horaSalida = sol.horaSalida;
                         SOLICITUD.tipoHora = sol.tipoHora;
 
                         DateTime HoraSalida = Convert.ToDateTime(sol.horaSalida);

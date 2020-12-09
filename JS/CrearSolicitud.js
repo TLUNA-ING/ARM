@@ -284,7 +284,7 @@ function VALIDAR() {
     } else if (isNaN(ID_TIPO_T) == true) {
         MENSAJE_WARNING("¡Tipo trabajo inválido, por favor revise los datos brindados!");
     } else if (motivoVisita == "") {
-        MENSAJE_WARNING("¡Descrpción de trabajo inválido, por favor revise los datos brindados!");
+        MENSAJE_WARNING("¡Descripción de trabajo inválido, por favor revise los datos brindados!");
     } else if (motivoDetalle == "") {
         MENSAJE_WARNING("¡Motivo de detalle inválido, por favor revise los datos brindados!");
     } else {
@@ -301,13 +301,15 @@ function IniciarlizarFechas() {
     var hora = today.getHours();
     var minuto = today.getMinutes();
 
-    if (minuto.length==1) {
-        minuto = "0" + minuto;
+    if (minuto.toString().length == 1) {
+        var string = "0";
+        string += minuto;
+        document.getElementById("horaSalida").value = hora + ":" + string;
+    } else {
+        document.getElementById("horaSalida").value = hora + ":" + minuto;
     }
 
-
     document.getElementById("fechaReporte").value = yyyy + "-" + mm + "-" + dd;
-    document.getElementById("horaSalida").value = hora + ":" + minuto;
     document.getElementById("tipoHora").value = "Normal";
     document.getElementById("equipoDetenido").value = "0";
     document.getElementById("tiempoDetenido").value = "00:00";
@@ -331,7 +333,6 @@ function clearTextBox() {
     IniciarlizarFechas();
 }//FIN FUNCION DE LIMPAR CASILLAS
 
-
 function CargarEmpleadoActual() {
     $.ajax({
         url: "/Solicitud/CargarEmpleadoActual",
@@ -344,4 +345,4 @@ function CargarEmpleadoActual() {
         error: function (errormessage) {
         }
     });
-}//FIN DE CargarProvincia
+}//FIN DE CargarEmpleadoActual

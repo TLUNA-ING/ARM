@@ -84,28 +84,13 @@ function ConsultarSolicitud(ID) {
             $('#IDSolicitud').val(result.ID_Solicitud);
             $('#Empleado').val(result.Empleado.Cedula);
             $('#tipoTrabajo').val(result.TipoTrabajo.ID_TipoTrabajo);
-
             document.getElementById("fechaReporte").value = result.Fecha_Reporte;
-
             ID_PROVINCIA = result.Provincia.ID_Provincia;
             ID_CLIENTE = result.Cliente.ID_Cliente;
             ID_DEPARATAMENTO = result.Departamento.ID_Departamento;
             ID_EQUIPO = result.Equipo.ID_Equipo;
-            var D = new Date();
-            D = result.horaEntrada;
-            var N = D.toString();
-            var H = N.substring(10, 12);
-            var M = N.substring(13, 15);
-            var HORA = H + ':' + M
-            $('#horaEntrada').val(HORA);
-
-            D = result.horaSalida;
-            N = D.toString();
-            H = N.substring(10, 12);
-            M = N.substring(13, 15);
-            HORA = H + ':' + M
-            $('#horaSalida').val(HORA);
-
+            document.getElementById("horaEntrada").value = result.horaEntrada;
+            document.getElementById("horaSalida").value = result.horaSalida;
             CargarProvincia();
             $('#tipoHora').val(result.tipoHora);
             $('#cantidadHoras').val(result.cantidadHoras);
