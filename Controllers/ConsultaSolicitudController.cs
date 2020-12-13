@@ -4,6 +4,8 @@ using ProyectoProgramacion.Filters;
 using ProyectoProgramacion.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -101,17 +103,24 @@ namespace ProyectoProgramacion.Controllers
                 AsyncRendering = false,
             };
 
+            reportViewer.LocalReport.EnableExternalImages = true;
+
+            //ReportParameter parm = new ReportParameter();
+            //parm = (new ReportParameter("path", @"C:\logo.jpg", true));
+
             string rutaReporte = "~/Reports/rptDetalleSolicitud.rdlc";
             string rutaServidor = Server.MapPath(rutaReporte);
             reportViewer.LocalReport.ReportPath = rutaServidor;
 
             //var infoFuenteDatos = reportViewer.LocalReport.
 
+           
 
             List<SPDetalleSolicitud_Result> datosReporte;
             using (var contextoBD = new ARMEntities())
             {
                 datosReporte = contextoBD.SPDetalleSolicitud(id).ToList();
+
             }
             ReportDataSource fuenteDatos = new ReportDataSource("DetalleSolicitudDataSet", datosReporte);
             reportViewer.LocalReport.DataSources.Clear();

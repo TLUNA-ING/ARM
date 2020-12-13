@@ -461,7 +461,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox23</rd:DefaultName>
             <Top>0.78204cm</Top>
-            <Left>0.16616cm</Left>
+            <Left>0.19791cm</Left>
             <Height>0.6cm</Height>
             <Width>2.85278cm</Width>
             <ZIndex>4</ZIndex>
@@ -576,8 +576,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DetalleSolicitudDataSet</DataSetName>
-            <Top>3.8862cm</Top>
-            <Left>0.26141cm</Left>
+            <Top>3.92148cm</Top>
+            <Left>0.19791cm</Left>
             <Height>1.2cm</Height>
             <Width>5.38982cm</Width>
             <ZIndex>5</ZIndex>
@@ -602,10 +602,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>nombreMQC</rd:DefaultName>
-            <Top>4.86543cm</Top>
-            <Left>9.89156cm</Left>
+            <Top>4.4862cm</Top>
+            <Left>8.2776cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.00127cm</Width>
+            <Width>3.39461cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -633,10 +633,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>cedulaMQC</rd:DefaultName>
-            <Top>4.86543cm</Top>
-            <Left>12.96338cm</Left>
+            <Top>4.4862cm</Top>
+            <Left>11.77805cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.88806cm</Width>
+            <Width>2.8062cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
               <Border>
@@ -666,10 +666,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox41</rd:DefaultName>
-            <Top>4.86543cm</Top>
-            <Left>7.7252cm</Left>
+            <Top>4.4862cm</Top>
+            <Left>6.25164cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.06052cm</Width>
+            <Width>1.92013cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
@@ -683,27 +683,61 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Image Name="firma">
-            <Source>External</Source>
-            <Value>=System.Convert.FromBase64String(Fields!firmaCliente.Value)</Value>
-            <MIMEType>image/jpeg</MIMEType>
+          <Image Name="Image2">
+            <Source>Database</Source>
+            <Value>=First(Fields!firmaCliente.Value, "DetalleSolicitudDataSet").Substring(22)</Value>
+            <MIMEType>image/png</MIMEType>
             <Sizing>FitProportional</Sizing>
-            <Top>5.64182cm</Top>
-            <Left>7.7252cm</Left>
-            <Height>2.21438cm</Height>
-            <Width>8.12624cm</Width>
+            <Top>6.32947cm</Top>
+            <Left>6.66439cm</Left>
+            <Height>3.14951cm</Height>
+            <Width>7.91986cm</Width>
             <ZIndex>9</ZIndex>
+            <ToolTip>=First(Fields!firmaCliente.Value, "DetalleSolicitudDataSet")</ToolTip>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Image>
+          <Textbox Name="Textbox4">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Firma:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox4</rd:DefaultName>
+            <Top>5.39433cm</Top>
+            <Left>6.25164cm</Left>
+            <Height>0.6cm</Height>
+            <Width>1.29496cm</Width>
+            <ZIndex>10</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BackgroundColor>Orange</BackgroundColor>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>3.18674in</Height>
+        <Height>3.80132in</Height>
         <Style />
       </Body>
-      <Width>6.74993in</Width>
+      <Width>7.11451in</Width>
       <Page>
         <PageHeader>
           <Height>5.05354cm</Height>
@@ -783,17 +817,19 @@
                   <TextRuns>
                     <TextRun>
                       <Value>=Fields!fechaReporte.Value</Value>
-                      <Style />
+                      <Style>
+                        <Format>m</Format>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>fechaReporte</rd:DefaultName>
-              <Top>3.88055cm</Top>
-              <Left>9.89156cm</Left>
+              <Top>3.87703cm</Top>
+              <Left>9.70106cm</Left>
               <Height>0.6cm</Height>
-              <Width>3.97807cm</Width>
+              <Width>2.95805cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -1108,7 +1144,7 @@
               <Top>3.87146cm</Top>
               <Left>6.75127cm</Left>
               <Height>0.6cm</Height>
-              <Width>3.0027cm</Width>
+              <Width>2.73812cm</Width>
               <ZIndex>11</ZIndex>
               <Style>
                 <Border>
