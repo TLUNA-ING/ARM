@@ -6,20 +6,14 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramacion.Controllers
 {
-    public class ProvinciaController : Controller
-    {
-        [AutorizarUsuario(rol: "admin")]
+    public class ProvinciaController : Controller{
         [HttpPost]
-        public ActionResult CargarDatos()
-        {
-            try
-            {
+        public ActionResult CargarDatos(){
+            try{
                 ProvinciaModelo MODEL = new ProvinciaModelo();
                 var resultado = MODEL.ConsultarTodos();
                 return Json(resultado);
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 return Json(e, JsonRequestBehavior.DenyGet);
             }
         }

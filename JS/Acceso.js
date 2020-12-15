@@ -5,6 +5,56 @@ $(document).ready(function () {
             return false;
         }
     });
+
+    $("#uno").keypress(function (e) {
+        $('#dos').focus();
+    });
+
+    $("#dos").keypress(function (e) {
+        $('#tres').focus();
+    });
+
+    $("#tres").keypress(function (e) {
+        $('#cuatro').focus();
+    });
+
+    $("#dos").keyup(function (e) {
+        if (e.keyCode == 8) {
+            $('#uno').focus();
+        }
+    });
+    $("#tres").keyup(function (e) {
+        if (e.keyCode == 8) {
+            $('#dos').focus();
+        }
+    });
+
+    $("#cuatro").keyup(function (e) {
+        if (e.keyCode == 8) {
+            $('#tres').focus();
+        }
+    });
+    $("#myModalRecuperar").keyup(function (e) {
+        if (e.keyCode == 13) {
+            $("#btnValidarCodigo").click()
+        }
+    });
+    $("#btnSalirCambiarPassword").click(function (e) {
+        $('#myModalCambiarPassword').modal('hide');
+    }); 
+
+    
+    $("#usuario").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $('#contrasena').focus();
+        }
+    });
+    $("#contrasena").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#validar").click()
+        }
+    });
+
 });//FIN DE validar solo números
 
 function VALIDAR() {
@@ -87,12 +137,6 @@ $("#validar").click(function () {
     }
 });//FIN DE IniciarSesion
 
-$("#contrasena").keyup(function (event) {
-    if (event.keyCode == 13) {
-        $("#validar").click()
-    }
-});
-
 function ConsultarUsuarioAcceso(ID) {
     $.ajax({
         url: "/Usuario/ConsultarUsuario/" + ID,
@@ -110,7 +154,7 @@ function ConsultarUsuarioAcceso(ID) {
             $("#actual_contrasena").val("");
             $("#nueva_contrasena").val("");
             $("#confirmar_contrasena").val("");
-
+            $('#myModalPerfil').modal('show');
             document.getElementById("btnCambiar").disabled = true;
         },
         error: function (errormessage) {
@@ -136,7 +180,6 @@ function ValidarPasswords() {
     }
 }//FIN DE ValidarPasswords
 
-
 function VerificarPasswords() {
     var ENTRAR = false;
     if ($('#actual_contrasena').val().trim() == "") {
@@ -146,7 +189,6 @@ function VerificarPasswords() {
     }
     return ENTRAR;
 }//FIN DE ValidarPasswords
-
 
 function ModificarContrasena() {
     if (VerificarPasswords()==true) {
@@ -193,46 +235,6 @@ function ModificarContrasena() {
         });
     }
 }//FIN DE ModificarContrasena
-
-$(document).ready(function () {
-    $("#uno").keypress(function (e) {
-        $('#dos').focus();
-    });
-
-    $("#dos").keypress(function (e) {
-       $('#tres').focus();
-    });
-
-    $("#tres").keypress(function (e) {
-         $('#cuatro').focus();
-    });
-
-    $("#dos").keyup(function (e) {
-        if (e.keyCode == 8) {
-            $('#uno').focus();
-        }
-    });
-    $("#tres").keyup(function (e) {
-        if (e.keyCode == 8) {
-            $('#dos').focus();
-        }
-    });
-
-    $("#cuatro").keyup(function (e) {
-        if (e.keyCode == 8) {
-            $('#tres').focus();
-        }
-    });
-    $("#myModalRecuperar").keyup(function (e) {
-        if (e.keyCode == 13) {
-            $("#btnValidarCodigo").click()
-        }
-    }); 
-    $("#btnSalirCambiarPassword").click(function (e) {
-        $('#myModalCambiarPassword').modal('hide');
-    }); 
-});
-
 
 function RecuperarPassword() {
     var USUARIO = $('#usuario').val().trim();
@@ -396,7 +398,6 @@ function VerificarPasswordsRecuperacion() {
 
 function CambiarPassword() {
     if (VerificarPasswordsRecuperacion() == true) {
-
         $.ajax({
             type: "POST",
             url: "/Acceso/ModificarContrasenaRecuperacion",

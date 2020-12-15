@@ -251,7 +251,7 @@
                                 break;
                         }
                     }
-                </ul>                 
+                </ul>
             </div>
         </aside>
     </section>
@@ -455,15 +455,12 @@
     </div>
 </body>
 
-@RenderSection("Scripts", required: false)
-
 @{
     var CambiarPassword = Session["CambiarPassword"];
 
     switch (CambiarPassword){
         case "SI":
-    <script>
-
+            <script>
             swal({
                     title: "¡Debe modificar su contraseña!",
                     text: "¡Su contraseña es la dada por defecto, por efectos de seguridad debe modificarla!",
@@ -472,14 +469,15 @@
                     confirmButtonText: "Aceptar"
                     },
                         function(isConfirm) {
-                if (isConfirm)
-                {
+                if (isConfirm){
                 ConsultarUsuarioAcceso(@ViewBag.CedulaUsuario);
-                $('#myModalPerfil').modal('show');
                 }
             });
-    </script>
+            </script>
             break;
     }
 }
+
+@RenderSection("Scripts", required: false)
+
 </html>

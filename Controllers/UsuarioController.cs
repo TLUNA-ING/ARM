@@ -73,7 +73,6 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CARGAR_ROLES
 
-        [AutorizarUsuario(rol: "admin")]
         public ActionResult ConsultarUsuario(long ID){
             try{
                 ListaUsuarioModelo UsuarioModel = new ListaUsuarioModelo();

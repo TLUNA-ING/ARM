@@ -22,7 +22,6 @@ namespace ProyectoProgramacion.Controllers
             objSolicitud = new etlSolicitud();
         }
 
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult Index(){
             etlUsuario usuario = (etlUsuario)Session["User"];
             if (usuario != null) { ViewBag.data = usuario.Empleado.Cedula; }
@@ -30,8 +29,6 @@ namespace ProyectoProgramacion.Controllers
             return View();
         }//FIN DE Index
 
-
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarTipoTrabajo(){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarTipoTrabajos();
@@ -43,7 +40,6 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarTipoTrabajo
 
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarEmpleado(){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarEmpleados();
@@ -61,21 +57,18 @@ namespace ProyectoProgramacion.Controllers
         }//FIN DE CargarEmpleado
 
 
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarCliente(etlProvincia provincia) {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarClientes(provincia.ID_Provincia);
             return Json(respuesta);
         }//FIN DE CargarCliente
 
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarDepartamento(etlCliente cliente) {
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarDepartamentos(cliente.ID_Cliente);
             return Json(respuesta);
         }//FIN DE CargarDepartamento
 
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         [HttpPost]
         public ActionResult CargarEquipo(etlDepartamento departamento) {
             try {
@@ -87,7 +80,6 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarEquipo
 
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         public ActionResult CargarProvincia(){
             ConsultaSolicitud modelSolicitud = new ConsultaSolicitud();
             var respuesta = modelSolicitud.ConsultarProvincias();
@@ -99,9 +91,6 @@ namespace ProyectoProgramacion.Controllers
             }
         }//FIN DE CargarEquipo
 
-
-        ////Agregar datos
-        [AutorizarUsuario(rol: "admin,registrador,modificador")]
         [HttpPost]
         public ActionResult Agregar(Solicitudes sol){
             try{
