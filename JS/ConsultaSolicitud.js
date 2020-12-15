@@ -2,6 +2,12 @@
     CARGAR_GRID();
     CargarEmpleado();
     CargarTipoTrabajo();
+
+    $("#cedulaMQC").keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
 });
 
 var ID_PROVINCIA = "";
@@ -409,6 +415,19 @@ function VALIDAR() {
     var motivoDetalle = $('#motivoDetalle').val();
 
 
+    var equipoDetenido = parseFloat($("#equipoDetenido option:selected").val());
+    var tiempoDetenido = $('#tiempoDetenido').val();
+
+
+    if (tiempoDetenido == "") {
+        document.getElementById("tiempoDetenido").value = "00:00";
+        tiempoDetenido = $('#tiempoDetenido').val();
+    }
+
+    var cedulaMQC = $('#cedulaMQC').val().trim();
+    var nombreMQC = $('#nombreMQC').val().trim();
+    var correoMQC = $('#correoMQC').val().trim();
+
     if (isNaN(PROVINCIA)==true) {
         MENSAJE_WARNING("¡Provincia inválida, por favor revise los datos brindados!");
     } else if (isNaN(ID_CLIENTE) == true) {
@@ -437,11 +456,26 @@ function VALIDAR() {
         MENSAJE_WARNING("¡Motivo de visita inválido, por favor revise los datos brindados!");
     } else if (motivoDetalle == "") {
         MENSAJE_WARNING("¡Motivo de detalle inválido, por favor revise los datos brindados!");
+    } else if (equipoDetenido == 1 && tiempoDetenido == "00:00") {
+        MENSAJE_WARNING("¡Si el equipo estuvo detenido debe indicar el tiempo detenido, por favor revise los datos brindados!");
+    } else if (cedulaMQC == "") {
+        MENSAJE_WARNING("¡Cédula MQC inválida, por favor revise los datos brindados!");
+    } else if (nombreMQC == "") {
+        MENSAJE_WARNING("¡Nombre MQC inválido, por favor revise los datos brindados!");
+    } else if (correoMQC == "") {
+        MENSAJE_WARNING("¡Correo MQC inválido, por favor revise los datos brindados!");
+    } else if (VALIDAR_EMAIL(correoMQC) == false) {
+        MENSAJE_WARNING("¡El correo MQC posee un formato inválido, por favor revise los datos brindados!");
     } else {
         ENTRAR = true;
     }  
     return ENTRAR;
 }//FIN DE VALIDAR
+
+function VALIDAR_EMAIL(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}//FIN DE VALIDAR_EMAIL
 
 function MENSAJE_WARNING(MENSAJE) {
     swal({

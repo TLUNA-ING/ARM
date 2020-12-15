@@ -9,6 +9,12 @@ $(document).ready(function () {
         var id = e.options[e.selectedIndex].value;
     });
     IniciarlizarFechas();
+
+    $("#cedulaMQC").keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
 });
 
 function AgregarNuevaSolicitud() {
@@ -255,10 +261,16 @@ function VALIDAR() {
     var motivoVisita = $('#motivoVisita').val();
     var motivoDetalle = $('#motivoDetalle').val();
 
+    var equipoDetenido = parseFloat($("#equipoDetenido option:selected").val());
     var tiempoDetenido = $('#tiempoDetenido').val();
+
+    var cedulaMQC = $('#cedulaMQC').val().trim();
+    var nombreMQC = $('#nombreMQC').val().trim();
+    var correoMQC = $('#correoMQC').val().trim();
 
     if (tiempoDetenido=="") {
         document.getElementById("tiempoDetenido").value = "00:00";
+        tiempoDetenido = $('#tiempoDetenido').val();
     }
 
     if (isNaN(PROVINCIA) == true) {
@@ -287,11 +299,26 @@ function VALIDAR() {
         MENSAJE_WARNING("¡Descripción de trabajo inválido, por favor revise los datos brindados!");
     } else if (motivoDetalle == "") {
         MENSAJE_WARNING("¡Motivo de detalle inválido, por favor revise los datos brindados!");
+    } else if (equipoDetenido == 1 && tiempoDetenido =="00:00") {
+        MENSAJE_WARNING("¡Si el equipo estuvo detenido debe indicar el tiempo detenido, por favor revise los datos brindados!");
+    } else if (cedulaMQC == "") {
+        MENSAJE_WARNING("¡Cédula MQC inválida, por favor revise los datos brindados!");
+    } else if (nombreMQC == "") {
+        MENSAJE_WARNING("¡Nombre MQC inválido, por favor revise los datos brindados!");
+    } else if (correoMQC == "") {
+        MENSAJE_WARNING("¡Correo MQC inválido, por favor revise los datos brindados!");
+    } else if (VALIDAR_EMAIL(correoMQC) == false) {
+        MENSAJE_WARNING("¡El correo MQC posee un formato inválido, por favor revise los datos brindados!");
     } else {
         ENTRAR = true;
     }
     return ENTRAR;
 }//FIN DE VALIDAR
+
+function VALIDAR_EMAIL(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}//FIN DE VALIDAR_EMAIL
 
 function IniciarlizarFechas() {
     var today = new Date();
@@ -300,14 +327,33 @@ function IniciarlizarFechas() {
     var yyyy = today.getFullYear();
     var hora = today.getHours();
     var minuto = today.getMinutes();
+    var hora_entrada = hora - 2;
+
+    var string_H = "0";//HORA
+    var string_HE = "0";//HORA ENTRADA
+    var string_M = "0";//MINUTOS
+
+
+    if (hora.toString().length == 1) {
+        string_H += hora;
+    } else {
+        string_H = hora.toString();
+    }
 
     if (minuto.toString().length == 1) {
-        var string = "0";
-        string += minuto;
-        document.getElementById("horaSalida").value = hora + ":" + string;
+        string_M += minuto;
     } else {
-        document.getElementById("horaSalida").value = hora + ":" + minuto;
+        string_M = minuto.toString();
     }
+
+    if (hora_entrada.toString().length == 1) {
+        string_HE += hora_entrada;
+    } else {
+        string_HE = hora_entrada.toString();
+    }
+
+    document.getElementById("horaEntrada").value = string_HE + ":" + string_M;
+    document.getElementById("horaSalida").value = string_H + ":" + string_M;
 
     document.getElementById("fechaReporte").value = yyyy + "-" + mm + "-" + dd;
     document.getElementById("tipoHora").value = "Normal";
@@ -329,10 +375,15 @@ function clearTextBox() {
     $('#cedulaMQC').val("");
     $('#nombreMQC').val("");
     $('#correoMQC').val("");
-    $('#firma').val("");
+    LimpiarCavanas();
     IniciarlizarFechas();
 }//FIN FUNCION DE LIMPAR CASILLAS
 
+function LimpiarCavanas() {
+    var canvas = document.getElementById('firma');
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
 function CargarEmpleadoActual() {
     $.ajax({
         url: "/Solicitud/CargarEmpleadoActual",

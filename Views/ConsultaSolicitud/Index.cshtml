@@ -162,13 +162,13 @@
                                     {
                                         case "registrador":
                                             <div class="col-xs-6">
-                                                <label for="horaEntrada">Hora Entrada:</label>
+                                                <label for="horaEntrada">Hora Entrada</label>
                                                 <div class="form-line">
                                                     <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" disabled />
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
-                                                <label for="horaSalida">Hora Salida:</label>
+                                                <label for="horaSalida">Hora Salida</label>
                                                 <div class="form-line">
                                                     <input type="time" class="form-control" id="horaSalida" required="" aria-required="true" disabled />
                                                 </div>
@@ -176,13 +176,13 @@
                                             break;
                                         default:
                                             <div class="col-xs-6">
-                                                <label for="horaEntrada">Hora Entrada:</label>
+                                                <label for="horaEntrada">Hora Entrada</label>
                                                 <div class="form-line">
                                                     <input type="time" class="form-control" id="horaEntrada" required="" aria-required="true" />
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
-                                                <label for="horaSalida">Hora Salida:</label>
+                                                <label for="horaSalida">Hora Salida</label>
                                                 <div class="form-line">
                                                     <input type="time" class="form-control" id="horaSalida" required="" aria-required="true" />
                                                 </div>
@@ -196,7 +196,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <label for="tipoHora">Tipo Hora:</label>
+                                    <label for="tipoHora">Tipo Hora</label>
                                     <div class="form-line">
                                         <select id="tipoHora" class="form-control" required="" aria-required="true">
                                             <option>Extra</option>
@@ -207,7 +207,7 @@
                                 </div>
 
                                 <div class="col-xs-6">
-                                    <label for="cantidadHoras">Cantidad de Horas:</label>
+                                    <label for="cantidadHoras">Cantidad de Horas</label>
                                     <div class="form-line">
                                         <input type="text" class="form-control" id="cantidadHoras" aria-required="true" readonly />
                                     </div>
@@ -218,7 +218,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <label for="motivoVisita">Motivo de Visita:</label>
+                                    <label for="motivoVisita">Motivo de Visita</label>
                                     <div class="form-line">
                                         <input type="text" class="form-control" id="motivoVisita" required="" aria-required="true" />
                                     </div>
@@ -229,7 +229,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <label for="motivoDetalle">Motivo de Detalle:</label>
+                                    <label for="motivoDetalle">Motivo de Detalle</label>
                                     <div class="form-line">
                                         <textarea id="motivoDetalle" class="form-control" aria-required="true"></textarea>
                                     </div>
@@ -240,7 +240,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <label for="solicitudRepuestos">Solicitud Repuestos:</label>
+                                    <label for="solicitudRepuestos">Solicitud Repuestos</label>
                                     <div class="form-line">
                                         <textarea id="solicitudRepuestos" class="form-control" aria-required="true"></textarea>
                                     </div>
@@ -251,7 +251,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-2">
-                                    <label for="equipoDetenido">Detenido: </label>
+                                    <label for="equipoDetenido">Detenido</label>
                                     <div class="form-line">
                                         <select id="equipoDetenido" class="form-control" required="" aria-required="true">
                                             <option value="1">Si</option>
@@ -260,7 +260,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4">
-                                    <label for="tiempoDetenido">Tiempo Detenido: </label>
+                                    <label for="tiempoDetenido">Tiempo Detenido</label>
                                     <div class="form-line">
                                         <input type="time" class="form-control" id="tiempoDetenido" aria-required="true" placeholder="HH:MM" />
                                     </div>
@@ -270,17 +270,17 @@
                                     {
                                         case "registrador":
                                             <div class="col-xs-6">
-                                                <label for="cedulaMQC">Cédula del MQC:</label>
+                                                <label for="cedulaMQC">Cédula del MQC</label>
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="cedulaMQC" aria-required="true" disabled />
+                                                    <input type="text" class="form-control" id="cedulaMQC" aria-required="true" maxlength="20" disabled />
                                                 </div>
                                             </div>
                                             break;
                                         default:
                                             <div class="col-xs-6">
-                                                <label for="cedulaMQC">Cédula del MQC:</label>
+                                                <label for="cedulaMQC">Cédula del MQC</label>
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="cedulaMQC" aria-required="true" />
+                                                    <input type="text" class="form-control" id="cedulaMQC" aria-required="true" maxlength="20" />
                                                 </div>
                                             </div>
                                          break;
@@ -295,29 +295,29 @@
                                     switch (rol){
                                         case "registrador":
                                             <div class="col-xs-6">
-                                                <label for="nombreMQC">* Nombre Completo del MQC:</label>
+                                                <label for="nombreMQC">Nombre Completo del MQC</label>
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="nombreMQC" aria-required="true" disabled />
+                                                    <input type="text" class="form-control" id="nombreMQC" aria-required="true" maxlength="30" disabled />
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
-                                                <label for="correoMQC">* Correo del MQC:</label>
+                                                <label for="correoMQC">Correo del MQC</label>
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="correoMQC" aria-required="true" disabled />
+                                                    <input type="text" class="form-control" id="correoMQC" aria-required="true" maxlength="50" disabled />
                                                 </div>
                                             </div>
                                             break;
                                         default:
                                             <div class="col-xs-6">
-                                                <label for="nombreMQC">* Nombre Completo del MQC:</label>
+                                                <label for="nombreMQC">Nombre Completo del MQC</label>
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="nombreMQC" aria-required="true" />
+                                                    <input type="text" class="form-control" id="nombreMQC" aria-required="true" maxlength="30" />
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
-                                                <label for="correoMQC">* Correo del MQC:</label>
+                                                <label for="correoMQC">Correo del MQC</label>
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="correoMQC" aria-required="true" />
+                                                    <input type="text" class="form-control" id="correoMQC" aria-required="true" maxlength="50" />
                                                 </div>
                                             </div>
                                             break;
@@ -335,7 +335,7 @@
         </div>
 
     </div>
-    <span id="reporte"></span>
+    @*<span id="reporte"></span>*@
     @*<div class="modal fade" id="myReport" tabindex="-1" role="dialog" aria-labelledby="myReportLabel" aria-hidden="true">
 
             <div class="modal-dialog">

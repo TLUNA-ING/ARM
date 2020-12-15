@@ -70,7 +70,7 @@ namespace ProyectoProgramacion.Models
 
         public List<SelectListItem> ConsultarDepartamentos(int ID_CLIENTE){
             using (var contextoBD = new ARMEntities()){
-                var result = (from departamento in contextoBD.Departamento_X_Cliente where departamento.Clientes.clienteId == ID_CLIENTE && departamento.Departamentos.departamentoEstado=="Activo" select departamento).ToList();
+                var result = (from departamento in contextoBD.Departamento_X_Cliente where departamento.Clientes.clienteId == ID_CLIENTE && departamento.Clientes.clienteEstado=="Activo" && departamento.Departamentos.departamentoEstado=="Activo" select departamento).ToList();
                 var itemLista = (from item in result select new SelectListItem { Value = item.departamentoId.ToString(), Text = item.Departamentos.deparatamentoNombre }).ToList();
 
                 List<SelectListItem> listaDepartamento = new List<SelectListItem>();
@@ -82,7 +82,7 @@ namespace ProyectoProgramacion.Models
 
         public List<SelectListItem> ConsultarEquipos(int ID_DEPARTAMENTO){
             using (var contextoBD = new ARMEntities()){
-                var result = (from equipo in contextoBD.Equipo_X_Departamento where equipo.departamentoId == ID_DEPARTAMENTO && equipo.Departamentos.departamentoEstado=="Activo" select equipo).ToList();
+                var result = (from equipo in contextoBD.Equipo_X_Departamento where equipo.departamentoId == ID_DEPARTAMENTO && equipo.Departamentos.departamentoEstado=="Activo" && equipo.Equipos.equipoEstado=="Activo" select equipo).ToList();
                 var itemLista = (from item in result select new SelectListItem { Value = item.equipoId.ToString(), Text = item.Equipos.equipoNombre }).ToList();
 
                 List<SelectListItem> listaEquipo = new List<SelectListItem>();
