@@ -77,7 +77,7 @@ function AgregarSmtp() {
     }
 }//FIN DE AgregarSmtp
 
-function VALIDAR() {
+function VALIDAR_SMTP() {
     var ENTRAR = false;
 
     if ($("#correoSMTP").val() =="") {
@@ -109,7 +109,7 @@ function MENSAJE_WARNING(MENSAJE) {
 
 
 function ProbarSmtp() {
-    if (VALIDAR() == true) {
+    if (VALIDAR_SMTP() == true) {
         document.getElementById("btnProbarSMTP").disabled = true;
         var SmtpObj = {
             Correo: $("#correoSMTP").val(),
