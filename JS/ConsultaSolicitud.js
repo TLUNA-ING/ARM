@@ -201,8 +201,6 @@ function clearTextBox() {
 }//FIN FUNCION DE LIMPAR CASILLAS
 
 function Print(id) {
-
-
     $.getJSON("/ConsultaSolicitud/Report2/"+id, function (data) {
         //Muestra el iframe 
 

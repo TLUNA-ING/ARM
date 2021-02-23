@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoProgramacion", "ProyectoProgramacion.csproj", "{640D1055-0B58-40EB-A4BC-FAD7B6B8300B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARMTests", "..\ARMTests\ARMTests.csproj", "{A249AA1E-F865-45F2-8A67-D9EF58BF347C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{640D1055-0B58-40EB-A4BC-FAD7B6B8300B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{640D1055-0B58-40EB-A4BC-FAD7B6B8300B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{640D1055-0B58-40EB-A4BC-FAD7B6B8300B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A249AA1E-F865-45F2-8A67-D9EF58BF347C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A249AA1E-F865-45F2-8A67-D9EF58BF347C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A249AA1E-F865-45F2-8A67-D9EF58BF347C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A249AA1E-F865-45F2-8A67-D9EF58BF347C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

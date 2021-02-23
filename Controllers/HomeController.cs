@@ -13,8 +13,7 @@ namespace ProyectoProgramacion.Controllers
         {
             return View();
         }
-        public ActionResult Logout()
-        {
+        public ActionResult Logout(){
             Session["User"] = null;
             return RedirectToAction("Index", "Acceso");
         }
