@@ -300,8 +300,6 @@
     <script src="~/Content/js/demo.js"></script>
 
     <script src="~/JS/Acceso.js"></script>
-    <script src="~/JS/Unload.js"></script>
-
     <script src="~/JS/Smtp.js"></script>
 
     <div class="modal fade" id="myModalPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -455,11 +453,11 @@
         </div>
     </div>
 </body>
-
 @{
     var CambiarPassword = Session["CambiarPassword"];
 
-    switch (CambiarPassword){
+    switch (CambiarPassword)
+    {
         case "SI":
             <script>
             swal({

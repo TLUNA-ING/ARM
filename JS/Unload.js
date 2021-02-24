@@ -1,4 +1,4 @@
-﻿//addEventListener('unload', (event) => {
+﻿//addEventListener('beforeunload', (event) => {
 //    $.ajax({
 //        url: "/Home/Logout",
 //        type: "POST",
