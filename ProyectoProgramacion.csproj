@@ -208,7 +208,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntermedioController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
-    <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\SmtpController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
@@ -3819,10 +3818,11 @@
     <Content Include="JS\CrearSolicitud.js" />
     <Content Include="JS\Acceso.js" />
     <Content Include="JS\Intermedios.js" />
+    <Content Include="JS\Refresh.js" />
     <Content Include="JS\Smtp.js" />
     <Content Include="JS\Equipos.js" />
+    <Content Include="JS\SoloLetras.js" />
     <Content Include="JS\TipoTrabajo.js" />
-    <Content Include="JS\Unload.js" />
     <Content Include="packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll" />
     <Content Include="packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.pdb" />
     <Content Include="packages\bootstrap.3.4.1\contentFiles\Content\bootstrap-theme.css" />

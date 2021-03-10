@@ -3,83 +3,84 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-        <div class="block-header">
-            <h1>Departamentos</h1>
-        </div>
+<div class="block-header">
+    <h1>Departamentos</h1>
+</div>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Departamento</button><br /><br />
-            </div>
-        </div>
+<div class="row">
+    <div class="col-xs-12">
+        <button type="button" class="btn bg-orange waves-effect" data-toggle="modal" data-target="#myModal" onclick="cargarAgregar();">Agregar Departamento</button><br /><br />
+    </div>
+</div>
 
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DatoDepa">
-                                <thead>
-                                    <tr>
-                                        <th># Departamento</th>
-                                        <th>Descripción</th>
-                                        <th>Estado</th>
-                                        <th>Modificar</th>
-                                        <th>Habilitar/Deshabilitar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Departamentos</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <label for="ID_Depa"># Departamento</label>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="Id_depa" placeholder="Autogenerado" disabled />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <label for="Descripción">Descripción</label>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="Desc_Depa" placeholder="Descripción" maxlength="50" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarDepartamento();"><i class="material-icons">save</i></button>
-                    <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarDepartamento();"><i class="material-icons">save</i></button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="DatoDepa">
+                        <thead>
+                            <tr>
+                                <th># Departamento</th>
+                                <th>Descripción</th>
+                                <th>Estado</th>
+                                <th>Modificar</th>
+                                <th>Habilitar/Deshabilitar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Departamentos</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label for="ID_Depa"># Departamento</label>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" id="Id_depa" placeholder="Autogenerado" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label for="Descripción">Descripción</label>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" id="Desc_Depa" placeholder="Descripción" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-orange waves-effect" id="btnAdd" onclick="return AgregarDepartamento();"><i class="material-icons">save</i></button>
+                <button type="button" class="btn bg-orange waves-effect" id="btnUpdate" style="display:none;" onclick="ModificarDepartamento();"><i class="material-icons">save</i></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="return clearTextBox();"><i class="material-icons">close</i></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts{
     @Scripts.Render("/JS/Departamentos.js");
+    @Scripts.Render("/JS/SoloLetras.js");
 }
 
 

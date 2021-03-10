@@ -21,6 +21,7 @@ namespace ProyectoProgramacion.Controllers{
                 AccesoModelo accesoModelo = new AccesoModelo();
                 etlUsuario usuario = accesoModelo.ValidarAcceso(usr);
                 if (usuario.Empleado.Nombre!= null){
+
                     Session["User"] = usuario;
                     Session["Rol"] = usuario.Rol.Rol;
                     Session["Cedula"] = usuario.Empleado.Cedula;
